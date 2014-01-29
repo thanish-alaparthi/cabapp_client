@@ -1,0 +1,108 @@
+<div ng-controller = "UserPersonalDetailsController" class="personalDetailsContainer">
+    <div class = "fieldContainer relative left">
+        <label class="control-label">First Name</label>
+        <input type="text" ng-model="user.basicDetails.firstName" class="form-control validate[required,maxSize[128]] large" placeholder="First Name"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Last Name</label>
+        <input type="text" ng-model="user.basicDetails.lastName" class="form-control validate[required,maxSize[128]] large" placeholder="Last Name"/>
+    </div>
+     <div class = "fieldContainer relative left">
+        <label class="control-label">User Type</label>
+        <select class="form-control validate[maxSize[36]] large" data-ng-model="user.userType" data-ng-options="k as v for (k,v) in userTypes">                
+    </select>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Job Category</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="user.basicDetails.jobCategory" ng-options="value.type as value.title for value in userJobCategories"></select>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Username</label>
+        <input type="text" ng-model="user.basicDetails.username" class="form-control validate[required,maxSize[128]] large" placeholder="Username"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Password</label>
+        <input type="text" ng-model="user.basicDetails.password" class="form-control validate[required,maxSize[128]] large" placeholder="Password"/>
+    </div>  
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Contatct email</label>
+        <input type="text" ng-model="user.basicDetails.email" class="form-control validate[required,maxSize[128]] large" placeholder="Contact Email"/>
+    </div>   
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Mobile #</label>
+        <input type="text" ng-model="user.basicDetails.mobile" class="form-control validate[required,maxSize[128]] large" placeholder="Mobile Number"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Alternative Phone #</label>
+        <input type="text" ng-model="user.basicDetails.alternatePhone" class="form-control validate[required,maxSize[128]] large" placeholder="Alternative Phone Number"/>
+    </div>
+    
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Date of Birth</label>
+        <input type="text" ng-model="user.basicDetails.dob" class="form-control validate[required,maxSize[128]] large" placeholder="Date Of Birth"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Blood Group</label>
+        <input type="text" ng-model="user.basicDetails.bloodgroup" class="form-control validate[required,maxSize[128]] large" placeholder="Blood Group"/>
+    </div>    
+    <div class = "fieldContainer relative left">
+        <label class="control-label">User ID</label>
+        <input type="text" ng-model="user.id" readOnly="readOnly" class="form-control validate[required,maxSize[128]] large" placeholder="User ID"/>
+    </div>
+    <br/>
+    <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 10px !important;">
+        <legend class="searchbox-border">Permanant Address</legend>
+        
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Line 1</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].addressLine1" class="form-control validate[required,maxSize[128]] large" placeholder="Address Line 1"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Line 2</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].addressLine2" class="form-control validate[required,maxSize[128]] large" placeholder="Address Line 2"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">City</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].city" class="form-control validate[required,maxSize[128]] large" placeholder="City"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">State</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].state" class="form-control validate[required,maxSize[128]] large" placeholder="State"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Pincode</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].pincode" class="form-control validate[required,maxSize[128]] large" placeholder="Pincode"/>
+        </div>
+    </fieldset>
+    <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: -15px !important;margin-bottom: 0px !important;">
+        <legend class="searchbox-border">Present Address</legend>
+        
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Line 1</label>
+            <input type="text" ng-model="user.basicDetails.addresses[1].addressLine1" class="form-control validate[required,maxSize[128]] large" placeholder="Address Line 1"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Line 2</label>
+            <input type="text" ng-model="user.basicDetails.addresses[1].addressLine2" class="form-control validate[required,maxSize[128]] large" placeholder="Address Line 2"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">City</label>
+            <input type="text" ng-model="user.basicDetails.addresses[1].city" class="form-control validate[required,maxSize[128]] large" placeholder="City"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">State</label>
+            <input type="text" ng-model="user.basicDetails.addresses[1].state" class="form-control validate[required,maxSize[128]] large" placeholder="State"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Pincode</label>
+            <input type="text" ng-model="user.basicDetails.addresses[1].pincode" class="form-control validate[required,maxSize[128]] large" placeholder="Pincode"/>
+        </div>
+    </fieldset>   
+
+
+    <div class = "fieldContainer relative left" style="display: none;">
+        <label class="control-label">From</label>
+        <input ng-model="chosenPlace" googleplace/>
+    </div>
+    <p class="clear"/>
+</div>

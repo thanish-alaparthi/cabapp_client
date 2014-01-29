@@ -1,0 +1,58 @@
+<div class="modal-dialog user-add-update-container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
+            <h4 class="modal-title">Multi-Vehicle #</h4>
+        </div>
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span class="innerLabel">Caller Name:</span>
+                <span>New Caller</span>
+            </div>
+            <div class="left innerLabelContainer">
+                <span class="innerLabel">Caller Ph.:</span>
+                <span>888888</span>
+            </div>
+            <div class="left innerLabelContainer">
+                <span class="innerLabel">Pickup Date & Time:</span>
+                <span>25/11/2014 11:30</span>
+            </div>
+            <div class="left innerLabelContainer">
+                <span class="innerLabel">Pickup</span>
+                <span>Kondapur</span>
+            </div>
+        </div>
+        <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
+            <fieldset class="left multiVehicleCountContainer">
+                <legend class="searchbox-border">Vehicle Count</legend>
+                <div class="left countFieldContainer">
+                    <label class="labelCompact" style="width: 40px;">Small</label>
+                    <input class="multiVehicleCount textFieldCompact" type="number" data-ng-model="vehicleCounts.small" min="0" step="1" max="5" length="1" pattern="\d+" />
+                </div>
+                <div class="left countFieldContainer">
+                    <label class="labelCompact" style="width: 60px;">Medium</label>
+                    <input class="multiVehicleCount textFieldCompact" type="number" data-ng-model="vehicleCounts.medium" min="0" step="1" max="5" length="1" pattern="\d+" />
+                </div>
+                <div class="left countFieldContainer">
+                    <label class="labelCompact" style="width: 60px;">Tavera</label>
+                    <input class="multiVehicleCount textFieldCompact" type="number" data-ng-model="vehicleCounts.tavera" min="0" step="1" max="5" length="1" pattern="\d+"/>
+                </div>
+                <div class="left countFieldContainer">
+                    <label class="labelCompact" style="width: 80px;">Xylo/ Innova</label>
+                    <input class="multiVehicleCount textFieldCompact" type="number" data-ng-model="vehicleCounts.xyloAndInnova" min="0" step="1" max="5" length="1" pattern="\d+"/>
+                </div>
+            </fieldset>
+            <fieldset class="clearBoth" style="height: 155px;">
+                <legend class="searchbox-border">Vehicle Details</legend>                
+                <table dynamic-multi-vehicle-booking ng-model="vehicleCounts" style="width: 100%;border: 1px solid #FFF;"></table>
+            </fieldset>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Confirm</button>
+        </div>
+    </div>
+    <p class="clear"/>
+</div>
+<p class="clear"/>

@@ -1,0 +1,80 @@
+<div>
+	<div id = "bookingNav" class= "bookingNav historyBarContainer">
+		<ul class="bookingNav_ul clearfix">
+			<li  ng-class = "(showBookingDetails) ? 'tabSelcted' : ''" ng-click = "showBookingDetailsTab()">Booking</li>
+			<li  ng-class = "(showTariffDetails) ? 'tabSelcted' : ''" ng-click =  "showTariffDetailsTab()">Tariff</li>
+			<li  ng-class = "(showVehicleAvailability) ? 'tabSelcted' : ''" ng-click = "showVehicleAvailabilityTab()">Vehicle Availability</li>
+			<li  ng-class = "(showBookingHistoryDetails) ? 'tabSelcted' : ''" ng-click = "showBookingHistoryDetailsTab()">Booking History</li>
+			<li  ng-class = "(showMycallHistory) ? 'tabSelcted' : ''" ng-click = "showMycallHistoryTab()">My Call History</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Complaints & feedback</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Rating</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Chat</li>
+		</ul>
+
+	</div>
+	<div id = "bookingDetails" ng-show = "showBookingDetails">
+		<div id = "bookingHeader" class= "clearfix">
+			<div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Call Time </label>
+	            <span class = "bokingLabel" data-ng-bind="callTime"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.callTime" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+	        <div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Customer ID</label>
+	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+
+	        <div class="callTransfer left marginRightLeft5">    	
+		        
+			        <label class="labelCompact">Call Transfer </label>
+			        <select class=" validate[maxSize[36]]" >
+			            <option>Choose</option>
+			        </select>
+			        <select class=" validate[maxSize[36]]" >
+			            <option>Choose</option>
+			        </select>
+			        <button class="btnCompact btn-success" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
+			    
+	        </div>
+
+	        <div class="fieldContainer right marginRightLeft5">
+	            <label class="labelCompact bokingSelect">Booking Number</label>
+	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	        </div>
+		</div>
+
+	    <div class="dashboard-search">
+	        <div class="existing-customer-booking pull-left" data-ng-include="existingCustomerAddBooking" data-ng-show="showExistingCustomerAddBooking"></div>
+
+	        <p class="clear" />
+	    </div>
+
+
+    </div>
+    <div  ng-show = "showTariffDetails">
+    		Tariff Details
+    </div>
+
+    <div ng-class= "vehicleAvailContainer" ng-show = "showVehicleAvailability">
+    		Vehicle Availability
+    </div>
+
+    <div ng-class= "bookingHistoryContainer" ng-show = "showBookingHistory">
+    		Booking History
+    </div>
+
+    <div ng-class= "myCallHistoryContainer" ng-show = "showMyCallHistory">
+    		Call History
+    </div>
+
+    <div ng-class= "complaintsAndFeedBack" ng-show = "showComplaintsAndFeedBack">
+    		Complaints and History
+    </div>
+    <div ng-class= "ratingMenu" ng-show = "showRatingMenu">
+    		Rating
+    </div>
+    <div ng-class= "chatMenu" ng-show = "showChatMenu">
+    		Chat
+    </div>
+</div>

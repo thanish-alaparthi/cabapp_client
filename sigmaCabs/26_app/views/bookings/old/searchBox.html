@@ -1,0 +1,19 @@
+<fieldset data-ng-controller="SearchBoxController" class="searchbox-border">
+    <legend class="searchbox-border">Search Customer</legend>
+    <form class="form-signin" data-ng-submit="fnSearchCustomer()">
+        <input type="text" class="form-control" data-ng-model="sMobile" data-ng-keyup="fnMobileEntered($event)" placeholder="by Phone Number" autofocus>
+        <input type="text" class="form-control lastField" data-ng-model="sName" data-ng-keyup="fnNameEntered($event)" placeholder="by Name">
+
+        <button class="btn btn-primary pull-right" type="submit">search</button>
+        <button class="btn btn-warning pull-right margin-right10" type="button" data-ng-click="fnClearSearchBox()">clear</button>
+    </form>
+
+    <fieldset data-ng-controller="SearchBoxController" class="searchbox-border">
+        <legend class="searchbox-border">Recent Callers</legend>
+        <div>SomeOne: 87877787777</div>
+        <div>NoOne: 9823016676</div>
+        <div>EveryOne: 7678787870</div>
+
+    </fieldset>
+
+</fieldset>

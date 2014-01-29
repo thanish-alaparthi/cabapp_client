@@ -1,0 +1,34 @@
+<div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Road Tax Number</label>
+        <input type="text" ng-model="tmpRoadTaxDetails.roadTaxNumber"  class="form-control validate[required,maxSize[128]] large" placeholder="Road Tax Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Issue Date</label>
+        <input type="text" ng-model="tmpRoadTaxDetails.issueDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Start Date" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Expiry Date</label>
+        <input type="text" ng-model="tmpRoadTaxDetails.expiryDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
+    </div>
+
+    <div class="fieldContainer relative left">
+        <label class="control-label">Premium Type</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="tmpRoadTaxDetails.premiumType" ng-options="value.type as value.title for value in insuranceTypeOptions">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Amount</label>
+        <input type="text" ng-model="tmpRoadTaxDetails.premiumAmount"  class="form-control validate[required,maxSize[128]] large" placeholder="Amount" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Add to List</label>
+        <input type="button"  ng-click="fnAddRoadTaxToList();" value="{{roadTaxAddButon}}" class="large left" />
+        <input type="hidden"  name="rowIndex" ng-model="tmpRoadTaxDetails.rowIndex" />
+    </div>
+    <div class="supportTabGridContainer">
+        <div ng-grid="roadTaxGridOptions" class="supportTabGrid"></div>
+    </div>
+    <p class="clear"/>    
+</div>
+

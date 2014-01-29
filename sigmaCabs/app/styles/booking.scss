@@ -1,0 +1,218 @@
+.firstTimeCustomerContainer .large{
+  width: 150px;
+}
+
+.firstTimeCustomerContainer .searchbox-border{
+  margin-bottom: 0px;
+}
+
+.firstTimeCustomerContainer .control-label{
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.firstTimeCustomerContainer .booking-fieldset{
+  padding: 0px 2px 0px 15px !important
+}
+
+.existing-customer-booking, .firt-time-customer{
+  width: 100%;
+}
+
+.firstTimeCustomerContainer .softAlertMessages i{
+  color: #006800;
+  background: #FF0;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+@-webkit-keyframes blinker { from {opacity:1.0;} to {opacity:0.0;} }
+        @keyframes blinker { from {opacity:1.0;} to {opacity:0.0;} }
+
+.blink {
+   text-decoration:blink;
+
+  -webkit-animation-name:blinker;
+          animation-name:blinker;  
+  -webkit-animation-iteration-count:infinite;  
+          animation-iteration-count:infinite;  
+  -webkit-animation-timing-function:cubic-bezier(1.0,0,0,1.0);
+          animation-timing-function:cubic-bezier(1.0,0,0,1.0);
+  -webkit-animation-duration:1s; 
+          animation-duration:1s; 
+}
+
+.link {
+  font-size: 11px;
+  font-weight: normal;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.softAlertErrorMsg {
+  color: white;font-weight: bold;background:red;display: inline-block;
+}
+
+.softAlertWarningMsg1 {
+  color: green;background:yellow;display: inline-block;
+}
+.softAlertWarningMsg2 {
+  color: green;font-weight: bold;background:#E9E9AC;display: inline-block;
+}
+
+
+fieldset.customerDetailsContainer {
+  width: 235px;
+}
+fieldset.bookingFormController {
+  width: 420px;
+}
+
+ul.bookingNav_ul{
+  list-style-type:none;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+ul.bookingNav_ul > li{
+  float:left;
+  text-align: center;
+  line-height:24px;
+  font-weight: bold;
+  color: #15428B;
+  display: table-cell;
+  margin: 0px 25px 0px 0px;
+
+}
+
+ul.bookingNav_ul li:last-child {
+ // width:175px;
+}
+
+.marginRightLeft5{
+  margin: 0 5px 0 5px;
+}
+.bookingInput{
+  width: 200px;
+}
+
+.bokingSelect{
+  width:100px !important;
+}
+.bokingLabel {
+  font-family: tahoma, arial, helvetica, sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-variant: normal;
+}
+.bookingHistoryGrid{
+  font-size:11px;
+}
+
+.ngCell  {
+  display : table-cell;
+  height: auto !important;
+  overflow:visible;
+  position: static;
+  text-align: center;
+}
+.ngTopPanel{
+  background-color: #3a3a3a !important;
+  border-bottom: 1px solid #d4d4d4;
+  color: #fff;
+  text-align: center;
+}
+.tabSelcted{
+  color:#fff !important;
+}
+.selectLabel{
+  width:40px !important;
+}
+.callTransfer{
+  height:25px;
+}
+
+.closedBookingButtonsContainer .btnCompact {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.cancelBookingComment{
+  width: 100px;
+  height: 70px;
+  border: 1px solid #B5B8C8;
+}
+
+.cancel-booking-container .fieldContainer label{
+  width: 100px;
+}
+.cancel-booking-container .fieldContainer select,
+.cancel-booking-container .fieldContainer textarea{
+  width: 225px;
+}
+.cancel-booking-container fieldset{
+  width: 100%;
+}
+
+.popupCallerInfo{
+  background:#ccc;
+  width:100%;
+  height:20px;
+  font-size:12px;
+  margin-bottom: 5px;
+}
+.popupCallerInfo .innerLabel{
+  font-weight: bold;
+}
+.popupCallerInfo .innerLabelContainer{
+  margin: 2px 5px 0px 5px;
+}
+.bookingHeader{
+  background-color: #ccc;
+  height: 25px;
+  padding: 2px;
+  
+}
+
+.modalClass.add-request .modal-dialog{
+  width: 405px !important;
+}
+
+.multiVehicleCount{
+  width: 35px !important;
+  text-align: center !important;
+}
+
+fieldset.multiVehicleCountContainer .countFieldContainer{
+  margin: -3px 10px 2px 10px;
+}
+fieldset.multiVehicleCountContainer .countFieldContainer .labelCompact{
+}
+
+
+.headMultiVehicleTable{
+  width: 115px;
+}
+.headMultiVehicleTable{
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  white-space: nowrap;
+  width: 102px;
+  background: #333;
+  color: #FFF;
+  border: 1px solid #FFF;
+}
+
+.modalClass.multi-vehicle-container-modal .modal-dialog{
+  width: 1275px !important;
+}
+
+.singleVehicleRow td {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}

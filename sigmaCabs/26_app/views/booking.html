@@ -1,0 +1,64 @@
+<div>
+	<div id = "bookingNav" class= "bookingNav historyBarContainer">
+		<ul class="bookingNav_ul clearfix">
+			<li  ng-class = "(showBookingDetails) ? 'tabSelcted' : ''" ng-click = "showBookingDetailsTab()">Booking</li>
+			<li  ng-class = "(showTariffDetails) ? 'tabSelcted' : ''" ng-click =  "showTariffDetailsTab()">Tariff</li>
+			<li  ng-class = "(showVehicleAvailability) ? 'tabSelcted' : ''" ng-click = "showVehicleAvailabilityTab()">Vehicle Availability</li>
+			<li  ng-class = "(showBookingHistoryDetails) ? 'tabSelcted' : ''" ng-click = "showBookingHistoryDetailsTab()">Booking History</li>
+			<li  ng-class = "(showMycallHistory) ? 'tabSelcted' : ''" ng-click = "showMycallHistoryTab()">My Call History</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Complaints & feedback</li>
+		</ul>
+
+	</div>
+	<div id = "bookingDetails" ng-show = "showBookingDetails">
+		<div id = "bookingHeader" class= "clearfix">
+			<div class="fieldContainer left marginRightLeft5">
+	            <label class="labelCompact">Call Time </label>
+	            <input type="text" ng-model="customer.customerDetails.callTime" class="left validate[required,maxSize[128]] textFieldCompact"  />
+	        </div>
+	        <div class="fieldContainer left marginRightLeft5">
+	            <label class="labelCompact">Customer ID</label>
+	            <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  />
+	        </div>
+	        <div class="fieldContainer left marginRightLeft5">
+	            <input class = "bokingLabel" type="radio" ng-model="bookingType" value="currentBooking">Current Booking<br/>
+	        </div>
+
+	        <div class="fieldContainer left marginRightLeft5">
+	            <input class = "bokingLabel"  type="radio" ng-model="bookingType" value="advancedBooking">Advanced Booking<br/>
+	        </div>
+
+	        <div class="fieldContainer left marginRightLeft5">
+	            <label class="labelCompact">Booking Number</label>
+	            <input type="text" ng-model="customer.customerDetails.bookingNumber" class="left validate[required,maxSize[128]] textFieldCompact"  />
+	        </div>
+		</div>
+
+	    <div class="dashboard-search">
+	        <div class="existing-customer-booking pull-left" data-ng-include="existingCustomerAddBooking" data-ng-show="showExistingCustomerAddBooking"></div>
+
+	        <p class="clear" />
+	    </div>
+
+
+    </div>
+    <div  ng-show = "showTariffDetails">
+    		Tariff Details
+    </div>
+
+    <div ng-class= "vehicleAvailContainer" ng-show = "showVehicleAvailability">
+    		Vehicle Availability
+    </div>
+
+    <div ng-class= "bookingHistoryContainer" ng-show = "showBookingHistory">
+    		Booking History
+    </div>
+
+    <div ng-class= "myCallHistoryContainer" ng-show = "showMyCallHistory">
+    		Call History
+    </div>
+
+    <div ng-class= "complaintsAndFeedBack" ng-show = "showComplaintsAndFeedBack">
+    		Complaints and History
+    </div>
+</div>

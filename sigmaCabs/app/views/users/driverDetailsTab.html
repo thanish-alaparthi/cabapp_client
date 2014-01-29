@@ -1,0 +1,60 @@
+<div>
+	 <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+        <legend class="searchbox-border">Liscense Details</legend>
+        
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Liscense #</label>
+	        <input type="text" ng-model="user.driverDetails.liscenseDetails.liscenseNumber"  class="form-control validate[required,maxSize[128]] large" placeholder="Liscense Number" />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Issue Date</label>
+	        <input type="text" ng-model="user.driverDetails.liscenseDetails.issuedDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Issue Date" />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Issued At</label>
+	        <input type="text" ng-model="user.driverDetails.liscenseDetails.issuedAt"  class="form-control validate[required,maxSize[128]] large" placeholder="Issued At" />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Liscense Type</label>
+	        <input type="text" ng-model="user.driverDetails.liscenseDetails.licenseType"  class="form-control validate[required,maxSize[128]] large" placeholder="Liscence Type" />
+	    </div>
+    </fieldset>
+
+
+	 <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+        <legend class="searchbox-border">Badge Details</legend>
+        
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Badge #</label>
+	        <input type="text" ng-model="user.driverDetails.badgeDetails.badgeNumber"  class="form-control validate[required,maxSize[128]] large" placeholder="Badge Number" />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Expiry Date</label>
+	        <input type="text" ng-model="user.driverDetails.badgeDetails.expiryDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
+	    </div>
+    </fieldset>     
+
+
+	 <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+        <legend class="searchbox-border">Current Vehicle Attached</legend>
+        
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Vehicle</label>	        
+        	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
+        </select>
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Issue Date</label>
+	        <input type="text" ng-model="user.driverDetails.currentVehicleAttached.issueDate" class="form-control validate[required,maxSize[128]] large" placeholder="Issue Date" />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Expiry Date</label>
+	        <input type="text" ng-model="user.driverDetails.currentVehicleAttached.expiryDate" class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Assigned On Date</label>
+	        <input type="text" ng-model="user.driverDetails.currentVehicleAttached.assignedOnDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Assigned On Date" />
+	    </div>
+    </fieldset>  
+    <p class="clear"/>  
+</div>

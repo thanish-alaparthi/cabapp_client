@@ -1,0 +1,26 @@
+<div class="customer-booking-tabs">
+    <ul class="nav nav-tabs" style="margin-top: 20px;">
+        <li data-ng-class="{ active: fnIsActiveSupportSubTab(1)}" data-ng-click="fnSetActiveSupportSubTab(1)"><a>Insurance Details</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActiveSupportSubTab(2)}" data-ng-click="fnSetActiveSupportSubTab(2)"><a>Permit Details</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActiveSupportSubTab(3)}" data-ng-click="fnSetActiveSupportSubTab(3)"><a>Road Tax Details</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActiveSupportSubTab(4)}" data-ng-click="fnSetActiveSupportSubTab(4)"><a>RC Details</a>
+        </li>
+    </ul>
+
+    <div class="tab-body" data-ng-show="supportSubTab==1">
+        <div data-ng-include="vehicleInsuranceDetails" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="supportSubTab==2">
+        <div data-ng-include="vehiclePermitDetails" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="supportSubTab==3">
+        <div data-ng-include="vehicleRoadTaxDetails" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="supportSubTab==4">
+        <div data-ng-include="vehicleRcDetails" style="clear:both;"></div>
+    </div>
+
+</div>

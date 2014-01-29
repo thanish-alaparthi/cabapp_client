@@ -1,0 +1,42 @@
+<div>
+    <fieldset class="searchbox-border">
+        <legend class="searchbox-border">Music System</legend>
+        <div class="fieldContainer relative left">
+            <label class="control-label">AUX</label>
+            <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.facilities.entertainment.musicSystem.aux" ng-options="value.type as value.title for value in entertainmentOptions">
+            </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label">USB</label>
+            <select class="form-control validate[maxSize[36]] large" id="vehicle_facilities_entertainment_musicSystem_usb" ng-model="vehicle.facilities.entertainment.musicSystem.usb" ng-options="value.type as value.title for value in entertainmentOptions">
+            </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label">Video Out</label>
+            <select class="form-control validate[maxSize[36]] large" id="vehicle_facilities_entertainment_musicSystem_videoOut" ng-model="vehicle.facilities.entertainment.musicSystem.videoOut" ng-options="value.type as value.title for value in entertainmentOptions">
+            </select>
+        </div>
+    </fieldset>
+    <fieldset class="searchbox-border">
+        <legend class="searchbox-border">Others</legend>
+
+        <div class="fieldContainer relative left">
+            <label class="control-label">Card Payments</label>
+            <select class="form-control validate[maxSize[36]] large"  ng-model="vehicle.facilities.entertainment.cardPayments" ng-options="value.type as value.title for value in entertainmentOptions">
+            </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label">Display For Video</label>
+            <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.facilities.entertainment.displayForVideo" ng-options="value.type as value.title for value in entertainmentOptions">
+            </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label">News Paper</label>
+            <select class="form-control validate[maxSize[36]] large"  ng-model="vehicle.facilities.entertainment.newsPaper" ng-options="value.type as value.title for value in entertainmentOptions">
+            </select>
+        </div>
+
+    </fieldset>
+    <p class="clear" />
+
+</div>

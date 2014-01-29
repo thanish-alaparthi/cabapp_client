@@ -1,0 +1,36 @@
+'use strict';
+
+angular.module('sigmaCabsApp', [
+  'ngCookies',
+  'ngResource',
+  'ngSanitize',
+  'ngRoute',
+  'ngGrid',
+  'ui.bootstrap'
+])
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/', {  // default page for logged-in user.
+        templateUrl: 'views/booking.html',
+        controller: 'bookingController'
+      })
+      .when('/users', {  
+        templateUrl: 'views/users.html',
+        controller: 'dashboardController'
+      }) 
+      .when('/client', {  
+        templateUrl: 'views/client.html',
+        controller: 'dashboardController'
+      })
+      .when('/vehicle', {  
+        templateUrl: 'views/vehicle.html',
+        controller: 'dashboardController'
+      }) 
+      .when('/reports', {  
+        templateUrl: 'views/reports.html',
+        controller: 'dashboardController'
+      })
+      .otherwise({
+        redirectTo: '/' // redirect to dashboard.html 
+      });
+  });

@@ -1,0 +1,16 @@
+<div class="operationsHeader clearfix">
+    <div class="icons left" ng-click="fnAddVehicle()" title="Add Vehicle">
+        <div class="addIcon left"></div>Add Vehicle</div>
+    <div class="icons left" ng-click="fnEditVehicle()" title="Edit">
+        <div class="editIcon left"></div>Edit Vehicle</div>
+    <div class="icons left" ng-click="fnDeleteVehicle()" title="Delete">
+        <div class="deleteIcon left"></div>Delete Vehicle</div>
+    <!--input type="text" ng-model="filterText" class="search right" placeholder ="{{lang.placeholder.navbar_searchField}}" ng-change="locationSerach()"/> 
+          <div class="searchIcon"></div -->
+
+</div>
+<div class="dashboard-search">
+    <div class="search-box pull-left" data-ng-include="searchBox"></div>
+    <div class="customer-list pull-left" data-ng-include="vehicleList"></div>
+    <p class="clear">
+</div>

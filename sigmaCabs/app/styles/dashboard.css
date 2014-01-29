@@ -1,0 +1,48 @@
+body {
+	padding-top: 0px;
+}
+.dashboard-head {
+	padding-bottom: 0px !important;
+}
+
+.margin-right10 {
+	margin-right: 10px !important;
+}
+
+/*
+.customer-booking-tabs .nav-tabs > li > a{
+	padding: 5px 10px !important;
+	cursor: pointer;
+}
+
+*/
+.customer-booking-tabs .nav-tabs > li > a{
+	padding: 5px 2px !important;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+	word-spacing: -1px;
+}
+
+
+
+.customer-booking-tabs .nav-tabs > li.active > a{
+	background-color: #FFF0F0;
+}
+.customer-booking-tabs .tab-body{
+	padding: 0px 5px 5px 5px;
+	background-color: #FFF0F0;
+	/*height: 150px;*/
+}
+
+.footer {
+	padding: 5px !important;
+}
+.footer p{
+	margin: 0px !important;
+}
+
+.tab-body .gridStyle {
+	width: 1130px !important;
+	height: 150px !important;
+}

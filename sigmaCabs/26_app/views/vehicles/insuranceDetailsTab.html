@@ -1,0 +1,42 @@
+<div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Insurance #</label>
+        <input type="text" ng-model="tmpInsuranceDetails.insuranceNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Insurance Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Issue Date</label>
+        <input type="text" ng-model="tmpInsuranceDetails.issueDate" class="form-control validate[required,maxSize[128]] large" placeholder="Start Date" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Expiry Date</label>
+        <input type="text" ng-model="tmpInsuranceDetails.expiryDate" class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Provider</label>
+        <input type="text" ng-model="tmpInsuranceDetails.provider" class="form-control validate[required,maxSize[128]] large" placeholder="Provider" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Name</label>
+        <input type="text" ng-model="tmpInsuranceDetails.name" class="form-control validate[required,maxSize[128]] large" placeholder="Name" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Insurance Type</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="tmpInsuranceDetails.insuranceType" ng-options="value.type as value.title for value in insuranceTypeOptions">
+        </select>
+
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Amount</label>
+        <input type="text" ng-model="tmpInsuranceDetails.amount" class="form-control validate[required,maxSize[128]] large" placeholder="Amount" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Add to List</label>
+        <input type="button"  ng-click="fnAddInsuranceToList();" value="{{insuranceAddButon}}" class=" left" />
+        <input type="hidden"  name="rowIndex" ng-model="tmpInsuranceDetails.rowIndex" />
+    </div>
+    <div class="supportTabGridContainer">
+        <div ng-grid="insuranceGridOptions" class="supportTabGrid"></div>
+    </div>
+    <p class="clear"/>
+</div>
+

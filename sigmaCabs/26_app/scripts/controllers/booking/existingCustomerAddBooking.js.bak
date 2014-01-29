@@ -1,0 +1,107 @@
+/*
+Name: ExistingCustomerAddBooking
+Description: Adds first time customer
+Date: 10Jan2013
+Author: Mario::216mario216@gmail.com
+*/
+
+'use strict';
+
+angular.module('sigmaCabsApp')
+	.controller('ExistingCustomerAddBooking', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog) {
+
+		var scope = $scope;
+			
+		scope.bShowAddMoreFields = true;
+
+		scope.pickupPlaceTypes = PrerequisiteService.pickupPlaceTypes;
+		scope.bookingStatuses = PrerequisiteService.bookingStatuses;
+
+		scope.extraFieldTypes = {
+			'pickupPlace' : 'pickupPlaceTypes'
+		}
+
+		/*
+			Function to get the empty fields in customer details
+		*/
+		scope.fnGetEmptyCustomerFields = function() {
+			var aRtn = {};
+
+			for(var sField in PrerequisiteService.customerFields){
+				if(!scope.customer.customerData[sField]){
+					aRtn[sField] = PrerequisiteService.customerFields[sField];
+				}
+			}
+			scope.nextEmptyCustomerField = sField;
+			return aRtn;
+		}
+
+		// more fields dropDown
+		scope.emptyCustomerFields = scope.fnGetEmptyCustomerFields(PrerequisiteService.customerFields);
+
+		// by default show selected fields
+		scope.bViewSelectiveField = true;
+		scope.bViewAllFields = false;
+		scope.viewAllInfoMsg = 'View All Info';
+
+		scope.fnToggleAllInfoView = function() {
+			scope.bViewSelectiveField = !scope.bViewSelectiveField;
+			scope.bViewAllFields = !scope.bViewAllFields;
+			
+			scope.viewAllInfoMsg = (scope.bViewSelectiveField) ? 'View All Info' : 'View Less Info'
+			
+		}
+
+		scope.personalDetailsForm = URLService.view('personalForm');
+		scope.bookingHistory = URLService.view('bookingHistory');
+		scope.bookingDetailsForm = URLService.view('bookingForm');
+		scope.extraInfoDetails = URLService.view('extraInfoDetails');
+
+
+
+		// watch if dynamic field is added
+		$scope.$on('dynamicFieldAdded', function(ev, sAddedField) {
+
+			scope.bShowAddMoreFields = false;
+
+			var j = '';
+			for(var x in scope.emptyCustomerFields) {
+				if(x == sAddedField) {
+					delete scope.emptyCustomerFields[x];
+				}
+			}
+			for(var x in scope.emptyCustomerFields) {
+				if(x != ""){
+					j = x ;
+					break;
+				}
+			}
+			scope.nextEmptyCustomerField = j;
+			scope.bShowAddMoreFields = ( j) ? true : false;
+			scope.$apply();
+		});
+
+		// watch to save the data
+		scope.$watch('customer.customerData', function(newVal, oldVal) {
+			if(!angular.equals(newVal,oldVal)){
+				scope.fnSaveCustomerDetails();
+			}
+		}, true);
+
+		/*
+			Save customer details function.
+		*/
+		scope.fnSaveCustomerDetails = function() {
+			CustomerService.fnUpdateCustomerDetails(scope.customerData)
+			.success(function(data, status, headers, config){
+				console.log('Success CustomerSave: ',data);
+			})
+			.error(function(data, status, headers, config){
+				console.log('error Customer Save: ',data);
+				scope.customerData = {
+					'source' : "Some Text"
+				};
+			});
+		}
+
+	});

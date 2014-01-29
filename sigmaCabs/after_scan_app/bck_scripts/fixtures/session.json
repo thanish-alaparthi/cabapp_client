@@ -1,0 +1,10 @@
+{
+	  "status" : 200
+	, "result" : {
+		"userInfo" : {
+			  "displayName" : "Mario Ray"
+			, "role" : 1
+			, "id" : 234565434
+		}
+	}
+}

@@ -1,0 +1,155 @@
+<fieldset data-ng-controller="bookingFormController" class="searchbox-border booking-fieldset">
+    <legend class="searchbox-border">Booking details</legend>
+
+
+    <div style="clear:both;margin: 5px 0px" class="softAlertMessages">
+        <i class="softAlertWarningMsg1">{{ spotBookingIntimationMsg}}</i>
+        <i class="softAlertErrorMsg">{{ softAlertError}}</i>
+        <i class="softAlertWarningMsg2">{{ vehicleAvailabilityCheckMsg}}</i>
+    </div>
+
+    <div class="fieldContainer relative left">
+        <label class="control-label">Journey Date</label>
+        <input type="text" ng-model="bookingDetails.journeyDate" class="form-control validate[required,maxSize[128]] large" placeholder="[YYYY-MM-DD] Journy Date">
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Pickup Time</label>
+        <input type="text" ng-model="bookingDetails.pickupTime" class="form-control validate[required,maxSize[128]] large" placeholder="[HH:MM] Pickup Time">
+    </div>
+    <div class="fieldContainer relative" style="clear:both">
+        <label class="control-label">Pickup Address</label>
+        <input type="text" ng-model="bookingDetails.pickupAddress" style="width: 100%" class="form-control validate[required,maxSize[128]] large" placeholder="Address" googleplace="">
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Pickup Landmark</label>
+        <input type="text" ng-model="bookingDetails.pickupLandmark" class="form-control validate[required,maxSize[128]] large" placeholder="Pickup Landmark">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Pickup Street</label>
+        <input type="text" ng-model="bookingDetails.pickupStreet" class="form-control validate[required,maxSize[128]] large" placeholder="Pickup Street">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Pickup City</label>
+        <input type="text" ng-model="bookingDetails.pickupCity" class="form-control validate[required,maxSize[128]] large" placeholder="Pickup City">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Pickup State</label>
+        <input type="text" ng-model="bookingDetails.pickupState" class="form-control validate[required,maxSize[128]] large" placeholder="Pickup State">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Pickup Latitude, Longitude</label>
+        <input type="text" ng-model="bookingDetails.pickupLatLon" class="form-control validate[required,maxSize[128]] large" placeholder="Latitude, Longitude">
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Vehicle Count</label>
+        <input type="number" ng-model="bookingDetails.vehicleCount" class="form-control validate[required,maxSize[128]] large" placeholder="Vehicle Count" add-dynamic-vehicle-type="">
+    </div>
+    <div id="insertVehicleTypeDropDownId">
+</div>
+    <div class="fieldContainer relative" style="clear:both">
+        <label class="control-label">Drop Place Address</label>
+        <input type="text" ng-model="bookingDetails.dropAddress" style="width: 100%" class="form-control validate[required,maxSize[128]] large" placeholder="Drop Place" googleplace="">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Drop Place Landmark</label>
+        <input type="text" ng-model="bookingDetails.dropLandmark" class="form-control validate[required,maxSize[128]] large" placeholder="Drop Place Landmark">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Drop Place Street</label>
+        <input type="text" ng-model="bookingDetails.dropStreet" class="form-control validate[required,maxSize[128]] large" placeholder="Drop Place Street">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Drop Place City</label>
+        <input type="text" ng-model="bookingDetails.dropPlaceCity" class="form-control validate[required,maxSize[128]] large" placeholder="Drop Place City">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Drop Place State</label>
+        <input type="text" ng-model="bookingDetails.dropState" class="form-control validate[required,maxSize[128]] large" placeholder="Drop Place State">
+    </div>
+    <div class="fieldContainer relative left hide">
+        <label class="control-label">Drop Latitude, Longitude</label>
+        <input type="text" ng-model="bookingDetails.dropLatLon" class="form-control validate[required,maxSize[128]] large" placeholder="Latitude, Longitude">
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Passenger Count</label>
+        <input type="text" ng-model="bookingDetails.passengerCount" class="form-control validate[required,maxSize[128]] large" placeholder="Passenger Count">
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Luggage Type</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="bookingDetails.luggageType" ng-options="value.type as value.title for value in luggageTypes">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Booking Status</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="bookingDetails.bookingState" ng-options="k as v for (k,v) in bookingStatuses">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Payment Mode</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="bookingDetails.paymentMode" ng-options="k as v for (k,v) in paymentModes">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Caller Is Primary Traveller</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="bookingDetails.isPrimaryTraveller" ng-options="k as v for (k,v) in isPrimaryTraveller">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Primary Traveller Name</label>
+        <input type="text" ng-model="bookingDetails.primaryTravellerName" class="form-control validate[required,maxSize[128]] large" placeholder="Primary Traveller Name">
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Primary Traveller Mobile#</label>
+        <input type="text" ng-model="bookingDetails.primaryTravellerMobile" class="form-control validate[required,maxSize[128]] large" placeholder="Primary Traveller Mobile Number">
+    </div>
+
+    <div class="fieldContainer relative left">
+        <label class="control-label">Any Comments</label>
+        <textarea ng-model="bookingDetails.comments" class="form-control large" style="height:50px !important" placeholder="Comments"></textarea>
+    </div>
+
+    <div style="clear:both;margin: 5px 0px" class="softAlertMessages">
+        <i class="softAlertWarningMsg1">{{ spotBookingIntimationMsg}}</i>
+        <i class="softAlertErrorMsg">{{ softAlertError}}</i>
+        <i class="softAlertWarningMsg2">{{ vehicleAvailabilityCheckMsg}}</i>        
+    </div>
+    <div class="" data-ng-show="bShowAvailableVehicles">List of available vehicles will come up over here</div>
+
+    <div style="margin-bottom:30px">
+        <fieldset class="searchbox-border booking-fieldset">
+            <legend class="searchbox-border">Snapshot</legend>
+            <div class="customer-booking-tabs">
+                <ul class="nav nav-tabs" style="margin-top: 20px">
+                    <li data-ng-class="{ active: fnIsActiveBookingSnapshotSubTab(1)}" data-ng-click="fnSetActiveBookingSnapshotSubTab(1)"><a>Vehicle Availability</a>
+                    </li>
+                    <li data-ng-class="{ active: fnIsActiveBookingSnapshotSubTab(2)}" data-ng-click="fnSetActiveBookingSnapshotSubTab(2)"><a>Package Details</a>
+                    </li>
+                    <li data-ng-class="{ active: fnIsActiveBookingSnapshotSubTab(3)}" data-ng-click="fnSetActiveBookingSnapshotSubTab(3)"><a>Tarrif Details</a>
+                    </li>
+                    <li data-ng-class="{ active: fnIsActiveBookingSnapshotSubTab(4)}" data-ng-click="fnSetActiveBookingSnapshotSubTab(4)"><a>Route Details</a>
+                    </li>
+                </ul>
+
+                <div class="tab-body" data-ng-show="bookingSnapshotSubTab==1">
+                    <div class="gridStyle" ng-grid="availableVehicleGrid" style="height:100%;margin:0px"></div>
+                </div>
+                <div class="tab-body" data-ng-show="bookingSnapshotSubTab==2">
+                    <div data-ng-include="bookingSnapshotPackageDurationDetails" style="clear:both"></div>
+                </div>
+                <div class="tab-body" data-ng-show="bookingSnapshotSubTab==3">
+                    <div data-ng-include="bookingSnapshotTarrifDetails" style="clear:both"></div>
+                </div>
+                <div class="tab-body" data-ng-show="bookingSnapshotSubTab==4">
+                    <div data-ng-include="bookingSnapshotRouteMapDetails" style="clear:both"></div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+    <div style="margin-bottom: 20px">
+        <button class="btn btn-success pull-left margin-right10" data-ng-click="fnSaveBooking()">Save booking details</button>
+        <button class="btn btn-warning pull-left margin-right10">Save only as Enquiry</button>
+        <p class="clear">
+    </div>
+</fieldset>

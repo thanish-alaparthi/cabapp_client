@@ -1,0 +1,38 @@
+<div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Front-Left</label>
+
+        <select class="form-control validate[maxSize[36]] large"  ng-model="vehicle.vehicleCondition.exterior.tyres.frontLeft" ng-options="value.type as value.title for value in tempVehicleConditionTypes">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Front-Right</label>
+
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.vehicleCondition.exterior.tyres.frontRight" ng-options="value.type as value.title for value in tempVehicleConditionTypes">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Back-Left</label>
+
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.vehicleCondition.exterior.tyres.backLeft" ng-options="value.type as value.title for value in tempVehicleConditionTypes">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Back-Right</label>
+
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.vehicleCondition.exterior.tyres.backRight" ng-options="value.type as value.title for value in tempVehicleConditionTypes">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Stepney</label>
+
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.vehicleCondition.exterior.tyres.stepney" ng-options="value.type as value.title for value in tempVehicleConditionTypes">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <p class="clear" />
+
+</div>
