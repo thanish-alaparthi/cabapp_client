@@ -212,7 +212,46 @@ fieldset.multiVehicleCountContainer .countFieldContainer .labelCompact{
 }
 
 .singleVehicleRow td {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
   text-align: center;
+}
+
+.bookingsTable{
+  border :1 ;
+  text-align: center;
+}
+th{
+  background-color: #3a3a3a !important;
+  border-bottom: 1px solid #d4d4d4;
+  color: #fff;
+  text-align: center;
+  
+}
+
+.stastics th {
+  width: 50px;
+}
+
+tr:nth-child(even) {background: #f3f3f3;border-bottom: 1px solid #d4d4d4}
+tr:nth-child(odd) {
+  background: #fdfdfd;
+  border-bottom: 1px solid #d4d4d4;
+}
+.outstationConatiner{
+  padding: 10px 10px 0 0;
+  margin-top: 40px;
+}
+.padding-left5{
+  padding-left:5px;
+}
+
+.airportPickup th {
+  width: 110px;
+}
+.outStationPickUp th {
+  width: 110px;
+}
+.cityPickUp th{
+  width: 90px;
 }

@@ -245,9 +245,9 @@ angular.module('sigmaCabsApp')
 
 		scope.checkTariff = function(){
 			$scope.opts = {
-				templateUrl: 'views/bookings/checkTariff.html',
+				templateUrl: URLService.view('singleTariff'),
 				controller: 'chkTariffController',
-				dialogClass: 'modalClass',
+				dialogClass: 'modalClass multi-vehicle-container-modal' ,
 				resolve: {}
 			};
 			modalWindow.addDataToModal($scope.opts);

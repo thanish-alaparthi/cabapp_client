@@ -31,7 +31,8 @@ angular.module('sigmaCabsApp')
     .controller('bookingController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService) {
         var scope = $scope;
         $scope.callTime = "05:30";
-        $scope.customerID = "26012013001"
+        $scope.customerID = "26012013001";
+        $scope.bookingType = 'Current';
 
         $scope.showBookingDetails =  true;
 

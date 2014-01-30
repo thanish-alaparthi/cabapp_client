@@ -39,7 +39,7 @@ angular.module('sigmaCabsApp')
         'sendVehicleActivity':'vehicle/activity',
         'searchCustomerByMobile' : '',
         'updateCustomerDetails' : '',
-		'dispathData': '',
+		    'dispathData': '',
         'saveBooking' : '',
         'bookingTariffs' : ''
       },
@@ -124,7 +124,10 @@ angular.module('sigmaCabsApp')
         'cancelBookingMain' : 'views/bookings/cancelBookingMain.html',
         'blockCustomerMain' : 'views/bookings/blockCustomerMain.html',
         'customerRequestMain' : 'views/bookings/customerRequestMain.html',
-        'bookingTariffTable' : 'views/bookings/bookingTariffTable.html'
+        'bookingTariffTable' : 'views/bookings/bookingTariffTable.html',
+        'checkTariff':'views/bookings/checkTariff.html',
+        'singleTariff':'views/bookings/singleTariff.html',
+        'bookingStatistics' : 'views/bookings/statistics/bookingStatistics.html'
       },
 
 

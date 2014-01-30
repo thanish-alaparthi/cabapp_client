@@ -4,9 +4,11 @@ angular.module('sigmaCabsApp')
 	.controller('chkMultiVehicleController', function($scope, PrerequisiteService, BookingService, CustomerService, $rootScope, URLService, $dialog, dialog) {
 
 		var scope = $scope;
-		console.log('inside checkVehicleAvilabilty');
+		console.log(URLService.view('checkTariff'));
 
 		scope.showVechicleContianer = true;
+		scope.bookingTariffGrid = URLService.view('bookingTariffGrid');
+		scope.checkTariff = URLService.view('checkTariff');
 
 		scope.vehicleCounts = {
 			small: 0,
@@ -85,117 +87,17 @@ angular.module('sigmaCabsApp')
 			scope.showTariffContainer = true;
 		};
 
-		scope.cityTariffData = [
-			{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			}
-		];
+		scope.confirmTariff = function(){
+			dialog.close();
+		};
 
-		scope.airportTariffData = [
-			{
-				"Type" : "City to Airport to City",
-				"Indica/Vista" : "Rs 550/ @40 km",
-				"Verito/Indigo" : "Rs 550/ @40 km",
-				"Tavera/Xylo" : "Rs 550/ @40 km",
-				"Innova" : "Rs 550/ @40 km"
-			}
-		];
+		scope.goBack =  function(){
+			scope.showVechicleContianer = true;
+			scope.showTariffContainer = false;
+		};
+
+
+		
 		
 
 	});

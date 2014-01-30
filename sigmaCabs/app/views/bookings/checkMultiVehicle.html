@@ -49,49 +49,17 @@
                     <table dynamic-multi-vehicle-booking ng-model="vehicleCounts" style="width: 100%;border: 1px solid #FFF;"></table>
                 </fieldset>
             </div>
-
-            <div class = "clearFix" ng-show = "showTariffContainer">
-                    <table border = "1">
-                        <tr>
-                            <th>Duration</th>
-                            <th>Tariff Kms</th>
-                            <th>Indica/Vista</th>
-                            <th>Verito/Indigo</th>
-                            <th>Tavera/Xylo</th>
-                            <th>Innova</th>
-                        </tr>
-
-                        <tr ng-repeat = "day in cityTariffData">                            
-                            <td ng-repeat = "price in day"> {{price}}</td>                
-                        </tr>
-
-                    </table>
-            
-                <!-- <div class="right">
-                   <table border = "1">
-                        <tr>
-                            <th>Airport</th>
-                            <th>AC Indica </th>
-                            <th>AC Verito/Indigo</th>
-                            <th>AC Tavera/Xylo</th>
-                            <th>AC Innova</th>
-                        </tr>
-
-                    <tr ng-repeat = "tariff in airportTariffData">                            
-                        <td ng-repeat = "price in tariff"> {{price}}</td>                
-                    </tr>
-
-                    </table>
-                    
-                </div> -->
-
-               
+             <div class = "clearfix" ng-show = "showTariffContainer">
+                 <div data-ng-include="checkTariff"></div>
+                 <div data-ng-include="bookingTariffGrid"></div>
             </div>
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Confirm</button>
-            <button type="button" class="btn btn-default" ng-click="getTariff()">Tariff</button>
+            <button type="button" class="btn btn-default" ng-click="confirmTariff()" ng-show = "showTariffContainer">Confirm</button>
+            <button type="button" class="btn btn-default" ng-click="goBack()" ng-show = "showTariffContainer">Back</button>
+            <button type="button" class="btn btn-default" ng-click="getTariff()" ng-show = "showVechicleContianer">Tariff</button>
+            <button type="button" class="btn btn-default" ng-click="getDirections()" ng-show = "showTariffContainer">Get Directions</button>
         </div>
     </div>
     <p class="clear"/>

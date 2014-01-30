@@ -22,7 +22,7 @@ angular.module('sigmaCabsApp')
 			'graceTime' : 'Grace Time',
 			'discount' : 15,
 			'grade':'A',
-			'comments' : 'Driver Batta Rs 200 & Permit, Toll & Parking charges are applicable. Minimum 250 Kms/day. 10 mins grace time for hrly pckgs'
+			'comments' : 'Driver Batta Rs 200 & Permit, Toll & Parking charges are applicable. Minimum 250 Kms/day.'
 		},{
 			'vehicleName' : 'Indica',
 			'vehicleType' : 'Small',
@@ -64,13 +64,14 @@ angular.module('sigmaCabsApp')
 		$scope.gridBookingTariffOptions = {
 			data: 'customerBookingGridDetails',
 			rowHeight: 25,
-			columnDefs: [{
-				field: 'vehicleName',
-				displayName: 'Name',
+			columnDefs: [
+			{
+				field: 'vehicleType',
+				displayName: 'Vh Type',
 				width: '*'
 			}, {
-				field: 'vehicleType',
-				displayName: 'Type',
+				field: 'vehicleName',
+				displayName: 'Vh Name',
 				width: '*'
 			}, {
 				field: 'duration',
@@ -78,11 +79,23 @@ angular.module('sigmaCabsApp')
 				width: '*'
 			}, {
 				field: 'distance',
-				displayName: 'Distance',
+				displayName: 'Kms',
 				width: '*'
 			}, {
 				field: 'amount',
 				displayName: 'Amount',
+				width: '*'
+			}, {
+				field: 'extraKms',
+				displayName: 'Extra Kms',
+				width: '*'
+			},{
+				field: 'extraHrs',
+				displayName: 'Extra Hrs',
+				width: '*'
+			}, {
+				field: 'graceTime',
+				displayName: 'Grace Time',
 				width: '*'
 			},{
 				field: 'customerGrade',
@@ -91,14 +104,6 @@ angular.module('sigmaCabsApp')
 			}, {
 				field: 'discount',
 				displayName: 'Discount',
-				width: '*'
-			}, {
-				field: 'extraKms',
-				displayName: 'Extra Kms',
-				width: '*'
-			}, {
-				field: 'graceTime',
-				displayName: 'Grace Time',
 				width: '*'
 			}, {
 				field: 'comments',
