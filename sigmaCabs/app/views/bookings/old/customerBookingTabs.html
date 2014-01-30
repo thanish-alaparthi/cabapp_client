@@ -1,0 +1,18 @@
+<div class="customer-booking-tabs" data-ng-controller="CustomerBookingTabs">
+	<ul class="nav nav-tabs">
+	  <li data-ng-class="{ active: fnIsActive(1)}" data-ng-click="tab = 1"><a>Upcoming</a></li>
+	  <li data-ng-class="{ active: fnIsActive(2)}" data-ng-click="tab = 2"><a>Past</a></li>
+	  <li data-ng-class="{ active: fnIsActive(3)}" data-ng-click="tab = 3"><a>Canceled</a></li>
+	</ul>
+
+	<div class="tab-body" data-ng-show="tab==1" data-ng-controller="UpcomingBookingListController">
+		<div class="gridStyle" ng-grid="gridOptions" style="height:100%;margin:0px;"></div>
+	</div>
+	<div class="tab-body" data-ng-show="tab==2" data-ng-controller="PastBookingListController">
+		<div class="gridStyle" ng-grid="gridOptions" style="height:100%;margin:0px;"></div>
+	</div>
+	<div class="tab-body" data-ng-show="tab==3" data-ng-controller="CanceledBookingListController">
+		<div class="gridStyle" ng-grid="gridOptions" style="height:100%;margin:0px;"></div>
+	</div>
+      
+</div>

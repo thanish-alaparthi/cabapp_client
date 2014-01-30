@@ -1,0 +1,16 @@
+<div class="customer-booking-tabs vehiclePerformanceTab">
+    <ul class="nav nav-tabs" style="margin-top: 20px;">
+        <li data-ng-class="{ active: fnIsActiveFacilitiesSubTab(1)}" data-ng-click="fnSetActiveFacilitiesSubTab(1)"><a>Entertainment</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActiveFacilitiesSubTab(2)}" data-ng-click="fnSetActiveFacilitiesSubTab(2)"><a>Advertisments & Others</a>
+        </li>
+    </ul>
+
+    <div class="tab-body" data-ng-show="facilitiesSubTab==1">
+        <div data-ng-include="vehicleEntertainment" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="facilitiesSubTab==2">
+        <div data-ng-include="vehicleAdvertisments" style="clear:both;"></div>
+    </div>
+
+</div>

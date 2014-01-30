@@ -1,0 +1,36 @@
+<div class="customer-booking-tabs vehiclePerformanceTab">
+    <ul class="nav nav-tabs" style="margin-top: 20px;">
+        <li data-ng-class="{ active: fnIsActivePerformaceSubTab(1)}" data-ng-click="fnSetActivePerformaceSubTab(1)"><a>Battery & Electricals</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActivePerformaceSubTab(2)}" data-ng-click="fnSetActivePerformaceSubTab(2)"><a>Clutch & Breaks</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActivePerformaceSubTab(3)}" data-ng-click="fnSetActivePerformaceSubTab(3)"><a>Alignments & suspension</a>
+        </li>      
+        <li data-ng-class="{ active: fnIsActivePerformaceSubTab(4)}" data-ng-click="fnSetActivePerformaceSubTab(4)"><a>Coolers & Air Filters</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActivePerformaceSubTab(5)}" data-ng-click="fnSetActivePerformaceSubTab(5)"><a>Engine & Power Seteering Oil</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActivePerformaceSubTab(6)}" data-ng-click="fnSetActivePerformaceSubTab(6)"><a>Gear & Break Oil</a>
+        </li>
+    </ul>
+
+    <div class="tab-body" data-ng-show="performanceSubTab==1">
+        <div data-ng-include="vehicleBatteryAndElectricals" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="performanceSubTab==2">
+        <div data-ng-include="vehicleClutchAndBreaks" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="performanceSubTab==3">
+        <div data-ng-include="vehicleAlignmentAndSuspension" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="performanceSubTab==4">
+        <div data-ng-include="vehicleCoolersAndAirFilters" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="performanceSubTab==5">
+        <div data-ng-include="vehicleEngineAndPowerSteeringOil" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="performanceSubTab==6">
+        <div data-ng-include="vehicleGearAndBreakOil" style="clear:both;"></div>
+    </div>
+
+</div>

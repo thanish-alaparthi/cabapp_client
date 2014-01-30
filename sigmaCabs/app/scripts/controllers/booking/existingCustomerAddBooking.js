@@ -47,6 +47,7 @@ angular.module('sigmaCabsApp')
 		scope.bookingTariffGrid = URLService.view('bookingTariffGrid');
 		scope.bookingDetailsForm = URLService.view('bookingForm');
 		scope.extraInfoDetails = URLService.view('extraInfoDetails');
+		scope.bookingStatistics = URLService.view('bookingStatistics');
 
 
 

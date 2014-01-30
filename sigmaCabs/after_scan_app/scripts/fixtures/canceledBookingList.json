@@ -1,4 +1,0 @@
-[
-{"id" : 1, "bookingdatetime": "09May2013 08:00:00", "canceleddatetime": "09May2013 09:00:00","journeydatetime": "09May2013 10:30:00", "source" : "Kondapur", "destination" : "Airport", "type" : "Round trip", "remark" : "" },
-{"id" : 2, "bookingdatetime": "03June2013 07:30:00", "canceleddatetime": "03June2013 09:00:00","journeydatetime": "03June2013 10:30:00", "source" : "Hafispate", "destination" : "Panjagutta", "type" : "One way", "remark" : "" }
-]

@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('chkTariffController', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog) {
+	.controller('chkTariffController', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService) {
 
 		var scope = $scope;
 		console.log('inside chkTariffController');
 
 		scope.close = function(){
-			dialog.close();
+			//dialog.close();
 		};
 		scope.checkTariff = URLService.view('checkTariff');
 		scope.showTariffContainer = true;
@@ -16,101 +16,7 @@ angular.module('sigmaCabsApp')
 			{
 				"duration" : "1 hr",
 				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
+				"in":"123"
 			}
 		];
 

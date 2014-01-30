@@ -1,0 +1,28 @@
+<div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Badge ID</label>
+        <input type="text" ng-model="user.badgeID" id="user_badgeID" class="form-control validate[required,maxSize[128]] large" placeholder="BadgeID"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Designation</label>
+        <input type="text" ng-model="user.designation" id="user_designation" class="form-control validate[required,maxSize[128]] large" placeholder="Designation"/>
+    </div>
+     <div class = "fieldContainer relative left">
+        <label class="control-label">Employee Type</label>
+        <select  class = "form-control validate[maxSize[36]] large" id="emp_employeeTypeId"  ng-model="user.empType" ng-options="u.name for u in userTypes">
+    	    <option value="">Select a Type</option>                 
+    	</select>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Job State</label>
+        <input type="text" ng-model="user.jobState" id="user_jobState" class="form-control validate[required,maxSize[128]] large" placeholder="Job State"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Blood Group</label>
+        <input type="text" ng-model="user.bloodGrp" id="user_bloodGrp" class="form-control validate[required,maxSize[128]] large" placeholder="Blood State"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Date of Birth</label>
+        <input type="text" ng-model="user.dob" id="user_dob" class="form-control validate[required,maxSize[128]] large" placeholder="Date of Birth"/>
+    </div>
+</div>

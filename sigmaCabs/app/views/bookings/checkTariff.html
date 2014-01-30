@@ -1,0 +1,58 @@
+<div class = "clearfix" ng-controller = "chkTariffController">
+    <div class="left">
+        <legend class="searchbox-border">City Pickup</legend> 
+        <table class = "bookingsTable cityPickUp" >
+            <tr>
+                <th>Duration</th>
+                <th>Tariff Kms</th>
+                <th>Indica/Vista</th>
+                <th>Verito/Indigo</th>
+                <th>Tavera/Xylo</th>
+                <th>Innova</th>
+            </tr>
+
+            <tr ng-repeat = "day in cityTariffData">                            
+                <td ng-repeat = "price in day"> {{price}}</td>                
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="right">
+        <div>
+        <legend class="searchbox-border">Airport Pickup</legend> 
+            <table class= "bookingsTable airportPickup">
+                <tr>
+                    <th>Duration</th>
+                    <th>Tariff Kms</th>
+                    <th>Indica/Vista</th>
+                    <th>Verito/Indigo</th>
+                    <th>Tavera/Xylo</th>
+                    <th>Innova</th>
+                </tr>
+
+            <tr ng-repeat = "tariff in airportTariffData">                            
+                <td ng-repeat = "price in tariff"> {{price}}</td>                
+            </tr>
+            </table> 
+         </div>
+          <div class = "outstationConatiner">
+            <legend class="searchbox-border">Outstation Pickup</legend> 
+            <table class = "bookingsTable outStationPickUp">
+                <tr>
+                    <th>Duration</th>
+                    <th>Tariff Kms</th>
+                    <th>Indica/Vista</th>
+                    <th>Verito/Indigo</th>
+                    <th>Tavera/Xylo</th>
+                    <th>Innova</th>
+                </tr>
+
+            <tr ng-repeat = "tariff in airportTariffData">                            
+                <td ng-repeat = "price in tariff"> {{price}}</td>                
+            </tr>
+            </table> 
+        </div>
+            
+    </div>
+</div>

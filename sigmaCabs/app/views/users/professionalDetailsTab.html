@@ -1,0 +1,15 @@
+<div class="customer-booking-tabs " ng-controller = "UserProfessionalDetails">
+    <ul class="nav nav-tabs" style="margin-top: 20px;">
+        <li data-ng-class="{ active: fnIsActiveProfessionalSubTab(1)}" data-ng-click="fnSetActiveProfessionalSubTab(1)"><a>Educational Details</a>
+        </li>
+        <li data-ng-class="{ active: fnIsActiveProfessionalSubTab(2)}" data-ng-click="fnSetActiveProfessionalSubTab(2)"><a>Past Experience</a>
+        </li>
+    </ul>
+
+    <div class="tab-body" data-ng-show="professionalSubTab==1">
+        <div data-ng-include="userEducationalDetails" style="clear:both;"></div>
+    </div>
+    <div class="tab-body" data-ng-show="professionalSubTab==2">
+        <div data-ng-include="userPastExperienceDetails" style="clear:both;"></div>
+    </div>
+</div>
