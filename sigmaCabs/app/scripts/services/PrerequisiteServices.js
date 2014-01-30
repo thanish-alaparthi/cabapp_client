@@ -19,72 +19,176 @@ angular.module('sigmaCabsApp')
             nextYearDate = (parseInt(yyyy) + 1) + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]);
 
         var d1 = new Date(),
-            d2 = new Date( d1 );
-        d2.setHours ( d1.getHours() + 1 );
+            d2 = new Date(d1);
+        d2.setHours(d1.getHours() + 1);
         var sDefaultBookingHours = d2.getHours();
         var sDefaultBookingMinutes = d2.getMinutes();
 
+        var sLs = localStorage.getItem('sigmaCabsPrerequisites'),
+            oLs = sLs ? JSON.parse(sLs) : {};
+        var isDataExistsInLocalStorage = (oLs.hasOwnProperty(currentDate)) ? true : false;
+
+        var iApiCount = 0;
+        var fnEmitSuccess = function(){
+            $rootScope.$emit('eventPrerequisitsLoaded');
+        };
+
+        var fnEmitEvent = function(){
+            iApiCount++;
+
+            if(iApiCount == 4) {
+                $rootScope.$emit('eventPrerequisitsLoaded');
+                localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oLs));
+            }   
+        };
+        var fnAddToLocalStorage = function(sType, oResult){
+            oLs[currentDate][sType] = oResult;
+            return true;
+        };
 
         return {
-            defaultBookingHour : sDefaultBookingHours.toString(),
-            defaultBookingMinutes : '00',
+
+            // call for interrelated configuration/Prequisite data
+            fnGetPrerequisites: function() {
+                //Note: the call will be made only if data is not present in the local storage on day basis
+                $rootScope.$emit('eventPrerequisitsLoaded');
+                if (isDataExistsInLocalStorage) {
+                    console.log('isDataExistsInLocalStorage', isDataExistsInLocalStorage , oLs);
+                    setTimeout(function(){
+                        fnEmitSuccess();
+                    },0);
+                    return;
+                }
+                oLs[currentDate] = {};
+
+                $http({
+                    url: URLService.service('RestApiGetAllJourneyTypes'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetAllJourneyTypes: ', data); 
+                    if(fnAddToLocalStorage('journeyTypes', data.result)) {   // add JourneyTypes
+                        fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetAllJourneyTypes: ', data);
+                    fnEmitEvent();
+                });
+
+                $http({
+                    url: URLService.service('RestApiGetAllBookingStates'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetAllBookingStates: ', data);
+                    if(fnAddToLocalStorage('bookingStates', data.result)) { // add BookingStates
+                        fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetAllBookingStates: ', data);
+                    fnEmitEvent();
+                });
+
+                $http({
+                    url: URLService.service('RestApiGetAllGrades'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetAllGrades: ', data);
+                    if(fnAddToLocalStorage('grades', data.result)) {    // add Grades
+                        fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetAllGrades: ', data);
+                    fnEmitEvent();
+                });
+
+                 $http({
+                    url: URLService.service('RestApiGetAllReasons'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetAllReasons: ', data);
+                    if(fnAddToLocalStorage('reason', data.result)) {    // add Reasons
+                        fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetAllReasons: ', data);
+                    fnEmitEvent();
+                });
+
+
+            },
+
+
+            defaultBookingHour: sDefaultBookingHours.toString(),
+            defaultBookingMinutes: '00',
             currentDate: currentDate,
             nextYearDate: nextYearDate,
-            priorities : {
-                '1' : 'Normal',
-                '2' : 'Important',
-                '3' : 'High',
-                '4' : 'Critical'
+            priorities: {
+                '1': 'Normal',
+                '2': 'Important',
+                '3': 'High',
+                '4': 'Critical'
             },
 
-            hours : {
-                '00' : '00',
-                '01' : '01',
-                '02' : '02',
-                '03' : '03',
-                '04' : '04',
-                '05' : '05',
-                '06' : '06',
-                '07' : '07',
-                '08' : '08',
-                '09' : '09',
-                '10' : '10',
-                '11' : '11',
-                '12' : '12',
-                '13' : '13',
-                '14' : '14',
-                '15' : '15',
-                '16' : '16',
-                '17' : '17',
-                '18' : '18',
-                '19' : '19',
-                '20' : '20',
-                '21' : '21',
-                '22' : '22',
-                '23' : '23',
+            hours: {
+                '00': '00',
+                '01': '01',
+                '02': '02',
+                '03': '03',
+                '04': '04',
+                '05': '05',
+                '06': '06',
+                '07': '07',
+                '08': '08',
+                '09': '09',
+                '10': '10',
+                '11': '11',
+                '12': '12',
+                '13': '13',
+                '14': '14',
+                '15': '15',
+                '16': '16',
+                '17': '17',
+                '18': '18',
+                '19': '19',
+                '20': '20',
+                '21': '21',
+                '22': '22',
+                '23': '23',
             },
-            minutes : {
-                '00' : '00',
-                '10' : '10',
-                '20' : '20',
-                '30' : '30',
-                '40' : '40',
-                '50' : '50'
+            minutes: {
+                '00': '00',
+                '10': '10',
+                '20': '20',
+                '30': '30',
+                '40': '40',
+                '50': '50'
             },
 
+            journeyTypes : oLs[currentDate] ? oLs[currentDate].journeyTypes : [],
 
-            bookingStatuses : {
-                '1' : 'Open',
-                '2' : 'Closed',
-                '3' : 'Cancled'
+            bookingStatuses: {
+                '1': 'Open',
+                '2': 'Closed',
+                '3': 'Cancled'
             },
-            isPrimaryTraveller : {
-                '0' : 'No',
-                '1' : 'Yes'
+            isPrimaryTraveller: {
+                '0': 'No',
+                '1': 'Yes'
             },
-            paymentModes : {
-                '1' : 'Cash',
-                '2' : 'Card'
+            paymentModes: {
+                '1': 'Cash',
+                '2': 'Card'
             },
             userTypes: {
                 '1': 'Driver',
@@ -94,9 +198,9 @@ angular.module('sigmaCabsApp')
                 '5': 'Dispatcher',
                 '6': 'Call-Taker'
             },
-            userJobCategoriesNames : {
-                '1' : 'Permanant',
-                '2' : 'Contract'
+            userJobCategoriesNames: {
+                '1': 'Permanant',
+                '2': 'Contract'
             },
             userJobCategories: [{
                 'type': '1',
@@ -111,13 +215,13 @@ angular.module('sigmaCabsApp')
                 '3': 'Big',
                 '4': 'Luxury'
             },
-            vehicleAttachmentTypeNames : {
-                '1' : '[COV] Operated by Company',
-                '2' : '[COV] Leased to Driver',
-                '3' : '[LV] Operated by Company',
-                '4' : '[LV] Sub-leased to Driver',
-                '5' : '[AV] Operated by Self [Driver-Owner]',
-                '6' : '[AV] Operated by Other Driver'
+            vehicleAttachmentTypeNames: {
+                '1': '[COV] Operated by Company',
+                '2': '[COV] Leased to Driver',
+                '3': '[LV] Operated by Company',
+                '4': '[LV] Sub-leased to Driver',
+                '5': '[AV] Operated by Self [Driver-Owner]',
+                '6': '[AV] Operated by Other Driver'
             },
             vehicleAttachmentTypeOptions: [{
                 'type': '1',
