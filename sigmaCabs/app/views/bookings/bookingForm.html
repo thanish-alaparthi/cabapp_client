@@ -3,7 +3,7 @@
 
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup Date</label>
-        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <input type="text" datepicker ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Pickup Time</label>
@@ -68,12 +68,14 @@
         <div data-ng-hide="bookingDetails.bookingId" style="text-align: center;">
             <button class="btnCompact btn-success" data-ng-click="fnSaveBooking()">Save Booking</button>
             <button class="btnCompact btn-success" data-ng-click="fnOpenCustFeedback()">Cust. Feedback</button>
+            <button class="btnCompact btn-success" data-ng-click="fnCallDesposition()">Desposition</button>
         </div>
         <div data-ng-show="bookingDetails.bookingId" style="text-align: center;" class="closedBookingButtonsContainer">
             <button class="btnCompact btn-danger" data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel">Cancel Booking</button>
             <button class="btnCompact btn-success" data-ng-click="fnSaveAsNewBooking()">Save as New Booking</button>
             <button class="btnCompact btn-success" data-ng-click="fnSaveBooking()" data-ng-show="bShowSaveAndClose">Save & Close</button>            
             <button class="btnCompact btn-success" data-ng-click="fnOpenCustFeedback()" data-ng-show="bShowCustomerFeedbackBtn">Cust. Feedback</button>
+            <button class="btnCompact btn-success" data-ng-click="fnCallDesposition()">Desposition</button>
         </div>
         <p class="clear"/>
     </div>

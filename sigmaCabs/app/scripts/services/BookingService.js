@@ -17,7 +17,7 @@ angular.module('sigmaCabsApp')
 					url: URLService.service('searchCustomerByMobile'),
 					method: 'POST',
 					data: {
-						  url : "user/customerdetails"
+						  url : "customer/search"
 						, data : JSON.stringify(oDataParams)
 					},
 					headers: {

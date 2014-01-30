@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .run(function(AuthenticationService, $window, URLService, $rootScope) {
+    .run(function(AuthenticationService, $window, URLService, $rootScope, PrerequisiteService) {
         // check for userSession.. and redirect to login screen if session dznt exists.
         AuthenticationService.getSession()
             .success(function(oData) {
@@ -26,9 +26,14 @@ angular.module('sigmaCabsApp')
                     $rootScope.$broadcast('userInfoFromSession', oData.result.userInfo);
 
                 }
-            })
+            });
     })
     .controller('bookingController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService) {
+
+
+        PrerequisiteService.fnGetPrerequisites();
+
+
         var scope = $scope;
         $scope.callTime = "05:30";
         $scope.customerID = "26012013001";
@@ -60,18 +65,17 @@ angular.module('sigmaCabsApp')
 
 
 
-        scope.customer = {
-                    customerDetails: {
-                        mobile: $routeParams.mobile,
-                        name: '',
-                        source: '',
-                        email: '',
-                        altMobile: '',
-                        dob: '',
-                        id: ''
-                    },
-                    bookingDetails : {
-                        date : '',
+
+        scope.customerDetails = {
+                        name : '',
+                        callerPhone : $routeParams.mobile,
+                        mobile2 : '',
+                        altPhone : '',
+                        altName: '',
+                        id : ''
+                    };
+        scope.bookingDetails = {
+                        journeyDate : '29/01/2014',
                         pickupTime : '',
                         pickupAddress : '',
                         pickupLandmark : '',
@@ -88,12 +92,7 @@ angular.module('sigmaCabsApp')
                         isPrimaryTraveller : '1',
                         primaryTravellerName:  '',
                         primaryTravellerMobile : ''
-                    }
-                };
-
-                scope.bookingDetails = {};
-
-
+                    };
 
 
         /* Add Views to the bookings */
@@ -104,88 +103,82 @@ angular.module('sigmaCabsApp')
         scope.existingCustomerAddBooking = URLService.view("loadingText");
         scope.loadingText = "booking data"
 
+        scope.fnLoadUnexpectedError = function() {
+            scope.existingCustomerAddBooking = URLService.view('errorResponseFormatMisMatch');
+        };
         scope.fnLoadBookingView = function() {
             scope.existingCustomerAddBooking = URLService.view('existingCustomerAddBooking');
-
-
-            $scope.$on('eventShowAddNewCustomer', function(ev, oData) {
-                scope.showAddNewCustomerList = oData;
-                scope.showCustomerList = !oData;
-
-                if (scope.showCustomerList) {
-                    scope.showExistingCustomerAddBooking = false;
-                }
-            });
-
-            // existing customer is selected from the customer List grid
-            $scope.$on('eventCustomerSelectedFromList', function(ev, oData) {
-                scope.showExistingCustomerAddBooking = oData;
-                scope.showCustomerList = !oData;
-                if (scope.showCustomerList) {
-                    scope.showAddNewCustomerList = false;
-                }
-            });
-
-
-            //function to show new custoemr bookking
-            scope.fnNewCustomerBooking = function() {
-                scope.showExistingCustomerAddBooking = false;
-                scope.showCustomerList = false;
-                scope.showAddNewCustomerList = true;
-            }
-
-            //function to show new custoemr bookking
-            scope.fnExistingCustomerBooking = function() {
-                scope.showExistingCustomerAddBooking = true;
-                scope.showCustomerList = false;
-                scope.showAddNewCustomerList = false;
-            }
-            //function to show new custoemr bookking
-            scope.fnViewCustomerList = function() {
-                scope.showExistingCustomerAddBooking = false;
-                scope.showCustomerList = true;
-                scope.showAddNewCustomerList = false;
-            }
         };
 
         scope.showExistingCustomerAddBooking = true;
 
-        // since mobile is passed, hit server to get CustomerDetails Based on the server
-        if ($routeParams.mobile) { // mobile passed
-            // set the default view to Add a booking
-            scope.showExistingCustomerAddBooking = true;
+        scope.fnInit = function() {
+            // since mobile is passed, hit server to get CustomerDetails Based on the server
+            if ($routeParams.mobile) { // mobile passed
+                // set the default view to Add a booking
+                scope.showExistingCustomerAddBooking = true;
 
-            // make a call to server to get the user details...
-            BookingService.fnFindCustomerByMobile({
-                mobile: $routeParams.mobile
-            })
-            .success(function(data, status, headers, config) {
-                console.log('Success: ', data);
-                scope.customer = data;	// set the customer data which server response.
+                // make a call to server to get the user details...
+                BookingService.fnFindCustomerByMobile({
+                    mobile: $routeParams.mobile
+                })
+                .success(function(data, status, headers, config) {
+                    console.log('Success fnFindCustomerByMobile: ', typeof data, data);
 
-                if(!scope.customer.bookingDetails){
-                    scope.customer.bookingDetails = {};
-                }
+                    if(typeof data !='object') {
+                        scope.fnLoadUnexpectedError();
+                        return;
+                    }
+                    if( data.status==200 
+                        && data.result 
+                        && data.result.length) {
+                        console.log(data.result);
+                        scope.customerDetails = data.result[0].customerDetails;	// set the customer data which server response.
+                    }
 
-                scope.customer.bookingDetails.customerId = scope.customer.customerDetails.id;
+                    scope.bookingDetails.customerId = scope.customerDetails.id;
 
-                // set some default values in bookingDetails
-                scope.customer.bookingDetails.customerId = scope.customer.id;
+                    // set some default values in bookingDetails
+                    scope.bookingDetails.customerId = scope.customerDetails.id;
 
-                // set scope.bookingDetails object
-                scope.bookingDetails = scope.customer.bookingDetails
 
+                    scope.fnLoadBookingView();
+                })
+                .error(function(data, status, headers, config) {
+                    console.log('error fnFindCustomerByMobile: ', data);
+                    
+                    alert('There was some error while getting customer details. ');
+                    scope.fnLoadBookingView();
+                });
+            } else {
                 scope.fnLoadBookingView();
-            })
-            .error(function(data, status, headers, config) {
-                console.log('error: ', data);
-                scope.customerDetails = {
-                    'source': "Some Text"
-                };
-                alert('There was some error while getting customer details. ');
-                scope.fnLoadBookingView();
-            });
-        } else {
-            scope.fnLoadBookingView();
+            }
         }
+
+
+
+        // Main Controller Init Point
+        // // waits until configuration/prerequisits data loads always
+        $rootScope.$on('eventPrerequisitsLoaded', function(){
+            scope.fnInit();
+        });
+
+        scope.searchString = "";
+
+        scope.$watch('searchString',function(oldVal,newVal){
+            var sSearchPre = scope.searchString.slice(0,2);
+            if(sSearchPre.length <3){
+                return;
+            }
+            if(!isNaN(sSearchPre)){ // mobile
+
+                return;
+            }
+            switch(sSearchPre.toLowerCase()){
+                case 'ci':  // customerId
+                break;
+                case 'bi': // customerId
+                break;
+            }
+        })
     });

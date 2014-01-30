@@ -901,3 +901,7 @@ textFieldCompact[disabled] .textFieldCompact {
 .modalClass .modal-body {
   height: auto;
 }
+
+.dp-popup{
+  z-index : 1050 !important;
+}

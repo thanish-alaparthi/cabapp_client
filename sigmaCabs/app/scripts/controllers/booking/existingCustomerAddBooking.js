@@ -30,7 +30,7 @@ angular.module('sigmaCabsApp')
 			var aRtn = {};
 
 			for(var sField in PrerequisiteService.customerFields){
-				if(!scope.customer.customerDetails[sField]){
+				if(!scope.customerDetails[sField]){
 					aRtn[sField] = PrerequisiteService.customerFields[sField];
 				}
 			}

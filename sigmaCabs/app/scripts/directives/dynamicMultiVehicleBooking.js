@@ -51,7 +51,7 @@ angular.module('sigmaCabsApp')
             sRtnHtml = "";
               sRtnHtml +="<td><input class='textFieldCompact' type='text' /></td>"; // pickup
               sRtnHtml +="<td><input class='textFieldCompact' type='text' /></td>"; // Drop
-              sRtnHtml +="<td><input class='textFieldCompact' type='text' /></td>"; // Date
+              sRtnHtml +="<td><input datepicker class='textFieldCompact' type='text' /></td>"; // Date
               sRtnHtml +="<td>";
                 sRtnHtml +="<select ng-model='aTmpBookings[" + iBookingKey + "].hours' ng-options='k as v for (k,v) in hours' class=' validate[maxSize[36]] selectFieldCompact' style='width:48px;'></select>";
                 sRtnHtml +="<select ng-model='aTmpBookings[" + iBookingKey + "].minutes' ng-options='k as v for (k,v) in minutes' class=' validate[maxSize[36]] selectFieldCompact' style='width:48px;'></select>";

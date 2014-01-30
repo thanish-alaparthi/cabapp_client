@@ -27,6 +27,13 @@ angular.module('sigmaCabsApp')
         'getUserDetails' : "",
         'userDelete' : "",
 
+        'RestApiGetAllJourneyTypes' : '?url=journey/all',
+        'RestApiGetAllBookingStates' : '?url=bookingstatus/all',
+        'RestApiGetAllGrades' : '?url=grade/all',
+        'RestApiGetAllReasons' : '?url=reason/all',
+
+
+
         'addVehicle' :  "", //"?url=vehicle/save",
         'updateVehicle' : "", // ?url=vechile/modify"
         'getAllVehicles' : "?url=vehicle/index",
@@ -63,6 +70,7 @@ angular.module('sigmaCabsApp')
       // html fragments to be served as html snippets
       _oPartials = {
         'loadingText' : 'views/loadingText.html',
+        'errorResponseFormatMisMatch' : 'views/errorResponseFormatMisMatch.html',
 
         'usersList' : 'views/users/usersList.html',
         'vehicleList' : 'views/vehicles/vehicleList.html',
