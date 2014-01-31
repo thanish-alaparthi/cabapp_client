@@ -33,34 +33,41 @@ angular.module('sigmaCabsApp')
             $rootScope.$emit('eventPrerequisitsLoaded');
         };
 
-        var fnEmitEvent = function(){
-            iApiCount++;
-
-            // need to change
-            if(iApiCount == 4) {
-                $rootScope.$emit('eventPrerequisitsLoaded');
-                localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oLs));
-            }   
-        };
-        var fnAddToLocalStorage = function(sType, oResult){
-            oLs[currentDate][sType] = oResult;
-            return true;
-        };
-
         return {
+            oLs: oLs,
+            iApiCount : 0,
+            fnEmitEvent : function(){
+                this.iApiCount++;
+
+                if(this.iApiCount == 4) {
+                    $rootScope.$emit('eventPrerequisitsLoaded');
+                    localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(this.oLs));
+                }   
+            },
+            fnAddToLocalStorage : function(sType, oResult){
+                if(!this.oLs.hasOwnProperty('currentDate')){
+                    this.oLs[currentDate] = {};
+                }
+                this.oLs[currentDate][sType] = oResult;
+                return true;
+            },
 
             // call for interrelated configuration/Prequisite data
             fnGetPrerequisites: function() {
+                var oThis = this;
                 //Note: the call will be made only if data is not present in the local storage on day basis
                 $rootScope.$emit('eventPrerequisitsLoaded');
                 if (isDataExistsInLocalStorage) {
-                    console.log('isDataExistsInLocalStorage', isDataExistsInLocalStorage , oLs);
+                // if (1) {
+                    console.log('isDataExistsInLocalStorage', isDataExistsInLocalStorage , this.oLs);
                     setTimeout(function(){
                         fnEmitSuccess();
                     },0);
                     return;
                 }
-                oLs[currentDate] = {};
+
+                console.log('No LocalStore data: getting Prerequisite Data for ' + this.currentDate+' from server...');
+
 
                 $http({
                     url: URLService.service('RestApiGetAllJourneyTypes'),
@@ -70,12 +77,12 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success RestApiGetAllJourneyTypes: ', data); 
-                    if(fnAddToLocalStorage('journeyTypes', data.result)) {   // add JourneyTypes
-                        fnEmitEvent();
+                    if(oThis.fnAddToLocalStorage('journeyTypes', data.result)) {   // add JourneyTypes
+                        oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
                     console.log('error RestApiGetAllJourneyTypes: ', data);
-                    fnEmitEvent();
+                    oThis.fnEmitEvent();
                 });
 
                 $http({
@@ -86,12 +93,12 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success RestApiGetAllBookingStates: ', data);
-                    if(fnAddToLocalStorage('bookingStates', data.result)) { // add BookingStates
-                        fnEmitEvent();
+                    if(oThis.fnAddToLocalStorage('bookingStates', data.result)) { // add BookingStates
+                        oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
                     console.log('error RestApiGetAllBookingStates: ', data);
-                    fnEmitEvent();
+                    oThis.fnEmitEvent();
                 });
 
                 $http({
@@ -102,12 +109,12 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success RestApiGetAllGrades: ', data);
-                    if(fnAddToLocalStorage('grades', data.result)) {    // add Grades
-                        fnEmitEvent();
+                    if(oThis.fnAddToLocalStorage('grades', data.result)) {    // add Grades
+                        oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
                     console.log('error RestApiGetAllGrades: ', data);
-                    fnEmitEvent();
+                    oThis.fnEmitEvent();
                 });
 
                  $http({
@@ -118,15 +125,14 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success RestApiGetAllReasons: ', data);
-                    if(fnAddToLocalStorage('reason', data.result)) {    // add Reasons
-                        fnEmitEvent();
+                    if(oThis.fnAddToLocalStorage('reason', data.result)) {    // add Reasons
+                        oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
                     console.log('error RestApiGetAllReasons: ', data);
-                    fnEmitEvent();
+                    oThis.fnEmitEvent();
                 });
-
-                console.log(URLService.service('getAllTariff'));
+				 console.log(URLService.service('getAllTariff'));
                 $http({
                     url: URLService.service('getAllTariff'),
                     method: 'GET',
@@ -192,8 +198,9 @@ angular.module('sigmaCabsApp')
                 '40': '40',
                 '50': '50'
             },
-
-            journeyTypes : oLs[currentDate] ? oLs[currentDate].journeyTypes : [],
+            fnGetJourneyTypes : function(){
+                return this.oLs[currentDate]['journeyTypes'];
+            },
 
             bookingStatuses: {
                 '1': 'Open',
@@ -227,11 +234,21 @@ angular.module('sigmaCabsApp')
                 'type': '2',
                 'title': 'Contract'
             }],
-            vehicleTypeOptions: {
-                '1': 'Small',
-                '2': 'Medium',
-                '3': 'Big',
-                '4': 'Luxury'
+            vehicleTypes: [{
+                id: '1',
+                vehicleType : 'Small'
+            },{
+                id: '2',
+                vehicleType : 'Medium'
+            },{
+                id: '3',
+                vehicleType : 'Big'
+            },{
+                id: '4',
+                vehicleType : 'Luxury'
+            }],
+            fnGetVehicleTypes : function(){
+                return this.vehicleTypes;
             },
             vehicleAttachmentTypeNames: {
                 '1': '[COV] Operated by Company',
