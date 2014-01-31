@@ -36,6 +36,7 @@ angular.module('sigmaCabsApp')
         var fnEmitEvent = function(){
             iApiCount++;
 
+            // need to change
             if(iApiCount == 4) {
                 $rootScope.$emit('eventPrerequisitsLoaded');
                 localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oLs));
@@ -123,6 +124,23 @@ angular.module('sigmaCabsApp')
                 }).error(function(data, status, headers, config) {
                     console.log('error RestApiGetAllReasons: ', data);
                     fnEmitEvent();
+                });
+
+                console.log(URLService.service('getAllTariff'));
+                $http({
+                    url: URLService.service('getAllTariff'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success getAllTariff: ', data);
+                    /*if(fnAddToLocalStorage('reason', data.result)) {    // add Reasons
+                        fnEmitEvent();
+                    }*/
+                }).error(function(data, status, headers, config) {
+                    console.log('error getAllTariff: ', data);
+                    /*fnEmitEvent();*/
                 });
 
 

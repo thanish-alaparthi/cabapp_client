@@ -31,6 +31,7 @@ angular.module('sigmaCabsApp')
         'RestApiGetAllBookingStates' : '?url=bookingstatus/all',
         'RestApiGetAllGrades' : '?url=grade/all',
         'RestApiGetAllReasons' : '?url=reason/all',
+        'getAllTariff': '?url=tariff/getTariffInfo',
 
 
 
@@ -136,12 +137,13 @@ angular.module('sigmaCabsApp')
         'checkTariff':'views/bookings/checkTariff.html',
         'singleTariff':'views/bookings/singleTariff.html',
         'bookingStatistics' : 'views/bookings/statistics/bookingStatistics.html'
+
       },
 
 
       // actual IP/ServerDomainName where REST API resides..
       // _serviceRoot = 'proxy.php';
-       _serviceRoot = 'http://localhost/proxy.php';  // for localhost 
+       _serviceRoot = 'http://localhost:1337/proxy.php';  // for localhost 
       // _serviceRoot = 'proxy.php';   // for hosting
 
     return {
