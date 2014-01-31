@@ -38,14 +38,13 @@ angular.module('sigmaCabsApp')
             iApiCount : 0,
             fnEmitEvent : function(){
                 this.iApiCount++;
-
-                if(this.iApiCount == 4) {
+                if(this.iApiCount == 5) {
                     $rootScope.$emit('eventPrerequisitsLoaded');
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(this.oLs));
                 }   
             },
             fnAddToLocalStorage : function(sType, oResult){
-                if(!this.oLs.hasOwnProperty('currentDate')){
+                if(!this.oLs.hasOwnProperty(currentDate)){
                     this.oLs[currentDate] = {};
                 }
                 this.oLs[currentDate][sType] = oResult;
@@ -141,9 +140,9 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success getAllTariff: ', data);
-                    /*if(fnAddToLocalStorage('reason', data.result)) {    // add Reasons
-                        fnEmitEvent();
-                    }*/
+                    if(oThis.fnAddToLocalStorage('tariff', data.result)) {    // add Reasons
+                        oThis.fnEmitEvent();
+                    }
                 }).error(function(data, status, headers, config) {
                     console.log('error getAllTariff: ', data);
                     /*fnEmitEvent();*/
@@ -200,6 +199,10 @@ angular.module('sigmaCabsApp')
             },
             fnGetJourneyTypes : function(){
                 return this.oLs[currentDate]['journeyTypes'];
+            },
+            fnGetTariffData : function(){
+                console.log(this.oLs[currentDate]['tariff'],this.oLs)
+                return this.oLs[currentDate]['tariff'];
             },
 
             bookingStatuses: {

@@ -12,11 +12,17 @@ angular.module('sigmaCabsApp')
 		scope.checkTariff = URLService.view('checkTariff');
 		scope.showTariffContainer = true;
 
+		console.log(PrerequisiteService.fnGetTariffData());
+
+
 		scope.cityTariffData = [
 			{
 				"duration" : "1 hr",
 				"tariffKms" : "15 km ",
-				"in":"123"
+				"Indica/Vista" : "240",
+				"Verito/Indigo" : "290",
+				"Tavera/Xylo" : "390",
+				"Innova" : "390"
 			}
 		];
 
