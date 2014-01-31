@@ -1,7 +1,7 @@
 angular.module('sigmaCabsApp')
   .directive('datepicker', function(PrerequisiteService, $compile) {
     return {
-      //  require: 'ngModel',
+      require: 'ngModel',
       link: function(scope, element, attrs, model) {
         element
           .datePicker({
@@ -20,7 +20,6 @@ angular.module('sigmaCabsApp')
         ).bind(
           'dateSelected',
           function(e, selectedDate, $td, state) {
-            console.log('>>>>>',state);
             if(!state){
               setTimeout(function(){
                 console.log($td);
@@ -30,6 +29,11 @@ angular.module('sigmaCabsApp')
 
           }
         );
+
+        scope.$watch('model',function(){
+          console.log('watching date....', model.$modelValue);
+          element.dpSetSelected(model.$modelValue);
+        });
 
       }
     };

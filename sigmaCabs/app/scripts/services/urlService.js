@@ -32,6 +32,7 @@ angular.module('sigmaCabsApp')
         'RestApiGetAllGrades' : '?url=grade/all',
         'RestApiGetAllReasons' : '?url=reason/all',
         'getAllTariff': '?url=tariff/getTariffInfo',
+		'RestApiCancelBooking' : '',
 
 
 
@@ -47,7 +48,7 @@ angular.module('sigmaCabsApp')
         'sendVehicleActivity':'vehicle/activity',
         'searchCustomerByMobile' : '',
         'updateCustomerDetails' : '',
-		    'dispathData': '',
+		'dispathData': '',
         'saveBooking' : '',
         'bookingTariffs' : ''
       },
@@ -143,7 +144,8 @@ angular.module('sigmaCabsApp')
 
       // actual IP/ServerDomainName where REST API resides..
       // _serviceRoot = 'proxy.php';
-       _serviceRoot = 'http://localhost/proxy.php';  // for localhost 
+        _serviceRoot = 'http://localhost/proxy.php';  // for localhost 
+      // _serviceRoot = 'http://10.0.1.192/proxy.php';  // for localhost 
       // _serviceRoot = 'proxy.php';   // for hosting
 
     return {

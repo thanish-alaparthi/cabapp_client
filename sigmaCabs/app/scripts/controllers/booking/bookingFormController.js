@@ -12,10 +12,19 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 
 		$scope.gPlace;
-		
+	
 		// add dropdwon fields
 		scope.vehicleTypes = PrerequisiteService.vehicleTypeOptions;
 		scope.luggageTypes = PrerequisiteService.luggageTypes;
+		scope.hours = PrerequisiteService.hours;
+		scope.minutes = PrerequisiteService.minutes;
+		scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
+		scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();		 
+
+		console.log('JT:', scope.journeyTypes, 'BookingDetails', scope.bookingDetails);
+
+		scope.bookingDetails.vehicleType = '1';
+		scope.bookingDetails.bookingDate = '02/02/2014';
 
 
 

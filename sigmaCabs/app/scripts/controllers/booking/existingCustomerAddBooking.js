@@ -11,36 +11,10 @@ angular.module('sigmaCabsApp')
 	.controller('ExistingCustomerAddBooking', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, modalWindow) {
 
 		var scope = $scope;
-			
-		scope.bShowAddMoreFields = true;
 
-		scope.pickupPlaceTypes = PrerequisiteService.pickupPlaceTypes;
-		scope.bookingStatuses = PrerequisiteService.bookingStatuses;
-		scope.paymentModes = PrerequisiteService.paymentModes;
-		scope.isPrimaryTraveller = PrerequisiteService.isPrimaryTraveller;
-
-		scope.extraFieldTypes = {
-			'pickupPlace' : 'pickupPlaceTypes'
-		}
-
-		/*
-			Function to get the empty fields in customer details
-		*/
-		scope.fnGetEmptyCustomerFields = function() {
-			var aRtn = {};
-
-			for(var sField in PrerequisiteService.customerFields){
-				if(!scope.customerDetails[sField]){
-					aRtn[sField] = PrerequisiteService.customerFields[sField];
-				}
-			}
-			scope.nextEmptyCustomerField = sField;
-			return aRtn;
-		}
-
-		// more fields dropDown
-		scope.emptyCustomerFields = scope.fnGetEmptyCustomerFields(PrerequisiteService.customerFields);
-
+		console.log('bookingDetail:', scope.bookingDetails);
+		
+		// load all the forms in the booking workarea view
 		scope.personalDetailsForm = URLService.view('personalForm');
 		scope.chatForm = URLService.view('chatForm');
 		scope.bookingHistory = URLService.view('bookingHistory');
@@ -74,7 +48,7 @@ angular.module('sigmaCabsApp')
 		});
 
 		// watch to save the data
-		scope.$watch('customer.customerDetails', function(newVal, oldVal) {
+		scope.$watch('customerDetails', function(newVal, oldVal) {
 			if(!angular.equals(newVal,oldVal)){
 				scope.fnSaveCustomerDetails();
 			}
@@ -84,15 +58,17 @@ angular.module('sigmaCabsApp')
 			Save customer details function.
 		*/
 		scope.fnSaveCustomerDetails = function() {
-			CustomerService.fnUpdateCustomerDetails(scope.customerDetails)
+			CustomerService.fnUpdateCustomerDetails({
+				"id":scope.customerDetails.id, 
+				"name" : scope.customerDetails.name, 
+				"mobile" : scope.customerDetails.mobile,
+				"altMobile" : scope.customerDetails.mobile2
+			})
 			.success(function(data, status, headers, config){
 				console.log('Success CustomerSave: ',data);
 			})
 			.error(function(data, status, headers, config){
 				console.log('error Customer Save: ',data);
-				scope.customerDetails = {
-					'source' : "Some Text"
-				};
 			});
 		};
 

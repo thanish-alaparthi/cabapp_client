@@ -3,32 +3,24 @@
 
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup Date</label>
-        <input type="text" datepicker ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <input type="text" datepicker="bookingDetails.pickupDate" ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Pickup Time</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  style="width:48px;">
-            <option>Choose</option>
-        </select>
-        <select class=" validate[maxSize[36]] selectFieldCompact" style="width:48px;">
-            <option>Choose</option>
-        </select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingDetails.pickupHours" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Vehicle Name</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" >
-            <option>Choose</option>
-        </select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingDetails.vehicleType"></select>
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Vehicle Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" >
-            <option>Choose</option>
-        </select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.vehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup</label>
-        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupAddress" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
     </div>
     <div class="fieldContainer  relative right">
         <button class="left btnCompact btn-success" style="border-radius: 5px; margin:0px;" ng-click = "checkVehicleAvilabilty()">Vehicle Availability</button>
@@ -36,16 +28,14 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Drop</label>
-        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropAddress" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
+        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
     </div>    
     <div class="fieldContainer  relative right" style="width: 40%;">
         <button class="left btnCompact btn-success" style="border-radius: 5px;" ng-click = "checkTariff()">Tariff</button>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" >
-            <option>Choose</option>
-        </select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.journeyType" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>

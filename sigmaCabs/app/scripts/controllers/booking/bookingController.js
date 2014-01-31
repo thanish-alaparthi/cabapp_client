@@ -30,27 +30,6 @@ angular.module('sigmaCabsApp')
     })
     .controller('bookingController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService) {
 
-
-        PrerequisiteService.fnGetPrerequisites();
-
-
-        var scope = $scope;
-        $scope.callTime = "05:30";
-        $scope.customerID = "26012013001";
-        $scope.bookingType = 'Current';
-
-        $scope.showBookingDetails =  true;
-
-        $scope.showBookingDetailsTab = function(){
-            $scope.showTariffDetails =  false;
-            $scope.showBookingDetails =  true;
-        };
-
-        $scope.showTariffDetailsTab = function(){
-            $scope.showBookingDetails =  false;
-            $scope.showTariffDetails =  true;
-        };
-
         //attach safeApply
         $scope.safeApply = function(fn) {
           var phase = this.$root.$$phase;
@@ -64,19 +43,36 @@ angular.module('sigmaCabsApp')
         };
 
 
+        // Get the preRequisiteData
+        PrerequisiteService.fnGetPrerequisites();
 
 
+        var scope = $scope;
+        $scope.callTime = "05:30";
+
+        $scope.showBookingDetails =  true;
+
+        $scope.showBookingDetailsTab = function(){
+            $scope.showTariffDetails =  false;
+            $scope.showBookingDetails =  true;
+        };
+
+        $scope.showTariffDetailsTab = function() {
+            $scope.showBookingDetails =  false;
+            $scope.showTariffDetails =  true;
+        };
+
+        // Set the default Data
         scope.customerDetails = {
                         name : '',
                         callerPhone : $routeParams.mobile,
                         mobile2 : '',
-                        altPhone : '',
-                        altName: '',
                         id : ''
                     };
         scope.bookingDetails = {
-                        journeyDate : '29/01/2014',
-                        pickupTime : '',
+                        pickupDate : '29/01/2014',
+                        pickupHours : '',
+                        pickupMinutes : '',
                         pickupAddress : '',
                         pickupLandmark : '',
                         vehicleCount : parseInt('3'),
@@ -125,22 +121,29 @@ angular.module('sigmaCabsApp')
                 .success(function(data, status, headers, config) {
                     console.log('Success fnFindCustomerByMobile: ', typeof data, data);
 
-                    if(typeof data !='object') {
-                        scope.fnLoadUnexpectedError();
+                    if(typeof data !='object') {    // misMatched data is sent from the server.
+                        scope.fnLoadUnexpectedError();  // show a red error msg.
                         return;
                     }
-                    if( data.status==200 
-                        && data.result 
+
+                    if(data.status == 500){ // no data found of customer/booking 
+                        console.log('500 fnFindCustomerByMobile');
+                    } else if( data.status==200 
+                        && data.result
                         && data.result.length) {
-                        console.log(data.result);
-                        scope.customerDetails = data.result[0].customerDetails;	// set the customer data which server response.
+                        console.log('>>>',data.result);
+                        scope.customerDetails = data.result[0].customerDetails; // set the customer data which server response.
+                        scope.bookingDetails = data.result[0].latestEnquiry;	// set the customer data which server response.
+                        scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(scope.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
+                        scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(scope.bookingDetails.pickupTime);  // setHours 
+                        scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(scope.bookingDetails.pickupTime);  // setMinutes
+                        scope.bookingDetails.journeyType = '1';
+
+                        //AltName and AltMobile comes from bookingAPI
+
+                    } else {    // error in data.result object.
+                        
                     }
-
-                    scope.bookingDetails.customerId = scope.customerDetails.id;
-
-                    // set some default values in bookingDetails
-                    scope.bookingDetails.customerId = scope.customerDetails.id;
-
 
                     scope.fnLoadBookingView();
                 })
@@ -167,7 +170,7 @@ angular.module('sigmaCabsApp')
 
         scope.$watch('searchString',function(oldVal,newVal){
             var sSearchPre = scope.searchString.slice(0,2);
-            if(sSearchPre.length <3){
+            if(sSearchPre.length < 3 ){
                 return;
             }
             if(!isNaN(sSearchPre)){ // mobile
