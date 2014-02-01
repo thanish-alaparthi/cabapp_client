@@ -16,38 +16,47 @@ angular.module('sigmaCabsApp')
             mm = (oDate.getMonth() + 1).toString(),
             dd = oDate.getDate().toString(),
             currentDate = yyyy + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]),
-            nextYearDate = (parseInt(yyyy) + 1) + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]);
+            nextYearDate = (parseInt(yyyy) + 1) + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]),
 
-        var d1 = new Date(),
+            d1 = new Date(),
             d2 = new Date(d1);
         d2.setHours(d1.getHours() + 1);
-        var sDefaultBookingHours = d2.getHours();
-        var sDefaultBookingMinutes = d2.getMinutes();
+        var sDefaultBookingHours = d2.getHours(),
+            sDefaultBookingMinutes = d2.getMinutes(),
 
-        var sLs = localStorage.getItem('sigmaCabsPrerequisites'),
-            oLs = sLs ? JSON.parse(sLs) : {};
-        var isDataExistsInLocalStorage = (oLs.hasOwnProperty(currentDate)) ? true : false;
+            sLs = localStorage.getItem('sigmaCabsPrerequisites'),
+            oLs = sLs ? JSON.parse(sLs) : {},
+            isDataExistsInLocalStorage = ((oLs.hasOwnProperty(currentDate)) ? true : false),
 
-        var iApiCount = 0;
-        var fnEmitSuccess = function(){
-            $rootScope.$emit('eventPrerequisitsLoaded');
-        };
+            iApiCount = 0,
+            fnEmitSuccess = function(){
+                $rootScope.$emit('eventPrerequisitsLoaded');
+            };
 
         return {
             oLs: oLs,
-            iApiCount : 0,
+            iApiCount : 0,  // count of successful/Error callback returned.
+            iApiLimit : 0,  // Total number of API calls made.
             fnEmitEvent : function(){
-                this.iApiCount++;
-                if(this.iApiCount == 5) {
+                var oThis = this;
+                oThis.iApiCount++;
+                console.log('No. of Prerequisite API returned:', oThis.iApiCount, '. Total Prerequisite APIs are: ', oThis.iApiLimit);
+                if(oThis.iApiCount == oThis.iApiLimit) {
                     $rootScope.$emit('eventPrerequisitsLoaded');
-                    localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(this.oLs));
+                    localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
                 }   
             },
             fnAddToLocalStorage : function(sType, oResult){
-                if(!this.oLs.hasOwnProperty(currentDate)){
-                    this.oLs[currentDate] = {};
+                var oThis = this;
+                console.log('Typeof result: ',typeof oResult, '. Token:', sType);
+                if(typeof oResult == 'string'){
+                    console.warn(sType,' gave empty data for Prerequisite.');
                 }
-                this.oLs[currentDate][sType] = oResult;
+
+                if(!oThis.oLs.hasOwnProperty(currentDate)){
+                    oThis.oLs[currentDate] = {};
+                }
+                oThis.oLs[currentDate][sType] = oResult;
                 return true;
             },
 
@@ -58,16 +67,17 @@ angular.module('sigmaCabsApp')
                 $rootScope.$emit('eventPrerequisitsLoaded');
                 if (isDataExistsInLocalStorage) {
                 // if (1) {
-                    console.log('isDataExistsInLocalStorage', isDataExistsInLocalStorage , this.oLs);
+                    console.log('isDataExistsInLocalStorage', isDataExistsInLocalStorage , oThis.oLs);
                     setTimeout(function(){
                         fnEmitSuccess();
                     },0);
                     return;
                 }
 
-                console.log('No LocalStore data: getting Prerequisite Data for ' + this.currentDate+' from server...');
+                console.log('No LocalStore data: getting Prerequisite Data for ' + oThis.currentDate+' from server...');
 
 
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllJourneyTypes'),
                     method: 'GET',
@@ -76,7 +86,7 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success RestApiGetAllJourneyTypes: ', data); 
-                    if(oThis.fnAddToLocalStorage('journeyTypes', data.result)) {   // add JourneyTypes
+                    if(oThis.fnAddToLocalStorage('journeyTypes', data.result)) {   // add JourneyTypes                        
                         oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
@@ -84,6 +94,7 @@ angular.module('sigmaCabsApp')
                     oThis.fnEmitEvent();
                 });
 
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllBookingStates'),
                     method: 'GET',
@@ -100,6 +111,7 @@ angular.module('sigmaCabsApp')
                     oThis.fnEmitEvent();
                 });
 
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllGrades'),
                     method: 'GET',
@@ -116,7 +128,8 @@ angular.module('sigmaCabsApp')
                     oThis.fnEmitEvent();
                 });
 
-                 $http({
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
                     url: URLService.service('RestApiGetAllReasons'),
                     method: 'GET',
                     headers: {
@@ -131,7 +144,8 @@ angular.module('sigmaCabsApp')
                     console.log('error RestApiGetAllReasons: ', data);
                     oThis.fnEmitEvent();
                 });
-				 console.log(URLService.service('getAllTariff'));
+
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('getAllTariff'),
                     method: 'GET',
@@ -140,30 +154,29 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(function(data, status, headers, config) {
                     console.log('success getAllTariff: ', data);
-                    if(oThis.fnAddToLocalStorage('tariff', data.result)) {    // add Reasons
+                    if(oThis.fnAddToLocalStorage('tariff', data.result)) {    // add Tariffs
                         oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
                     console.log('error getAllTariff: ', data);
-                    /*fnEmitEvent();*/
+                    oThis.fnEmitEvent();
                 });
-
-
             },
 
 
-            defaultBookingHour: sDefaultBookingHours.toString(),
-            defaultBookingMinutes: '00',
-            currentDate: currentDate,
-            nextYearDate: nextYearDate,
-            priorities: {
+            defaultBookingHour: sDefaultBookingHours.toString(),    // default booking Hours
+            defaultBookingMinutes: '00',    // default booking minutes
+            currentDate: currentDate,   // current Date
+            nextYearDate: nextYearDate, // Next days date
+
+            priorities: {               //Priorites
                 '1': 'Normal',
                 '2': 'Important',
                 '3': 'High',
                 '4': 'Critical'
             },
 
-            hours: {
+            hours: {                    // Hours dropdown
                 '00': '00',
                 '01': '01',
                 '02': '02',
@@ -189,7 +202,7 @@ angular.module('sigmaCabsApp')
                 '22': '22',
                 '23': '23',
             },
-            minutes: {
+            minutes: {              // minutes dropdown
                 '00': '00',
                 '10': '10',
                 '20': '20',
@@ -197,19 +210,25 @@ angular.module('sigmaCabsApp')
                 '40': '40',
                 '50': '50'
             },
-            fnGetJourneyTypes : function(){
+
+            fnGetJourneyTypes : function(){         // Function to return JourneyTypes
                 return this.oLs[currentDate]['journeyTypes'];
             },
-            fnGetTariffData : function(){
+            fnGetTariffData : function(){           // function to return TariffData
                 console.log(this.oLs[currentDate]['tariff'],this.oLs)
                 return this.oLs[currentDate]['tariff'];
             },
 
-            bookingStatuses: {
+            bookingStatuses: {          // bookingStatuses
                 '1': 'Open',
                 '2': 'Closed',
                 '3': 'Cancled'
             },
+
+
+
+
+            /* Old settings. will be deleted later */
             isPrimaryTraveller: {
                 '0': 'No',
                 '1': 'Yes'
@@ -394,6 +413,7 @@ angular.module('sigmaCabsApp')
                 title: 'Office',
                 type: '2'
             }]
+             /* EOF : Old settings. will be deleted later */
         }
 
     });

@@ -50,6 +50,19 @@ angular.module('sigmaCabsApp')
 						'Content-Type': 'application/x-www-form-urlencoded'
 					} 
 				});
+			},
+			fnCancelBooking : function(oDataParams){
+				return $http({
+					url: URLService.service('RestApiCancelBooking'), 
+					method: 'POST',
+					data: {
+						  url : "booking/cancel"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					} 
+				});
 			}
 		}
 	});
