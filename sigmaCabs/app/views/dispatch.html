@@ -1,66 +1,130 @@
 <div>
-	<div class= "clearfix">
-		<div class="icons left" ng-click="vehicleLogin()" title="Vehicle Login"><div class="addIcon left"></div>Vehicle Login</div>
-		<div class="icons left" ng-click="vehicleLogout()" title="Vehicle Logout"><div class="deleteIcon left"></div>Vehicle Logout</div>
-	    <div class="icons left" ng-click="breakStart()" title="Driver Login"><div class="editIcon left"></div>Break Start</div>
-	    <div class="icons left" ng-click="breakEnd()" title="Driver Logout"><div class="addIcon left"></div>Break End</div>
-	    <div class="icons left" ng-click="startReport()" title="Start Report"><div class="editIcon left"></div>Start Report</div>
-	    <div class="icons left" ng-click="closeReport()" title="Close Report"><div class="deleteIcon left"></div>Close Report</div>
-	    <button class = "dispathButton" ng-show = "showVehicleDetView" ng-disabled = "readyToDispatch" ng-click = "dispatchVechile()">Dispatch</button>
+	<div id = "bookingNav" class= "bookingNav historyBarContainer">
+		<ul class="bookingNav_ul clearfix">
+			<li  ng-class = "(showBookingDetails) ? 'tabSelcted' : ''" ng-click = "showBookingDetailsTab()">Booking</li>
+			<li  ng-class = "(showMyCallBacks) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">My Callbacks</li>
+			<li  ng-class = "(showMycallHistory) ? 'tabSelcted' : ''" ng-click = "showMycallHistoryTab()">My Call History</li>
+			<li  ng-class = "(showTariffDetails) ? 'tabSelcted' : ''" ng-click =  "showTariffDetailsTab()">Tariff</li>
+			<li  ng-class = "(showVehicleAvailability) ? 'tabSelcted' : ''" ng-click = "showVehicleAvailabilityTab()">Vehicle Availability</li>
+			<li  ng-class = "(showBookingHistoryDetails) ? 'tabSelcted' : ''" ng-click = "showBookingHistoryDetailsTab()">Booking History</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Complaints & feedback</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Rating</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Breaks</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Chat</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Follow Ups</li>
+		</ul>
+
 	</div>
-	<div class = "dispathContainer clearfix">
-		<div data-ng-controller="dispatchersListController">
-			<div class="empDetails clearfix" fit-height-layout ng-model ="layoutHeight">
-			<!--div class="empDetails clearfix"  fit-height-layout ng-model ="layoutHeight"-->
-				<div class="employeesGrid left"  ng-class="{splitViewGrid:splitView}">
-					<div class="gridStyle employeeGrid" ng-grid="dispBookGridOptions" ng-class="{splitViewGrid:splitView}" fit-height-layout ng-model ="gridHeight" ></div>
-				</div>
-				
-				
-				 <div class="employeeInfoContainer left" >
-				 	<div class="empAssetContainer" ng-show="splitView" fit-height-layout ng-model ="gridHeight">
-						<div class="navHeader clearfix">
-							<span class="navLabel splitView left" data-ng-bind="empEmpName"></span>
-							<div>
-								<div class="closeIcon right" ng-click="closeclick()"></div>
-							</div>
-						</div>
-						<div class="tabs">
-							<div class="tabHeader clearfix">
-							  	<div  ng-repeat="tab in tabs" class="tabContainer left">
-							    	<div id="{{tab.splitTabId}}" ng-click="handleTabClick(tab.id)" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}">
-							    		<span class="tabLabel" data-ng-bind="tab.label"></span>
-							    		<!-- <div class="hrBorder"></div> -->
-							  		</div>
-								</div>
-							</div>
-						</div>
-						<div  ng-include src ="splitCurrentTab"> 
-						</div>
-					</div>
-				</div>
+	<div id = "bookingDetails" ng-show = "showBookingDetails">
+		<div id = "bookingHeader" class= "bookingHeader clearfix">
+			<div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Call Time </label>
+	            <span class = "bokingLabel" data-ng-bind="callTime"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.callTime" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+	        <div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Customer ID</label>
+	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
 
-				
-			<!-- <div class="left">
-			    <div class="gridHeading">Bookings</div>
-			    <div ng-class = "(showVehicleDetView) ? 'smallGrid' : 'largeGrid'">
-			    	<div class ="splitGrid dispBookingGrid" ng-grid="dispBookGridOptions"></div>
-			    </div>
-			</div>
+	        <div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Booking Type</label>
+	            <span class = "bokingLabel" data-ng-bind="bookingType"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+	        <div class="callTransfer left marginRightLeft5">    	
+		        
+			        <label class="labelCompact">Call Transfer </label>
+			        <select class=" validate[maxSize[36]] selectFieldCompact" >
+			            <option>Choose</option>
+			        </select>
+			        <select class=" validate[maxSize[36]] selectFieldCompact" >
+			            <option>Choose</option>
+			        </select>
+			        <button class="btnCompact btn-success">Go</button>
+			    
+	        </div>
 
-			<div ng-show = "showVehicleDetView" class="left paddingLeft">
 
-				<div class="gridHeading">Vehicles</div>
-			    <div class = "smallGrid">
-			    	<div   class="splitGrid" ng-grid="vehicleGridOptions"></div>
-				</div>
-			</div> -->
-			</div>
-	</div>
+	        <div class="fieldContainer right marginRightLeft5">
+	            <label class="labelCompact bokingSelect">Booking Number</label>
+	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	        </div>
+		</div>
+		<div class="soft-msg" data-ng-include="viewLoader"></div>
+	    <div class="dashboard-search">
+	        <div class="existing-customer-booking pull-left" data-ng-include="existingCustomerAddBooking" data-ng-show="showExistingCustomerAddBooking"></div>
+
+	        <p class="clear" />
+	    </div>
+
+
+    </div>
+    <div  ng-show = "showTariffDetails">
+    		Tariff Details
+    </div>
+
+    <div ng-class= "vehicleAvailContainer">
+    		<div id = "bookingHeader" class= "bookingHeader clearfix">
+			<div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Call Time </label>
+	            <span class = "bokingLabel" data-ng-bind="callTime"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.callTime" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+	        <div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Customer ID</label>
+	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+
+	        <div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact">Booking Type</label>
+	            <span class = "bokingLabel" data-ng-bind="bookingType"></span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+	        <div class="callTransfer left marginRightLeft5">    	
+		        
+			        <label class="labelCompact">Call Transfer </label>
+			        <select class=" validate[maxSize[36]] selectFieldCompact" >
+			            <option>Choose</option>
+			        </select>
+			        <select class=" validate[maxSize[36]] selectFieldCompact" >
+			            <option>Choose</option>
+			        </select>
+			        <button class="btnCompact btn-success">Go</button>
+			    
+	        </div>
+
+
+	        <div class="fieldContainer right marginRightLeft5">
+	            <label class="labelCompact bokingSelect">Booking Number</label>
+	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	        </div>
+		</div>
+		<div class="soft-msg" data-ng-include="viewLoader"></div>
+	    <div class="dashboard-search">
+	        <div class="existing-customer-booking pull-left" data-ng-include="dispatcherMainView" ></div>
+
+	        <p class="clear" />
+	    </div>
+    </div>
+
+    <div ng-class= "bookingHistoryContainer" ng-show = "showBookingHistory">
+    		Booking History
+    </div>
+
+    <div ng-class= "myCallHistoryContainer" ng-show = "showMyCallHistory">
+    		Call History
+    </div>
+
+    <div ng-class= "complaintsAndFeedBack" ng-show = "showComplaintsAndFeedBack">
+    		Complaints and History
+    </div>
+    <div ng-class= "ratingMenu" ng-show = "showRatingMenu">
+    		Rating
+    </div>
+    <div ng-class= "chatMenu" ng-show = "showChatMenu">
+    		Chat
+    </div>
 </div>
-
-<!-- <div data-ng-include="dispatchersList"></div>
-<div ng-show = "showVehicleDetView">
-	<div data-ng-include="dispVehicleList">
-	</div>
-</div> -->
