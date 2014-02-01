@@ -161,6 +161,38 @@ angular.module('sigmaCabsApp')
                     console.log('error getAllTariff: ', data);
                     oThis.fnEmitEvent();
                 });
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestApiGetBookingStatues'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetBookingStatues: ', data);
+                    if(oThis.fnAddToLocalStorage('bookingStatues', data.result)) {    // add bookingStatuses
+                        oThis.fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetBookingStatues: ', data);
+                    oThis.fnEmitEvent();
+                });
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestApiGetVehicleNames'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetVehicleNames: ', data);
+                    if(oThis.fnAddToLocalStorage('vehicleNames', data.result)) {    // add vehicle Names
+                        oThis.fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetVehicleNames: ', data);
+                    oThis.fnEmitEvent();
+                });
             },
 
 
@@ -211,18 +243,153 @@ angular.module('sigmaCabsApp')
                 '50': '50'
             },
 
-            fnGetJourneyTypes : function(){         // Function to return JourneyTypes
-                return this.oLs[currentDate]['journeyTypes'];
+            fnGetJourneyTypes : function(){         // Function to return Only Main JourneyTypes
+                // filter main journey types i.e. where parentId = 0;
+                var aRtn = [],
+                    oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].parentId == 0) {
+                        aRtn.push(oJt[i]);
+                    }
+                }
+                return aRtn;
+            },
+            fnGetJourneyObjectById : function(sId){         // Function to return Only One JourneyType based on id
+                var aRtn = [],
+                    oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sId) {
+                        return oJt[i];
+                    }
+                }
+                return null;
+            },
+            fnGetAllJourneyTypes : function(){         // Function to return Only Main JourneyTypes
+                return this.oLs[this.currentDate]['journeyTypes'];
+            },
+            fnGetSubJourneyTypes : function(sParentId){         // Function to return Only sub JourneyTypes
+                // filter sub journey types i.e. where parentId = sParentId;
+                var aRtn = [],
+                    oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    console.log(oJt[i], sParentId);
+                    if(oJt[i].parentId == sParentId) {
+                        aRtn.push(oJt[i]);
+                    }
+                }
+                return aRtn;
+            },
+            fnGetMainJourneyTypeOfSubJourneyType : function(sSubJourneyTypeId){    //function to find out MainJourneyType based on SubJourneyTypeId
+                var oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sSubJourneyTypeId) {
+                        return oJt[i].parentId;
+                    }
+                }
+
+                return null;
+            },
+            fnGetJourneyTypeName : function(sId){    //function to get journey type name
+                var oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sId) {
+                        return oJt[i].journeyType;
+                    }
+                }
+
+                return null;
+            },
+            fnGetMainJourneyTypeObjectBySubJourneyTypeId : function(sSubJourneyTypeId){    //function to find out MainJourneyType based on SubJourneyTypeId
+                var oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sSubJourneyTypeId) {
+                        return oJt[i];
+                    }
+                }
+
+                return null;
             },
             fnGetTariffData : function(){           // function to return TariffData
-                console.log(this.oLs[currentDate]['tariff'],this.oLs)
-                return this.oLs[currentDate]['tariff'];
+                console.log(this.oLs[this.currentDate]['tariff'],this.oLs)
+                return this.oLs[this.currentDate]['tariff'];
+            },
+            fnFormatDate : function(sDate){
+                if(!sDate || sDate.length < 10){
+                    return this.fnFormatDate(this.currentDate);
+                }
+
+                var aD = sDate.split('-');
+                return aD[2] + '/' + aD[1] + '/' + aD[0];
+            },
+            formatToServerDate : function(sDate){
+                if(sDate.length < 10){
+                    return this.currentDate;
+                }
+
+                var aD = sDate.split('/');
+                return aD[2] + '-' + aD[1] + '-' + aD[0];
             },
 
-            bookingStatuses: {          // bookingStatuses
-                '1': 'Open',
-                '2': 'Closed',
-                '3': 'Cancled'
+
+            fnFormatHours : function(sTime){
+                if(!sTime || sTime.length < 8){
+                    var oD = new Date();
+                    return this.fnFormatHours(
+                        (oD.getHours()<=9 ? '0'+oD.getHours() : oD.getHours()) 
+                        + ':' 
+                        + (oD.getMinutes() <=9? '0' + oD.getMinutes() : oD.getMinutes()) 
+                        +':00'
+                    );
+                }
+                var aD = sTime.split(':');
+                return aD[0];
+            },
+
+
+            fnFormatMinutes : function(sTime){
+                if(!sTime || sTime.length < 8){
+                    var oD = new Date(),
+                        sM = (oD.getMinutes() - (oD.getMinutes()%10) +  (oD.getMinutes()%10 + (10 - oD.getMinutes()%10 ))),
+                        sM = (sM<60 ? sM : (sM - 10));
+
+                        console.log(sM);
+
+                    return this.fnFormatMinutes(
+                        (oD.getHours()<=9 ? '0'+oD.getHours() : oD.getHours()) 
+                        + ':' 
+                        + sM
+                        +':00'
+                    );
+                }
+                var aD = sTime.split(':');
+                return aD[1];
+            },
+            fnGetBookingStatusName : function(sBookingStatusId){
+                var aBs = this.oLs[this.currentDate]['bookingStatues'],
+                    iCount = aBs.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(aBs[i].id == sBookingStatusId){
+                        return aBs[i].bookingStatus;
+                    }
+                }
+                return null;
+            },
+            fnGetReasons : function(){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['reason'];
             },
 
 

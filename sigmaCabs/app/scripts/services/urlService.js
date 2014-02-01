@@ -32,7 +32,12 @@ angular.module('sigmaCabsApp')
         'RestApiGetAllGrades' : '?url=grade/all',
         'RestApiGetAllReasons' : '?url=reason/all',
         'getAllTariff': '?url=tariff/getTariffInfo',
-		'RestApiCancelBooking' : '',
+        'RestApiGetBookingStatues' : '?url=bookingstatus/all',
+		'RestApiGetVehicleNames' : '?url=vehicle/names',
+        'RestApiCancelBooking' : '',
+        'RestApiSaveCustomerDetails' : '',
+        'RestApiBlockCustomer' : '',
+        'RestApiSaveCustomerRequest' : '',
 
 
 
@@ -47,7 +52,6 @@ angular.module('sigmaCabsApp')
         'customerList' : '?url=user/index',
         'sendVehicleActivity':'vehicle/activity',
         'searchCustomerByMobile' : '',
-        'updateCustomerDetails' : '',
 		'dispathData': '',
         'saveBooking' : '',
         'bookingTariffs' : ''

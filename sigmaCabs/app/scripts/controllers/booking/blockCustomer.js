@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('blockCustomer', function(oBooking, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, UsersService,VehiclesService, appUtils) {
+	.controller('blockCustomer', function(oBooking, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside blockCustomer', oBooking);
@@ -17,6 +17,7 @@ angular.module('sigmaCabsApp')
 
 		scope.iPriority = '1';
 		scope.priorities = PrerequisiteService.priorities;
+		scope.reason = PrerequisiteService.fnGetReasons();
 
 		scope.close = function() {
 			dialog.close();

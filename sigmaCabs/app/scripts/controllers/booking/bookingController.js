@@ -70,25 +70,20 @@ angular.module('sigmaCabsApp')
                         id : ''
                     };
         scope.bookingDetails = {
-                        pickupDate : '29/01/2014',
-                        pickupHours : '',
-                        pickupMinutes : '',
+                        pickupDate : PrerequisiteService.fnFormatDate(),
+                        pickupHours : PrerequisiteService.fnFormatHours(),
+                        pickupMinutes : PrerequisiteService.fnFormatMinutes(),
                         pickupAddress : '',
                         pickupLandmark : '',
-                        vehicleCount : parseInt('3'),
                         dropAddress : '',
                         passengerCount : '',
                         luggageType : '',
                         comments : '',
-                        vehicleTypes : [2,1,3],
-                        id: '2342342',
-                        bookingState: '1',
-                        paymentMode: '1',
-                        customerId : '',
-                        isPrimaryTraveller : '1',
-                        primaryTravellerName:  '',
-                        primaryTravellerMobile : ''
+                        vehicleType: '',
+                        id: '',
+                        customerId : ''
                     };
+        scope.bookingHistoryDetails = [];
 
 
         /* Add Views to the bookings */
@@ -107,6 +102,10 @@ angular.module('sigmaCabsApp')
         };
 
         scope.showExistingCustomerAddBooking = true;
+
+        scope.fnSearchCustomerByMobile = function(){
+            console.log('fnSearchCustomerByMobile');
+        };
 
         scope.fnInit = function() {
             // since mobile is passed, hit server to get CustomerDetails Based on the server
@@ -128,21 +127,43 @@ angular.module('sigmaCabsApp')
 
                     if(data.status == 500){ // no data found of customer/booking 
                         console.log('500 fnFindCustomerByMobile');
+                        alert('erro: ');
                     } else if( data.status==200 
                         && data.result
                         && data.result.length) {
                         console.log('>>>',data.result);
                         scope.customerDetails = data.result[0].customerDetails; // set the customer data which server response.
-                        scope.bookingDetails = data.result[0].latestEnquiry;	// set the customer data which server response.
-                        scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(scope.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
-                        scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(scope.bookingDetails.pickupTime);  // setHours 
-                        scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(scope.bookingDetails.pickupTime);  // setMinutes
-                        scope.bookingDetails.journeyType = '1';
 
-                        //AltName and AltMobile comes from bookingAPI
-
+                        // check if enquiry is sent.
+                        if(data.result[0].hasOwnProperty('latestEnquiry')){                            
+                            scope.bookingDetails = data.result[0].latestEnquiry;    // set the customer data which server response.
+                            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(scope.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
+                            scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(scope.bookingDetails.pickupTime);  // setHours 
+                            scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(scope.bookingDetails.pickupTime);  // setMinutes
+                        }
+                        // check if enquiry is sent.
+                        if(data.result[0].hasOwnProperty('bookingHistory')){
+                            // make the historyDetails in readable form instead of ids
+                            var iCount = data.result[0].bookingHistory.length;
+                            for(var i=0;i<iCount;i++){
+                                var oBh = data.result[0].bookingHistory[i];
+                                scope.bookingHistoryDetails.push({
+                                    srno : (i+1),
+                                    id : oBh.id,
+                                    bookingCode : oBh.bookingCode,
+                                    bookingStatus : (i==2 ? '7' : oBh.bookingStatus) ,
+                                    bookingStatusName : PrerequisiteService.fnGetBookingStatusName(oBh.bookingStatus),
+                                    dropPlace : oBh.dropPlace,
+                                    pickupDate : oBh.pickupDate,
+                                    pickupPlace : oBh.pickupPlace,
+                                    pickupTime : PrerequisiteService.fnFormatHours(oBh.pickupTime) + ':' + PrerequisiteService.fnFormatMinutes(oBh.pickupTime),
+                                    primaryPassanger : oBh.primaryPassanger,
+                                    subJourneyType : PrerequisiteService.fnGetJourneyTypeName(oBh.subJourneyType)
+                                });
+                            }
+                        }
                     } else {    // error in data.result object.
-                        
+                        console.log('Erro in result: fnFindCustomerByMobile', data);   
                     }
 
                     scope.fnLoadBookingView();
@@ -174,7 +195,7 @@ angular.module('sigmaCabsApp')
                 return;
             }
             if(!isNaN(sSearchPre)){ // mobile
-
+                scope.fnSearchCustomerByMobile();
                 return;
             }
             switch(sSearchPre.toLowerCase()){

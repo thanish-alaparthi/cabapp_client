@@ -8,158 +8,64 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('bookingHistory', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog) {
+	.controller('bookingHistory', function($scope, PrerequisiteService,PreConfigService, BookingService,CustomerService, $rootScope, URLService, $dialog) {
 
 		var scope = $scope;
 
-
-		// scope.fnScopeTellAngular = function() {
-		// 	//need to put this logic in directive
-		// 	var g = $('#topContainerID').height();
-		// 	console.log($(window).height() , g ,160);
-		// 	$('#customerBookingGridID').height($(window).height() - g - 160);
-		// }
-		
-		// window.onresize = scope.fnScopeTellAngular;
-
 		scope.customerBookingTabs = URLService.view('customerBookingTabs');
 
-		// default
-		scope.customerBookingGridDetails = [{
-			'bookingId' : '1',
-			'srno' : '1',
-			'tripDate' : '25/03/2014',
-			'bookingCode' : 'SCB099900001',
-			'customerName' : 'Aswin kumar Chowdary',
-			'startTime' : '11:20 PM',
-			'pickup' : 'Santosh Nagar',
-			'drop' : 'Airport',
-			'vehicle' : 'Indica',
-			'package' : '400KM 500rs',
-			'status' : 'Pending',
-			'action' : 'Button Here',
-		},{
-			'bookingId' : '2',
-			'srno' : '2',
-			'tripDate' : '25/03/2014',
-			'bookingCode' : 'SCB099900001',
-			'customerName' : 'Aswin kumar Chowdary',
-			'startTime' : '11:20 PM',
-			'pickup' : 'Santosh Nagar',
-			'drop' : 'Airport',
-			'vehicle' : 'Indica',
-			'package' : '400KM 500rs',
-			'status' : 'Closed',
-			'action' : 'Button Here',
-		},{
-			'bookingId' : '3',
-			'srno' : '3',
-			'tripDate' : '25/03/2014',
-			'bookingCode' : 'SCB099900001',
-			'customerName' : 'Aswin kumar Chowdary',
-			'startTime' : '11:20 PM',
-			'pickup' : 'Santosh Nagar',
-			'drop' : 'Airport',
-			'vehicle' : 'Indica',
-			'package' : '400KM 500rs',
-			'status' : 'Closed',
-			'action' : 'Button Here',
-		},{
-			'bookingId' : '4',
-			'srno' : '4',
-			'tripDate' : '25/03/2014',
-			'bookingCode' : 'SCB099900001',
-			'customerName' : 'Aswin kumar Chowdary',
-			'startTime' : '11:20 PM',
-			'pickup' : 'Santosh Nagar',
-			'drop' : 'Airport',
-			'vehicle' : 'Indica',
-			'package' : '400KM 500rs',
-			'status' : 'Pending',
-			'action' : 'Button Here',
-		},{
-			'bookingId' : '5',
-			'srno' : '5',
-			'tripDate' : '25/03/2014',
-			'bookingCode' : 'SCB099900001',
-			'customerName' : 'Aswin kumar Chowdary',
-			'startTime' : '11:20 PM',
-			'pickup' : 'Santosh Nagar',
-			'drop' : 'Airport',
-			'vehicle' : 'Indica',
-			'package' : '400KM 500rs',
-			'status' : 'Pending',
-			'action' : 'Button Here',
-		}];
-
-		scope.fnOpenClosedAsBookAgain = function(row) {
-			console.log("fnOpenClosedAsBookAgain BookingId: ", row.entity);
-			scope.bookingDetails.bookingId = row.entity.bookingId;
-			$rootScope.$emit('eventClosedBookingSelectFromGrid', {
-				bShowCancel : false,
-				bShowSaveAndClose : false,
-				bShowCustomerFeedbackBtn : true,
-				bookingId : row.entity.bookingId
-			});
+		scope.fnOpenBookingDetails = function(oRow){
+			console.log('selectedBookingId: ',oRow.entity.id);
 		}
 
-		scope.fnOpenPendingForEdit = function(row) {
-			console.log("fnOpenPendingForEdit BookingId: ", row.entity);
-			scope.bookingDetails.bookingId = row.entity.bookingId;
-			$rootScope.$emit('eventClosedBookingSelectFromGrid', {
-				bShowCancel : true,
-				bShowSaveAndClose : true,
-				bShowCustomerFeedbackBtn : false,
-				bookingId : row.entity.bookingId
-			});
-		}
+		scope.BOOKING_CANCELLED = PreConfigService.BOOKING_CANCELLED;
+		scope.BOOKING_COMPLETED_N_CLOSED = PreConfigService.BOOKING_COMPLETED_N_CLOSED;
 
 		scope.gridCustomerBookingOptions = {
-			data: 'customerBookingGridDetails',
+			data: 'bookingHistoryDetails',
 			rowHeight: 25,
 			columnDefs: [{
 				field: 'srno',
 				displayName: '#',
 				width : 30
 			},{
-				field: 'tripDate',
+				field: 'pickupDate',
 				displayName: 'Trip Date'
 			}, {
 				field: 'bookingCode',
 				displayName: 'Booking#'
 			}, {
-				field: 'customerName',
+				field: 'primaryPassanger',
 				displayName: 'Passenger Name'
 			}, {
-				field: 'startTime',
+				field: 'pickupTime',
 				displayName: 'Start Time',
 				width: 85
 			}, {
-				field: 'pickup',
+				field: 'pickupPlace',
 				displayName: 'Pickup'
 			}, {
-				field: 'drop',
+				field: 'dropPlace',
 				displayName: 'Drop'
 			}, {
-				field: 'vehicle',
+				field: 'vehicleName',
 				displayName: 'Vehicle',
 				width: 80
 			}, {
 				field: 'package',
 				displayName: 'Package'
 			}, {
-				field: 'status',
+				field: 'bookingStatusName',
 				displayName: 'Status',
-				width: 70
+				width: 90
 			}, {
-				field: 'bookingId',
-				displayName: 'Status',
-				width: 70,
+				field: 'id',
+				displayName: 'id',
 				visible: false
 			}, {
 				displayName: 'Action',
 				width: 110,
-				cellTemplate: '<div style="text-align: center;"><button ng-show="row.getProperty(\'status\') == \'Pending\' ? true : false" style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenPendingForEdit(row)">Edit/View</button><button ng-click="fnOpenClosedAsBookAgain(row);"  ng-show="row.getProperty(\'status\') == \'Closed\' ? true : false" style="margin-top: 4px;" class="btnCompact btn-success">Book Again</button></div>'
+				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED) ? "Book Again" : "Edit/View" )}}</button></div>'
 			}],
 			enablePaging: false,
 			showFooter: false,

@@ -14,10 +14,36 @@ angular.module('sigmaCabsApp')
 		return {
 			fnUpdateCustomerDetails: function(oDataParams) {
 				return $http({
-					url: URLService.service('updateCustomerDetails'),
+					url: URLService.service('RestApiSaveCustomerDetails'),
 					method: 'POST',
 					data: {
-						  url : "customer/update"
+						  url : "customer/save"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					}
+				});
+			},
+			fnBlockCustomer: function(oDataParams) {
+				return $http({
+					url: URLService.service('RestApiBlockCustomer'),
+					method: 'POST',
+					data: {
+						  url : "blockcaller/save"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					}
+				});
+			},
+			fnSaveCustomerRequest: function(oDataParams) {
+				return $http({
+					url: URLService.service('RestApiSaveCustomerRequest'),
+					method: 'POST',
+					data: {
+						  url : "customerrequest/save"
 						, data : JSON.stringify(oDataParams)
 					},
 					headers: {

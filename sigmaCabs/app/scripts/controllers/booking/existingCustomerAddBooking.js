@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('ExistingCustomerAddBooking', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, modalWindow) {
+	.controller('ExistingCustomerAddBooking', function($scope, PrerequisiteService,PreConfigService, BookingService,CustomerService, $rootScope, URLService, modalWindow) {
 
 		var scope = $scope;
 
@@ -23,29 +23,6 @@ angular.module('sigmaCabsApp')
 		scope.extraInfoDetails = URLService.view('extraInfoDetails');
 		scope.bookingStatistics = URLService.view('bookingStatistics');
 
-
-
-		// watch if dynamic field is added
-		$scope.$on('dynamicFieldAdded', function(ev, sAddedField) {
-
-			scope.bShowAddMoreFields = false;
-
-			var j = '';
-			for(var x in scope.emptyCustomerFields) {
-				if(x == sAddedField) {
-					delete scope.emptyCustomerFields[x];
-				}
-			}
-			for(var x in scope.emptyCustomerFields) {
-				if(x != ""){
-					j = x ;
-					break;
-				}
-			}
-			scope.nextEmptyCustomerField = j;
-			scope.bShowAddMoreFields = ( j) ? true : false;
-			scope.$apply();
-		});
 
 		// watch to save the data
 		scope.$watch('customerDetails', function(newVal, oldVal) {
@@ -73,13 +50,23 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnSaveBooking = function() {
-			BookingService.fnSaveBooking(scope.bookingDetails)
-			.success(function(data, status, headers, config) {
-				console.log('Success fnSaveBooking: ',data);
-				alert('Booking Saved successfully.');
-			})
-			.error(function(data, status, headers, config){
-				console.log('error fnSaveBooking: ',data);
+			scope.fnApiSaveBooking({
+				id : scope.bookingDetails.id, 
+				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
+				pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
+				pickupPlace : scope.bookingDetails.pickupPlace, 
+				dropPlace : scope.bookingDetails.dropPlace, 
+				primaryPassanger : (scope.bookingDetails.primaryPassanger ? scope.bookingDetails.primaryPassanger : scope.customerDetails.name),
+				primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
+				extraMobile : scope.customerDetails.mobile2, 
+				landmark1 : scope.bookingDetails.landmark1, 
+				landmark2 : scope.bookingDetails.landmark1, 
+				vehicleName : scope.bookingDetails.vehicleName, 
+				vehicleType : scope.bookingDetails.vehicleType, 
+				bookingDate : "", 
+				bookingTime : "",
+				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
+				customerId : scope.customerDetails.id
 			});
 		};
 
@@ -117,9 +104,36 @@ angular.module('sigmaCabsApp')
 					],
 					oBooking : function(){
 						return scope.bookingDetails
+					},
+					oCustomer : function(){
+						return scope.customerDetails
 					}
 				}
 			};
 			modalWindow.addDataToModal($scope.opts);
+		};
+
+		scope.fnApiSaveBooking = function(oData){
+			BookingService.fnSaveBooking(oData)
+			.success(function(data, status, headers, config) {				
+				console.log('Success fnSaveBooking: ',data);
+				if(data.status == 200){
+					alert('Booking Saved successfully.');
+					return;
+				}
+
+				if(data.status == 500){
+					if(	data.result 
+						& data.result.length
+					){
+						alert(data.result[0].message);
+					} else {
+						alert('There was some error in saving booking details.');
+					}
+				}
+			})
+			.error(function(data, status, headers, config){
+				console.log('error fnSaveBooking: ',data);
+			});
 		};
 	});

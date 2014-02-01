@@ -3,12 +3,15 @@ angular.module('sigmaCabsApp')
     return {
       require: 'ngModel',
       link: function(scope, element, attrs, model) {
+
+        var isMultiDate = element.attr('multidate'); 
+
         element
           .datePicker({
             createButton: false,
             displayClose: true,
-            closeOnSelect: true,
-            selectMultiple: false
+            closeOnSelect: (!isMultiDate ? true : false),
+            selectMultiple: (isMultiDate ? true : false)
           })
           .bind(
             'click',
@@ -25,6 +28,12 @@ angular.module('sigmaCabsApp')
                 console.log($td);
                 $td.removeClass('selected');
               },100);
+            } else {
+              if(isMultiDate){
+                var oMultiDate = element.attr('multidate-model');
+                console.log('selectedDate: ',selectedDate);
+                scope.fnDateAdded(oMultiDate, selectedDate);
+              }
             }
 
           }
