@@ -1,0 +1,61 @@
+<fieldset class="bookingFormController left" style="margin-left: 7px;">
+    <legend class="searchbox-border">Vehicle Login</legend>
+
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Brand Name</label>
+        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Vehicle Type</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact">
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Current Loc</label>
+        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">New Loc</label>
+        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+     <div class="fieldContainer  relative left">
+        <label class="labelCompact">Reg. No.</label>
+        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">V.Model</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  style="width:48px;">
+            <option>Year</option>
+        </select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" style="width:48px;">
+            <option>Month</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">V.Condition</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" >
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Status</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" >
+            <option>Choose</option>
+            <option>Active</option>
+            <option>In active</option>
+        </select>
+    </div>
+
+        <p class="clear"/>
+    <hr class="buttonSpliter" />
+    <div class="mainButtonContainer">
+        <div>
+            <button class="btnCompact btn-danger">Login</button> <!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
+            <button class="btnCompact btn-success">Change Status</button>
+            <button class="btnCompact btn-success">Change Phone No.</button>
+        </div>
+        <p class="clear"/>
+    </div>
+</fieldset>
+<p class="clear"/>

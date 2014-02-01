@@ -1,0 +1,78 @@
+<fieldset class="bookingFormController left" style="margin-left: 7px;">
+    <legend class="searchbox-border">Vehicle Allot</legend>
+
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Pickup Date</label>
+        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Pickup Time</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  style="width:48px;">
+            <option>Choose</option>
+        </select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" style="width:48px;">
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Vehicle Name</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" >
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Vehicle Type</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" >
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Pickup</label>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupAddress" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Drop Place</label>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupAddress" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Cust Name.</label>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupAddress" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Cust Ph.</label>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupAddress" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Journey Type</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" >
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" >
+            <option>Choose</option>
+        </select>
+    </div>
+    <div class="fieldContainer  relative left">
+        <label class="labelCompact">Landmark1</label>
+        <input type="text" dropFocused ng-model="bookingDetails.landmark1" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+    <div class="fieldContainer  relative right">
+        <label class="labelCompact">Landmark2</label>
+        <input type="text" ng-model="bookingDetails.landmark2" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+    </div>
+
+        <p class="clear"/>
+    <hr class="buttonSpliter" />
+    <div class="mainButtonContainer">
+        <div style="text-align: center;">
+            <button class="btnCompact btn-danger">Confirmed</button> <!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
+            <button class="btnCompact btn-success">Start Report</button>
+            <button class="btnCompact btn-success">Closing Report</button>
+            <button class="btnCompact btn-success">Complaints</button>
+        </div>
+        <p class="clear"/>
+    </div>
+</fieldset>
+<p class="clear"/>
