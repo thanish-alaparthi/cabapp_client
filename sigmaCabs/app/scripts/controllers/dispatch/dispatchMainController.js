@@ -31,17 +31,23 @@ angular.module('sigmaCabsApp')
     .controller('dispatchMainController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService, $dialog, modalWindow) {
         var scope = $scope;
 
+        scope.vehicleDetails = {
+            "vehicleId": "15",
+            "driverId": "28"
+        };
+
         scope.dispatcherMainView = URLService.view('dispatcherMainView');
-        scope.vehicalInformationForm = URLService.view('vehicalInformationForm');
-        scope.vehicalLoginForm = URLService.view('vehicalLoginForm');
-        scope.vehicalVacantForm = URLService.view('vehicalVacantForm');
-        scope.vehicalAllotForm = URLService.view('vehicalAllotForm');
+        scope.vehicleInformationForm = URLService.view('vehicleInformationForm');
+        scope.vehicleLoginForm = URLService.view('vehicleLoginForm');
+        scope.vehicleVacantForm = URLService.view('vehicleVacantForm');
+        scope.vehicleAllotForm = URLService.view('vehicleAllotForm');
         scope.currentMonthData = URLService.view('currentMonthData');
-        scope.lastMonthHistory = URLService.view('lastMonthHistory');
-        scope.vehicalData = URLService.view('vehicalData');
-        scope.vehicalPerformance = URLService.view('vehicalPerformance');
-        scope.chatForm = URLService.view('chatForm');
         scope.bookingStatistics = URLService.view('bookingStatistics');
+        scope.lastMonthHistory = URLService.view('lastMonthHistory');
+        scope.vehicleData = URLService.view('vehicleData');
+        scope.vehiclePerformance = URLService.view('vehiclePerformance');
+        scope.chatForm = URLService.view('chatForm');
+
 
         scope.currentMonthGridDetails = [{
             'bookingId': '1',
@@ -109,73 +115,7 @@ angular.module('sigmaCabsApp')
             'status': 'Pending',
             'action': 'Button Here',
         }];
-        scope.statisticsGridData = [
-            /*{
-            'rowInfo': 'Vehicle',
-            'smallInfo1': 'Indica',
-            'smallInfo2': 'Vista',
-            'mediumInfo': 'Verito',
-            'bigInfo1': 'Xylo',
-            'bigInfo2': 'Innova',
-            'bigInfo3': 'Tavera'
-        }, */
-            /*{
-                'rowInfo': 'Avlble',
-                'smallInfo1': 55,
-                'smallInfo2': 555,
-                'mediumInfo': 555,
-                'bigInfo1': 555,
-                'bigInfo2': 555,
-                'bigInfo3': 555
-            }, {
-                'rowInfo': 'Bkings',
-                'smallInfo1': 55,
-                'smallInfo2': 555,
-                'mediumInfo': 555,
-                'bigInfo1': 555,
-                'bigInfo2': 555,
-                'bigInfo3': 555
-            }, {
-                'rowInfo': 'Exptd',
-                'smallInfo1': 55,
-                'smallInfo2': 555,
-                'mediumInfo': 555,
-                'bigInfo1': 555,
-                'bigInfo2': 555,
-                'bigInfo3': 555
-            }*/
-            {
-                'rowInfo': 'Indica',
-                'available': 55,
-                'in_booking': 555,
-                'just_alloted': 555
-            },{
-                'rowInfo': 'Vista',
-                'available': 55,
-                'in_booking': 555,
-                'just_alloted': 555
-            },{
-                'rowInfo': 'Verito',
-                'available': 55,
-                'in_booking': 555,
-                'just_alloted': 555
-            },{
-                'rowInfo': 'Xylo',
-                'available': 55,
-                'in_booking': 555,
-                'just_alloted': 555
-            },{
-                'rowInfo': 'Innova',
-                'available': 55,
-                'in_booking': 555,
-                'just_alloted': 555
-            },{
-                'rowInfo': 'Tavera',
-                'available': 55,
-                'in_booking': 555,
-                'just_alloted': 555
-            }
-        ];
+
 
         scope.fnFeedback = function() {
             $scope.opts = {
@@ -187,25 +127,114 @@ angular.module('sigmaCabsApp')
             modalWindow.addDataToModal($scope.opts);
         };
 
-        /*scope.fnOpenCustomerRequest = function() {
+        scope.fnChangeVehiclePhone = function() {
             $scope.opts = {
-                templateUrl: URLService.view('customerRequestMain'),
-                controller: 'customerRequest',
-                dialogClass: 'modalClass add-request',
+                templateUrl: URLService.view('changeVehiclePhone'),
+                controller: 'changeVehiclePhone',
+                dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
-                    oBooking: function() {
-                        return scope.bookingDetails
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
                     }
                 }
             };
             modalWindow.addDataToModal($scope.opts);
-        };*/
+        };
+        scope.fnChangeVehicleStatus = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('changeVehicleStatus'),
+                controller: 'changeVehicleStatus',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+        scope.fnVehicleChangeLocation = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('changeVehicleLocation'),
+                controller: 'changeVehicleLocation',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+        scope.fnVehicleBreakStart = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBreakStart'),
+                controller: 'vehicleBreakStart',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+        scope.fnVehicleBreakStop = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBreakStop'),
+                controller: 'vehicleBreakStop',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+        scope.fnVehicleLogout = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleLogout'),
+                controller: 'vehicleLogout',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
 
         scope.assetStateChartData = {
             "title": {

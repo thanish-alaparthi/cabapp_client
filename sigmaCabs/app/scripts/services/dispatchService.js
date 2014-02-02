@@ -8,24 +8,24 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.factory('dispatchService', function($http, URLService, $rootScope) {
-		var oUser = null;
+    .factory('dispatchService', function($http, URLService, $rootScope ) {
+        var oUser = null;
 
-		return {
-			fnAddDispatchData: function(oDataParams) {
-				return $http({
-					url: URLService.service('dispatchVehicle'),
-					method: 'POST',
-					data: {
-						  url : "vehicledriverbooking/assign"
-						, data : JSON.stringify(oDataParams)
-					},
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
-					}
-				});
-			},
-			fnGetDisBookingData: function() {
+        return {
+            fnAddDispatchData: function(oDataParams) {
+                return $http({
+                    url: URLService.service('dispatchVehicle'),
+                    method: 'POST',
+                    data: {
+                        url: "vehicledriverbooking/assign",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+            fnGetDisBookingData: function() {
                 return $http({
                     method: 'GET',
                     url: URLService.service('getAllAvailBookings'),
@@ -34,14 +34,14 @@ angular.module('sigmaCabsApp')
                     }
                 });
             },
-			fnGetDisVehiData: function(oDataParams) {
+            fnGetDisVehiData: function(oDataParams) {
                 return $http({
                     method: 'POST',
                     url: URLService.service('getAllAvailVehicles'),
                     data: {
-                    	 url : "vehicle/available"
-						, data : JSON.stringify(oDataParams)
-					},
+                        url: "vehicle/available",
+                        data: JSON.stringify(oDataParams)
+                    },
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -53,9 +53,9 @@ angular.module('sigmaCabsApp')
                     method: 'POST',
                     url: URLService.service('getAllAvailVehicles'),
                     data: {
-                    	 url : "user/specific"
-						, data : JSON.stringify(oDataParams)
-					},
+                        url: "user/specific",
+                        data: JSON.stringify(oDataParams)
+                    },
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -67,15 +67,111 @@ angular.module('sigmaCabsApp')
                     method: 'POST',
                     url: URLService.service('getVehicleDetails'),
                     data: {
-                    	 url : "vehicle/activity"
-						, data : JSON.stringify(oDataParams)
-					},
+                        url: "vehicle/activity",
+                        data: JSON.stringify(oDataParams)
+                    },
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
             },
 
+            fnVehicleLogin: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleLoginRequest'),
+                    data: {
+                        url: "vehicle/login",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
 
-		}
-	});
+            fnChangeVehicleStatus: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleChangeStatusRequest'),
+                    data: {
+                        url: "vehicle/statechange",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnChangeVehiclePhone: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleChangePhoneNoRequest'),
+                    data: {
+                        url: "vehicle/mobilechange",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleChangeLocation: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleChangeLocation'),
+                    data: {
+                        url: "vehicle/locationchange",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleBreakStart: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBreakStart'),
+                    data: {
+                        url: "vehicle/breakstart",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleBreakStop: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBreakStop'),
+                    data: {
+                        url: "vehicle/breakend",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleLogout: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleLogoutRequest'),
+                    data: {
+                        url: "vehicle/logout",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            }
+        }
+    });

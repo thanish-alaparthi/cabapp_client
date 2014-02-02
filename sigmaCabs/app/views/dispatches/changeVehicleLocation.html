@@ -1,0 +1,39 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
+            <h4 class="modal-title">Change Vehicle Location</h4>
+        </div>
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span  class="innerLabel">Caller Name: </span>
+                <span>New Caller</span>
+            </div>
+            <div class="right innerLabelContainer">
+                <span class="innerLabel">Caller Ph.: </span>
+                <span>888888</span>
+            </div>
+        </div>
+        <div class="modal-body" > 
+            <fieldset class="left">
+                <legend class="searchbox-border">Change Vehicle Location</legend>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Current Location</label>
+                    <span>location1</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">New Location</label>
+                    <input type="text" ng-model="newLocation" maxlength="15" class="textFieldCompact" />
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Current Kms</label>
+                    <input type="text" ng-model="currentKms" maxlength="15" class="textFieldCompact" />
+                </div>
+            </fieldset>
+            <p class="clear"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+        </div>
+    </div>
+</div>

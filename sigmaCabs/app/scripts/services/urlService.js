@@ -38,6 +38,13 @@ angular.module('sigmaCabsApp')
         'RestApiSaveCustomerDetails' : '',
         'RestApiBlockCustomer' : '',
         'RestApiSaveCustomerRequest' : '',
+        'RestApiVehicleLoginRequest' : '',
+        'RestApiVehicleChangePhoneNoRequest' : '',
+        'RestApiVehicleChangeStatusRequest' : '',
+        'RestApiVehicleChangeLocation' : '',
+        'RestApiVehicleBreakStart' : '',
+        'RestApiVehicleBreakStop' : '',
+        'RestApiVehicleLogoutRequest' : '',
 
 
 
@@ -143,15 +150,21 @@ angular.module('sigmaCabsApp')
         'singleTariff':'views/bookings/singleTariff.html',
         'bookingStatistics' : 'views/bookings/statistics/bookingStatistics.html',
         'dispatcherMainView' : 'views/dispatches/dispatcherMainView.html',
-        'vehicalInformationForm': 'views/dispatches/vehicalInformationForm.html',
-        'vehicalLoginForm': 'views/dispatches/vehicalLoginForm.html',
-        'vehicalVacantForm': 'views/dispatches/vehicalVacantForm.html',
-        'vehicalAllotForm': 'views/dispatches/vehicalAllotForm.html',
+        'vehicleInformationForm': 'views/dispatches/vehicleInformationForm.html',
+        'vehicleLoginForm': 'views/dispatches/vehicleLoginForm.html',
+        'vehicleVacantForm': 'views/dispatches/vehicleVacantForm.html',
+        'vehicleAllotForm': 'views/dispatches/vehicleAllotForm.html',
         'currentMonthData': 'views/dispatches/currentMonthData.html',
         'lastMonthHistory': 'views/dispatches/lastMonthHistory.html',
-        'vehicalData': 'views/dispatches/vehicalData.html',
-        'vehicalPerformance': 'views/dispatches/vehicalPerformance.html',
-        'dispatchFeedback': 'views/dispatches/dispatchFeedback.html'
+        'vehicleData': 'views/dispatches/vehicleData.html',
+        'vehiclePerformance': 'views/dispatches/vehiclePerformance.html',
+        'dispatchFeedback': 'views/dispatches/dispatchFeedback.html',
+        'changeVehiclePhone': 'views/dispatches/changeVehiclePhone.html',
+        'changeVehicleLocation': 'views/dispatches/changeVehicleLocation.html',
+        'changeVehicleStatus': 'views/dispatches/changeVehicleStatus.html',
+        'vehicleBreakStart': 'views/dispatches/vehicleBreakStart.html',
+        'vehicleBreakStop': 'views/dispatches/vehicleBreakStop.html',
+        'vehicleLogout': 'views/dispatches/vehicleLogout.html'
       },
 
 

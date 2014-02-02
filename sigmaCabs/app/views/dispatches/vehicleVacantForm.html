@@ -1,4 +1,4 @@
-<fieldset class="bookingFormController left" style="margin-left: 7px;">
+<fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;">
     <legend class="searchbox-border">Vehicle Vacant</legend>
 
     <div class="fieldContainer  relative left">
@@ -36,10 +36,10 @@
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div>
-            <button class="btnCompact btn-danger">Landmark Change</button> <!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
-            <button class="btnCompact btn-success">Break Start</button>
-            <button class="btnCompact btn-success">Break Stop</button>
-            <button class="btnCompact btn-success">Logout</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleChangeLocation()">Landmark Change</button> <!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStart()">Break Start</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStop()">Break Stop</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleLogout()">Logout</button>
         </div>
         <p class="clear"/>
     </div>
