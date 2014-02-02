@@ -3,7 +3,7 @@ Name: BookingHistory
 Description: Adds first time customer
 Date: 12Jan2013
 Author: Mario::216mario216@gmail.com
-*/
+*/  
 
 'use strict';
 
@@ -16,6 +16,10 @@ angular.module('sigmaCabsApp')
 
 		scope.fnOpenBookingDetails = function(oRow){
 			console.log('selectedBookingId: ',oRow.entity.id);
+			oRow.entity.pickupDate = PrerequisiteService.fnFormatDate(oRow.entity.pickupDate);    // setDate in DD/MM/YYYY format
+            oRow.entity.pickupHours = PrerequisiteService.fnFormatHours(oRow.entity.pickupTime);  // setHours 
+            oRow.entity.pickupMinutes = PrerequisiteService.fnFormatMinutes(oRow.entity.pickupTime);  // setMinutes
+			$rootScope.$emit('eventSelectedBookingFromHistory', oRow.entity);
 		}
 
 		scope.BOOKING_CANCELLED = PreConfigService.BOOKING_CANCELLED;
@@ -29,7 +33,10 @@ angular.module('sigmaCabsApp')
 				displayName: '#',
 				width : 30
 			},{
-				field: 'pickupDate',
+				field: 'bookingDisplayDate',
+				displayName: 'Booking Date'
+			},{
+				field: 'pickupDisplayDate',
 				displayName: 'Trip Date'
 			}, {
 				field: 'bookingCode',
@@ -38,7 +45,7 @@ angular.module('sigmaCabsApp')
 				field: 'primaryPassanger',
 				displayName: 'Passenger Name'
 			}, {
-				field: 'pickupTime',
+				field: 'pickupDisplayTime',
 				displayName: 'Start Time',
 				width: 85
 			}, {
@@ -48,12 +55,13 @@ angular.module('sigmaCabsApp')
 				field: 'dropPlace',
 				displayName: 'Drop'
 			}, {
-				field: 'vehicleName',
+				field: 'vehicleDisplayName',
 				displayName: 'Vehicle',
 				width: 80
 			}, {
 				field: 'package',
-				displayName: 'Package'
+				displayName: 'Package',
+				width: 80
 			}, {
 				field: 'bookingStatusName',
 				displayName: 'Status',
@@ -62,7 +70,7 @@ angular.module('sigmaCabsApp')
 				field: 'id',
 				displayName: 'id',
 				visible: false
-			}, {
+			}, { 
 				displayName: 'Action',
 				width: 110,
 				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED) ? "Book Again" : "Edit/View" )}}</button></div>'

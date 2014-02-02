@@ -7,11 +7,11 @@
         <div class="popupCallerInfo">
             <div class="left innerLabelContainer">
                 <span  class="innerLabel">Caller Name: </span>
-                <span>New Caller</span>
+                <span>{{ customerName }}</span>
             </div>
             <div class="right innerLabelContainer">
                 <span class="innerLabel">Caller Ph.: </span>
-                <span>888888</span>
+                <span>{{ customerPhone }}</span>
             </div>
         </div>
         <div class="modal-body" > 
@@ -36,7 +36,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndCloseBlockCaller()" >Save & Close</button>
         </div>
     </div>
 </div>

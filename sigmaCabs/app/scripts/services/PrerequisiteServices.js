@@ -48,7 +48,6 @@ angular.module('sigmaCabsApp')
             },
             fnAddToLocalStorage : function(sType, oResult){
                 var oThis = this;
-                console.log('Typeof result: ',typeof oResult, '. Token:', sType);
                 if(typeof oResult == 'string'){
                     console.warn(sType,' gave empty data for Prerequisite.');
                 }
@@ -66,8 +65,6 @@ angular.module('sigmaCabsApp')
                 //Note: the call will be made only if data is not present in the local storage on day basis
                 $rootScope.$emit('eventPrerequisitsLoaded');
                 if (isDataExistsInLocalStorage) {
-                // if (1) {
-                    console.log('isDataExistsInLocalStorage', isDataExistsInLocalStorage , oThis.oLs);
                     setTimeout(function(){
                         fnEmitSuccess();
                     },0);
@@ -242,6 +239,22 @@ angular.module('sigmaCabsApp')
                 '40': '40',
                 '50': '50'
             },
+            vehicleTypes: [{
+                id: '',
+                vehicleType : 'Show All'
+            },{
+                id: '1',
+                vehicleType : 'Small'
+            },{
+                id: '2',
+                vehicleType : 'Medium'
+            },{
+                id: '3',
+                vehicleType : 'Big'
+            },{
+                id: '4',
+                vehicleType : 'Luxury'
+            }],
 
             fnGetJourneyTypes : function(){         // Function to return Only Main JourneyTypes
                 // filter main journey types i.e. where parentId = 0;
@@ -278,7 +291,6 @@ angular.module('sigmaCabsApp')
                     iCount = oJt.length;
 
                 for(var i=0;i<iCount;i++){
-                    console.log(oJt[i], sParentId);
                     if(oJt[i].parentId == sParentId) {
                         aRtn.push(oJt[i]);
                     }
@@ -322,7 +334,6 @@ angular.module('sigmaCabsApp')
                 return null;
             },
             fnGetTariffData : function(){           // function to return TariffData
-                console.log(this.oLs[this.currentDate]['tariff'],this.oLs)
                 return this.oLs[this.currentDate]['tariff'];
             },
             fnFormatDate : function(sDate){
@@ -364,8 +375,6 @@ angular.module('sigmaCabsApp')
                         sM = (oD.getMinutes() - (oD.getMinutes()%10) +  (oD.getMinutes()%10 + (10 - oD.getMinutes()%10 ))),
                         sM = (sM<60 ? sM : (sM - 10));
 
-                        console.log(sM);
-
                     return this.fnFormatMinutes(
                         (oD.getHours()<=9 ? '0'+oD.getHours() : oD.getHours()) 
                         + ':' 
@@ -390,6 +399,40 @@ angular.module('sigmaCabsApp')
             fnGetReasons : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['reason'];
+            },
+            fnGetVehicleNames : function(){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['vehicleNames'];
+            },
+            fnGetVehicleTypeById : function(sId){
+                var oThis = this;
+
+                for(var i=0;i<oThis.vehicleTypes.length;i++){
+                    if(oThis.vehicleTypes[i].id == sId){
+                        return oThis.vehicleTypes[i];
+                    }
+                }
+                return null;
+            },
+            fnGetVehicleNameById : function(sId){
+                var oThis = this,
+                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'];
+                for(var i=0;i<oVn.length;i++){
+                    if(oVn[i].id == sId){
+                        return oVn[i];
+                    }
+                }
+                return null;
+            },
+            fnGetVehicleDisplayNameById : function(sId){
+                var oThis = this,
+                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'];
+                for(var i=0;i<oVn.length;i++){
+                    if(oVn[i].id == sId){
+                        return oVn[i].vehicleName;
+                    }
+                }
+                return null;
             },
 
 
@@ -423,19 +466,7 @@ angular.module('sigmaCabsApp')
                 'type': '2',
                 'title': 'Contract'
             }],
-            vehicleTypes: [{
-                id: '1',
-                vehicleType : 'Small'
-            },{
-                id: '2',
-                vehicleType : 'Medium'
-            },{
-                id: '3',
-                vehicleType : 'Big'
-            },{
-                id: '4',
-                vehicleType : 'Luxury'
-            }],
+            
             fnGetVehicleTypes : function(){
                 return this.vehicleTypes;
             },

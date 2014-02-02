@@ -13,9 +13,44 @@ angular.module('sigmaCabsApp')
 
 		console.log('bookingController: ', scope.bookingDetails);
 
+		if(scope.bookingDetails.vehicleType){
+			scope.tmpVehicleType = scope.bookingDetails.vehicleType;
+		}
+		if(scope.bookingDetails.vehicleName){
+			scope.tmpVehicleName = scope.bookingDetails.vehicleName;
+		}
+
+
 		// function to change sub-Journey Types
 		scope.fnPopSubJourneyTypes = function() {
-			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpJourneyType);
+			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpJourneyType);			
+		};
+		// function to change VehicleNames
+		scope.fnPopVehicleNames = function() {
+			scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpVehicleType);
+			scope.tmpVehicleName = "";
+			scope.bookingDetails.vehicleType = scope.tmpSelectedVehicleType.id;
+			if(scope.vehicleNames){
+				for(var i=0;i<scope.vehicleNames.length;i++){
+					if(scope.vehicleNames[i].id == ""){
+						scope.vehicleNames.splice(i,1);
+					}
+				}
+				scope.vehicleNames.push({
+	                vehicleType : scope.tmpSelectedVehicleType.id,
+	                id: '',
+	                vehicleName : 'Any-Vehicle',
+	                status : '1'
+	            });
+			}
+			
+		};
+		// function to change VehicleNames
+		scope.fnPopVehicleTypes = function() {
+			scope.tmpSelectedVehicleName = PrerequisiteService.fnGetVehicleNameById(scope.tmpVehicleName);
+			scope.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
+
+			scope.bookingDetails.vehicleName = scope.tmpSelectedVehicleName.id;
 		};
 
 		// function to show/Hide booking related buttons
@@ -71,6 +106,7 @@ angular.module('sigmaCabsApp')
 		scope.hours = PrerequisiteService.hours;
 		scope.minutes = PrerequisiteService.minutes;
 		scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
+		scope.vehicleNames = PrerequisiteService.fnGetVehicleNames();
 		scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
 		scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
 
@@ -81,9 +117,13 @@ angular.module('sigmaCabsApp')
 			scope.tmpJourneyType = 1;
 		}	
 
+		// If booking is opened in edit Mode... than we have to set vehicleName and vehicleType
+		scope.tmpVehicleType = '';	// show All
+
 
 		// show all the subJourneyTypes based on selected journeyType.
 		scope.fnPopSubJourneyTypes();
+		scope.fnPopVehicleNames();
 
 		scope.checkVehicleAvilabilty = function(){
 			$scope.opts = {
@@ -142,5 +182,11 @@ angular.module('sigmaCabsApp')
 		} else {
 			scope.bookingStatusName = "New Booking";
 		}
+
+		scope.$watch('bookingDetails.bookingStatus', function(newVal,oldVal){
+			scope.fnShowHideBookingButtons();
+		},true);
+
+		
 
 	});

@@ -63,6 +63,19 @@ angular.module('sigmaCabsApp')
 						'Content-Type': 'application/x-www-form-urlencoded'
 					} 
 				});
+			},
+			fnGetLatestCustomerBookings : function(oDataParams){
+				return $http({
+					url: URLService.service('RestApiGetLatestBookings'), 
+					method: 'POST',
+					data: {
+						  url : "customer/getLatestBookings"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					} 
+				});
 			}
 		}
 	});

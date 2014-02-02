@@ -4,6 +4,41 @@ angular.module('sigmaCabsApp')
       require: 'ngModel',
       link: function(scope, element, attrs, model) {
 
+
+        fnFormatServerDate = function(oDate){
+          var iD = oDate.getDate(),
+              iM = parseInt(oDate.getMonth() + 1),
+              iY = oDate.getFullYear();
+
+          sDt = iY + '-';
+          sDt += (iM<=9 ? '0' + iM : iM) + '-'; 
+          sDt += (iD<=9 ? '0' + iD : iD);
+          return sDt;
+        };
+        fnFormatDate = function(oDate){
+          var iD = oDate.getDate(),
+              iM = parseInt(oDate.getMonth() + 1),
+              iY = oDate.getFullYear();
+
+          sDt  = (iD<=9 ? '0' + iD : iD) + '/'; 
+          sDt += (iM<=9 ? '0' + iM : iM) + '/';
+          sDt += iY;
+          return sDt;
+        };
+        fnGetProperMultiDateModel = function(aSplit){
+          var oMd;
+          switch(aSplit.length){
+            case 1:
+              oMd = scope[aSplit[0]];
+            break;
+            case 2:
+              oMd = scope[aSplit[0]][aSplit[1]];
+            break;
+          }
+          return oMd;
+        };
+
+
         var isMultiDate = element.attr('multidate'); 
 
         element
@@ -12,32 +47,43 @@ angular.module('sigmaCabsApp')
             displayClose: true,
             closeOnSelect: (!isMultiDate ? true : false),
             selectMultiple: (isMultiDate ? true : false)
-          })
-          .bind(
+          }).bind(
             'click',
             function() {
               $(this).dpDisplay();
               this.blur();
               return false;
             }
-        ).bind(
-          'dateSelected',
-          function(e, selectedDate, $td, state) {
-            if(!state){
-              setTimeout(function(){
-                console.log($td);
-                $td.removeClass('selected');
-              },100);
-            } else {
-              if(isMultiDate){
-                var oMultiDate = element.attr('multidate-model');
-                console.log('selectedDate: ',selectedDate);
-                scope.fnDateAdded(oMultiDate, selectedDate);
-              }
-            }
+        )
+          .bind(
+            'dateSelected',
+            function(e, selectedDate, $td, state)
+            {
+              console.log('You ' + (state ? '' : 'un') // wrap
+                + 'selected ' + selectedDate);
 
-          }
-        );
+              if(!state){
+               element.clearSelected();
+              }
+
+              
+            }
+          )
+         .bind('dpClosed',function(e, selectedDates) {
+            if(isMultiDate) {
+              var oMultiDate = element.attr('multidate-model');
+              var oDot = oMultiDate.split('.'),
+                  oMd = fnGetProperMultiDateModel(oDot);               
+
+              for(var i=0;i<selectedDates.length;i++){
+                var sD = fnFormatServerDate(selectedDates[i]);
+                oMd.push(sD);
+              }    
+              console.log('DateClosed:: Selected: ',oMd.join());
+            } else {
+              model.$setViewValue(fnFormatDate(selectedDates[0]));
+            }
+          });
 
         scope.$watch('model',function(){
           console.log('watching date....', model.$modelValue);

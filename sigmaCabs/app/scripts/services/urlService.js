@@ -37,15 +37,17 @@ angular.module('sigmaCabsApp')
         'RestApiCancelBooking' : '',
         'RestApiSaveCustomerDetails' : '',
         'RestApiBlockCustomer' : '',
-        'RestApiSaveCustomerRequest' : '',
-        'RestApiVehicleLoginRequest' : '',
+        'RestApiRegularRequest' : '',
+        'RestApiSaveCorporateRequest' : '',
+        'RestApiSaveSpecialRequest' : '',
+        'RestApiGetLatestBookings' : '',
+		'RestApiVehicleLoginRequest' : '',
         'RestApiVehicleChangePhoneNoRequest' : '',
         'RestApiVehicleChangeStatusRequest' : '',
         'RestApiVehicleChangeLocation' : '',
         'RestApiVehicleBreakStart' : '',
         'RestApiVehicleBreakStop' : '',
         'RestApiVehicleLogoutRequest' : '',
-
 
 
         'addVehicle' :  "", //"?url=vehicle/save",

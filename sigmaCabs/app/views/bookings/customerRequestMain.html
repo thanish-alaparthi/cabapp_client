@@ -38,7 +38,12 @@
                     <div class="tab-body cust-request" data-ng-show="tab==1">
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Customized Date</label>
-                            <input datepicker multidate="true" multidate-model="multiDates" data-ng-model="tmpMultiDates" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                            <input datepicker multidate="true" multidate-model="dateDetails.multiDates" data-ng-model="tmpMultiDates" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Time</label>
+                            <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="regularRequestDetails.pickupHours" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
+                            <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="regularRequestDetails.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;"></select>
                         </div>
                         <div class="fieldContainer left relative  ">
                             <label class="labelCompact">Pickup</label>
@@ -52,10 +57,6 @@
                             <label class="labelCompact">No. of Days</label>
                             <input data-ng-model="regularRequestDetails.totalDays" type="number"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
-                        <div class="fieldContainer clearBoth relative  ">
-                            <label class="labelCompact">Dates Choosen</label>
-                            <input style="width: 289px;" data-ng-model="tmpDates" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
                         <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
                             <label class="labelCompact">Comment</label>
                             <textarea data-ng-model="regularRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
@@ -67,7 +68,7 @@
                     <div class="tab-body cust-request" data-ng-show="tab==2">
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Company Name</label>
-                            <input data-ng-model="corporateRequestDetails.customerName" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                            <input data-ng-model="corporateRequestDetails.companyName" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
                             <label class="labelCompact">Email</label>
@@ -120,6 +121,10 @@
                             <label class="labelCompact">Contact No.2</label>
                             <input data-ng-model="specialRequestDetails.contact2" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Address</label>
+                            <input data-ng-model="specialRequestDetails.address" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
                         <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
                             <label class="labelCompact">Comment</label>
                             <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
@@ -149,7 +154,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()">{{ saveText }}</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndCloseRequest()">{{ saveText }}</button>
         </div>
     </div>
 </div>

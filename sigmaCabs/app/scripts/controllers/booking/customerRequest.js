@@ -13,11 +13,11 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 		console.log('inside customerRequest', oBooking, oCustomer);
 
-
-
-
-
 		scope.saveText = 'Save Regular Booking';	//default text for save button.
+
+		
+		scope.hours = PrerequisiteService.hours;
+		scope.minutes = PrerequisiteService.minutes;
 
 		scope.customerName = oCustomer.name;
 		scope.customerMobile = oCustomer.mobile1;
@@ -38,44 +38,79 @@ angular.module('sigmaCabsApp')
 
 		scope.iPriority = '1';
 		scope.priorities = PrerequisiteService.priorities;
-		scope.multiDates = [];
+		scope.dateDetails = {
+			multiDates : []
+		};
+
+		scope.fnRestApiError = function(data, status, headers, config){
+			console.log("error fnSaveCustomerRequest",data);
+		};
+		scope.fnRestApiSuccess = function(data, status, headers, config){
+			console.log("success fnSaveCustomerRequest", data);
+			scope.close();
+		};
+
 
 		scope.close = function() {
 			dialog.close();
 		};
-		scope.fnSaveAndClose = function() {
+		scope.fnSaveAndCloseRequest = function() {
 			var oSave = {};
-			switch(scope.tab){
-				case 1:
-					oSave = scope.regularRequestDetails;
-					oSave.datesRequired = scope.multiDates;
-				break;
-				case 2:
-					oSave = scope.corporateRequestDetails;
-				break;
-				case 3:
-					oSave = scope.specialRequestDetails;
-				break;
-				case 4:
-					oSave = scope.otherRequestDetails;
-				break;
-			};
-
+			
 			oSave.customerId = oCustomer.id;
 			oSave.name  = oCustomer.name;
 			oSave.mobile  = oCustomer.mobile;
 			oSave.priority = scope.iPriority;
 
-			CustomerService.fnSaveCustomerRequest(oSave)
-			.success(function(data, status, headers, config){
-				console.log("success fnSaveCustomerRequest");
-			})
-			.error(function(data, status, headers, config){
-				console.log("error fnSaveCustomerRequest");
-			});
+			switch(scope.tab){
+				case 1: 	// Regular Save
+					oSave.datesRequired = scope.dateDetails.multiDates;
 
+					oSave.pickupTime = scope.regularRequestDetails.pickupHours + ':' + scope.regularRequestDetails.pickupMinutes + ':00';
+					oSave.pickupPlace = scope.regularRequestDetails.pickupPlace;
+					oSave.dropPlace = scope.regularRequestDetails.dropPlace
+					oSave.totalDays = scope.regularRequestDetails.totalDays;
+					oSave.comments = scope.regularRequestDetails.comments;
+					if(!oSave.datesRequired.length){
+						alert('Please add dates.');
+						return;
+					}
 
-			scope.close();
+					CustomerService.fnSaveRegularRequest(oSave)
+					.success(scope.fnRestApiSuccess)
+					.error(scope.fnRestApiError);
+				break;
+				case 2: 	// corporate Save
+					oSave.companyName = scope.corporateRequestDetails.companyName;
+					oSave.email = scope.corporateRequestDetails.email;
+					oSave.website = scope.corporateRequestDetails.website;
+					oSave.authorizedPerson = scope.corporateRequestDetails.contactPerson;
+					oSave.mobile1 = scope.corporateRequestDetails.contact1;
+					oSave.mobile2 = scope.corporateRequestDetails.contact2;
+					oSave.address = scope.corporateRequestDetails.companyAddress;
+					oSave.comments = scope.corporateRequestDetails.comments;
+
+					CustomerService.fnSaveCorporateRequest(oSave)
+					.success(scope.fnRestApiSuccess)
+					.error(scope.fnRestApiError);
+				break;
+				case 3: 	// Special Save
+					oSave.travelType = scope.specialRequestDetails.travelType;
+					oSave.authorizedPerson = scope.specialRequestDetails.contactPerson;
+					oSave.mobile1 = scope.specialRequestDetails.contact1;
+					oSave.mobile2 = scope.specialRequestDetails.contact2;
+					oSave.address = scope.specialRequestDetails.address;
+					oSave.comments = scope.specialRequestDetails.comments;
+					
+					CustomerService.fnSaveSpecialRequest(oSave)
+					.success(scope.fnRestApiSuccess)
+					.error(scope.fnRestApiError);
+				break;
+				case 4: 	// Others Save
+					oSave = scope.otherRequestDetails;
+				break;
+			};
+
 		};
 
 		scope.fnChangeSaveText = function(){
@@ -94,15 +129,5 @@ angular.module('sigmaCabsApp')
 				break;
 			}
 		};
-
-		scope.$watch('multiDates',function(oldVal, newVal){
-          console.log('MyDates::', scope.multiDates);
-        });
-
-        scope.fnDateAdded = function(sMultiDateName,oNewDate ){
-        	console.log('>>>>>>>>>>>>>>>>>>>>>>>',scope.multiDates.getDate());
-        	scope[sMultiDateName].push(oNewDate);
-          	scope.tmpDates = scope.multiDates.join();          	
-        }
 
 	});

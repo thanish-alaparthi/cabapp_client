@@ -38,12 +38,38 @@ angular.module('sigmaCabsApp')
 					}
 				});
 			},
-			fnSaveCustomerRequest: function(oDataParams) {
+			fnSaveRegularRequest: function(oDataParams) {
 				return $http({
-					url: URLService.service('RestApiSaveCustomerRequest'),
+					url: URLService.service('RestApiRegularRequest'),
 					method: 'POST',
 					data: {
-						  url : "customerrequest/save"
+						  url : "booking/saveRegularEnquiryInfo"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					}
+				});
+			},
+			fnSaveCorporateRequest: function(oDataParams) {
+				return $http({
+					url: URLService.service('RestApiSaveCorporateRequest'),
+					method: 'POST',
+					data: {
+						  url : "booking/saveCorporateEnquiryInfo"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					}
+				});
+			},
+			fnSaveSpecialRequest: function(oDataParams) {
+				return $http({
+					url: URLService.service('RestApiSaveSpecialRequest'),
+					method: 'POST',
+					data: {
+						  url : "booking/saveSpecialEnquiryInfo"
 						, data : JSON.stringify(oDataParams)
 					},
 					headers: {

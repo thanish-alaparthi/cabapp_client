@@ -3,7 +3,7 @@
 
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup Date</label>
-        <input type="text" datepicker="bookingDetails.pickupDate" ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <input type="text" datepicker ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Pickup Time</label>
@@ -12,11 +12,11 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Vehicle Name</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingDetails.vehicleName"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnPopVehicleTypes();" data-ng-model="tmpVehicleName" data-ng-options="obj.id as obj.vehicleName for obj in vehicleNames | filter:{vehicleType : tmpSelectedVehicleType.id}"></select>
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Vehicle Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.vehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-change="fnPopVehicleNames();" data-ng-model="tmpVehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup</label>

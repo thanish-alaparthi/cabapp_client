@@ -1,10 +1,10 @@
 <fieldset class="searchbox-border customerDetailsContainer left">
-    <legend class="searchbox-border">Customer Details</legend>
+    <legend class="searchbox-border">Customer Details <span>{{ callerInfo }}</span></legend>
     <div class="relative">
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Search </label>
-            <input type="text" ng-model="searchString" class="validate[required,maxSize[128]] textFieldCompact"  />
-            <button class="btnCompact btn-success" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
+            <input type="text" ng-model="searchDetails.searchString" class="textFieldCompact"  />
+            <button class="btnCompact btn-success" data-ng-click="fnSearchCustomer();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
         </div>
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Caller Name </label>
@@ -13,12 +13,12 @@
         </div>
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Caller Ph. </label>
-            <input type="text" ng-model="customerDetails.mobile" class="left validate[required,maxSize[128]] textFieldCompact" readonly />
+            <input type="text" ng-model="callerPhone" class="left validate[required,maxSize[128]] textFieldCompact" readonly />
             <input checked class="left smsCheckbox" type="checkbox" value="">
         </div>
         <div class="fieldContainer clearBoth relative ">
-            <label class="labelCompact">Mobile2</label>
-            <input type="text" ng-model="customerDetails.mobile2" class="left validate[required,maxSize[128]] textFieldCompact"/>
+            <label class="labelCompact">Mobile</label>
+            <input type="text" ng-model="customerDetails.mobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
             <input class="left smsCheckbox" type="checkbox" value="">
         </div>
         <div class="fieldContainer clearBoth relative ">
