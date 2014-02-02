@@ -7,8 +7,8 @@ angular.module('sigmaCabsApp')
 		console.log(URLService.view('checkTariff'));
 
 		scope.showVechicleContianer = true;
-		scope.bookingTariffGrid = URLService.view('bookingTariffGrid');
-		scope.checkTariff = URLService.view('checkTariff');
+		
+		
 
 		scope.vehicleCounts = {
 			small: 0,
@@ -83,6 +83,10 @@ angular.module('sigmaCabsApp')
 		}, true);
 
 		scope.getTariff = function(){
+			
+	        //$rootScope.$broadcast('reloadTariffGrid');
+	        scope.checkTariff = URLService.view('checkTariff');
+	        scope.bookingTariffGrid = URLService.view('bookingTariffGrid');
 			scope.showVechicleContianer = false;
 			scope.showTariffContainer = true;
 		};
@@ -96,6 +100,14 @@ angular.module('sigmaCabsApp')
 			scope.showTariffContainer = false;
 		};
 
+		scope.sendBookingDetails =  function(data){
+			scope.$broadcast('getBookingData', data);
+		}
+
+		scope.$on('sendBookingGrid', function(event, data){
+	    	scope.sendBookingDetails(data);
+		    	
+		});
 
 		
 		

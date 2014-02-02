@@ -9,114 +9,29 @@ Author: Mario::216mario216@gmail.com
 
 angular.module('sigmaCabsApp')
 	.controller('bookingTariffGrid', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog) {
-
-		console.log('bookingTariffGrid');
 		var scope = $scope;
-		scope.customerBookingGridDetails = [{
-			'vehicleName' : 'Indica',
-			'vehicleType' : 'Small',
-			'duration' : '1 hr',
-			'distance' : '15',
-			'amount' : '240',
-			'extraKms' : '12',
-			'graceTime' : 'Grace Time',
-			'discount' : 15,
-			'grade':'A',
-			'comments' : 'Driver Batta Rs 200 & Permit, Toll & Parking charges are applicable. Minimum 250 Kms/day.'
-		},{
-			'vehicleName' : 'Indica',
-			'vehicleType' : 'Small',
-			'duration' : '1 day',
-			'distance' : '300',
-			'amount' : '2500',
-			'extraKms' : '12',
-			'graceTime' : 'Grace Time',
-			'comments' : 'This will be te comments section'
-		},{
-			'vehicleName' : 'Indica',
-			'vehicleType' : 'Small',
-			'duration' : '90 min',
-			'distance' : '40',
-			'amount' : '600',
-			'extraKms' : '12',
-			'graceTime' : '1 hr',
-			'comments' : 'This will be te comments section'
-		},{
-			'vehicleName' : 'Indica',
-			'vehicleType' : 'Small',
-			'duration' : '1 hr',
-			'distance' : '15',
-			'amount' : '240',
-			'extraKms' : 'Extra Kms',
-			'graceTime' : 'Grace Time',
-			'comments' : 'This will be te comments section'
-		},{
-			'vehicleName' : 'Indica',
-			'vehicleType' : 'Small',
-			'duration' : '1 hr',
-			'distance' : '15',
-			'amount' : '240',
-			'extraKms' : 'Extra Kms',
-			'graceTime' : 'Grace Time',
-			'comments' : 'This will be te comments section'
-		}];
+		scope.bookingData = [];
 
-		$scope.gridBookingTariffOptions = {
-			data: 'customerBookingGridDetails',
-			rowHeight: 25,
-			columnDefs: [
-			{
-				field: 'vehicleType',
-				displayName: 'Vh Type',
-				width: '*'
-			}, {
-				field: 'vehicleName',
-				displayName: 'Vh Name',
-				width: '*'
-			}, {
-				field: 'duration',
-				displayName: 'Duration',
-				width: '*'
-			}, {
-				field: 'distance',
-				displayName: 'Kms',
-				width: '*'
-			}, {
-				field: 'amount',
-				displayName: 'Amount',
-				width: '*'
-			}, {
-				field: 'extraKms',
-				displayName: 'Extra Kms',
-				width: '*'
-			},{
-				field: 'extraHrs',
-				displayName: 'Extra Hrs',
-				width: '*'
-			}, {
-				field: 'graceTime',
-				displayName: 'Grace Time',
-				width: '*'
-			},{
-				field: 'customerGrade',
-				displayName: 'Grade',
-				width: '*'
-			}, {
-				field: 'discount',
-				displayName: 'Discount',
-				width: '*'
-			}, {
-				field: 'comments',
-				displayName: 'Comments',
-				width: 650
-			}],
-			enablePaging: false,
-			showFooter: false,
-			multiSelect: false,
-			totalServerItems: 'totalServerItems',
-			afterSelectionChange: function(oRow) {
-				console.log(oRow.selectionProvider.selectedItems[0]);
+		scope.$on('getBookingData', function(event, data){
+			if(scope.bookingData.length != 5){
+				scope.bookingData.push(data);
+	    		$scope.gridBookingTariffOptions.columnDefs = $scope.colDefs;
 			}
-		};
+	    });
+		    
+	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="editCell(row.entity, row.getProperty(col.field), col.field)"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
+	  
+	    $scope.colDefs = [
+	        {field:'duration', displayName:'Duration', width: '*'},
+	        {field:'kms', displayName:'Kms', width: '*'},
+	        {field:'price', displayName:'Price', width: '*', cellTemplate: basicCellTemplate},
+	        {field:'extraHrPrice', displayName:'Extra Hr Price', width: '*', cellTemplate: basicCellTemplate},
+	        {field:'extraKmPrice', displayName:'Extra Km Price', width: '*', cellTemplate: basicCellTemplate},
+	    ];
 
+	    $scope.gridBookingTariffOptions = { 
+	      data: 'bookingData',
+	      multiSelect: false,
+	      columnDefs: 'colDefs',
+	    };
 	});

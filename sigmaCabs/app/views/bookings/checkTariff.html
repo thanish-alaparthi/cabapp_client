@@ -1,24 +1,15 @@
 <div class = "clearfix" ng-controller = "chkTariffController">
     <div class="left">
-        <legend class="searchbox-border">City Pickup</legend> 
-        <table class = "bookingsTable cityPickUp" >
-            <tr>
-                <th>Duration</th>
-                <th>Tariff Kms</th>
-                <th>Indica/Vista</th>
-                <th>Verito/Indigo</th>
-                <th>Tavera/Xylo</th>
-                <th>Innova</th>
-            </tr>
-
-            <tr ng-repeat = "day in cityTariffData">                            
-                <td ng-repeat = "price in day"> {{price}}</td>                
-            </tr>
-
-        </table>
+        
+        <legend class="searchbox-border">City Pickup</legend>
+          <div style="height:163px; width:550px;" id="customerBookingGridID" class = "bookingHistoryGrid">
+            <div class="gridStyle" ng-grid="gridCityPkgOptions" style="height:100%;margin:0px;"></div>
+        </div>
     </div>
+     
+  
 
-    <div class="right">
+   <div class="right">
         <div>
         <legend class="searchbox-border">Airport Pickup</legend> 
             <table class= "bookingsTable airportPickup">
@@ -54,5 +45,5 @@
             </table> 
         </div>
             
-    </div>
+    </div> 
 </div>
