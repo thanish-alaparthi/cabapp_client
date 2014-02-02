@@ -28,7 +28,7 @@ angular.module('sigmaCabsApp')
                 }
             })
     })
-    .controller('dispatchMainController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService) {
+    .controller('dispatchMainController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService, $dialog, modalWindow) {
         var scope = $scope;
 
         scope.dispatcherMainView = URLService.view('dispatcherMainView');
@@ -44,95 +44,185 @@ angular.module('sigmaCabsApp')
         scope.bookingStatistics = URLService.view('bookingStatistics');
 
         scope.currentMonthGridDetails = [{
-            'bookingId' : '1',
-            'srno' : '1',
-            'tripDate' : '25/03/2014',
-            'bookingCode' : 'SCB099900001',
-            'customerName' : 'Aswin kumar Chowdary',
-            'startTime' : '11:20 PM',
-            'pickup' : 'Santosh Nagar',
-            'drop' : 'Airport',
-            'vehicle' : 'Indica',
-            'package' : '400KM 500rs',
-            'status' : 'Pending',
-            'action' : 'Button Here',
-        },{
-            'bookingId' : '2',
-            'srno' : '2',
-            'tripDate' : '25/03/2014',
-            'bookingCode' : 'SCB099900001',
-            'customerName' : 'Aswin kumar Chowdary',
-            'startTime' : '11:20 PM',
-            'pickup' : 'Santosh Nagar',
-            'drop' : 'Airport',
-            'vehicle' : 'Indica',
-            'package' : '400KM 500rs',
-            'status' : 'Closed',
-            'action' : 'Button Here',
-        },{
-            'bookingId' : '3',
-            'srno' : '3',
-            'tripDate' : '25/03/2014',
-            'bookingCode' : 'SCB099900001',
-            'customerName' : 'Aswin kumar Chowdary',
-            'startTime' : '11:20 PM',
-            'pickup' : 'Santosh Nagar',
-            'drop' : 'Airport',
-            'vehicle' : 'Indica',
-            'package' : '400KM 500rs',
-            'status' : 'Closed',
-            'action' : 'Button Here',
-        },{
-            'bookingId' : '4',
-            'srno' : '4',
-            'tripDate' : '25/03/2014',
-            'bookingCode' : 'SCB099900001',
-            'customerName' : 'Aswin kumar Chowdary',
-            'startTime' : '11:20 PM',
-            'pickup' : 'Santosh Nagar',
-            'drop' : 'Airport',
-            'vehicle' : 'Indica',
-            'package' : '400KM 500rs',
-            'status' : 'Pending',
-            'action' : 'Button Here',
-        },{
-            'bookingId' : '5',
-            'srno' : '5',
-            'tripDate' : '25/03/2014',
-            'bookingCode' : 'SCB099900001',
-            'customerName' : 'Aswin kumar Chowdary',
-            'startTime' : '11:20 PM',
-            'pickup' : 'Santosh Nagar',
-            'drop' : 'Airport',
-            'vehicle' : 'Indica',
-            'package' : '400KM 500rs',
-            'status' : 'Pending',
-            'action' : 'Button Here',
+            'bookingId': '1',
+            'srno': '1',
+            'tripDate': '25/03/2014',
+            'bookingCode': 'SCB099900001',
+            'customerName': 'Aswin kumar Chowdary',
+            'startTime': '11:20 PM',
+            'pickup': 'Santosh Nagar',
+            'drop': 'Airport',
+            'vehicle': 'Indica',
+            'package': '400KM 500rs',
+            'status': 'Pending',
+            'action': 'Button Here',
+        }, {
+            'bookingId': '2',
+            'srno': '2',
+            'tripDate': '25/03/2014',
+            'bookingCode': 'SCB099900001',
+            'customerName': 'Aswin kumar Chowdary',
+            'startTime': '11:20 PM',
+            'pickup': 'Santosh Nagar',
+            'drop': 'Airport',
+            'vehicle': 'Indica',
+            'package': '400KM 500rs',
+            'status': 'Closed',
+            'action': 'Button Here',
+        }, {
+            'bookingId': '3',
+            'srno': '3',
+            'tripDate': '25/03/2014',
+            'bookingCode': 'SCB099900001',
+            'customerName': 'Aswin kumar Chowdary',
+            'startTime': '11:20 PM',
+            'pickup': 'Santosh Nagar',
+            'drop': 'Airport',
+            'vehicle': 'Indica',
+            'package': '400KM 500rs',
+            'status': 'Closed',
+            'action': 'Button Here',
+        }, {
+            'bookingId': '4',
+            'srno': '4',
+            'tripDate': '25/03/2014',
+            'bookingCode': 'SCB099900001',
+            'customerName': 'Aswin kumar Chowdary',
+            'startTime': '11:20 PM',
+            'pickup': 'Santosh Nagar',
+            'drop': 'Airport',
+            'vehicle': 'Indica',
+            'package': '400KM 500rs',
+            'status': 'Pending',
+            'action': 'Button Here',
+        }, {
+            'bookingId': '5',
+            'srno': '5',
+            'tripDate': '25/03/2014',
+            'bookingCode': 'SCB099900001',
+            'customerName': 'Aswin kumar Chowdary',
+            'startTime': '11:20 PM',
+            'pickup': 'Santosh Nagar',
+            'drop': 'Airport',
+            'vehicle': 'Indica',
+            'package': '400KM 500rs',
+            'status': 'Pending',
+            'action': 'Button Here',
         }];
+        scope.statisticsGridData = [
+            /*{
+            'rowInfo': 'Vehicle',
+            'smallInfo1': 'Indica',
+            'smallInfo2': 'Vista',
+            'mediumInfo': 'Verito',
+            'bigInfo1': 'Xylo',
+            'bigInfo2': 'Innova',
+            'bigInfo3': 'Tavera'
+        }, */
+            /*{
+                'rowInfo': 'Avlble',
+                'smallInfo1': 55,
+                'smallInfo2': 555,
+                'mediumInfo': 555,
+                'bigInfo1': 555,
+                'bigInfo2': 555,
+                'bigInfo3': 555
+            }, {
+                'rowInfo': 'Bkings',
+                'smallInfo1': 55,
+                'smallInfo2': 555,
+                'mediumInfo': 555,
+                'bigInfo1': 555,
+                'bigInfo2': 555,
+                'bigInfo3': 555
+            }, {
+                'rowInfo': 'Exptd',
+                'smallInfo1': 55,
+                'smallInfo2': 555,
+                'mediumInfo': 555,
+                'bigInfo1': 555,
+                'bigInfo2': 555,
+                'bigInfo3': 555
+            }*/
+            {
+                'rowInfo': 'Indica',
+                'available': 55,
+                'in_booking': 555,
+                'just_alloted': 555
+            },{
+                'rowInfo': 'Vista',
+                'available': 55,
+                'in_booking': 555,
+                'just_alloted': 555
+            },{
+                'rowInfo': 'Verito',
+                'available': 55,
+                'in_booking': 555,
+                'just_alloted': 555
+            },{
+                'rowInfo': 'Xylo',
+                'available': 55,
+                'in_booking': 555,
+                'just_alloted': 555
+            },{
+                'rowInfo': 'Innova',
+                'available': 55,
+                'in_booking': 555,
+                'just_alloted': 555
+            },{
+                'rowInfo': 'Tavera',
+                'available': 55,
+                'in_booking': 555,
+                'just_alloted': 555
+            }
+        ];
 
-        scope.chartData = [{"name":"New","y":1},{"name":"Retired","y":2},{"name":"Un-Assigned","y":67}];
+        scope.fnFeedback = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('dispatchFeedback'),
+                controller: 'dispatchFeedback',
+                dialogClass: 'modalClass add-request',
+                resolve: {}
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
 
-        /*scope.fnOpenClosedAsBookAgain = function(row) {
-            console.log("fnOpenClosedAsBookAgain BookingId: ", row.entity);
-            scope.bookingDetails.bookingId = row.entity.bookingId;
-            $rootScope.$emit('eventClosedBookingSelectFromGrid', {
-                bShowCancel : false,
-                bShowSaveAndClose : false,
-                bShowCustomerFeedbackBtn : true,
-                bookingId : row.entity.bookingId
-            });
-        }
+        /*scope.fnOpenCustomerRequest = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('customerRequestMain'),
+                controller: 'customerRequest',
+                dialogClass: 'modalClass add-request',
+                resolve: {
+                    editMode: [
 
-        scope.fnOpenPendingForEdit = function(row) {
-            console.log("fnOpenPendingForEdit BookingId: ", row.entity);
-            scope.bookingDetails.bookingId = row.entity.bookingId;
-            $rootScope.$emit('eventClosedBookingSelectFromGrid', {
-                bShowCancel : true,
-                bShowSaveAndClose : true,
-                bShowCustomerFeedbackBtn : false,
-                bookingId : row.entity.bookingId
-            });
-        }*/
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oBooking: function() {
+                        return scope.bookingDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };*/
+
+        scope.assetStateChartData = {
+            "title": {
+                "text": ''
+            },
+            "series": [{
+                "data": [{
+                    "name": "Login",
+                    "y": 4,
+                    "color": "#20B0A0"
+                }, {
+                    "name": "Collection",
+                    "y": 18,
+                    "color": "#2F7FD8"
+                }]
+            }]
+        };
 
         scope.gridCurrentMonthData = {
             data: 'currentMonthGridDetails',
@@ -140,8 +230,8 @@ angular.module('sigmaCabsApp')
             columnDefs: [{
                 field: 'srno',
                 displayName: '#',
-                width : 30
-            },{
+                width: 30
+            }, {
                 field: 'tripDate',
                 displayName: 'Trip Date'
             }, {
@@ -180,6 +270,52 @@ angular.module('sigmaCabsApp')
                 displayName: 'Action',
                 width: 110,
                 cellTemplate: '<div style="text-align: center;"><button ng-show="row.getProperty(\'status\') == \'Pending\' ? true : false" style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenPendingForEdit(row)">Edit/View</button><button ng-click="fnOpenClosedAsBookAgain(row);"  ng-show="row.getProperty(\'status\') == \'Closed\' ? true : false" style="margin-top: 4px;" class="btnCompact btn-success">Book Again</button></div>'
+            }],
+            enablePaging: false,
+            showFooter: false,
+            multiSelect: false,
+            totalServerItems: 'totalServerItems',
+            afterSelectionChange: function(oRow) {
+                // console.log(oRow.selectionProvider.selectedItems[0]);
+            }
+        };
+        scope.gridStatisticsData = {
+            data: 'statisticsGridData',
+            rowHeight: 25,
+            /*columnDefs: [{
+                field: 'rowInfo',
+                displayName: 'Vehicle'
+            }, {
+                field: 'smallInfo1',
+                displayName: 'Indica'
+            }, {
+                field: 'smallInfo2',
+                displayName: 'Vista'
+            }, {
+                field: 'mediumInfo',
+                displayName: 'Verito'
+            }, {
+                field: 'bigInfo1',
+                displayName: 'Xylo'
+            }, {
+                field: 'bigInfo2',
+                displayName: 'Innova'
+            }, {
+                field: 'bigInfo3',
+                displayName: 'Tavera'
+            }],*/
+            columnDefs: [{
+                field: 'rowInfo',
+                displayName: 'Vehicle'
+            }, {
+                field: 'available',
+                displayName: 'Available'
+            }, {
+                field: 'in_booking',
+                displayName: 'in booking'
+            }, {
+                field: 'just_alloted',
+                displayName: 'just alloted'
             }],
             enablePaging: false,
             showFooter: false,

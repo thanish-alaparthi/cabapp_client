@@ -150,7 +150,8 @@ angular.module('sigmaCabsApp')
         'currentMonthData': 'views/dispatches/currentMonthData.html',
         'lastMonthHistory': 'views/dispatches/lastMonthHistory.html',
         'vehicalData': 'views/dispatches/vehicalData.html',
-        'vehicalPerformance': 'views/dispatches/vehicalPerformance.html'
+        'vehicalPerformance': 'views/dispatches/vehicalPerformance.html',
+        'dispatchFeedback': 'views/dispatches/dispatchFeedback.html'
       },
 
 
