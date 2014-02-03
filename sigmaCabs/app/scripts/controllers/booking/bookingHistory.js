@@ -15,11 +15,12 @@ angular.module('sigmaCabsApp')
 		scope.customerBookingTabs = URLService.view('customerBookingTabs');
 
 		scope.fnOpenBookingDetails = function(oRow){
-			console.log('selectedBookingId: ',oRow.entity.id);
-			oRow.entity.pickupDate = PrerequisiteService.fnFormatDate(oRow.entity.pickupDate);    // setDate in DD/MM/YYYY format
-            oRow.entity.pickupHours = PrerequisiteService.fnFormatHours(oRow.entity.pickupTime);  // setHours 
-            oRow.entity.pickupMinutes = PrerequisiteService.fnFormatMinutes(oRow.entity.pickupTime);  // setMinutes
-			$rootScope.$emit('eventSelectedBookingFromHistory', oRow.entity);
+			console.log('selectedBookingId: ',oRow.entity);
+   			var oX = {};
+   			angular.copy(oRow.entity, oX);
+			$rootScope.$emit('eventSelectedBookingFromHistory', {
+				bookingDetails : oX
+			});
 		}
 
 		scope.BOOKING_CANCELLED = PreConfigService.BOOKING_CANCELLED;

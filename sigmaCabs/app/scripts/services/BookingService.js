@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnSaveBooking : function(oDataParams){
 				return $http({
-					url: URLService.service('saveBooking'), 
+					url: URLService.service('RestApiSaveBooking'), 
 					method: 'POST',
 					data: {
 						  url : "booking/save"
@@ -76,6 +76,19 @@ angular.module('sigmaCabsApp')
 						'Content-Type': 'application/x-www-form-urlencoded'
 					} 
 				});
-			}
+			},
+			fnSaveDisposition : function(oDataParams){
+				return $http({
+					url: URLService.service('RestApiSaveBooking'), 
+					method: 'POST',
+					data: {
+						  url : "booking/save"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					} 
+				});
+			},
 		}
 	});

@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .factory('PrerequisiteService', function($http, URLService, $rootScope) {
+    .factory('PrerequisiteService', function($http, URLService, PreConfigService, $rootScope) {
         var oUser = null,
 
             oDate = new Date(),
@@ -240,9 +240,6 @@ angular.module('sigmaCabsApp')
                 '50': '50'
             },
             vehicleTypes: [{
-                id: '',
-                vehicleType : 'Show All'
-            },{
                 id: '1',
                 vehicleType : 'Small'
             },{
@@ -251,10 +248,12 @@ angular.module('sigmaCabsApp')
             },{
                 id: '3',
                 vehicleType : 'Big'
-            },{
-                id: '4',
-                vehicleType : 'Luxury'
-            }],
+            }
+            // ,{
+            //     id: '4',
+            //     vehicleType : 'Luxury'
+            // }
+            ],
 
             fnGetJourneyTypes : function(){         // Function to return Only Main JourneyTypes
                 // filter main journey types i.e. where parentId = 0;
@@ -434,6 +433,34 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
+            
+            getDispositionTypes : function(sId){
+                var aRtn = [{
+                    id: PreConfigService.BOOKING_ENQUIRY,
+                    dispositionName : 'Enquiry'
+                }, {
+                    id: PreConfigService.BOOKING_FOLLOW_UP,
+                    dispositionName : 'Follow-up'
+                }, {
+                    id: PreConfigService.BOOKING_REJECTED,
+                    dispositionName : 'Rejected'
+                }];
+                return aRtn;
+            },
+            fnGetCancelBookingCategory : function(sId){
+                var aRtn = [{
+                    id: 1, 
+                    categoryName : 'Customer'
+                }, {
+                    id: 2,
+                    categoryName : 'Dispatcher'
+                }, {
+                    id: 3,
+                    categoryName : 'Call-Taker'
+                }];
+                return aRtn;
+            },
+
 
 
 

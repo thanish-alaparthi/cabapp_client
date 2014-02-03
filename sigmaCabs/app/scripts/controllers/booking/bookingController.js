@@ -43,6 +43,7 @@ angular.module('sigmaCabsApp')
         };
 
 
+
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
 
@@ -51,6 +52,7 @@ angular.module('sigmaCabsApp')
         scope.callTime = "05:30";
 
         scope.showBookingDetails =  true;
+        scope.tmpDetails = {};
 
         scope.showBookingDetailsTab = function(){
             $scope.showTariffDetails =  false;
@@ -62,8 +64,8 @@ angular.module('sigmaCabsApp')
             $scope.showTariffDetails =  true;
         };
 
-        scope.tmpVehicleType = "1";
-        scope.tmpVehicleName = "1";
+        // scope.tmpVehicleType = "1";
+        // scope.tmpVehicleName = "1";
 
         // Set the default Data
         scope.customerDetails = {
@@ -214,6 +216,14 @@ angular.module('sigmaCabsApp')
         $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {
             scope.bookingDetails = {};
             console.log('eventSelectedBookingFromHistory: ', oData);
-            scope.bookingDetails = oData;
+            scope.bookingDetails = oData.bookingDetails;
+
+            scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType;
+            scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName;
+
+            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
+            scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
+            scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
+
         });
     });

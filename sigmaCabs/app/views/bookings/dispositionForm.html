@@ -1,0 +1,48 @@
+<div class="modal-dialog disposition-booking-container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
+            <h4 class="modal-title">Disposition Booking</h4>
+        </div>
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span  class="innerLabel">Caller Name: </span>
+                <span>{{ customerDetails.name }}</span>
+            </div>
+            <div class="right innerLabelContainer">
+                <span class="innerLabel">Caller Ph.: </span>
+                <span>{{ customerDetails.mobile }}</span>
+            </div>
+        </div>
+        <div class="modal-body" > 
+            <fieldset class="left">
+                <legend class="searchbox-border">Disposition Details</legend>
+
+                <div class="fieldContainer  relative">
+                    <label class="labelCompact">Type</label>
+                    <select style="width: 289px;" class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnToggleFields();" ng-model="dispositionDetails.type" ng-options="obj.id as obj.dispositionName for obj in dispositions"></select>
+                </div>
+                <div class="fieldContainer  relative left">
+                    <label class="labelCompact">Follow-up Date</label>
+                    <input type="text" class="textFieldCompact" datepicker ng-model="dispositionDetails.followupDate" ng-disabled="followUpFields" />
+                </div>
+                <div class="fieldContainer  relative right" ng-disabled="followUpFields">
+                    <label class="labelCompact">Follow-up Time</label>
+                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="dispositionDetails.followUpHours" ng-options='k as v for (k,v) in hours' style="width:48px;" ng-disabled="followUpFields" ></select>
+                    <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="dispositionDetails.followUpMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;" ng-disabled="followUpFields" ></select>
+                </div>
+                <div class="fieldContainer  relative left" style="height:75px;margin-top: 5px;">
+                    <label class="labelCompact">Comment</label>
+                    <textarea data-ng-model="dispositionDetails.comments" class="cancelBookingComment" style="width: 289px;"></textarea>
+                </div>
+
+            </fieldset>
+            <p class="clear"/>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveDispositionAndExit()">Save Disposition</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()" >Exit</button>
+        </div>
+    </div>
+</div>

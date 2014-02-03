@@ -25,13 +25,17 @@ angular.module('sigmaCabsApp')
 
 		scope.fnRefreshBookingHistory = function(){
 			BookingService.fnGetLatestCustomerBookings({
-				id: scope.bookingDetails.customerId,
+				id: scope.customerDetails.id,
 				page: 1,
 				limit: 5
 			})
 			.success(function(data, status, headers, config){				
 				console.log('Success  fnGetLatestCustomerBookings: ',data);
-				scope.bookingHistory = data.result;
+				if(data.status == 500){
+					console.warn("fnGetLatestCustomerBookings 500", data);
+				} else {
+					scope.bookingHistoryDetails = data.result;
+				}
 			})
 			.error(function(data, status, headers, config){
 				console.log('Error  fnGetLatestCustomerBookings: ',data);
@@ -121,7 +125,7 @@ angular.module('sigmaCabsApp')
 				primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
 				extraMobile : scope.customerDetails.mobile2, 
 				landmark1 : scope.bookingDetails.landmark1, 
-				landmark2 : scope.bookingDetails.landmark1, 
+				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.bookingDetails.vehicleName, 
 				vehicleType : scope.bookingDetails.vehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
@@ -142,7 +146,7 @@ angular.module('sigmaCabsApp')
 				primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
 				extraMobile : scope.customerDetails.mobile2, 
 				landmark1 : scope.bookingDetails.landmark1, 
-				landmark2 : scope.bookingDetails.landmark1, 
+				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.bookingDetails.vehicleName, 
 				vehicleType : scope.bookingDetails.vehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 

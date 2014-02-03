@@ -11,12 +11,12 @@
         <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;"></select>
     </div>
     <div class="fieldContainer  relative left">
-        <label class="labelCompact">Vehicle Name</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnPopVehicleTypes();" data-ng-model="tmpVehicleName" data-ng-options="obj.id as obj.vehicleName for obj in vehicleNames | filter:{vehicleType : tmpSelectedVehicleType.id}"></select>
+        <label class="labelCompact">Vehicle Type</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-change="fnPopVehicleNames();" data-ng-model="tmpDetails.tmpVehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes"></select>
     </div>
     <div class="fieldContainer  relative right">
-        <label class="labelCompact">Vehicle Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-change="fnPopVehicleNames();" data-ng-model="tmpVehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes"></select>
+        <label class="labelCompact">Vehicle Name</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnPopVehicleTypes();" data-ng-model="tmpDetails.tmpVehicleName" data-ng-options="obj.id as obj.vehicleName for obj in vehicleNames"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup</label>
@@ -54,11 +54,11 @@
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div style="text-align: center;">            
-            <button class="btnCompact btn-danger" data-ng-show="bShowCancelBookingBtn" data-ng-click="fnOpenCancelBooking()" >Cancel Booking</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowSaveBookingBtn" data-ng-click="fnSaveBooking()">Save Booking</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowSaveAsNewBookingBtn" data-ng-click="fnSaveAsNewBooking()">Save as New Booking</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowDispositionBtn" data-ng-click="fnCallDesposition()">Desposition</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowCustFeedbackBtn" data-ng-click="fnOpenCustFeedback()">Cust. Feedback</button>
+            <button class="btnCompact btn-danger" data-ng-show="bShowCancelBookingBtn" data-ng-click="fnOpenCancelBooking()" title="Cancel Booking" >Cancel</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowSaveBookingBtn" data-ng-click="fnSaveBooking()" title="Save as Booking">Save</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowSaveAsNewBookingBtn" data-ng-click="fnSaveAsNewBooking()" title="Save this booking as a new booking">Save as New</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowDispositionBtn" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowCustFeedbackBtn" data-ng-click="fnOpenCustFeedback()" title="Open Feedback. To take customer feedback.">Feedback</button>
         </div>
         <p class="clear"/>
     </div>

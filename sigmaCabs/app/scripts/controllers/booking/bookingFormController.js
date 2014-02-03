@@ -14,21 +14,28 @@ angular.module('sigmaCabsApp')
 		console.log('bookingController: ', scope.bookingDetails);
 
 		if(scope.bookingDetails.vehicleType){
-			scope.tmpVehicleType = scope.bookingDetails.vehicleType;
+			scope.tmpDetails.tmpVehicleType = scope.bookingDetails.vehicleType;
 		}
 		if(scope.bookingDetails.vehicleName){
-			scope.tmpVehicleName = scope.bookingDetails.vehicleName;
+			scope.tmpDetails.tmpVehicleName = scope.bookingDetails.vehicleName;
 		}
 
 
 		// function to change sub-Journey Types
 		scope.fnPopSubJourneyTypes = function() {
-			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpJourneyType);			
+			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpJourneyType);
+			for(var i=0;i<scope.subJourneyTypes.length;i++){
+				if(scope.subJourneyTypes[i].parentId == scope.tmpJourneyType){
+					scope.bookingDetails.subJourneyType = scope.subJourneyTypes[i].id;
+					break;
+				}
+			}
+			
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleNames = function() {
-			scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpVehicleType);
-			scope.tmpVehicleName = "";
+			scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpDetails.tmpVehicleType);
+			scope.tmpDetails.tmpVehicleName = "";
 			scope.bookingDetails.vehicleType = scope.tmpSelectedVehicleType.id;
 			if(scope.vehicleNames){
 				for(var i=0;i<scope.vehicleNames.length;i++){
@@ -37,7 +44,7 @@ angular.module('sigmaCabsApp')
 					}
 				}
 				scope.vehicleNames.push({
-	                vehicleType : scope.tmpSelectedVehicleType.id,
+	                vehicleType : '1',	// any-vehicle default to small
 	                id: '',
 	                vehicleName : 'Any-Vehicle',
 	                status : '1'
@@ -47,14 +54,27 @@ angular.module('sigmaCabsApp')
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleTypes = function() {
-			scope.tmpSelectedVehicleName = PrerequisiteService.fnGetVehicleNameById(scope.tmpVehicleName);
-			scope.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
+			if(scope.tmpDetails.tmpVehicleName == "") {
+				scope.tmpDetails.tmpVehicleType = '1';
+				scope.bookingDetails.vehicleName = "";
+				return;
+			}
+			scope.tmpSelectedVehicleName = PrerequisiteService.fnGetVehicleNameById(scope.tmpDetails.tmpVehicleName);
+			scope.tmpDetails.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
 
 			scope.bookingDetails.vehicleName = scope.tmpSelectedVehicleName.id;
 		};
 
 		// function to show/Hide booking related buttons
 		scope.fnShowHideBookingButtons = function(){
+			//show booking status name if exists
+			if(scope.bookingDetails.bookingStatus){
+				scope.bookingStatusName = PrerequisiteService.fnGetBookingStatusName(scope.bookingDetails.bookingStatus);
+			} else {
+				scope.bookingStatusName = "New Booking";
+			}
+
+
 			if(!scope.bookingDetails.id){
 				scope.bShowCancelBookingBtn = false;
 				scope.bShowSaveBookingBtn = true;
@@ -114,11 +134,11 @@ angular.module('sigmaCabsApp')
 		if(scope.bookingDetails.subJourneyType){
 			scope.tmpJourneyType = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
 		} else {
-			scope.tmpJourneyType = 1;
+			scope.tmpJourneyType = "1";
 		}	
 
 		// If booking is opened in edit Mode... than we have to set vehicleName and vehicleType
-		scope.tmpVehicleType = '';	// show All
+		scope.tmpDetails.tmpVehicleType = '1';	// by default show Small
 
 
 		// show all the subJourneyTypes based on selected journeyType.
@@ -136,6 +156,10 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnOpenCancelBooking = function(){
+			if(!scope.bookingDetails.id) {
+				alert('Please save the booking details first.');
+				return;
+			}
 			$scope.opts = {
 				templateUrl: URLService.view('cancelBookingMain'),
 				controller: 'cancelBooking',
@@ -148,6 +172,53 @@ angular.module('sigmaCabsApp')
 					],
 					oBooking : function(){
 						return scope.bookingDetails
+					},
+					oCustomer : function(){
+						return scope.customerDetails
+					}
+				}
+			};
+			modalWindow.addDataToModal($scope.opts);
+		};
+
+		scope.fnOpenDisposition = function(){
+			if(!scope.customerDetails.id) {
+				alert('Please save the customer details first.');
+				return;
+			}
+
+			$scope.opts = {
+				templateUrl: URLService.view('dispositionForm'),
+				controller: 'dispositionBooking',
+				dialogClass: 'modalClass disposition-booking-container',
+				resolve: {
+					editMode: [
+						function() {
+							return false;
+						}
+					],
+					oBooking : function(){
+						// send readyToSave booking details
+						return {
+							id : "", 	// always save booking as new in disposition.
+							pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
+							pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
+							pickupPlace : scope.bookingDetails.pickupPlace, 
+							dropPlace : scope.bookingDetails.dropPlace, 
+							primaryPassanger : (scope.bookingDetails.primaryPassanger ? scope.bookingDetails.primaryPassanger : scope.customerDetails.name),
+							primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
+							extraMobile : scope.customerDetails.mobile2, 
+							landmark1 : scope.bookingDetails.landmark1, 
+							landmark2 : scope.bookingDetails.landmark2, 
+							vehicleName : scope.bookingDetails.vehicleName, 
+							vehicleType : scope.bookingDetails.vehicleType, 
+							subJourneyType : scope.bookingDetails.subJourneyType, 
+							bookingStatus : null,	// reset the booking status in disposition.
+							customerId : scope.customerDetails.id
+						}
+					},
+					oCustomer : function(){
+						return scope.customerDetails
 					}
 				}
 			};
@@ -176,17 +247,12 @@ angular.module('sigmaCabsApp')
 
 		scope.fnShowHideBookingButtons();
 
-		//show booking status name if exists
-		if(scope.bookingDetails.bookingStatus){
-			scope.bookingStatusName = PrerequisiteService.fnGetBookingStatusName(scope.bookingDetails.bookingStatus);
-		} else {
-			scope.bookingStatusName = "New Booking";
-		}
-
 		scope.$watch('bookingDetails.bookingStatus', function(newVal,oldVal){
 			scope.fnShowHideBookingButtons();
 		},true);
 
-		
+
+		scope.$watch('tmpDetails', function(newVal,oldVal){
+		},true);
 
 	});

@@ -7,11 +7,11 @@
         <div class="popupCallerInfo">
             <div class="left innerLabelContainer">
                 <span  class="innerLabel">Caller Name: </span>
-                <span>New Caller</span>
+                <span>{{ customerDetails.name }}</span>
             </div>
             <div class="right innerLabelContainer">
                 <span class="innerLabel">Caller Ph.: </span>
-                <span>888888</span>
+                <span>{{ customerDetails.mobile }}</span>
             </div>
         </div>
         <div class="modal-body" > 
@@ -23,20 +23,16 @@
                     <select class=" validate[maxSize[36]] selectFieldCompact" ng-model="iPriority" ng-options="k as v for (k,v) in priorities"></select>
                 </div>
                 <div class="fieldContainer  relative">
-                    <label class="labelCompact">Reason</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" >
-                        <option>Choose</option>
-                    </select>
+                    <label class="labelCompact">Cancel Category</label>
+                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="categoryId" data-ng-options="obj.id as obj.categoryName for obj in cancelCategories"></select>
                 </div>
                 <div class="fieldContainer  relative">
-                    <label class="labelCompact">Cancel Category</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" >
-                        <option>Choose</option>
-                    </select>
+                    <label class="labelCompact">Reason</label>
+                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="reasonId" data-ng-options="obj.id as obj.reason for obj in reason"></select>
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;">
                     <label class="labelCompact">Comment</label>
-                    <textarea class="cancelBookingComment"></textarea>
+                    <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
                 </div>
 
             </fieldset>
