@@ -35,6 +35,7 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 
 		scope.bloginShow = true;
+		scope.bVehConfirmShow = true;
 
 		//$scope.driversList = ["SAmeer", "Gandhar", "Thanish", "Driver1", "Driver2", "Driver3", "Driver4"];
 
@@ -53,6 +54,24 @@ angular.module('sigmaCabsApp')
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.bloginShow = false;
+					alert(data.result[0].message);
+				})
+				.error(function(data, status, headers, config) {
+					console.log('Error: ', data)
+				});
+		};
+
+		scope.fnVehicleConfirm = function() {
+			scope.vehicleLoginObj = {
+				"vehicleId": "3",
+				"driverId": "13",
+				"bookingId": "123"
+			};
+
+			dispatchService.fnVehicleConfirm(scope.vehicleLoginObj)
+				.success(function(data, status, headers, config) {
+					console.log('Success: ', data);
+					scope.bVehConfirmShow = false;
 					alert(data.result[0].message);
 				})
 				.error(function(data, status, headers, config) {

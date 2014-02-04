@@ -67,10 +67,10 @@
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div style="text-align: center;">
-            <button class="btnCompact btn-danger">Confirmed</button> <!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
-            <button class="btnCompact btn-success">Start Report</button>
-            <button class="btnCompact btn-success">Closing Report</button>
-            <button class="btnCompact btn-success">Complaints</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()" data-ng-show="bVehConfirmShow">Confirmed</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingComplaint()">Complaints</button>
         </div>
         <p class="clear"/>
     </div>

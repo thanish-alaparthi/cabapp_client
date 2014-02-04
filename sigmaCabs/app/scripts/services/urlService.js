@@ -48,6 +48,10 @@ angular.module('sigmaCabsApp')
         'RestApiVehicleBreakStart' : '',
         'RestApiVehicleBreakStop' : '',
         'RestApiVehicleLogoutRequest' : '',
+        'RestApiVehicleConfirmRequest' : '',
+        'RestApiVehicleBookingStartRequest' : '',
+        'RestApiVehicleBookingCloseRequest' : '',
+        'RestApiVehicleBookingComplaintRequest' : '',
         'RestApiSaveBooking' : '',
         
 
@@ -168,6 +172,9 @@ angular.module('sigmaCabsApp')
         'changeVehicleStatus': 'views/dispatches/changeVehicleStatus.html',
         'vehicleBreakStart': 'views/dispatches/vehicleBreakStart.html',
         'vehicleBreakStop': 'views/dispatches/vehicleBreakStop.html',
+        'vehicleBookingStart': 'views/dispatches/vehicleBookingStart.html',
+        'vehicleBookingClose': 'views/dispatches/vehicleBookingClose.html',
+        'vehicleBookingComplaint': 'views/dispatches/vehicleBookingComplaint.html',
         'vehicleLogout': 'views/dispatches/vehicleLogout.html'
       },
 

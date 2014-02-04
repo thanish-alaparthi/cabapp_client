@@ -236,6 +236,63 @@ angular.module('sigmaCabsApp')
             modalWindow.addDataToModal($scope.opts);
         };
 
+        scope.fnVehicleBookingStart = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingStart'),
+                controller: 'vehicleBookingStart',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnVehicleBookingClose = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingClose'),
+                controller: 'vehicleBookingClose',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnVehicleBookingComplaint = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingComplaint'),
+                controller: 'vehicleBookingComplaint',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        return scope.vehicleDetails
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
         scope.assetStateChartData = {
             "title": {
                 "text": ''

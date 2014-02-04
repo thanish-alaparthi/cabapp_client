@@ -172,6 +172,62 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
+            },
+
+            fnVehicleConfirm: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleConfirmRequest'),
+                    data: {
+                        url: "vehicle/dispatch",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleBookingStart: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBookingStartRequest'),
+                    data: {
+                        url: "booking/start",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleBookingClose: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBookingCloseRequest'),
+                    data: {
+                        url: "booking/close",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleBookingComplaint: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBookingComplaintRequest'),
+                    data: {
+                        url: "booking/complaint",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
             }
         }
     });

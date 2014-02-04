@@ -1,0 +1,75 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
+            <h4 class="modal-title">Vehicle Closing Report</h4>
+        </div>
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span  class="innerLabel">Caller Name: </span>
+                <span>New Caller</span>
+            </div>
+            <div class="right innerLabelContainer">
+                <span class="innerLabel">Caller Ph.: </span>
+                <span>888888</span>
+            </div>
+        </div>
+        <div class="modal-body" > 
+            <fieldset class="left">
+                <legend class="searchbox-border">Closing Report</legend>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Start Time</label>
+                    <span>11:30:25</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Current Time</label>
+                    <span>14:30:25</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Trip Time</label>
+                    <span>03:00:00</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Start Kms</label>
+                    <span>1523</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Current Kms</label>
+                    <input type="text" ng-model="currentKms" maxlength="15" class="textFieldCompact" value="1563"/>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Actual Kms</label>
+                    <span>40</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Actual Drop Place</label>
+                    <span>location 1</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Drop Place</label>
+                    <input type="text" ng-model="actualDropPlace" maxlength="15" class="textFieldCompact" />
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Selected Package</label>
+                    <span>XYZ</span>
+                </div>
+                <div class="fieldContainer  relative">
+                    <label class="labelCompact">Actual Package</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Total Amount</label>
+                    <span>1500</span>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Actual Amount</label>
+                    <input type="text" ng-model="paidAmount" maxlength="15" class="textFieldCompact" value="1300"/>
+                </div>
+            </fieldset>
+            <p class="clear"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+        </div>
+    </div>
+</div>
