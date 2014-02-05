@@ -34,7 +34,7 @@ angular.module('sigmaCabsApp')
 				if(data.status == 500){
 					console.warn("fnGetLatestCustomerBookings 500", data);
 				} else {
-					scope.bookingHistoryDetails = data.result;
+					scope.bookingHistoryDetails = PrerequisiteService.fnFormatBookingHistoryData(data.result);
 				}
 			})
 			.error(function(data, status, headers, config){

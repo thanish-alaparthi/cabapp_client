@@ -181,7 +181,7 @@ angular.module('sigmaCabsApp')
 
       // actual IP/ServerDomainName where REST API resides..
       // _serviceRoot = 'proxy.php';
-        _serviceRoot = 'http://localhost:1337/proxy.php';  // for localhost 
+        _serviceRoot = 'http://localhost/proxy.php';  // for localhost 
       // _serviceRoot = 'http://10.0.1.192/proxy.php';  // for localhost 
       // _serviceRoot = 'proxy.php';   // for hosting
 

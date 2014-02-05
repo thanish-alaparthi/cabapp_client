@@ -284,6 +284,19 @@ angular.module('sigmaCabsApp')
                 }
                 return aRtn;
             },
+            fnGetJourneyTypeBySubJourneyTypeId : function(sId){         // Function to return Only Main JourneyTypes
+                // filter main journey types i.e. where parentId = 0;
+                var aRtn = [],
+                    oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sId) {
+                        return oJt[i];
+                    }
+                }
+                return null;
+            },
             fnGetJourneyObjectById : function(sId){         // Function to return Only One JourneyType based on id
                 var aRtn = [],
                     oJt = this.oLs[this.currentDate]['journeyTypes'],
@@ -479,6 +492,45 @@ angular.module('sigmaCabsApp')
                     categoryName : 'Call-Taker'
                 }];
                 return aRtn;
+            },
+
+            fnFormatBookingHistoryData : function(aData){
+                var oThis = this,
+                    oRtn = [],
+                    iCount = aData.length;
+                for(var i=0;i<iCount;i++){
+                    var oBh = aData[i];
+                    oBh.srno = (i+1);
+                    oBh.bookingStatusName = oThis.fnGetBookingStatusName(oBh.bookingStatus);
+                    oBh.bookingDisplayDate = oThis.fnFormatDate(oBh.bookingDate) +' '+ oThis.fnFormatHours(oBh.bookingTime)+':'+ oThis.fnFormatMinutes(oBh.bookingTime);
+                    oBh.pickupDisplayDate = oThis.fnFormatDate(oBh.pickupDate);
+                    oBh.pickupDisplayTime = oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
+                    oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
+                    oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName);
+                    oRtn.push(oBh);
+                }
+                return oRtn;
+            },
+            fnGetCallTime : function(){
+                var oD = new Date(),
+                    sH = oD.getHours(),
+                    sM = oD.getMinutes(),
+                    sS = oD.getSeconds();
+
+
+
+
+                return ((sH <=9? '0' + sH: sH) + ':' + (sM <=9? '0' + sM: sM) + ':' + (sS <=9? '0' + sS: sS));
+            },
+            fnGetGradeById : function(sId){
+                var oThis = this,
+                    oG = oThis.oLs[oThis.currentDate]['grades'];
+                for(var i=0;i<oG.length;i++){
+                    if(oG[i].id == sId){
+                        return oG[i];
+                    }
+                }
+                return null;
             },
 
 

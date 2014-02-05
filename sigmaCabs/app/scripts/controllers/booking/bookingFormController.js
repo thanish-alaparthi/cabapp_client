@@ -23,9 +23,9 @@ angular.module('sigmaCabsApp')
 
 		// function to change sub-Journey Types
 		scope.fnPopSubJourneyTypes = function() {
-			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpJourneyType);
+			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpDetails.tmpJourneyType);
 			for(var i=0;i<scope.subJourneyTypes.length;i++){
-				if(scope.subJourneyTypes[i].parentId == scope.tmpJourneyType){
+				if(scope.subJourneyTypes[i].parentId == scope.tmpDetails.tmpJourneyType){
 					scope.bookingDetails.subJourneyType = scope.subJourneyTypes[i].id;
 					break;
 				}
@@ -73,7 +73,6 @@ angular.module('sigmaCabsApp')
 			} else {
 				scope.bookingStatusName = "New Booking";
 			}
-
 
 			if(!scope.bookingDetails.id){
 				scope.bShowCancelBookingBtn = false;
@@ -132,9 +131,9 @@ angular.module('sigmaCabsApp')
 
 		// If booking is opened in edit Mode... than we have to set JourneyType based on subJourneyType
 		if(scope.bookingDetails.subJourneyType){
-			scope.tmpJourneyType = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
+			scope.tmpDetails.tmpJourneyType = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
 		} else {
-			scope.tmpJourneyType = "1";
+			scope.tmpDetails.tmpJourneyType = "1";
 		}	
 
 		// If booking is opened in edit Mode... than we have to set vehicleName and vehicleType
@@ -145,7 +144,7 @@ angular.module('sigmaCabsApp')
 		scope.fnPopSubJourneyTypes();
 		scope.fnPopVehicleNames();
 
-	scope.checkVehicleAvilabilty = function(){
+		scope.checkVehicleAvilabilty = function(){
 			$scope.opts = {
 				templateUrl: URLService.view('vehicleAvailabilityCheck'),
 				controller: 'chkVehicleAvailabilityController',
@@ -238,8 +237,8 @@ angular.module('sigmaCabsApp')
 		scope.checkTariff = function(){
 			$scope.opts = {
 				templateUrl: URLService.view('singleTariff'),
-				controller: 'singleTariffController',
-				dialogClass: 'modalClass ' ,
+				controller: 'chkTariffController',
+				dialogClass: 'modalClass multi-vehicle-container-modal' ,
 				resolve: {}
 			};
 			modalWindow.addDataToModal($scope.opts);
@@ -251,8 +250,14 @@ angular.module('sigmaCabsApp')
 			scope.fnShowHideBookingButtons();
 		},true);
 
+		scope.$watch('bookingDetails.subJourneyType', function(newVal,oldVal){
+		},true);
+
 
 		scope.$watch('tmpDetails', function(newVal,oldVal){
+			if(newVal.tmpJourneyType != oldVal.tmpJourneyType){
+				scope.fnPopSubJourneyTypes();
+			}
 		},true);
 
 	});

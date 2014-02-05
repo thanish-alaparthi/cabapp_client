@@ -49,7 +49,8 @@ angular.module('sigmaCabsApp')
 
 
         var scope = $scope;
-        scope.callTime = "05:30";
+        scope.callTime = PrerequisiteService.fnGetCallTime();
+        scope.headCustomerCode = "-";
 
         scope.showBookingDetails =  true;
         scope.tmpDetails = {};
@@ -130,6 +131,13 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnSetCustomerDetails = function(data) {
+            // set the customerCode
+            scope.headCustomerCode = data.result[0].customerDetails.customerCode || "LalaSendTheCOde";
+            scope.headCustomerCategory = data.result[0].customerDetails.category;
+            scope.headCustomerGrade = PrerequisiteService.fnGetGradeById(data.result[0].customerDetails.grade).grade;
+            scope.headCustomerTripCount = data.result[0].customerDetails.tripCount;
+            scope.headDaysBookingsCount = data.result[0].customerDetails.bookingCountOfTheDay;
+
             scope.callerInfo = " (Existing Caller)";
             scope.customerDetails = data.result[0].customerDetails; // set the customer data which server response.
 
@@ -143,18 +151,7 @@ angular.module('sigmaCabsApp')
             // check if enquiry is sent.
             if(data.result[0].hasOwnProperty('bookingHistory')){
                 // make the historyDetails in readable form instead of ids
-                var iCount = data.result[0].bookingHistory.length;
-                for(var i=0;i<iCount;i++){
-                    var oBh = data.result[0].bookingHistory[i];
-                    oBh.srno = (i+1);
-                    oBh.bookingStatusName = PrerequisiteService.fnGetBookingStatusName(oBh.bookingStatus);
-                    oBh.bookingDisplayDate = PrerequisiteService.fnFormatDate(oBh.bookingDate) +' '+ PrerequisiteService.fnFormatHours(oBh.bookingTime)+':'+ PrerequisiteService.fnFormatMinutes(oBh.bookingTime);
-                    oBh.pickupDisplayDate = PrerequisiteService.fnFormatDate(oBh.pickupDate);
-                    oBh.pickupDisplayTime = PrerequisiteService.fnFormatHours(oBh.pickupTime) + ':' + PrerequisiteService.fnFormatMinutes(oBh.pickupTime);
-                    oBh.subJourneyTypeName = PrerequisiteService.fnGetJourneyTypeName(oBh.subJourneyType);
-                    oBh.vehicleDisplayName = PrerequisiteService.fnGetVehicleDisplayNameById(oBh.vehicleName);
-                    scope.bookingHistoryDetails.push(oBh);
-                }
+                scope.bookingHistoryDetails = PrerequisiteService.fnFormatBookingHistoryData(data.result[0].bookingHistory);
             }
         }
 
@@ -216,14 +213,21 @@ angular.module('sigmaCabsApp')
         $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {
             scope.bookingDetails = {};
             console.log('eventSelectedBookingFromHistory: ', oData);
-            scope.bookingDetails = oData.bookingDetails;
 
             scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType;
             scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName;
 
+            var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(oData.bookingDetails.subJourneyType);
+            scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
+
+            scope.bookingDetails = oData.bookingDetails;
             scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
             scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
+
+
+            scope.headBookingType = scope.bookingDetails.bookingStatusName;
+            scope.headBookingCode = scope.bookingDetails.bookingCode || 'LalaSendBookCode';
 
         });
     });

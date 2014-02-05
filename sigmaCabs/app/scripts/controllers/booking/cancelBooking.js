@@ -35,7 +35,10 @@ angular.module('sigmaCabsApp')
 			})
 			.success(function(data, status, headers, config){
 				console.log('success fnCancelBooking',data);
-				scope.close();
+				if(data.status == 200){
+					alert("Booking successfully cancelled.");
+					scope.close();
+				}
 			})
 			.error(function(data, status, headers, config){
 				console.log('error fnCancelBooking',data);

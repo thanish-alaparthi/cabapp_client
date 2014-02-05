@@ -6,6 +6,9 @@ angular.module('sigmaCabsApp')
 
 
         fnFormatServerDate = function(oDate){
+          if(!oDate){
+            return;
+          }
           var iD = oDate.getDate(),
               iM = parseInt(oDate.getMonth() + 1),
               iY = oDate.getFullYear();
@@ -16,6 +19,9 @@ angular.module('sigmaCabsApp')
           return sDt;
         };
         fnFormatDate = function(oDate){
+          if(!oDate){
+            return;
+          }
           var iD = oDate.getDate(),
               iM = parseInt(oDate.getMonth() + 1),
               iY = oDate.getFullYear();
@@ -88,6 +94,19 @@ angular.module('sigmaCabsApp')
         scope.$watch('model',function(){
           console.log('watching date....', model.$modelValue);
           element.dpSetSelected(model.$modelValue);
+        });
+
+        element.bind('blur', function(){
+          var sVal = element.val(),
+              aVal = sVal.split('/');
+          if(   sVal.length != 10
+             || (aVal.length != 3)
+             || (isNaN(aVal[0]) || isNaN(aVal[1]) || isNaN(aVal[2]))
+          ){
+            element.val(PrerequisiteService.fnFormatDate());
+            alert('Please enter a valid date.');
+            return;
+          }
         });
 
       }
