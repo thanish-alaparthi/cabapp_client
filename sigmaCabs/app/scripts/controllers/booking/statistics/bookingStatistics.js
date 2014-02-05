@@ -11,115 +11,31 @@ angular.module('sigmaCabsApp')
 	.controller('bookingStatisticsController', function($scope, PrerequisiteService, BookingService, CustomerService, $rootScope, URLService, $dialog) {
 
 	var scope = $scope;
-	console.log('in bookingStatisticsController');
 	scope.bookingStatistics = URLService.view('bookingStatistics');
+	scope.statisticsData = PrerequisiteService.fnGetStatistics();
+	scope.statisticsGridData = scope.statisticsData['statistics'];
+	for(var key in scope.statisticsGridData ){
+		scope.statisticsGridData[key]['vehilce'] = key;
+	}
 
 
-
-	scope.statisticsGridData = [
-		/*{
-        'rowInfo': 'Vehicle',
-        'smallInfo1': 'Indica',
-        'smallInfo2': 'Vista',
-        'mediumInfo': 'Verito',
-        'bigInfo1': 'Xylo',
-        'bigInfo2': 'Innova',
-        'bigInfo3': 'Tavera'
-    }, */
-		/*{
-            'rowInfo': 'Avlble',
-            'smallInfo1': 55,
-            'smallInfo2': 555,
-            'mediumInfo': 555,
-            'bigInfo1': 555,
-            'bigInfo2': 555,
-            'bigInfo3': 555
-        }, {
-            'rowInfo': 'Bkings',
-            'smallInfo1': 55,
-            'smallInfo2': 555,
-            'mediumInfo': 555,
-            'bigInfo1': 555,
-            'bigInfo2': 555,
-            'bigInfo3': 555
-        }, {
-            'rowInfo': 'Exptd',
-            'smallInfo1': 55,
-            'smallInfo2': 555,
-            'mediumInfo': 555,
-            'bigInfo1': 555,
-            'bigInfo2': 555,
-            'bigInfo3': 555
-        }*/
-		{
-			'rowInfo': 'Indica',
-			'available': 55,
-			'in_booking': 555,
-			'just_alloted': 555
-		}, {
-			'rowInfo': 'Vista',
-			'available': 55,
-			'in_booking': 555,
-			'just_alloted': 555
-		}, {
-			'rowInfo': 'Verito',
-			'available': 55,
-			'in_booking': 555,
-			'just_alloted': 555
-		}, {
-			'rowInfo': 'Xylo',
-			'available': 55,
-			'in_booking': 555,
-			'just_alloted': 555
-		}, {
-			'rowInfo': 'Innova',
-			'available': 55,
-			'in_booking': 555,
-			'just_alloted': 555
-		}, {
-			'rowInfo': 'Tavera',
-			'available': 55,
-			'in_booking': 555,
-			'just_alloted': 555
-		}
-	];
+	console.log(scope.statisticsGridData);
+	
 	scope.gridStatisticsData = {
 		data: 'statisticsGridData',
 		rowHeight: 25,
-		/*columnDefs: [{
-            field: 'rowInfo',
-            displayName: 'Vehicle'
-        }, {
-            field: 'smallInfo1',
-            displayName: 'Indica'
-        }, {
-            field: 'smallInfo2',
-            displayName: 'Vista'
-        }, {
-            field: 'mediumInfo',
-            displayName: 'Verito'
-        }, {
-            field: 'bigInfo1',
-            displayName: 'Xylo'
-        }, {
-            field: 'bigInfo2',
-            displayName: 'Innova'
-        }, {
-            field: 'bigInfo3',
-            displayName: 'Tavera'
-        }],*/
 		columnDefs: [{
-			field: 'rowInfo',
+			field: 'vehilce',
 			displayName: 'Vehicle'
-		}, {
-			field: 'available',
+		},{
+			field: 'Available',
 			displayName: 'Available'
 		}, {
-			field: 'in_booking',
-			displayName: 'in booking'
+			field: 'Booking',
+			displayName: 'Booking'
 		}, {
-			field: 'just_alloted',
-			displayName: 'just alloted'
+			field: 'Expected',
+			displayName: 'Expected'
 		}],
 		enablePaging: false,
 		showFooter: false,

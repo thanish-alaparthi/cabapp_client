@@ -22,6 +22,7 @@ angular.module('sigmaCabsApp')
 	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="editCell(row.entity, row.getProperty(col.field), col.field)"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
 	  
 	    $scope.colDefs = [
+	       	{field:'vhName', displayName:'Vehicle Name', width: '*'},
 	        {field:'duration', displayName:'Duration', width: '*'},
 	        {field:'kms', displayName:'Kms', width: '*'},
 	        {field:'price', displayName:'Price', width: '*', cellTemplate: basicCellTemplate},

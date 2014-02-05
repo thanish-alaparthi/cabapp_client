@@ -10,130 +10,129 @@ angular.module('sigmaCabsApp')
 
 		scope.close = function(){
 			dialog.close();
+		};
+
+		scope.singleTariffData = [{
+				'type': 'Expected Vehicles',
+				'small': '4',
+				'medium': '11',
+				'large': '10',
+			}, {
+				'type':'While Driving',
+				'small': '4',
+				'medium': '11',
+				'large': '10'
+			}, {
+				'type':'Bookings Existing',
+				'small': '4',
+				'medium': '11',
+				'large': '10'
+			},{
+				'type':'Action',
+				'small' : 'yes',
+				'medium' : 'yes',
+				'large' : 'yes',
+			}
+		];
+
+		/*scope.singleTariffData = [{
+			'Expected Vehicles' : {
+				'small': '4',
+				'medium': '11',
+				'large': '10'
+			},
+			'While Driving' : {
+				'small': '4',
+				'medium': '11',
+				'large': '10'
+			}, 
+			'Bookings Existing' : {
+				'small': '4',
+				'medium': '11',
+				'large': '10'
+			}, 
+			'Action': {
+				'small' : 'yes',
+				'medium' : 'yes',
+				'large' : 'yes',
+			}
+		}];*/
+
+		scope.singleTariffData = scope.singleTariffData;
+		for(var key in scope.singleTariffData ){
+			scope.singleTariffData[key]['vehilce'] = key;
 		}
 
-		scope.cityTariffData = [
-			{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
+		console.log(scope.singleTariffData)
+
+		scope.singleTariffGridOptions = {
+			data: 'singleTariffData',
+			rowHeight: 25,
+			columnDefs: [{
+				field: 'type',
+				displayName: 'Type'
 			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
+				field: 'small',
+				displayName: 'Small'
+			}, {
+				field: 'medium',
+				displayName: 'Medium'
+			}, {
+				field: 'large',
+				displayName: 'Large'
+			}],
+			enablePaging: false,
+			showFooter: false,
+			multiSelect: false,
+			totalServerItems: 'totalServerItems',
+			afterSelectionChange: function(oRow) {
+				// console.log(oRow.selectionProvider.selectedItems[0]);
+			}
+		};
+
+		scope.tariffVehiclesList = [{
+				'small': 'SC-111',
+				'medium': 'SC-111',
+				'large': 'SC-111',
+			}, {
+				'small': 'SC-111',
+				'medium': 'SC-111',
+				'large': 'SC-111'
+			}, {
+				'small': 'SC-111',
+				'medium': 'SC-111',
+				'large': 'SC-111'
 			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
-			},{
-				"duration" : "1 hr",
-				"tariffKms" : "15 km ",
-				"Indica/Vista" : "240",
-				"Verito/Indigo" : "290",
-				"Tavera/Xylo" : "390",
-				"Innova" : "390"
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
 			}
 		];
 
-		scope.airportTariffData = [
-			{
-				"Type" : "City to Airport to City",
-				"Indica/Vista" : "Rs 550/ @40 km",
-				"Verito/Indigo" : "Rs 550/ @40 km",
-				"Tavera/Xylo" : "Rs 550/ @40 km",
-				"Innova" : "Rs 550/ @40 km"
-			},{
-				"Type" : "Airport Up & Down",
-				"Indica/Vista" : "Rs 550/ @40 km",
-				"Verito/Indigo" : "Rs 550/ @40 km",
-				"Tavera/Xylo" : "Rs 550/ @40 km",
-				"Innova" : "Rs 550/ @40 km"
-			},{
-				"Type" : "Airport Up & Down",
-				"Indica/Vista" : "Rs 550/ @40 km",
-				"Verito/Indigo" : "Rs 550/ @40 km",
-				"Tavera/Xylo" : "Rs 550/ @40 km",
-				"Innova" : "Rs 550/ @40 km"
+
+		scope.tariffVehiclesGridOptions = {
+			data: 'tariffVehiclesList',
+			rowHeight: 25,
+			columnDefs: [{
+				field: 'small',
+				displayName: 'Small'
+			}, {
+				field: 'medium',
+				displayName: 'Medium'
+			}, {
+				field: 'large',
+				displayName: 'Large'
+			}],
+			enablePaging: false,
+			showFooter: false,
+			multiSelect: false,
+			totalServerItems: 'totalServerItems',
+			afterSelectionChange: function(oRow) {
+				// console.log(oRow.selectionProvider.selectedItems[0]);
 			}
-		];
+		};
+
+
+
 
 	});

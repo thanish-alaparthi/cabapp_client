@@ -6,11 +6,25 @@
         </div>
         <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
         
-           
+             <div class="clearfix singleTariffContainer">
+               
+               <div class="left">
+               <legend class="searchbox-border">Vehicle Availabilty</legend>
+                    <div style="height:163px; width:450px;" id="singleTariffGrid" class = "bookingHistoryGrid">
+                        <div class="gridStyle" ng-grid="singleTariffGridOptions" style="height:100%;margin:0px;"></div>
+                    </div>
+               </div>
+               <div class="left tariffVehicles"> 
+                   <legend class="searchbox-border">Allocation list</legend>
+                   <div style="height:163px; width:450px;" id="tariffVehicles" class = "bookingHistoryGrid">
+                        <div class="gridStyle" ng-grid="tariffVehiclesGridOptions" style="height:100%;margin:0px;"></div>
+                    </div>
+               </div>
+             </div>
             
         </div>
         <div class="modal-footer">            
-        	<button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Confirm</button>
+        	<button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Allocate</button>
         </div>
     </div>
 </div>

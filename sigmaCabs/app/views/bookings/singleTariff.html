@@ -6,8 +6,47 @@
         </div>
         <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
          <div data-ng-include="checkTariff"></div>
-           
-            
+         <div class="clearfix">
+            <div class="left">
+              <legend class="searchbox-border">City Pickup</legend>
+                <div style="height:163px; width:550px;" id="customerBookingGridID" class = "bookingHistoryGrid">
+                  <div class="gridStyle" ng-grid="gridCityPkgOptions" style="height:100%;margin:0px;"></div>
+                </div>
+            </div>
+            <div class="left tariffDetailsContainer">
+              <legend class="searchbox-border">Tariff Information</legend>
+
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Duration</label>
+                    <span class = "bokingLabel" data-ng-bind="duration"></span>
+                </div>
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Vehicle Name</label>
+                    <span class = "bokingLabel" data-ng-bind="vehicleName"></span>
+                </div>
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Kms</label>
+                    <span class = "bokingLabel" data-ng-bind="kms"></span>
+                </div>
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Price</label>
+                    <span class = "bokingLabel" data-ng-bind="price"></span>
+                </div>
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Extra Hr price</label>
+                    <span class = "bokingLabel" data-ng-bind="extHrPrice"></span>
+                </div>
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Extra Km price</label>
+                    <span class = "bokingLabel" data-ng-bind="extKmPrice"></span>
+                </div>
+                <div class="tariffFieldContainer">
+                    <label class="labelCompact">Comments</label>
+                    <span class = "bokingLabel" data-ng-bind="comments"></span>
+                </div
+                
+            </div>
+         </div>
         </div>
         <div class="modal-footer">            
             <button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Confirm</button>

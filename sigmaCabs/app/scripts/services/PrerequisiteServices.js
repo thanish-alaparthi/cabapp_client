@@ -190,6 +190,22 @@ angular.module('sigmaCabsApp')
                     console.log('error RestApiGetVehicleNames: ', data);
                     oThis.fnEmitEvent();
                 });
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('getStatistics'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success statistics: *****************', data); 
+                    if(oThis.fnAddToLocalStorage('statistics', data.result)) {   // add JourneyTypes                        
+                        oThis.fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetAllJourneyTypes: *****************', data);
+                    oThis.fnEmitEvent();
+                });
             },
 
 
@@ -398,6 +414,10 @@ angular.module('sigmaCabsApp')
             fnGetReasons : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['reason'];
+            },
+			fnGetStatistics : function(){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['statistics'];
             },
             fnGetVehicleNames : function(){
                 var oThis = this;

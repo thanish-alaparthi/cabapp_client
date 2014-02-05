@@ -145,7 +145,7 @@ angular.module('sigmaCabsApp')
 		scope.fnPopSubJourneyTypes();
 		scope.fnPopVehicleNames();
 
-		scope.checkVehicleAvilabilty = function(){
+	scope.checkVehicleAvilabilty = function(){
 			$scope.opts = {
 				templateUrl: URLService.view('vehicleAvailabilityCheck'),
 				controller: 'chkVehicleAvailabilityController',
@@ -238,8 +238,8 @@ angular.module('sigmaCabsApp')
 		scope.checkTariff = function(){
 			$scope.opts = {
 				templateUrl: URLService.view('singleTariff'),
-				controller: 'chkTariffController',
-				dialogClass: 'modalClass multi-vehicle-container-modal' ,
+				controller: 'singleTariffController',
+				dialogClass: 'modalClass ' ,
 				resolve: {}
 			};
 			modalWindow.addDataToModal($scope.opts);
