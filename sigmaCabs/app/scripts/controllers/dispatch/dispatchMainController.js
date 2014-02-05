@@ -315,47 +315,25 @@ angular.module('sigmaCabsApp')
             rowHeight: 25,
             columnDefs: [{
                 field: 'srno',
-                displayName: '#',
-                width: 30
+                displayName: 'B.No'
             }, {
                 field: 'tripDate',
-                displayName: 'Trip Date'
+                displayName: 'V.T'
             }, {
                 field: 'bookingCode',
-                displayName: 'Booking#'
+                displayName: 'S.T'
             }, {
                 field: 'customerName',
-                displayName: 'Passenger Name'
+                displayName: 'D.T'
             }, {
                 field: 'startTime',
-                displayName: 'Start Time',
-                width: 85
+                displayName: 'T.kms'
             }, {
                 field: 'pickup',
-                displayName: 'Pickup'
+                displayName: 'Amount'
             }, {
                 field: 'drop',
-                displayName: 'Drop'
-            }, {
-                field: 'vehicle',
-                displayName: 'Vehicle',
-                width: 80
-            }, {
-                field: 'package',
-                displayName: 'Package'
-            }, {
-                field: 'status',
-                displayName: 'Status',
-                width: 70
-            }, {
-                field: 'bookingId',
-                displayName: 'Status',
-                width: 70,
-                visible: false
-            }, {
-                displayName: 'Action',
-                width: 110,
-                cellTemplate: '<div style="text-align: center;"><button ng-show="row.getProperty(\'status\') == \'Pending\' ? true : false" style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenPendingForEdit(row)">Edit/View</button><button ng-click="fnOpenClosedAsBookAgain(row);"  ng-show="row.getProperty(\'status\') == \'Closed\' ? true : false" style="margin-top: 4px;" class="btnCompact btn-success">Book Again</button></div>'
+                displayName: 'D.ML'
             }],
             enablePaging: false,
             showFooter: false,
