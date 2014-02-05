@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('dispositionBooking', function(oBooking,oCustomer, $scope, $dialog, dialog, wizardHandler, $http,BookingService, PrerequisiteService, PreConfigService, URLService, UsersService,VehiclesService, appUtils) {
+	.controller('dispositionBooking', function(oBooking,$rootScope, oCustomer, $scope, $dialog, dialog, wizardHandler, $http,BookingService, PrerequisiteService, PreConfigService, URLService, UsersService,VehiclesService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside dispositionBooking', oBooking, oCustomer);
@@ -46,6 +46,10 @@ angular.module('sigmaCabsApp')
 			BookingService.fnSaveDisposition(oSave)
 			.success(function(data, status, headers, config){
 				console.log('success fnSaveDisposition',data);
+				if(data.status == 200){
+					$rootScope.$emit('eventRefreshBookingHistory', {});
+					scope.close();
+				}
 			})
 			.error(function(data, status, headers, config){
 				console.log('error fnSaveDisposition',data);

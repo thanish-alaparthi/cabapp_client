@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('cancelBooking', function(oBooking, oCustomer, $scope, $dialog, dialog, wizardHandler, $http,BookingService, PrerequisiteService, URLService, UsersService,VehiclesService, appUtils) {
+	.controller('cancelBooking', function(oBooking, oCustomer, $scope,$rootScope, $dialog, dialog, wizardHandler, $http,BookingService, PrerequisiteService, URLService, UsersService,VehiclesService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside cancelBooking', oBooking);
@@ -37,6 +37,9 @@ angular.module('sigmaCabsApp')
 				console.log('success fnCancelBooking',data);
 				if(data.status == 200){
 					alert("Booking successfully cancelled.");
+
+					// refresh the bookingHistory Grid
+					$rootScope.$emit('eventRefreshBookingHistory', {});
 					scope.close();
 				}
 			})

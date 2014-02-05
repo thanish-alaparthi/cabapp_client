@@ -237,4 +237,10 @@ angular.module('sigmaCabsApp')
         scope.fnSearchCustomer = function(){
             scope.fnMultipurposeSearch(scope.searchDetails.searchString);
         };
+
+        // check whether boookingDetails are saved from cancelBooking or dispostion form
+        $rootScope.$on('eventRefreshBookingHistory', function(ev, oData) {
+        	console.log('~~~~~~~~~eventRefreshBookingHistory');
+        	scope.fnRefreshBookingHistory();
+        });
 	});
