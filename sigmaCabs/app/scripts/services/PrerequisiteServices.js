@@ -206,6 +206,22 @@ angular.module('sigmaCabsApp')
                     console.log('error RestApiGetAllJourneyTypes: *****************', data);
                     oThis.fnEmitEvent();
                 });
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestApiGetTravelType'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestApiGetTravelType:', data); 
+                    if(oThis.fnAddToLocalStorage('travelTypes', data.result)) {   // add TravelTypes                        
+                        oThis.fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestApiGetTravelType:', data);
+                    oThis.fnEmitEvent();
+                });
             },
 
 
@@ -531,6 +547,11 @@ angular.module('sigmaCabsApp')
                     }
                 }
                 return null;
+            },
+
+            fnGetTravelTypes : function(){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['travelTypes'];
             },
 
 

@@ -107,7 +107,7 @@
                     <div class="tab-body cust-request" data-ng-show="tab==3">
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Travel Type</label>
-                             <select data-ng-model="specialRequestDetails.travelType" class=" validate[maxSize[36]] selectFieldCompact"></select>
+                             <select data-ng-model="specialRequestDetails.travelType" class=" validate[maxSize[36]] selectFieldCompact"  ng-options="obj.id as obj.travelType for obj in travelTypes"></select>
                         </div>
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Contact Person</label>
@@ -134,10 +134,6 @@
 
 
                     <div class="tab-body" data-ng-show="tab==4">
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Request Type</label>
-                             <select data-ng-model="otherRequestDetails.type" class=" validate[maxSize[36]] selectFieldCompact"></select>
-                        </div>
                         <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
                             <label class="labelCompact">Comment</label>
                             <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>

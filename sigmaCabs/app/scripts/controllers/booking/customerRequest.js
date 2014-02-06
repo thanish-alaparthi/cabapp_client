@@ -38,6 +38,7 @@ angular.module('sigmaCabsApp')
 
 		scope.iPriority = '1';
 		scope.priorities = PrerequisiteService.priorities;
+		scope.travelTypes = PrerequisiteService.fnGetTravelTypes();
 		scope.dateDetails = {
 			multiDates : []
 		};
