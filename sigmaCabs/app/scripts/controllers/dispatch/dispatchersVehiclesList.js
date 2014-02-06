@@ -8,13 +8,13 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('dispatchersVehiclesList', function($scope, $rootScope, URLService, $dialog, dispatchService, $timeout) {
+	.controller('dispatchersVehiclesList', function($scope, $rootScope, URLService, $dialog, DispatchService, $timeout) {
 		$scope.selectedVehicleList = $scope.vehicleData = [];
 		var activity = {
 			"activity": "9"
 		};
 		
-		dispatchService.fnGetDisVehiData(activity)
+		DispatchService.fnGetDisVehiData(activity)
 		.success(function(data, status, headers, config){
 			console.log('Success: ', data);
 			$scope.vehicleData = data;

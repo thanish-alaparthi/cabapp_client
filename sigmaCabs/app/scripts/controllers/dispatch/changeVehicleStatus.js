@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('changeVehicleStatus', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('changeVehicleStatus', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside changeVehicleStatus', oVehicleData);
@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 				"comment": "Insufficient balance"
 			};
 
-			dispatchService.fnChangeVehicleStatus(scope.oData)
+			DispatchService.fnChangeVehicleStatus(scope.oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();

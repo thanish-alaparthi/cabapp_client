@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('changeVehiclePhone', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('changeVehiclePhone', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside changeVehiclePhone', oVehicleData);
@@ -26,7 +26,7 @@ angular.module('sigmaCabsApp')
 				"comments": "Lost the actual mobile"
 			};
 
-			dispatchService.fnChangeVehiclePhone(scope.oData)
+			DispatchService.fnChangeVehiclePhone(scope.oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();

@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingStart', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('vehicleBookingStart', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
         var scope = $scope;
         console.log('inside vehicleBookingStart', oVehicleData);
@@ -31,7 +31,7 @@ angular.module('sigmaCabsApp')
                 "comments": "this is test" // only in the case of poor
             };
 
-            dispatchService.fnVehicleBookingStart(scope.oData)
+            DispatchService.fnVehicleBookingStart(scope.oData)
                 .success(function(data, status, headers, config) {
                     console.log('Success: ', data);
                     scope.close();

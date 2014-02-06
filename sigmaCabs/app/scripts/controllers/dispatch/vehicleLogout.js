@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleLogout', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleLogout', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside vehicleLogout', oVehicleData);
@@ -28,7 +28,7 @@ angular.module('sigmaCabsApp')
 				"currentKms": "1234"
 			};
 
-			dispatchService.fnVehicleLogout(scope.oData)
+			DispatchService.fnVehicleLogout(scope.oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();

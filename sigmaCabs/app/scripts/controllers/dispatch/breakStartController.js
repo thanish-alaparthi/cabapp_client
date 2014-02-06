@@ -29,7 +29,7 @@ angular.module('sigmaCabsApp')
 				}
 			})
 	})
-	.controller('breakStartController', function($scope, $rootScope, URLService, $dialog, modalWindow, dialog, dispatchService) {
+	.controller('breakStartController', function($scope, $rootScope, URLService, $dialog, modalWindow, dialog, DispatchService) {
 		console.log('breakStartController');
 		$scope.modalHeading = 'Duty Break Start';
 
@@ -38,7 +38,7 @@ angular.module('sigmaCabsApp')
 			"userType":"1"
 		};
 
-		dispatchService.fnGetAllDrivData(activity)
+		DispatchService.fnGetAllDrivData(activity)
 		.success(function(data, status, headers, config){
 			console.log('Success: ', data);
 			$scope.driversList = data;
@@ -56,7 +56,7 @@ angular.module('sigmaCabsApp')
 			$scope.VehicleLoginObj['comments'] = $scope.vehicleComments;
 			$scope.VehicleLoginObj['activity'] = "2";
 			
-			dispatchService.fnSendLogDetails($scope.VehicleLoginObj)
+			DispatchService.fnSendLogDetails($scope.VehicleLoginObj)
 			.success(function(data, status, headers, config){
 				console.log('Success: ', data);
 				$scope.close();

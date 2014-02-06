@@ -4,7 +4,7 @@
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Search </label>
             <input type="text" ng-model="searchString" class="validate[required,maxSize[128]] textFieldCompact"  />
-            <button class="btnCompact btn-success" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
+            <button class="btnCompact btn-success" ng-model="searchDetails.searchString" data-ng-click="fnSearchVehicle();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
         </div>
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">V.Owner Name </label>

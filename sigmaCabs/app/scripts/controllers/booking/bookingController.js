@@ -119,8 +119,7 @@ angular.module('sigmaCabsApp')
                     // make callPhone as mobile 
                     scope.customerDetails.mobile = scope.callerPhone;
                 } else if( data.status==200 
-                    && data.result
-                    && data.result.length) {
+                    && data.result) {
                     scope.fnSetCustomerDetails(data);                        
                 } else {    // error in data.result object.
                     console.log('Erro in result: fnSearchCustomerByMobile', data);   
@@ -160,7 +159,7 @@ angular.module('sigmaCabsApp')
 
         scope.fnInit = function() {
             // since mobile is passed, hit server to get CustomerDetails Based on the server
-            if ($routeParams.mobile) { // mobile passed
+            if (scope.callerPhone) { // mobile passed
                 // set the default view to Add a booking
                 scope.showExistingCustomerAddBooking = true;
 

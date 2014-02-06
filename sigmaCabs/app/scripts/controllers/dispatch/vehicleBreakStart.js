@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBreakStart', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside vehicleBreakStart', oVehicleData);
@@ -30,7 +30,7 @@ angular.module('sigmaCabsApp')
 				"breakTime": "20"
 			};
 
-			dispatchService.fnVehicleBreakStart(scope.oData)
+			DispatchService.fnVehicleBreakStart(scope.oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();

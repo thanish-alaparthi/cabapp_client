@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBreakStop', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBreakStop', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside vehicleBreakStop', oVehicleData);
@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 				"currentKms": "1234"
 			};
 
-			dispatchService.fnVehicleBreakStop(scope.oData)
+			DispatchService.fnVehicleBreakStop(scope.oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();

@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingClose', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
         var scope = $scope;
         console.log('inside vehicleBookingClose', oVehicleData);
@@ -39,7 +39,7 @@ angular.module('sigmaCabsApp')
                 "longitude": "678.1523"
             };
 
-            dispatchService.fnVehicleBookingClose(scope.oData)
+            DispatchService.fnVehicleBookingClose(scope.oData)
                 .success(function(data, status, headers, config) {
                     console.log('Success: ', data);
                     scope.close();

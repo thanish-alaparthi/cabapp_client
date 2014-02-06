@@ -29,7 +29,7 @@ angular.module('sigmaCabsApp')
 				}
 			})
 	})
-	.controller('vehicleLogoutController', function($scope, $rootScope, URLService, $dialog, modalWindow, dialog, dispatchService) {
+	.controller('vehicleLogoutController', function($scope, $rootScope, URLService, $dialog, modalWindow, dialog, DispatchService) {
 		console.log('vehicleLogoutController');
 		$scope.vehiicleHeading = 'Vehicle Logout';		
 
@@ -37,7 +37,7 @@ angular.module('sigmaCabsApp')
 			"activity": "9"
 		};
 		
-		dispatchService.fnGetDisVehiData(activity)
+		DispatchService.fnGetDisVehiData(activity)
 		.success(function(data, status, headers, config){
 			console.log('Success: ', data);
 			$scope.vehiclesList = data;
@@ -51,7 +51,7 @@ angular.module('sigmaCabsApp')
 			"userType":"1"
 		};
 
-		dispatchService.fnGetAllDrivData(activity)
+		DispatchService.fnGetAllDrivData(activity)
 		.success(function(data, status, headers, config){
 			console.log('Success: ', data);
 			$scope.driversList = data;
@@ -70,7 +70,7 @@ angular.module('sigmaCabsApp')
 			$scope.VehicleLoginObj['comments'] = $scope.vehicleComments;
 			$scope.VehicleLoginObj['activity'] = "1";
 			
-			dispatchService.fnSendLogDetails($scope.VehicleLoginObj)
+			DispatchService.fnSendLogDetails($scope.VehicleLoginObj)
 			.success(function(data, status, headers, config){
 				console.log('Success: ', data);
 				$scope.close();

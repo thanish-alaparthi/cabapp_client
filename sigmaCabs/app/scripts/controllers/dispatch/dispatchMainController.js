@@ -28,8 +28,102 @@ angular.module('sigmaCabsApp')
                 }
             })
     })
-    .controller('dispatchMainController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService, $dialog, modalWindow) {
+    .controller('dispatchMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow) {
         var scope = $scope;
+
+        scope.callerPhone = $routeParams.mobile;
+        scope.callerInfo = "";
+        console.log(scope.callerPhone);
+
+        scope.fnInit = function() {
+            // since mobile is passed, hit server to get vehicleDetails Based on the server
+            if (scope.callerPhone) { // mobile passed
+                // make a call to server to get the user details...
+                DispatchService.fnFindVehicleByMobile({
+                    mobile: $routeParams.mobile
+                })
+                    .success(function(data, status, headers, config) {
+                        console.log('Success fnFindVehicleByMobile: ', typeof data, data);
+
+                        if (typeof data != 'object') { // misMatched data is sent from the server.
+                            scope.fnLoadUnexpectedError(); // show a red error msg.
+                            return;
+                        }
+
+                        if (data.status == 500) { // no data found of vehicle/booking 
+                            console.log('500 fnFindVehicleByMobile', data);
+                            scope.callerInfo = " (New Caller)";
+                            // make callPhone as mobile 
+                            //scope.customerDetails.mobile = scope.callerPhone;
+                        } else if (data.status == 200 && data.result) {
+                            scope.fnSetVehicleDetails(data);
+                        } else { // error in data.result object.
+                            console.log('Erro in result: fnFindVehicleByMobile', data);
+                        }
+
+                        // scope.fnLoadDispactherView();
+                    })
+                    .error(function(data, status, headers, config) {
+                        console.log('error fnFindVehicleByMobile: ', data);
+                        alert('There was some error while getting vehicle details. ');
+                        // scope.fnLoadDispactherView();
+                    });
+            } else {
+                // scope.fnLoadDispactherView();
+            }
+        };
+
+        // Main Controller Init Point
+        // // waits until configuration/prerequisits data loads always
+        // $rootScope.$on('eventPrerequisitsLoaded', function(){
+        scope.fnInit();
+        // });
+        scope.fnSearchVehicle = function(sSearch) {
+            console.log(sSearch);
+
+
+            console.log('Searching by vehicle Id');
+
+            DispatchService.fnFindVehicleByMobile({
+                vcode: sSearch
+            })
+                .success(function(data, status, headers, config) {
+                    if (data.status == 500) { // no data found of customer/booking 
+                        console.log('500 fnSearchVehicle', data);
+                        // make callPhone as mobile 
+                        scope.customerDetails.mobile = scope.callerPhone;
+                    } else if (data.status == 200 && data.result) {
+                        //scope.fnSetCustomerDetails(data);
+                        console.log('vehicle search success');
+                        console.log(data);
+                    } else { // error in data.result object.
+                        console.log('Erro in result: fnSearchVehicle', data);
+                    }
+                })
+                .error(function(data, status, headers, config) {
+                    console.log('error fnSearchVehicle: ', data);
+                    alert('There was some error while getting vehicle details. ');
+                });
+
+        }
+        scope.fnMultipurposeSearch = function() {
+            if (!isNaN(sSearch)) { // mobile  && sSearch.length == 10
+                scope.fnSearchVehicle(scope.searchDetails.searchString);
+            }
+        };
+
+        scope.fnSetVehicleDetails = function(oData) {
+            console.log('in fnSetVehicleDetails ');
+            console.log(oData);
+        };
+
+        scope.fnLoadDispactherView = function() {
+            // scope.existingCustomerAddBooking = URLService.view('existingCustomerAddBooking');
+        };
+        scope.fnLoadUnexpectedError = function() {
+            // scope.existingCustomerAddBooking = URLService.view('errorResponseFormatMisMatch');
+            alert('in fnLoadUnexpectedError');
+        };
 
         scope.vehicleDetails = {
             "vehicleId": "15",
@@ -134,6 +228,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -152,6 +247,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -170,6 +266,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -188,6 +285,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -206,6 +304,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -224,6 +323,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -243,6 +343,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -262,6 +363,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -281,6 +383,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }

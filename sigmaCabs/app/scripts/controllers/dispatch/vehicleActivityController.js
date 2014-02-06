@@ -29,7 +29,7 @@ angular.module('sigmaCabsApp')
 				}
 			})
 	})
-	.controller('vehicleActivityController', function($scope, $rootScope, URLService, modalWindow, dispatchService) { //$dialog,
+	.controller('vehicleActivityController', function($scope, $rootScope, URLService, modalWindow, DispatchService) { //$dialog,
 		console.log('vehicleActivityController');
 
 		var scope = $scope;
@@ -50,7 +50,7 @@ angular.module('sigmaCabsApp')
 			/*scope.vehicleLoginObj['vehicleId'] = scope.chosenVehicle;
 			scope.vehicleLoginObj['driverId'] = scope.chosenDriver;*/
 
-			dispatchService.fnVehicleLogin(scope.vehicleLoginObj)
+			DispatchService.fnVehicleLogin(scope.vehicleLoginObj)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.bloginShow = false;
@@ -68,7 +68,7 @@ angular.module('sigmaCabsApp')
 				"bookingId": "123"
 			};
 
-			dispatchService.fnVehicleConfirm(scope.vehicleLoginObj)
+			DispatchService.fnVehicleConfirm(scope.vehicleLoginObj)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.bVehConfirmShow = false;

@@ -8,14 +8,14 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('dispatchersListController', function($scope, $rootScope, URLService, $dialog, dispatchService, $timeout) {
+	.controller('dispatchersListController', function($scope, $rootScope, URLService, $dialog, DispatchService, $timeout) {
 		$scope.selectedVehicleList = [];
 		$scope.selectedBookingRecords= [];
 		$scope.mySelections = [];
 		$scope.bookingData = [];
 		$scope.splitView = false;
 
-		dispatchService.fnGetDisBookingData()
+		DispatchService.fnGetDisBookingData()
 		.success(function(data, status, headers, config){
 			console.log('Success: ', data);
 			$scope.bookingData = data;
@@ -159,7 +159,7 @@ angular.module('sigmaCabsApp')
 			"activity": "9"
 		};
 		
-		dispatchService.fnGetDisVehiData(activity)
+		DispatchService.fnGetDisVehiData(activity)
 		.success(function(data, status, headers, config){
 			console.log('Success: ', data);
 			$scope.vehicleData = data;

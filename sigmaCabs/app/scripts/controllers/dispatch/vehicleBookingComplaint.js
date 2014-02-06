@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingComplaint', function(oVehicleData, dispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('vehicleBookingComplaint', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
         var scope = $scope;
         console.log('inside vehicleBookingComplaint', oVehicleData);
@@ -20,7 +20,8 @@ angular.module('sigmaCabsApp')
         }
         scope.fnSaveAndClose = function() {
             scope.oData = {
-                "id": "", // need to check with lala about id
+                "id": "",
+                "requester": "1",
                 "vehicleId": "1",
                 "driverId": "13",
                 "bookingId": "13",
@@ -29,7 +30,7 @@ angular.module('sigmaCabsApp')
                 "comments": "this is test"
             };
 
-            dispatchService.fnVehicleBookingComplaint(scope.oData)
+            DispatchService.fnVehicleBookingComplaint(scope.oData)
                 .success(function(data, status, headers, config) {
                     console.log('Success: ', data);
                     scope.close();
