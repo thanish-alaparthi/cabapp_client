@@ -21,7 +21,7 @@
     </div>
      <div class="fieldContainer  relative left">
         <label class="labelCompact">Reg. No.</label>
-        <input type="text" ng-model="bookingDetails.journeyDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <input type="text" ng-model="vehicleMainDetials.details.registrationNumber" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">V.Model</label>
@@ -40,7 +40,7 @@
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Status</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" >
+        <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.details.status" >
             <option>Choose</option>
             <option>Active</option>
             <option>In active</option>
