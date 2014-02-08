@@ -1,34 +1,34 @@
 <fieldset class="searchbox-border customerDetailsContainer left">
     <legend class="searchbox-border">Driver Details</legend>
     <div class="relative">
-        <div class="fieldContainer clearBoth relative clearBoth">
+        <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">Search </label>
-            <input type="text" ng-model="searchString" class="validate[required,maxSize[128]] textFieldCompact"  />
-            <button class="btnCompact btn-success" ng-model="searchDetails.searchString" data-ng-click="fnSearchVehicle();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
+            <input type="text" ng-model="searchDetails.searchByVehicleId" class="validate[required,maxSize[128]] textFieldCompact"  />
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleSearchButton();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
         </div>
-        <div class="fieldContainer clearBoth relative clearBoth">
+        <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">V.Owner Name </label>
             <input type="text" ng-model="vehicleMainDetials.owner.name" class="left validate[required,maxSize[128]] textFieldCompact"  />
             <span class="smsText">SMS</span>
         </div>
-        <div class="fieldContainer clearBoth relative clearBoth">
+        <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">Vehicle Ph.</label>
             <input type="text" ng-model="vehicleMainDetials.details.registeredMobile" class="left validate[required,maxSize[128]] textFieldCompact" readonly />
             <input name="" checked class="left smsCheckbox" type="checkbox" value="">
         </div>
-        <div class="fieldContainer clearBoth relative ">
+        <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Owner No.</label>
             <input type="text" ng-model="vehicleMainDetials.owner.mobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
             <input name="" class="left smsCheckbox" type="checkbox" value="">
         </div>
-        <div class="fieldContainer clearBoth relative ">
+        <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Current Place</label>
             <input type="text" ng-model="customer.customerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
             <input name="" class="left smsCheckbox" type="checkbox" value="">
         </div>
         <div class="fieldContainer clearBoth relative" >
             <label class="labelCompact">Driver Name</label>
-            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.driver">
+            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.driver" data-ng-options="obj.id as obj.name for obj in vehicleMainDetials.driver">
                 <option>Choose</option>
             </select>
         </div>

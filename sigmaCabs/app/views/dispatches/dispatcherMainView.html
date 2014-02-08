@@ -1,17 +1,13 @@
 <div >
 	<div id="topContainerID">
 	    <div data-ng-include="vehicleInformationForm" class="left"></div>
-	    <div data-ng-include="vehicleLoginForm" class="left"></div>
-	    <!-- <div data-ng-include="vehicleVacantForm" class="left"></div> -->
-	    <!-- <div data-ng-include="vehicleAllotForm" class="left"></div> -->
+	    <div data-ng-include="vehicleLoginForm" data-ng-show="vLoginView" class="left"></div>
+	    <div data-ng-include="vehicleVacantForm" class="left" data-ng-show="vVacantView"></div>
+	    <div data-ng-include="vehicleAllotForm" class="left" data-ng-show="vAllotView"></div>
 	    <div data-ng-include="chatForm" class="left"></div>
 	    <div data-ng-include="bookingStatistics" class="left"></div>
 	    <p class="clear"/>
 	</div>
 	<div data-ng-include="currentMonthData" style="clear:both;"></div>
-	<div class="last-month-data">
-	    <div data-ng-include="lastMonthHistory" class="left" style="margin: 5px 5px 0 0;width: 32.8%;"></div>
-	    <div data-ng-include="vehicleData" class="left" style="margin: 5px 5px 0 0;width: 32.8%;"></div>
-	    <div data-ng-include="vehiclePerformance" class="left" style="margin: 5px 5px 0 0;width: 32.8%;"></div>
-	</div>
+	<div data-ng-include="lastMonthHistory" class="left" style="margin: 5px 5px 0 0;width:100%;"></div>
 </div>

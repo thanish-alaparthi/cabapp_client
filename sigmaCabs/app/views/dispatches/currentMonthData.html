@@ -1,11 +1,55 @@
-<fieldset class="left" style="width:60%;margin-right: 5px;">
+<fieldset class="left" style="width:50%;margin-right: 5px;height: 220px;">
     <legend class="searchbox-border">Current Date Bookings</legend>
-    <div style="height:163px;" id="customerBookingGridID" class = "bookingHistoryGrid">
-    	<div class="gridStyle" ng-grid="gridCurrentMonthData" style="height:100%;margin:0px;"></div>
+    <div style="height:180px;margin-right: 10px;width:68%;" id="customerBookingGridID" class="bookingHistoryGrid left">
+    	<div style="margin-bottom:5px;">
+    		<span><strong>LT:&nbsp;</strong></span>
+    		<span class="margin-right10"><strong>10:30:25</strong></span>
+
+    		<span><strong>PL:&nbsp;</strong></span>
+    		<span class="margin-right10"><strong>ABC</strong></span>
+
+    		<span><strong>CL:&nbsp;</strong></span>
+    		<span class="margin-right10"><strong>XYZ</strong></span>
+    		
+    		<span><strong>Status:&nbsp;</strong></span>
+    		<span class="margin-right10"><strong>Driving</strong></span>
+    	</div>
+    	<div class="gridStyle" ng-grid="gridCurrentMonthData" style="min-height:160px;"></div>
     </div>
+    <div style="width:30%;" class="left">
+    	<div class="fieldContainer relative clearBoth">
+    		<span title="Total Booking"><strong>TB:&nbsp;</strong></span>
+    		<span class="margin-right10"><strong>4</strong></span>
+
+    		<span title="Rejected Booking"><strong>RB:&nbsp;</strong></span>
+    		<span class="margin-right10"><strong>1</strong></span>
+    	</div>
+    	<div class="fieldContainer relative clearBoth">
+            <label class="labelCompact">Day Collection</label>
+            <span>1500 rs</span>
+        </div>
+        <div class="fieldContainer relative clearBoth">
+            <label class="labelCompact" title="Total Login Hours">TLH</label>
+            <span>10 Hours</span>
+        </div>
+        <div class="fieldContainer relative clearBoth">
+            <label class="labelCompact" title="Total Break Time">TBT</label>
+            <span>2 Hours</span>
+        </div>
+        <div class="fieldContainer relative clearBoth">
+            <label class="labelCompact" title="Working Hours">WH</label>
+            <span>8 Hours</span>
+        </div>
+        <div class="fieldContainer relative clearBoth">
+            <label class="labelCompact">Performance</label>
+            <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:red;"></span>
+        </div>
+    </div>
+    <p class="clear" />
 </fieldset>
-<fieldset class="left" style="width:38%">
-    <legend class="searchbox-border">Current Day</legend>
-    <div style="height:163px;">
+<fieldset class="left" style="width:49%">
+    <legend class="searchbox-border">Current Month History</legend>
+    <div style="min-height: 200px;">
+    	<chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
     </div>
 </fieldset>

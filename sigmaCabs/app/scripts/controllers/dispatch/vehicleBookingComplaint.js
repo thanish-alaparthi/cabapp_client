@@ -20,7 +20,7 @@ angular.module('sigmaCabsApp')
         }
         scope.fnSaveAndClose = function() {
             scope.oData = {
-                "id": "",
+                "id": "", // need to check with lala about id
                 "requester": "1",
                 "vehicleId": "1",
                 "driverId": "13",

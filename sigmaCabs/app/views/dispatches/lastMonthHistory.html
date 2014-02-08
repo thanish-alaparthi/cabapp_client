@@ -1,6 +1,8 @@
-<fieldset class="" style="clear:both;">
+<fieldset class="left" style="width:50%;">
     <legend class="searchbox-border">Last Month History</legend>
     <div style="min-height: 200px;">
-    	<chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height= "200" width="200"></chart>
+    	<chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
     </div>
 </fieldset>
+<div class="left" data-ng-include="vehiclePerformance" style="width:49%;margin-left: 7px;"></div>
+<p class="clear" />

@@ -49,6 +49,11 @@ angular.module('sigmaCabsApp')
 
         scope.vehicleMainDetials = {};
         scope.tmpDetails = {};
+        scope.searchDetails = {};
+
+        scope.vLoginView = false;
+        scope.vVacantView = false;
+        scope.vAllotView = false;
 
         // add dropdwon fields
         scope.hours = PrerequisiteService.hours;
@@ -117,6 +122,7 @@ angular.module('sigmaCabsApp')
                         //scope.fnSetCustomerDetails(data);
                         console.log('vehicle search success');
                         console.log(data);
+                        scope.fnSetVehicleDetails(data);
                     } else { // error in data.result object.
                         console.log('Erro in result: fnSearchVehicle', data);
                     }
@@ -128,15 +134,31 @@ angular.module('sigmaCabsApp')
 
         }
         scope.fnMultipurposeSearch = function() {
+            var sSearch = scope.searchDetails.searchByVehicleId;
             if (!isNaN(sSearch)) { // mobile  && sSearch.length == 10
-                scope.fnSearchVehicle(scope.searchDetails.searchString);
+                scope.fnSearchVehicle(sSearch);
             }
+        };
+        scope.fnVehicleSearchButton = function() {
+            scope.fnMultipurposeSearch();
         };
 
         scope.fnSetVehicleDetails = function(oData) {
             console.log('in fnSetVehicleDetails ');
             console.log(oData.result);
             scope.vehicleMainDetials = oData.result;
+            scope.vLoginView = false;
+            scope.vVacantView = false;
+            scope.vAllotView = false;
+
+            switch(scope.vehicleMainDetials.vehicleState) {
+                case "1": scope.vLoginView = true;  
+                            break;
+                case "2": scope.vVacantView = true;  
+                            break;
+                case "3": scope.vAllotView = true;  
+                            break;
+            }
 
             if (scope.vehicleMainDetials.details.vehicleType) {
                 scope.tmpDetails.tmpVehicleType = scope.vehicleMainDetials.details.vehicleType;
@@ -205,69 +227,58 @@ angular.module('sigmaCabsApp')
 
         scope.currentMonthGridDetails = [{
             'bookingId': '1',
-            'srno': '1',
-            'tripDate': '25/03/2014',
-            'bookingCode': 'SCB099900001',
-            'customerName': 'Aswin kumar Chowdary',
+            'bookingNo': '1',
+            'vacantTime': '20',
             'startTime': '11:20 PM',
-            'pickup': 'Santosh Nagar',
-            'drop': 'Airport',
-            'vehicle': 'Indica',
-            'package': '400KM 500rs',
-            'status': 'Pending',
-            'action': 'Button Here',
+            'dropTime': '12:20 PM',
+            'totalKms': '1120',
+            'amount': '1500',
+            'deadMileage': '5'
         }, {
-            'bookingId': '2',
-            'srno': '2',
-            'tripDate': '25/03/2014',
-            'bookingCode': 'SCB099900001',
-            'customerName': 'Aswin kumar Chowdary',
+            'bookingId': '1',
+            'bookingNo': '1',
+            'vacantTime': '20',
             'startTime': '11:20 PM',
-            'pickup': 'Santosh Nagar',
-            'drop': 'Airport',
-            'vehicle': 'Indica',
-            'package': '400KM 500rs',
-            'status': 'Closed',
-            'action': 'Button Here',
+            'dropTime': '12:20 PM',
+            'totalKms': '1120',
+            'amount': '1500',
+            'deadMileage': '5'
         }, {
-            'bookingId': '3',
-            'srno': '3',
-            'tripDate': '25/03/2014',
-            'bookingCode': 'SCB099900001',
-            'customerName': 'Aswin kumar Chowdary',
+            'bookingId': '1',
+            'bookingNo': '1',
+            'vacantTime': '20',
             'startTime': '11:20 PM',
-            'pickup': 'Santosh Nagar',
-            'drop': 'Airport',
-            'vehicle': 'Indica',
-            'package': '400KM 500rs',
-            'status': 'Closed',
-            'action': 'Button Here',
+            'dropTime': '12:20 PM',
+            'totalKms': '1120',
+            'amount': '1500',
+            'deadMileage': '5'
         }, {
-            'bookingId': '4',
-            'srno': '4',
-            'tripDate': '25/03/2014',
-            'bookingCode': 'SCB099900001',
-            'customerName': 'Aswin kumar Chowdary',
+            'bookingId': '1',
+            'bookingNo': '1',
+            'vacantTime': '20',
             'startTime': '11:20 PM',
-            'pickup': 'Santosh Nagar',
-            'drop': 'Airport',
-            'vehicle': 'Indica',
-            'package': '400KM 500rs',
-            'status': 'Pending',
-            'action': 'Button Here',
+            'dropTime': '12:20 PM',
+            'totalKms': '1120',
+            'amount': '1500',
+            'deadMileage': '5'
         }, {
-            'bookingId': '5',
-            'srno': '5',
-            'tripDate': '25/03/2014',
-            'bookingCode': 'SCB099900001',
-            'customerName': 'Aswin kumar Chowdary',
+            'bookingId': '1',
+            'bookingNo': '1',
+            'vacantTime': '20',
             'startTime': '11:20 PM',
-            'pickup': 'Santosh Nagar',
-            'drop': 'Airport',
-            'vehicle': 'Indica',
-            'package': '400KM 500rs',
-            'status': 'Pending',
-            'action': 'Button Here',
+            'dropTime': '12:20 PM',
+            'totalKms': '1120',
+            'amount': '1500',
+            'deadMileage': '5'
+        }, {
+            'bookingId': '1',
+            'bookingNo': '1',
+            'vacantTime': '20',
+            'startTime': '11:20 PM',
+            'dropTime': '12:20 PM',
+            'totalKms': '1120',
+            'amount': '1500',
+            'deadMileage': '5'
         }];
 
 
@@ -473,30 +484,45 @@ angular.module('sigmaCabsApp')
             }]
         };
 
+        /*var headerCellTemplateWithTitle = '<div ng-click="col.sort()" ng-class="{ ngSorted: !noSortVisible }">'+
+                               '<span class="ngHeaderText" title="{{col.headerTitle}}">{{col.displayName}}</span>'+
+                               '<div class="ngSortButtonDown" ng-show="col.showSortButtonDown()"></div>'+
+                               '<div class="ngSortButtonUp" ng-show="col.showSortButtonUp()"></div>'+
+                             '</div>'+
+                             '<div ng-show="col.allowResize" class="ngHeaderGrip" ng-click="col.gripClick($event)" ng-mousedown="col.gripOnMouseDown($event)"></div>';*/
+
         scope.gridCurrentMonthData = {
             data: 'currentMonthGridDetails',
             rowHeight: 25,
             columnDefs: [{
-                field: 'srno',
-                displayName: 'B.No'
+                field: 'bookingNo',
+                displayName: 'B.No',
+                headerTitle: 'Booking No.'
             }, {
-                field: 'tripDate',
-                displayName: 'V.T'
-            }, {
-                field: 'bookingCode',
-                displayName: 'S.T'
-            }, {
-                field: 'customerName',
-                displayName: 'D.T'
+                field: 'vacantTime',
+                displayName: 'V.T',
+                headerTitle: 'Vacant Time'
             }, {
                 field: 'startTime',
-                displayName: 'T.kms'
+                displayName: 'S.T',
+                headerTitle: 'Start Time'
             }, {
-                field: 'pickup',
-                displayName: 'Amount'
+                field: 'dropTime',
+                displayName: 'D.T',
+                headerTitle: 'Drop Time'
             }, {
-                field: 'drop',
-                displayName: 'D.ML'
+                field: 'totalKms',
+                displayName: 'T.kms',
+                headerTitle: 'Total Kms.'
+            }, {
+                field: 'amount',
+                displayName: 'Amount',
+                headerTitle: 'Amount'
+            }, {
+                field: 'deadMileage',
+                displayName: 'D.ML',
+                headerTitle: 'Dead Mileage'/*,
+                headerCellTemplate: headerCellTemplateWithTitle*/
             }],
             enablePaging: false,
             showFooter: false,
