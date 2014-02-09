@@ -10,22 +10,28 @@ Author: Mario::216mario216@gmail.com
 angular.module('sigmaCabsApp')
 	.controller('changeVehicleStatus', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
-		var scope = $scope;
+		var scope = $scope,
+			previousStatusId;
 		console.log('inside changeVehicleStatus', oVehicleData);
 
 		scope.vehicleDetails = oVehicleData;
+		scope.statusComments = '';
+		previousStatusId = scope.vehicleDetails.vehicleMainDetials.details.paymentStatus;
+		scope.stateFrom = previousStatusId;
+		scope.stateTo = previousStatusId;
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": "15",
-				"driverId": "28",
-				"stateFrom": "1",
-				"stateTo": "2",
-				"comment": "Insufficient balance"
+				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"stateFrom": scope.stateFrom,
+				"stateTo": scope.stateTo,
+				"comment": scope.statusComments
 			};
+			console.log(scope.oData);
 
 			DispatchService.fnChangeVehicleStatus(scope.oData)
 				.success(function(data, status, headers, config) {

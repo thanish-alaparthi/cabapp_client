@@ -31,39 +31,45 @@ angular.module('sigmaCabsApp')
     .controller('dispatchMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow) {
         var scope = $scope;
 
-        scope.dispatcherMainView = URLService.view('dispatcherMainView');
-        scope.vehicleInformationForm = URLService.view('vehicleInformationForm');
-        scope.vehicleLoginForm = URLService.view('vehicleLoginForm');
-        scope.vehicleVacantForm = URLService.view('vehicleVacantForm');
-        scope.vehicleAllotForm = URLService.view('vehicleAllotForm');
-        scope.currentMonthData = URLService.view('currentMonthData');
-        scope.bookingStatistics = URLService.view('bookingStatistics');
-        scope.lastMonthHistory = URLService.view('lastMonthHistory');
-        scope.vehicleData = URLService.view('vehicleData');
-        scope.vehiclePerformance = URLService.view('vehiclePerformance');
-        scope.chatForm = URLService.view('chatForm');
-
-        scope.callerPhone = $routeParams.mobile;
-        scope.callerInfo = "";
-        console.log(scope.callerPhone);
-
-        scope.vehicleMainDetials = {};
-        scope.tmpDetails = {};
-        scope.searchDetails = {};
-
-        scope.vLoginView = false;
-        scope.vVacantView = false;
-        scope.vAllotView = false;
-
-        // add dropdwon fields
-        scope.hours = PrerequisiteService.hours;
-        scope.minutes = PrerequisiteService.minutes;
-        scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
-        scope.vehicleNames = PrerequisiteService.fnGetVehicleNames();
-        scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
-        scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
+        // Get the preRequisiteData
+        PrerequisiteService.fnGetPrerequisites();
 
         scope.fnInit = function() {
+            scope.dispatcherMainView = URLService.view('dispatcherMainView');
+            scope.vehicleInformationForm = URLService.view('vehicleInformationForm');
+            scope.vehicleLoginForm = URLService.view('vehicleLoginForm');
+            scope.vehicleVacantForm = URLService.view('vehicleVacantForm');
+            scope.vehicleAllotForm = URLService.view('vehicleAllotForm');
+            scope.currentMonthData = URLService.view('currentMonthData');
+            scope.bookingStatistics = URLService.view('bookingStatistics');
+            scope.lastMonthHistory = URLService.view('lastMonthHistory');
+            scope.vehicleData = URLService.view('vehicleData');
+            scope.vehiclePerformance = URLService.view('vehiclePerformance');
+            scope.chatForm = URLService.view('chatForm');
+
+            scope.callerPhone = $routeParams.mobile;
+            scope.callerInfo = "";
+            console.log(scope.callerPhone);
+
+            scope.vehicleMainDetials = {};
+            scope.tmpDetails = {};
+            scope.searchDetails = {};
+            scope.vehicleDetails = {};
+
+            scope.vLoginView = false;
+            scope.vVacantView = false;
+            scope.vAllotView = false;
+
+            // add dropdwon fields
+            scope.hours = PrerequisiteService.hours;
+            scope.minutes = PrerequisiteService.minutes;
+            scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
+            scope.vehicleNames = PrerequisiteService.fnGetVehicleNames();
+            scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
+            scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
+            scope.vehicleConditionTypes = PrerequisiteService.fnGetVehicleConditionTypes();
+            scope.vehicleStatusTypes = PrerequisiteService.fnGetStatusTypes();
+
             // since mobile is passed, hit server to get vehicleDetails Based on the server
             if (scope.callerPhone) { // mobile passed
                 // make a call to server to get the user details...
@@ -99,74 +105,251 @@ angular.module('sigmaCabsApp')
             } else {
                 // scope.fnLoadDispactherView();
             }
+
+            scope.currentMonthGridDetails = [{
+                'bookingId': '1',
+                'bookingNo': '1',
+                'vacantTime': '20',
+                'startTime': '11:20 PM',
+                'dropTime': '12:20 PM',
+                'totalKms': '1120',
+                'amount': '1500',
+                'deadMileage': '5'
+            }, {
+                'bookingId': '1',
+                'bookingNo': '1',
+                'vacantTime': '20',
+                'startTime': '11:20 PM',
+                'dropTime': '12:20 PM',
+                'totalKms': '1120',
+                'amount': '1500',
+                'deadMileage': '5'
+            }, {
+                'bookingId': '1',
+                'bookingNo': '1',
+                'vacantTime': '20',
+                'startTime': '11:20 PM',
+                'dropTime': '12:20 PM',
+                'totalKms': '1120',
+                'amount': '1500',
+                'deadMileage': '5'
+            }, {
+                'bookingId': '1',
+                'bookingNo': '1',
+                'vacantTime': '20',
+                'startTime': '11:20 PM',
+                'dropTime': '12:20 PM',
+                'totalKms': '1120',
+                'amount': '1500',
+                'deadMileage': '5'
+            }, {
+                'bookingId': '1',
+                'bookingNo': '1',
+                'vacantTime': '20',
+                'startTime': '11:20 PM',
+                'dropTime': '12:20 PM',
+                'totalKms': '1120',
+                'amount': '1500',
+                'deadMileage': '5'
+            }, {
+                'bookingId': '1',
+                'bookingNo': '1',
+                'vacantTime': '20',
+                'startTime': '11:20 PM',
+                'dropTime': '12:20 PM',
+                'totalKms': '1120',
+                'amount': '1500',
+                'deadMileage': '5'
+            }];
+
+            scope.assetStateChartData = {
+                "title": {
+                    "text": ''
+                },
+                "series": [{
+                    "data": [{
+                        "name": "Login",
+                        "y": 4,
+                        "color": "#20B0A0"
+                    }, {
+                        "name": "Collection",
+                        "y": 18,
+                        "color": "#2F7FD8"
+                    }]
+                }]
+            };
+
+            /*var headerCellTemplateWithTitle = '<div ng-click="col.sort()" ng-class="{ ngSorted: !noSortVisible }">'+
+                               '<span class="ngHeaderText" title="{{col.headerTitle}}">{{col.displayName}}</span>'+
+                               '<div class="ngSortButtonDown" ng-show="col.showSortButtonDown()"></div>'+
+                               '<div class="ngSortButtonUp" ng-show="col.showSortButtonUp()"></div>'+
+                             '</div>'+
+                             '<div ng-show="col.allowResize" class="ngHeaderGrip" ng-click="col.gripClick($event)" ng-mousedown="col.gripOnMouseDown($event)"></div>';*/
+
+            scope.gridCurrentMonthData = {
+                data: 'currentMonthGridDetails',
+                rowHeight: 25,
+                columnDefs: [{
+                    field: 'bookingNo',
+                    displayName: 'B.No',
+                    headerTitle: 'Booking No.'
+                }, {
+                    field: 'vacantTime',
+                    displayName: 'V.T',
+                    headerTitle: 'Vacant Time'
+                }, {
+                    field: 'startTime',
+                    displayName: 'S.T',
+                    headerTitle: 'Start Time'
+                }, {
+                    field: 'dropTime',
+                    displayName: 'D.T',
+                    headerTitle: 'Drop Time'
+                }, {
+                    field: 'totalKms',
+                    displayName: 'T.kms',
+                    headerTitle: 'Total Kms.'
+                }, {
+                    field: 'amount',
+                    displayName: 'Amount',
+                    headerTitle: 'Amount'
+                }, {
+                    field: 'deadMileage',
+                    displayName: 'D.ML',
+                    headerTitle: 'Dead Mileage'
+                    /*,
+                headerCellTemplate: headerCellTemplateWithTitle*/
+                }],
+                enablePaging: false,
+                showFooter: false,
+                multiSelect: false,
+                totalServerItems: 'totalServerItems',
+                afterSelectionChange: function(oRow) {
+                    // console.log(oRow.selectionProvider.selectedItems[0]);
+                }
+            };
+            scope.gridStatisticsData = {
+                data: 'statisticsGridData',
+                rowHeight: 25,
+                /*columnDefs: [{
+                field: 'rowInfo',
+                displayName: 'Vehicle'
+            }, {
+                field: 'smallInfo1',
+                displayName: 'Indica'
+            }, {
+                field: 'smallInfo2',
+                displayName: 'Vista'
+            }, {
+                field: 'mediumInfo',
+                displayName: 'Verito'
+            }, {
+                field: 'bigInfo1',
+                displayName: 'Xylo'
+            }, {
+                field: 'bigInfo2',
+                displayName: 'Innova'
+            }, {
+                field: 'bigInfo3',
+                displayName: 'Tavera'
+            }],*/
+                columnDefs: [{
+                    field: 'rowInfo',
+                    displayName: 'Vehicle'
+                }, {
+                    field: 'available',
+                    displayName: 'Available'
+                }, {
+                    field: 'in_booking',
+                    displayName: 'in booking'
+                }, {
+                    field: 'just_alloted',
+                    displayName: 'just alloted'
+                }],
+                enablePaging: false,
+                showFooter: false,
+                multiSelect: false,
+                totalServerItems: 'totalServerItems',
+                afterSelectionChange: function(oRow) {
+                    // console.log(oRow.selectionProvider.selectedItems[0]);
+                }
+            };
+
+            scope.fnSetVehicleDetails = function(oData) {
+                console.log('in fnSetVehicleDetails ');
+                console.log(oData.result);
+                scope.vehicleMainDetials = oData.result;
+                scope.vLoginView = false;
+                scope.vVacantView = false;
+                scope.vAllotView = false;
+
+                switch (scope.vehicleMainDetials.vehicleState) {
+                    case "1":
+                        scope.vehicleDetails.vehicleName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.details.vehicleName).vehicleName;
+                        scope.vehicleDetails.newLocation = scope.vehicleMainDetials.details.location;
+                        scope.vLoginView = true;
+                        break;
+                    case "2":
+                        scope.vVacantView = true;
+                        break;
+                    case "3":
+                        scope.vAllotView = true;
+                        break;
+                }
+
+                if (scope.vehicleMainDetials.details.vehicleType) {
+                    scope.tmpDetails.tmpVehicleType = scope.vehicleMainDetials.details.vehicleType;
+                }
+                if (scope.vehicleMainDetials.details.vehicleName) {
+                    scope.tmpDetails.tmpVehicleName = scope.vehicleMainDetials.details.vehicleName;
+                }
+            };
+            scope.fnSearchVehicle = function(sSearch) {
+                console.log(sSearch);
+                console.log('Searching by vehicle Id');
+
+                DispatchService.fnFindVehicleByMobile({
+                    vcode: sSearch
+                })
+                    .success(function(data, status, headers, config) {
+                        if (data.status == 500) { // no data found of customer/booking 
+                            console.log('500 fnSearchVehicle', data);
+                            // make callPhone as mobile 
+                            scope.customerDetails.mobile = scope.callerPhone;
+                        } else if (data.status == 200 && data.result) {
+                            //scope.fnSetCustomerDetails(data);
+                            console.log('vehicle search success');
+                            console.log(data);
+                            scope.fnSetVehicleDetails(data);
+                        } else { // error in data.result object.
+                            console.log('Erro in result: fnSearchVehicle', data);
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        console.log('error fnSearchVehicle: ', data);
+                        alert('There was some error while getting vehicle details. ');
+                    });
+
+            }
+            scope.fnMultipurposeSearch = function() {
+                var sSearch = scope.searchDetails.searchByVehicleId;
+                if (!isNaN(sSearch)) { // mobile  && sSearch.length == 10
+                    scope.fnSearchVehicle(sSearch);
+                }
+            };
+            scope.fnVehicleSearchButton = function() {
+                scope.fnMultipurposeSearch();
+            };
         };
 
         // Main Controller Init Point
         // // waits until configuration/prerequisits data loads always
-        // $rootScope.$on('eventPrerequisitsLoaded', function(){
-        scope.fnInit();
-        // });
-        scope.fnSearchVehicle = function(sSearch) {
-            console.log(sSearch);
-            console.log('Searching by vehicle Id');
+        $rootScope.$on('eventPrerequisitsLoaded', function() {
+            console.log('in eventPrerequisitsLoaded');
+            scope.fnInit();
+        });
 
-            DispatchService.fnFindVehicleByMobile({
-                vcode: sSearch
-            })
-                .success(function(data, status, headers, config) {
-                    if (data.status == 500) { // no data found of customer/booking 
-                        console.log('500 fnSearchVehicle', data);
-                        // make callPhone as mobile 
-                        scope.customerDetails.mobile = scope.callerPhone;
-                    } else if (data.status == 200 && data.result) {
-                        //scope.fnSetCustomerDetails(data);
-                        console.log('vehicle search success');
-                        console.log(data);
-                        scope.fnSetVehicleDetails(data);
-                    } else { // error in data.result object.
-                        console.log('Erro in result: fnSearchVehicle', data);
-                    }
-                })
-                .error(function(data, status, headers, config) {
-                    console.log('error fnSearchVehicle: ', data);
-                    alert('There was some error while getting vehicle details. ');
-                });
 
-        }
-        scope.fnMultipurposeSearch = function() {
-            var sSearch = scope.searchDetails.searchByVehicleId;
-            if (!isNaN(sSearch)) { // mobile  && sSearch.length == 10
-                scope.fnSearchVehicle(sSearch);
-            }
-        };
-        scope.fnVehicleSearchButton = function() {
-            scope.fnMultipurposeSearch();
-        };
-
-        scope.fnSetVehicleDetails = function(oData) {
-            console.log('in fnSetVehicleDetails ');
-            console.log(oData.result);
-            scope.vehicleMainDetials = oData.result;
-            scope.vLoginView = false;
-            scope.vVacantView = false;
-            scope.vAllotView = false;
-
-            switch(scope.vehicleMainDetials.vehicleState) {
-                case "1": scope.vLoginView = true;  
-                            break;
-                case "2": scope.vVacantView = true;  
-                            break;
-                case "3": scope.vAllotView = true;  
-                            break;
-            }
-
-            if (scope.vehicleMainDetials.details.vehicleType) {
-                scope.tmpDetails.tmpVehicleType = scope.vehicleMainDetials.details.vehicleType;
-            }
-            if (scope.vehicleMainDetials.details.vehicleName) {
-                scope.tmpDetails.tmpVehicleName = scope.vehicleMainDetials.details.vehicleName;
-            }
-        };
 
         // function to change sub-Journey Types
         /*scope.fnPopSubJourneyTypes = function() {
@@ -220,66 +403,6 @@ angular.module('sigmaCabsApp')
             alert('in fnLoadUnexpectedError');
         };
 
-        scope.vehicleDetails = {
-            "vehicleId": "15",
-            "driverId": "28"
-        };
-
-        scope.currentMonthGridDetails = [{
-            'bookingId': '1',
-            'bookingNo': '1',
-            'vacantTime': '20',
-            'startTime': '11:20 PM',
-            'dropTime': '12:20 PM',
-            'totalKms': '1120',
-            'amount': '1500',
-            'deadMileage': '5'
-        }, {
-            'bookingId': '1',
-            'bookingNo': '1',
-            'vacantTime': '20',
-            'startTime': '11:20 PM',
-            'dropTime': '12:20 PM',
-            'totalKms': '1120',
-            'amount': '1500',
-            'deadMileage': '5'
-        }, {
-            'bookingId': '1',
-            'bookingNo': '1',
-            'vacantTime': '20',
-            'startTime': '11:20 PM',
-            'dropTime': '12:20 PM',
-            'totalKms': '1120',
-            'amount': '1500',
-            'deadMileage': '5'
-        }, {
-            'bookingId': '1',
-            'bookingNo': '1',
-            'vacantTime': '20',
-            'startTime': '11:20 PM',
-            'dropTime': '12:20 PM',
-            'totalKms': '1120',
-            'amount': '1500',
-            'deadMileage': '5'
-        }, {
-            'bookingId': '1',
-            'bookingNo': '1',
-            'vacantTime': '20',
-            'startTime': '11:20 PM',
-            'dropTime': '12:20 PM',
-            'totalKms': '1120',
-            'amount': '1500',
-            'deadMileage': '5'
-        }, {
-            'bookingId': '1',
-            'bookingNo': '1',
-            'vacantTime': '20',
-            'startTime': '11:20 PM',
-            'dropTime': '12:20 PM',
-            'totalKms': '1120',
-            'amount': '1500',
-            'deadMileage': '5'
-        }];
 
 
         scope.fnFeedback = function() {
@@ -293,42 +416,55 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnChangeVehiclePhone = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('changeVehiclePhone'),
-                controller: 'changeVehiclePhone',
-                dialogClass: 'modalClass cancel-booking-container',
-                resolve: {
-                    editMode: [
-
-                        function() {
-                            return false;
+            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+                $scope.opts = {
+                    templateUrl: URLService.view('changeVehiclePhone'),
+                    controller: 'changeVehiclePhone',
+                    dialogClass: 'modalClass cancel-booking-container',
+                    resolve: {
+                        editMode: [
+                            function() {
+                                return false;
+                            }
+                        ],
+                        oVehicleData: function() {
+                            var oData = {
+                                vehicleMainDetials: scope.vehicleMainDetials
+                            };
+                            return oData;
                         }
-                    ],
-                    oVehicleData: function() {
-                        return scope.vehicleDetails
                     }
-                }
-            };
-            modalWindow.addDataToModal($scope.opts);
+                };
+                modalWindow.addDataToModal($scope.opts);
+            } else {
+                alert('Please select driver.')
+            }
         };
         scope.fnChangeVehicleStatus = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('changeVehicleStatus'),
-                controller: 'changeVehicleStatus',
-                dialogClass: 'modalClass cancel-booking-container',
-                resolve: {
-                    editMode: [
-
-                        function() {
-                            return false;
+            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+                $scope.opts = {
+                    templateUrl: URLService.view('changeVehicleStatus'),
+                    controller: 'changeVehicleStatus',
+                    dialogClass: 'modalClass cancel-booking-container',
+                    resolve: {
+                        editMode: [
+                            function() {
+                                return false;
+                            }
+                        ],
+                        oVehicleData: function() {
+                            var oData = {
+                                vehicleStatusTypes: scope.vehicleStatusTypes,
+                                vehicleMainDetials: scope.vehicleMainDetials
+                            };
+                            return oData;
                         }
-                    ],
-                    oVehicleData: function() {
-                        return scope.vehicleDetails
                     }
-                }
-            };
-            modalWindow.addDataToModal($scope.opts);
+                };
+                modalWindow.addDataToModal($scope.opts);
+            } else {
+                alert('Please select driver.')
+            }
         };
         scope.fnVehicleChangeLocation = function() {
             $scope.opts = {
@@ -337,13 +473,15 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        var oData = {
+                                vehicleMainDetials: scope.vehicleMainDetials
+                            };
+                            return oData;
                     }
                 }
             };
@@ -356,13 +494,12 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        return scope.vehicleMainDetials
                     }
                 }
             };
@@ -375,13 +512,12 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        return scope.vehicleMainDetials
                     }
                 }
             };
@@ -394,13 +530,12 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        return scope.vehicleMainDetials
                     }
                 }
             };
@@ -414,13 +549,12 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        return scope.vehicleMainDetials
                     }
                 }
             };
@@ -434,13 +568,12 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        return scope.vehicleMainDetials
                     }
                 }
             };
@@ -454,128 +587,15 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
-
                         function() {
                             return false;
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleDetails
+                        return scope.vehicleMainDetials
                     }
                 }
             };
             modalWindow.addDataToModal($scope.opts);
-        };
-
-        scope.assetStateChartData = {
-            "title": {
-                "text": ''
-            },
-            "series": [{
-                "data": [{
-                    "name": "Login",
-                    "y": 4,
-                    "color": "#20B0A0"
-                }, {
-                    "name": "Collection",
-                    "y": 18,
-                    "color": "#2F7FD8"
-                }]
-            }]
-        };
-
-        /*var headerCellTemplateWithTitle = '<div ng-click="col.sort()" ng-class="{ ngSorted: !noSortVisible }">'+
-                               '<span class="ngHeaderText" title="{{col.headerTitle}}">{{col.displayName}}</span>'+
-                               '<div class="ngSortButtonDown" ng-show="col.showSortButtonDown()"></div>'+
-                               '<div class="ngSortButtonUp" ng-show="col.showSortButtonUp()"></div>'+
-                             '</div>'+
-                             '<div ng-show="col.allowResize" class="ngHeaderGrip" ng-click="col.gripClick($event)" ng-mousedown="col.gripOnMouseDown($event)"></div>';*/
-
-        scope.gridCurrentMonthData = {
-            data: 'currentMonthGridDetails',
-            rowHeight: 25,
-            columnDefs: [{
-                field: 'bookingNo',
-                displayName: 'B.No',
-                headerTitle: 'Booking No.'
-            }, {
-                field: 'vacantTime',
-                displayName: 'V.T',
-                headerTitle: 'Vacant Time'
-            }, {
-                field: 'startTime',
-                displayName: 'S.T',
-                headerTitle: 'Start Time'
-            }, {
-                field: 'dropTime',
-                displayName: 'D.T',
-                headerTitle: 'Drop Time'
-            }, {
-                field: 'totalKms',
-                displayName: 'T.kms',
-                headerTitle: 'Total Kms.'
-            }, {
-                field: 'amount',
-                displayName: 'Amount',
-                headerTitle: 'Amount'
-            }, {
-                field: 'deadMileage',
-                displayName: 'D.ML',
-                headerTitle: 'Dead Mileage'/*,
-                headerCellTemplate: headerCellTemplateWithTitle*/
-            }],
-            enablePaging: false,
-            showFooter: false,
-            multiSelect: false,
-            totalServerItems: 'totalServerItems',
-            afterSelectionChange: function(oRow) {
-                // console.log(oRow.selectionProvider.selectedItems[0]);
-            }
-        };
-        scope.gridStatisticsData = {
-            data: 'statisticsGridData',
-            rowHeight: 25,
-            /*columnDefs: [{
-                field: 'rowInfo',
-                displayName: 'Vehicle'
-            }, {
-                field: 'smallInfo1',
-                displayName: 'Indica'
-            }, {
-                field: 'smallInfo2',
-                displayName: 'Vista'
-            }, {
-                field: 'mediumInfo',
-                displayName: 'Verito'
-            }, {
-                field: 'bigInfo1',
-                displayName: 'Xylo'
-            }, {
-                field: 'bigInfo2',
-                displayName: 'Innova'
-            }, {
-                field: 'bigInfo3',
-                displayName: 'Tavera'
-            }],*/
-            columnDefs: [{
-                field: 'rowInfo',
-                displayName: 'Vehicle'
-            }, {
-                field: 'available',
-                displayName: 'Available'
-            }, {
-                field: 'in_booking',
-                displayName: 'in booking'
-            }, {
-                field: 'just_alloted',
-                displayName: 'just alloted'
-            }],
-            enablePaging: false,
-            showFooter: false,
-            multiSelect: false,
-            totalServerItems: 'totalServerItems',
-            afterSelectionChange: function(oRow) {
-                // console.log(oRow.selectionProvider.selectedItems[0]);
-            }
         };
     });

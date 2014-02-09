@@ -23,13 +23,11 @@
         </div>
         <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Current Place</label>
-            <input type="text" ng-model="customer.customerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
-            <input name="" class="left smsCheckbox" type="checkbox" value="">
+            <input type="text" ng-model="vehicleMainDetials.details.location" class="left validate[required,maxSize[128]] textFieldCompact" />
         </div>
         <div class="fieldContainer clearBoth relative" >
             <label class="labelCompact">Driver Name</label>
-            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.driver" data-ng-options="obj.id as obj.name for obj in vehicleMainDetials.driver">
-                <option>Choose</option>
+            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.selectedDriver" data-ng-options="obj.id as obj.name for obj in vehicleMainDetials.driver">
             </select>
         </div>
         <hr class="buttonSpliter" />

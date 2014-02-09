@@ -14,17 +14,20 @@ angular.module('sigmaCabsApp')
 		console.log('inside changeVehiclePhone', oVehicleData);
 
 		scope.vehicleDetails = oVehicleData;
+		scope.phoneChangeComments = '';
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": "15",
-				"driverId": "28",
-				"mobile": "9652800022",
-				"comments": "Lost the actual mobile"
+				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"mobile": scope.newMobile,
+				"comments": scope.phoneChangeComments
 			};
+
+			console.log(scope.oData);
 
 			DispatchService.fnChangeVehiclePhone(scope.oData)
 				.success(function(data, status, headers, config) {

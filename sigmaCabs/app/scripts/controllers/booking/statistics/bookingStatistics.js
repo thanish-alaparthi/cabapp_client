@@ -13,11 +13,11 @@ angular.module('sigmaCabsApp')
 	var scope = $scope;
 	scope.bookingStatistics = URLService.view('bookingStatistics');
 	scope.statisticsData = PrerequisiteService.fnGetStatistics();
-	scope.statisticsGridData = scope.statisticsData['statistics'];
-	for(var key in scope.statisticsGridData ){
-		scope.statisticsGridData[key]['vehilce'] = key;
+	scope.statisticsGridData = [];
+	for(var key in scope.statisticsData ){
+		scope.statisticsData[key]['vehilce'] = PrerequisiteService.fnGetVehicleNameById(key).vehicleName;
+		scope.statisticsGridData.push(scope.statisticsData[key]);
 	}
-
 
 	console.log(scope.statisticsGridData);
 	

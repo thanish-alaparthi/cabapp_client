@@ -20,11 +20,13 @@
 
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Status</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" ng-model="stateValue"></select>
+                    <select class="validate[maxSize[36]] selectFieldCompact" ng-model="stateTo" data-ng-options="obj.id as obj.status for obj in vehicleDetails.vehicleStatusTypes">
+                        <option>Choose</option>
+                    </select>
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;">
                     <label class="labelCompact">Comments</label>
-                    <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
+                    <textarea data-ng-model="statusComments" class="cancelBookingComment"></textarea>
                 </div>
             </fieldset>
             <p class="clear"/>

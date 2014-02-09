@@ -446,7 +446,8 @@ angular.module('sigmaCabsApp')
             },
 			fnGetStatistics : function(){
                 var oThis = this;
-                return oThis.oLs[oThis.currentDate]['statistics'];
+                //return oThis.oLs[oThis.currentDate]['statistics'];
+                return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
             },
             fnGetVehicleNames : function(){
                 var oThis = this;
@@ -533,9 +534,6 @@ angular.module('sigmaCabsApp')
                     sM = oD.getMinutes(),
                     sS = oD.getSeconds();
 
-
-
-
                 return ((sH <=9? '0' + sH: sH) + ':' + (sM <=9? '0' + sM: sM) + ':' + (sS <=9? '0' + sS: sS));
             },
             fnGetGradeById : function(sId){
@@ -549,13 +547,33 @@ angular.module('sigmaCabsApp')
                 return null;
             },
 
-            fnGetTravelTypes : function(){
+            fnGetTravelTypes: function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['travelTypes'];
             },
-
-
-
+            fnGetVehicleConditionTypes: function() {
+                var oData = [{
+                    "id": "1",
+                    "condition": "ok"
+                }, {
+                    "id": "2",
+                    "condition": "Acceptable"
+                }, {
+                    "id": "3",
+                    "condition": "Need to Change"
+                }];
+                return oData;
+            },
+            fnGetStatusTypes: function() {
+                var oData = [{
+                    "id": "1",
+                    "status": "Active"
+                }, {
+                    "id": "2",
+                    "status": "In Active"
+                }];
+                return oData;
+            },
 
 
             /* Old settings. will be deleted later */
@@ -669,16 +687,6 @@ angular.module('sigmaCabsApp')
                 "type": "2"
             }, {
                 "title": "Heavy",
-                "type": "3"
-            }],
-            vehicleConditionTypes: [{
-                "title": "ok",
-                "type": "1"
-            }, {
-                "title": "Acceptable",
-                "type": "2"
-            }, {
-                "title": "Need to Change",
                 "type": "3"
             }],
             billingSystemTypes: [{
