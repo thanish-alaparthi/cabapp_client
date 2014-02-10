@@ -1,8 +1,7 @@
 /*
-Name: blockCustomer
-Description: blockCustomer
-Date: 14Jan2013
-Author: Mario::216mario216@gmail.com
+Name: changeVehicleLocation
+Description: changeVehicleLocation
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
@@ -14,18 +13,21 @@ angular.module('sigmaCabsApp')
 		console.log('inside changeVehicleLocation', oVehicleData);
 
 		scope.vehicleDetails = oVehicleData;
+		scope.changeLocation = {};
+
+		console.log(scope.vehicleDetails.vehicleMainDetials.details.location);
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": "15",
-				"driverId": "28",
-				"location": "Shaikpeta",
+				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"location": scope.changeLocation.newLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
-				"currentKms": "4567"
+				"currentKms": scope.changeLocation.currentKms
 			};
 
 			DispatchService.fnVehicleChangeLocation(scope.oData)

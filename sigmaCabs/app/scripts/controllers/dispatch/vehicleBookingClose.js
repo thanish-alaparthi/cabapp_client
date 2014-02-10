@@ -2,7 +2,7 @@
 Name: blockCustomer
 Description: blockCustomer
 Date: 14Jan2013
-Author: Mario::216mario216@gmail.com
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
@@ -14,6 +14,7 @@ angular.module('sigmaCabsApp')
         console.log('inside vehicleBookingClose', oVehicleData);
 
         scope.vehicleDetails = oVehicleData;
+        scope.bookingClose = {};
 
         scope.close = function() {
             dialog.close();
@@ -21,20 +22,20 @@ angular.module('sigmaCabsApp')
         scope.fnSaveAndClose = function() {
             scope.oData = {
                 "id": "", // need to check with lala about id
-                "vehicleId": "3",
-                "driverId": "123",
+                "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+                "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
                 "bookingId": "13",
-                "startKms": "1523",
-                "currentKms": "1563",
-                "actualKms": "40",
-                "startTime": "11:30:25",
+                "startKms": scope.vehicleDetails.vehicleMainDetials.details.startKms,
+                "currentKms": scope.bookingClose.currentKms,
+                "actualKms": scope.bookingClose.actualKms,
+                "startTime": scope.vehicleDetails.vehicleMainDetials.details.pickupTime,
                 "currentTime": "14:30:25",
                 "timeConsumed": "240",
                 "tariffOpted": "3",
                 "tariffActual": "4",
                 "totalAmount": "1500",
-                "paidAmount": "1300",
-                "actualDropPlace": "Himayat Nagar",
+                "paidAmount": scope.bookingClose.paidAmount,
+                "actualDropPlace": scope.bookingClose.actualDropPlace,
                 "lattitude": "1523.678",
                 "longitude": "678.1523"
             };
@@ -43,7 +44,7 @@ angular.module('sigmaCabsApp')
                 .success(function(data, status, headers, config) {
                     console.log('Success: ', data);
                     scope.close();
-                    alert(data.result.message);
+                    alert(data.result[0].message);
                 })
                 .error(function(data, status, headers, config) {
                     console.log('Error: ', data)

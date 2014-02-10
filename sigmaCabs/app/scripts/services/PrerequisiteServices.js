@@ -558,7 +558,7 @@ angular.module('sigmaCabsApp')
                 return null;
             },
 
-            fnGetTravelTypes : function(){
+            fnGetTravelTypes: function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['travelTypes'];
             },

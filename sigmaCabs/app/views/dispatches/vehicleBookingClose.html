@@ -19,7 +19,7 @@
                 <legend class="searchbox-border">Closing Report</legend>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Start Time</label>
-                    <span>11:30:25</span>
+                    <span>{{vehicleMainDetials.details.pickupTime}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Time</label>
@@ -31,23 +31,23 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Start Kms</label>
-                    <span>1523</span>
+                    <span>{{vehicleDetails.vehicleMainDetials.details.startKms}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="currentKms" maxlength="15" class="textFieldCompact" value="1563"/>
+                    <input type="text" ng-model="bookingClose.currentKms" maxlength="15" class="textFieldCompact" value="1563"/>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Actual Kms</label>
-                    <span>40</span>
+                    <span>{{bookingClose.actualKms}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Actual Drop Place</label>
-                    <span>location 1</span>
+                    <span>{{vehicleDetails.vehicleMainDetials.details.dropPlace}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Drop Place</label>
-                    <input type="text" ng-model="actualDropPlace" maxlength="15" class="textFieldCompact" />
+                    <input type="text" ng-model="bookingClose.actualDropPlace" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Selected Package</label>
@@ -55,15 +55,15 @@
                 </div>
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Actual Package</label>
-                    <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                    <select ng-model="bookingClose.tariffActual" class="validate[maxSize[36]] selectFieldCompact"></select>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Total Amount</label>
-                    <span>1500</span>
+                    <span>{{bookingClose.totalAmount}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Actual Amount</label>
-                    <input type="text" ng-model="paidAmount" maxlength="15" class="textFieldCompact" value="1300"/>
+                    <input type="text" ng-model="bookingClose.paidAmount" maxlength="15" class="textFieldCompact" value="1300"/>
                 </div>
             </fieldset>
             <p class="clear"/>

@@ -2,7 +2,7 @@
 Name: blockCustomer
 Description: blockCustomer
 Date: 14Jan2013
-Author: Mario::216mario216@gmail.com
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
@@ -14,20 +14,22 @@ angular.module('sigmaCabsApp')
 		console.log('inside vehicleBreakStart', oVehicleData);
 
 		scope.vehicleDetails = oVehicleData;
+		scope.breakStart = {};
+		scope.breakStart.newLocation = scope.vehicleDetails.vehicleMainDetials.details.location;
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": "16",
-				"driverId": "28",
+				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
 				"reasonId": "2",
-				"location": "Shaikpeta",
+				"location": scope.breakStart.newLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
 				"comments": "This is test.... functionality done", //only if reason is other
-				"breakTime": "20"
+				"breakTime": scope.breakStart.breakStartTime
 			};
 
 			DispatchService.fnVehicleBreakStart(scope.oData)

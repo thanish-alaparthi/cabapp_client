@@ -2,7 +2,7 @@
 Name: BookingHistory
 Description: Adds first time customer
 Date: 12Jan2013
-Author: Mario::216mario216@gmail.com
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';

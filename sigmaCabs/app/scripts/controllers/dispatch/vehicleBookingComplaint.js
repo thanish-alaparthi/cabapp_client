@@ -2,7 +2,7 @@
 Name: blockCustomer
 Description: blockCustomer
 Date: 14Jan2013
-Author: Mario::216mario216@gmail.com
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
@@ -22,8 +22,8 @@ angular.module('sigmaCabsApp')
             scope.oData = {
                 "id": "", // need to check with lala about id
                 "requester": "1",
-                "vehicleId": "1",
-                "driverId": "13",
+                "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+                "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
                 "bookingId": "13",
                 "reasonId": "2",
                 "priority": "1",

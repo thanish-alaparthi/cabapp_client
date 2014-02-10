@@ -19,15 +19,15 @@
                 <legend class="searchbox-border">Vehicle Break Start</legend>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Location</label>
-                    <input type="text" ng-model="currentLocation" maxlength="15" class="textFieldCompact" />
+                    <input type="text" ng-model="breakStart.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <div class="fieldContainer  relative">
-                    <label class="labelCompact">Break Reason</label><!--  ng-model="" -->
+                    <label class="labelCompact">Break Reason</label>
                     <select class="validate[maxSize[36]] selectFieldCompact"></select>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Request Time</label>
-                    <input type="text" maxlength="15" class="textFieldCompact" />
+                    <input type="text" maxlength="15" ng-model="breakStart.breakStartTime" class="textFieldCompact" />
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;display:none;">
                     <label class="labelCompact">Comments</label>

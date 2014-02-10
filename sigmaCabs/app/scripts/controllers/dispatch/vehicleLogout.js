@@ -2,7 +2,7 @@
 Name: blockCustomer
 Description: blockCustomer
 Date: 14Jan2013
-Author: Mario::216mario216@gmail.com
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
@@ -14,18 +14,19 @@ angular.module('sigmaCabsApp')
 		console.log('inside vehicleLogout', oVehicleData);
 
 		scope.vehicleDetails = oVehicleData;
+		scope.logout = {};
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": "2",
-				"driverId": "2",
-				"location": "Shaikpeta",
+				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"location": scope.logout.currentLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
-				"currentKms": "1234"
+				"currentKms": scope.logout.currentKms
 			};
 
 			DispatchService.fnVehicleLogout(scope.oData)

@@ -1,8 +1,8 @@
 /*
 Name: easyBookingApp
 Description: Main Application module controller for dashboard page.
-Date: 13Nov2013
-Author: Mario::216mario216@gmail.com
+Date: 29Jan2013
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
@@ -352,16 +352,15 @@ angular.module('sigmaCabsApp')
 
 
         // function to change sub-Journey Types
-        /*scope.fnPopSubJourneyTypes = function() {
-            scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpDetails.tmpJourneyType);
+        scope.fnPopSubJourneyTypes = function() {
+            scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.vehicleMainDetials.journeyType);
             for (var i = 0; i < scope.subJourneyTypes.length; i++) {
-                if (scope.subJourneyTypes[i].parentId == scope.tmpDetails.tmpJourneyType) {
+                if (scope.subJourneyTypes[i].parentId == scope.vehicleMainDetials.journeyType) {
                     scope.vehicleMainDetials.subJourneyType = scope.subJourneyTypes[i].id;
                     break;
                 }
             }
-
-        };*/
+        };
         // function to change VehicleNames
         scope.fnPopVehicleNames = function() {
             scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpDetails.tmpVehicleType);
@@ -467,61 +466,81 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnVehicleChangeLocation = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('changeVehicleLocation'),
-                controller: 'changeVehicleLocation',
-                dialogClass: 'modalClass cancel-booking-container',
-                resolve: {
-                    editMode: [
-                        function() {
-                            return false;
-                        }
-                    ],
-                    oVehicleData: function() {
-                        var oData = {
+            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+                $scope.opts = {
+                    templateUrl: URLService.view('changeVehicleLocation'),
+                    controller: 'changeVehicleLocation',
+                    dialogClass: 'modalClass cancel-booking-container',
+                    resolve: {
+                        editMode: [
+
+                            function() {
+                                return false;
+                            }
+                        ],
+                        oVehicleData: function() {
+                            var oData = {
                                 vehicleMainDetials: scope.vehicleMainDetials
                             };
                             return oData;
+                        }
                     }
-                }
-            };
-            modalWindow.addDataToModal($scope.opts);
+                };
+                modalWindow.addDataToModal($scope.opts);
+            } else {
+                alert('Please select driver.')
+            }
         };
         scope.fnVehicleBreakStart = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('vehicleBreakStart'),
-                controller: 'vehicleBreakStart',
-                dialogClass: 'modalClass cancel-booking-container',
-                resolve: {
-                    editMode: [
-                        function() {
-                            return false;
+            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+                $scope.opts = {
+                    templateUrl: URLService.view('vehicleBreakStart'),
+                    controller: 'vehicleBreakStart',
+                    dialogClass: 'modalClass cancel-booking-container',
+                    resolve: {
+                        editMode: [
+                            function() {
+                                return false;
+                            }
+                        ],
+                        oVehicleData: function() {
+                            var oData = {
+                                vehicleMainDetials: scope.vehicleMainDetials
+                            };
+                            return oData;
                         }
-                    ],
-                    oVehicleData: function() {
-                        return scope.vehicleMainDetials
                     }
-                }
-            };
-            modalWindow.addDataToModal($scope.opts);
+                };
+                modalWindow.addDataToModal($scope.opts);
+            } else {
+                alert('Please select driver.')
+            }
         };
         scope.fnVehicleBreakStop = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('vehicleBreakStop'),
-                controller: 'vehicleBreakStop',
-                dialogClass: 'modalClass cancel-booking-container',
-                resolve: {
-                    editMode: [
-                        function() {
-                            return false;
+            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+                $scope.opts = {
+                    templateUrl: URLService.view('vehicleBreakStop'),
+                    controller: 'vehicleBreakStop',
+                    dialogClass: 'modalClass cancel-booking-container',
+                    resolve: {
+                        editMode: [
+
+                            function() {
+                                return false;
+                            }
+                        ],
+                        oVehicleData: function() {
+                            var oData = {
+                                vehicleMainDetials: scope.vehicleMainDetials
+                            };
+                            return oData;
                         }
-                    ],
-                    oVehicleData: function() {
-                        return scope.vehicleMainDetials
                     }
-                }
-            };
-            modalWindow.addDataToModal($scope.opts);
+                };
+                modalWindow.addDataToModal($scope.opts);
+            } else {
+                alert('Please select driver.')
+            }
         };
         scope.fnVehicleLogout = function() {
             $scope.opts = {
@@ -535,7 +554,10 @@ angular.module('sigmaCabsApp')
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleMainDetials
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
                     }
                 }
             };
@@ -554,7 +576,10 @@ angular.module('sigmaCabsApp')
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleMainDetials
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
                     }
                 }
             };
@@ -573,7 +598,10 @@ angular.module('sigmaCabsApp')
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleMainDetials
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
                     }
                 }
             };
@@ -592,7 +620,10 @@ angular.module('sigmaCabsApp')
                         }
                     ],
                     oVehicleData: function() {
-                        return scope.vehicleMainDetials
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
                     }
                 }
             };

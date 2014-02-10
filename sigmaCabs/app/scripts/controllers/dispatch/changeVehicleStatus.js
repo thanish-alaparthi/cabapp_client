@@ -2,7 +2,7 @@
 Name: blockCustomer
 Description: blockCustomer
 Date: 14Jan2013
-Author: Mario::216mario216@gmail.com
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';

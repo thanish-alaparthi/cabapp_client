@@ -1,8 +1,8 @@
 /*
 Name: CustomerListController
 Description: Handles displaying list (grid) of customers.
-Date: 13Nov2013
-Author: Mario::216mario216@gmail.com
+Date: 29Jan2013
+Author: Nortan::uipassionrocks.sigma@gmail.com
 */
 
 'use strict';
