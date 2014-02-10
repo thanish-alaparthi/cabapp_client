@@ -27,13 +27,15 @@ angular.module('sigmaCabsApp')
         'getUserDetails' : "",
         'userDelete' : "",
 
-        'RestApiGetAllJourneyTypes' : '?url=journey/all',
-        'RestApiGetAllBookingStates' : '?url=bookingstatus/all',
-        'RestApiGetAllGrades' : '?url=grade/all',
+        'RestApiGetAllJourneyTypes' : '?url=journey/all',        
+        // 'RestApiGetAllJourneyTypes' : '?url=config/getAllJourneyTypes',
+
+        'RestApiGetAllBookingStates' : '?url=config/getAllBookingStatus',
+        'RestApiGetAllGrades' : '?url=config/getAllGrades',
         'RestApiGetAllReasons' : '?url=reason/all',
-        'getAllTariff': '?url=tariff/getTariffInfo',
+        'RestApiGetAllTariff': '?url=tariff/getTariffInfo',
         'RestApiGetBookingStatues' : '?url=bookingstatus/all',
-        'RestApiGetVehicleNames' : '?url=vehicle/names',
+        'RestApiGetVehicleNames' : '?url=config/getAllVehicleNames',
 		'RestApiGetTravelType' : '?url=traveltype/all',
         'RestApiCancelBooking' : '',
         'RestApiSaveCustomerDetails' : '',
@@ -55,7 +57,9 @@ angular.module('sigmaCabsApp')
         'RestApiVehicleBookingComplaint' : '',
         'RestApiSaveBooking' : '',
         'RestApiSearchByVehicleMobile' : '',
-        'getStatistics':'?url=vehicle/getAvailableStatistics',
+        'RestApiGetStatistics':'?url=vehicle/getAvailableStatistics',        
+        'RestGetTariffById': '',
+        'RestGetAllVehicleTypes' : '?url=config/getAllVehicleTypes',
 
 
         'addVehicle' :  "", //"?url=vehicle/save",

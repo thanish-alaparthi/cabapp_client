@@ -11,7 +11,7 @@ angular.module('sigmaCabsApp')
 	.controller('bookingFormController', function($scope, $rootScope, URLService,PrerequisiteService, BookingService, VehiclesService, $dialog, modalWindow, PreConfigService) {
 		var scope = $scope;
 
-		console.log('bookingController: ', scope.bookingDetails);
+		console.log('bookingFormController: ', scope.bookingDetails);
 
 		if(scope.bookingDetails.vehicleType){
 			scope.tmpDetails.tmpVehicleType = scope.bookingDetails.vehicleType;
@@ -131,7 +131,8 @@ angular.module('sigmaCabsApp')
 
 		// If booking is opened in edit Mode... than we have to set JourneyType based on subJourneyType
 		if(scope.bookingDetails.subJourneyType){
-			scope.tmpDetails.tmpJourneyType = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
+			var oJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
+			scope.tmpDetails.tmpJourneyType = oJt.parentId;
 		} else {
 			scope.tmpDetails.tmpJourneyType = "1";
 		}	
@@ -235,11 +236,39 @@ angular.module('sigmaCabsApp')
 		}
 
 		scope.checkTariff = function(){
+			if(!scope.customerDetails.id) {
+				alert('Please save the customer details first.');
+				return;
+			}
 			$scope.opts = {
 				templateUrl: URLService.view('singleTariff'),
 				controller: 'singleTariffController',
 				dialogClass: 'modalClass' ,
-				resolve: {}
+				resolve: {
+					oBooking : function(){
+						// send readyToSave booking details
+						return {
+							id : scope.bookingDetails.id,
+							pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
+							pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
+							pickupPlace : scope.bookingDetails.pickupPlace, 
+							dropPlace : scope.bookingDetails.dropPlace, 
+							primaryPassanger : (scope.bookingDetails.primaryPassanger ? scope.bookingDetails.primaryPassanger : scope.customerDetails.name),
+							primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
+							extraMobile : scope.customerDetails.mobile2, 
+							landmark1 : scope.bookingDetails.landmark1, 
+							landmark2 : scope.bookingDetails.landmark2, 
+							vehicleName : scope.bookingDetails.vehicleName, 
+							vehicleType : scope.bookingDetails.vehicleType, 
+							subJourneyType : scope.bookingDetails.subJourneyType, 
+							bookingStatus : null,	// reset the booking status in disposition.
+							customerId : scope.customerDetails.id
+						}
+					},
+					oCustomer : function(){
+						return scope.customerDetails
+					}
+				}
 			};
 			modalWindow.addDataToModal($scope.opts);
 		}

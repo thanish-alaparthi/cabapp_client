@@ -4,52 +4,65 @@
             <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
             <h4 class="modal-title">Tariff</h4>
         </div>
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span  class="innerLabel">Caller Name: </span>
+                <span>{{ customerDetails.name }}</span>
+            </div>
+            <div class="right innerLabelContainer">
+                <span class="innerLabel">Caller Ph.: </span>
+                <span>{{ customerDetails.mobile }}</span>
+            </div>
+        </div>
         <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
          <div data-ng-include="checkTariff"></div>
          <div class="clearfix">
             <div class="left">
-              <legend class="searchbox-border">City Pickup</legend>
+              <fieldset class="left">
+                <legend class="searchbox-border">{{ selectedJourneyType.journeyType }} Journey ({{ selectedSubJourneyType.journeyType }})</legend>
                 <div style="height:163px; width:550px;" id="customerBookingGridID" class = "bookingHistoryGrid">
                   <div class="gridStyle" ng-grid="gridCityPkgOptions" style="height:100%;margin:0px;"></div>
                 </div>
+               </fieldset>
             </div>
             <div class="left tariffDetailsContainer">
-              <legend class="searchbox-border">Tariff Information</legend>
+            <fieldset class="left">
+                <legend class="searchbox-border">Tariff Information {{ selectedTariffTypeName }}</legend>
 
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Duration</label>
-                    <span class = "bokingLabel" data-ng-bind="duration"></span>
-                </div>
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Vehicle Name</label>
-                    <span class = "bokingLabel" data-ng-bind="vehicleName"></span>
-                </div>
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Kms</label>
-                    <span class = "bokingLabel" data-ng-bind="kms"></span>
-                </div>
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Price</label>
-                    <span class = "bokingLabel" data-ng-bind="price"></span>
-                </div>
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Extra Hr price</label>
-                    <span class = "bokingLabel" data-ng-bind="extHrPrice"></span>
-                </div>
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Extra Km price</label>
-                    <span class = "bokingLabel" data-ng-bind="extKmPrice"></span>
-                </div>
-                <div class="tariffFieldContainer">
-                    <label class="labelCompact">Comments</label>
-                    <span class = "bokingLabel" data-ng-bind="comments"></span>
-                </div
-                
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Duration</label>
+                        <span class = "bokingLabel" data-ng-bind="duration"></span>
+                    </div>
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Vehicle Name</label>
+                        <span class = "bokingLabel" data-ng-bind="vehicleName"></span>
+                    </div>
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Kms</label>
+                        <span class = "bokingLabel" data-ng-bind="kms"></span>
+                    </div>
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Price</label>
+                        <span class = "bokingLabel" data-ng-bind="price"></span>
+                    </div>
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Extra Hr price</label>
+                        <span class = "bokingLabel" data-ng-bind="extHrPrice"></span>
+                    </div>
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Extra Km price</label>
+                        <span class = "bokingLabel" data-ng-bind="extKmPrice"></span>
+                    </div>
+                    <div class="tariffFieldContainer">
+                        <label class="labelCompact">Comments</label>
+                        <span class = "bokingLabel" data-ng-bind="comments"></span>
+                    </div>
+                </fieldset>    
             </div>
          </div>
         </div>
         <div class="modal-footer">            
-            <button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Confirm</button>
+            <button type="button" class="btn-success btnCompact" ng-click="fnConfirmTariffAndExit()">Confirm</button>
         </div>
     </div>
 </div>

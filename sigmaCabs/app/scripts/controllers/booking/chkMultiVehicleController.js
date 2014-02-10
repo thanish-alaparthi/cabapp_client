@@ -7,6 +7,8 @@ angular.module('sigmaCabsApp')
 		console.log(URLService.view('checkTariff'));
 
 		scope.showVechicleContianer = true;
+
+		scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
 		
 		
 

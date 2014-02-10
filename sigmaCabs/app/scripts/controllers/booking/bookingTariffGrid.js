@@ -19,15 +19,19 @@ angular.module('sigmaCabsApp')
 			}
 	    });
 		    
-	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="editCell(row.entity, row.getProperty(col.field), col.field)"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
+	    // var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="editCell(row.entity, row.getProperty(col.field), col.field)"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
 	  
 	    $scope.colDefs = [
-	       	{field:'vhName', displayName:'Vehicle Name', width: '*'},
+	       	{field:'vehicleType', displayName:'Type', width: '80'},
+	        {field:'vehicleName', displayName:'Name', width: '100'},
 	        {field:'duration', displayName:'Duration', width: '*'},
-	        {field:'kms', displayName:'Kms', width: '*'},
-	        {field:'price', displayName:'Price', width: '*', cellTemplate: basicCellTemplate},
-	        {field:'extraHrPrice', displayName:'Extra Hr Price', width: '*', cellTemplate: basicCellTemplate},
-	        {field:'extraKmPrice', displayName:'Extra Km Price', width: '*', cellTemplate: basicCellTemplate},
+	        {field:'distance', displayName:'Distance', width: '*'},
+	        {field:'amount', displayName:'Amount', width: '*'},
+	        {field:'extraKm', displayName:'Extra K.M.', width: '*'},
+	        {field:'graceTime', displayName:'Grace Time', width: '*'},
+	        {field:'extraHour', displayName:'Extra Hour', width: '*'},
+	        {field:'extraCharges', displayName:'Extra Charges', width: '*'},
+	        {field:'comments', displayName:'Comments', width: '500'}
 	    ];
 
 	    $scope.gridBookingTariffOptions = { 

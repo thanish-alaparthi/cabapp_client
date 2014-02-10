@@ -90,5 +90,18 @@ angular.module('sigmaCabsApp')
 					} 
 				});
 			},
+			fnGetTariffById : function(oDataParams){
+				return $http({
+					url: URLService.service('RestGetTariffById'), 
+					method: 'POST',
+					data: {
+						  url : "tariff/getTariffInfo"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					} 
+				});
+			}
 		}
 	});

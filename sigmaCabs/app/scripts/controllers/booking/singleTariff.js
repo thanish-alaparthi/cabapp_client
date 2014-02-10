@@ -9,19 +9,27 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('singleTariffController', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog, dialog) {
+    .controller('singleTariffController', function($scope,oBooking, oCustomer, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog, dialog) {
 
         var scope = $scope;
+
+        scope.customerDetails = oCustomer;
+        scope.selectedTariffTypeName = '';
+
+        scope.tariffTypes = PrerequisiteService.fnGetTariffTypes();
+
+        scope.selectedJourneyType = PrerequisiteService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(oBooking.subJourneyType);
+        scope.selectedSubJourneyType = PrerequisiteService.fnGetJourneyObjectById(oBooking.subJourneyType);
 
         scope.close = function() {
 			dialog.close();
 		};
 
-		$scope.editCell = function (row, cell, column){
+		console.log('in singleTariffController oBooking,oCustomer',oBooking,oCustomer);
+
+		$scope.editCell = function (row, cell, column, col){
+			console.log('ColIndex::: ',col.colIndex());
 	      var cellObj = column + 'Obj';
-	      //console.log(column);
-	      //console.log(row);
-	      //console.log(cellObj);
 	      scope.comments = row[cellObj].comments;
 	      scope.duration = row[cellObj].duration;
 	      scope.extHrPrice = row[cellObj].extraHrPrice;
@@ -29,13 +37,19 @@ angular.module('sigmaCabsApp')
 	      scope.kms = row[cellObj].kms;
 	      scope.price = row[cellObj].price;
 
-	      console.log(row[cellObj]);
+	      console.log(column, cellObj, row[cellObj], row);
+
 	      $scope.selectedCell = cell;
 	      $scope.selectedRow = row;
 	      $scope.selectedColumn = column;
 	      var seletedTariffData = row[cellObj];
 
-	      //scope.$emit('sendBookingGrid', seletedTariffData);
+	      console.log('TariffType  ID: ',row[cellObj].tariffType);
+	      scope.selectedTariffTypeId = row[cellObj].tariffType;
+	      scope.selectedTariffType = PrerequisiteService.fnGetTariffTypeById(row[cellObj].tariffType);
+	      if(scope.selectedTariffType){
+	      	scope.selectedTariffTypeName = ' of ' + scope.selectedTariffType.tariffType + '.';
+	      }
 	    };
 	    
 	    $scope.updateCell = function(){
@@ -46,11 +60,9 @@ angular.module('sigmaCabsApp')
 	    $scope.selectedRow;
 	    $scope.selectedColumn;
 	    
-	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="editCell(row.entity, row.getProperty(col.field), col.field)"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
+	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex();" ng-click="editCell(row.entity, row.getProperty(col.field), col.field, col);"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
 	    
 	    var tariffData = PrerequisiteService.fnGetTariffData()[1];
-	    //var tariffData = [{"tariffid":"1","vehicleName":null,"vehicleType":"1","duration":"1","kms":"60","price":"15","extraKmPrice":"250","extraHrPrice":"12","comments":"10"},{"tariffid":"4","vehicleName":null,"vehicleType":"2","duration":"3","kms":"60","price":"25","extraKmPrice":"400","extraHrPrice":"15","comments":"10"},{"tariffid":"5","vehicleName":null,"vehicleType":"3","duration":"5","kms":"60","price":"12","extraKmPrice":"650","extraHrPrice":"20","comments":"10"}]
-	    //console.log(tariffData);
 	    var tariffRow = {
 	    	'duration': '',
 	    	'kms': ''
@@ -59,57 +71,56 @@ angular.module('sigmaCabsApp')
 	    var fieldName, keyValue, cellObj, objName = 'Obj';
 
 	    for(var pkgType in tariffData){
-	    	//console.log(tariffData[pkgType].duration);
 	    	var catType = tariffData[pkgType];
-	    	//console.log(catType);
 	    	var cellObj = catType;
 	    	for(var keyName in catType){
-	    		//console.log(keyName);
-	    		//console.log(tariffRow[keyName]);
 	    		if(tariffRow[keyName] != undefined){
 	    			tariffRow[keyName] = catType[keyName];
 	    		}
-	    		//console.log(keyName);
 	    		if(keyName == 'tariffType'){
 	    			fieldName = keyName + catType[keyName] ;
-	    			//console.log(fieldName);
 	    			tariffRow[fieldName] = '';
 	    			tariffRow[fieldName + objName] = cellObj;
 
 	    		}
 
 	    		if(keyName == 'price'){
-	    			//console.log(catType[keyName]);
-	    			tariffRow[fieldName] = catType[keyName]
+	    			tariffRow[fieldName] = catType[keyName];
 	    		}
-
-
-	    		//tariffRow[fieldName] = catType[keyName];
-
-	    		//console.log(catType[keyName]);
-	    	}
-	    	
+	    	}	    	
 	    }
 
-	    //console.log(tariffRow);
-
-	    
 	    $scope.colDefs = [
 	        {field:'duration', displayName:'Duration', width: '*'},
-	        {field:'kms', displayName:'Kms', width: '*'},
-	        {field:'tariffType1', displayName:'Indica/Vista', width: '*', cellTemplate: basicCellTemplate},
-	        {field:'tariffType3', displayName:'Verito/Indigo', width: '*', cellTemplate: basicCellTemplate},
-	        {field:'tariffType5', displayName:'Tavera', width: '*', cellTemplate: basicCellTemplate},
+	        {field:'kms', displayName:'Kms', width: '*'}
 	    ];
+	    /* Add dynamic Columns */
+	    for(var i=0;i<scope.tariffTypes.length;i++){
+	    	$scope.colDefs.push({
+	    		field : 'tariffType' + scope.tariffTypes[i].id,
+	    		displayName : scope.tariffTypes[i].tariffType,
+	    		width: '*',
+	    		cellTemplate: basicCellTemplate
+	    	});
+	    }
+	    /* EOF dynamic Columns */
+
+	    scope.fnConfirmTariffAndExit = function(){
+	    	$rootScope.$emit('eventSingleTariffSelected', {
+	    		tariffId : scope.selectedTariffTypeId
+	    	});
+
+	    	scope.close();
+	    };
 
 
 	    
-	    //$scope.myData = [{duration: "60", kms: 15, cat1Price:600, cat2Price:900, cat3Price:900, cat1PriceObj : {comments: "extra charge",duration: "60",extraHrPrice: "50",extraKmPrice: "12",kms: "15",price: "250",tariffid: "1",vehicleName: "1", vehicleType: "1"}, cat2PriceObj : {comments: "extra charge",duration: "60",extraHrPrice: "50",extraKmPrice: "12",kms: "15",price: "250",tariffid: "2",vehicleName: "1", vehicleType: "1"},cat3PriceObj : {comments: "extra charge",duration: "60",extraHrPrice: "50",extraKmPrice: "12",kms: "15",price: "250",tariffid: "3",vehicleName: "1", vehicleType: "1"}},]
 	    $scope.myData = [tariffRow];
 	    $scope.gridCityPkgOptions = { 
 	      data: 'myData',
 	      multiSelect: false,
 	      columnDefs: 'colDefs',
+	      enableCellSelection : true
 	    };
 
     });

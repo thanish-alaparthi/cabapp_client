@@ -238,9 +238,22 @@ angular.module('sigmaCabsApp')
             scope.fnMultipurposeSearch(scope.searchDetails.searchString);
         };
 
+        scope.fnRefreshBookingTariffGrid = function(aTariffTypes) {
+        	// since there is no way to find out proper plan for each tariffType, loop through and
+        };
+
         // check whether boookingDetails are saved from cancelBooking or dispostion form
         $rootScope.$on('eventRefreshBookingHistory', function(ev, oData) {
         	console.log('~~~~~~~~~eventRefreshBookingHistory');
         	scope.fnRefreshBookingHistory();
+        });
+
+        // catch eventSingleTariffSelected to reload tariffGrid.
+        $rootScope.$on('eventSingleTariffSelected', function(ev, oData) {
+        	// single tariff will send oData.tariffType as id and not as an array.
+        	// add the tariffType to booking details
+        	scope.bookingDetails.tariffType = oData.tariffType;
+
+        	scope.fnRefreshBookingTariffGrid([oData.tariffType]);
         });
 	});

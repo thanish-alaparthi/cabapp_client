@@ -144,18 +144,18 @@ angular.module('sigmaCabsApp')
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
-                    url: URLService.service('getAllTariff'),
+                    url: URLService.service('RestApiGetAllTariff'),
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function(data, status, headers, config) {
-                    console.log('success getAllTariff: ', data);
+                    console.log('success RestApiGetAllTariff: ', data);
                     if(oThis.fnAddToLocalStorage('tariff', data.result)) {    // add Tariffs
                         oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
-                    console.log('error getAllTariff: ', data);
+                    console.log('error RestApiGetAllTariff: ', data);
                     oThis.fnEmitEvent();
                 });
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
@@ -192,18 +192,18 @@ angular.module('sigmaCabsApp')
                 });
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
-                    url: URLService.service('getStatistics'),
+                    url: URLService.service('RestApiGetStatistics'),
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function(data, status, headers, config) {
-                    console.log('success statistics: *****************', data); 
+                    console.log('success RestApiGetStatistics: *****************', data); 
                     if(oThis.fnAddToLocalStorage('statistics', data.result)) {   // add JourneyTypes                        
                         oThis.fnEmitEvent();
                     }
                 }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetAllJourneyTypes: *****************', data);
+                    console.log('error RestApiGetStatistics: *****************', data);
                     oThis.fnEmitEvent();
                 });
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
@@ -220,6 +220,22 @@ angular.module('sigmaCabsApp')
                     }
                 }).error(function(data, status, headers, config) {
                     console.log('error RestApiGetTravelType:', data);
+                    oThis.fnEmitEvent();
+                });
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAllVehicleTypes'),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('success RestGetAllVehicleTypes:', data); 
+                    if(oThis.fnAddToLocalStorage('vehicleTypes', data.result)) {   // add vehicleTypes                        
+                        oThis.fnEmitEvent();
+                    }
+                }).error(function(data, status, headers, config) {
+                    console.log('error RestGetAllVehicleTypes:', data);
                     oThis.fnEmitEvent();
                 });
             },
@@ -271,21 +287,6 @@ angular.module('sigmaCabsApp')
                 '40': '40',
                 '50': '50'
             },
-            vehicleTypes: [{
-                id: '1',
-                vehicleType : 'Small'
-            },{
-                id: '2',
-                vehicleType : 'Medium'
-            },{
-                id: '3',
-                vehicleType : 'Big'
-            }
-            // ,{
-            //     id: '4',
-            //     vehicleType : 'Luxury'
-            // }
-            ],
 
             fnGetJourneyTypes : function(){         // Function to return Only Main JourneyTypes
                 // filter main journey types i.e. where parentId = 0;
@@ -347,7 +348,7 @@ angular.module('sigmaCabsApp')
 
                 for(var i=0;i<iCount;i++){
                     if(oJt[i].id == sSubJourneyTypeId) {
-                        return oJt[i].parentId;
+                        return oJt[i];
                     }
                 }
 
@@ -367,12 +368,17 @@ angular.module('sigmaCabsApp')
             },
             fnGetMainJourneyTypeObjectBySubJourneyTypeId : function(sSubJourneyTypeId){    //function to find out MainJourneyType based on SubJourneyTypeId
                 var oJt = this.oLs[this.currentDate]['journeyTypes'],
-                    iCount = oJt.length;
+                    iCount = oJt.length,
+                    sSelId = null;
 
                 for(var i=0;i<iCount;i++){
                     if(oJt[i].id == sSubJourneyTypeId) {
-                        return oJt[i];
+                        sSelId = oJt[i].parentId;
+                        break;
                     }
+                }
+                if(sSelId){
+                    return this.fnGetJourneyObjectById(sSelId);
                 }
 
                 return null;
@@ -454,11 +460,16 @@ angular.module('sigmaCabsApp')
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
             },
             fnGetVehicleTypeById : function(sId){
-                var oThis = this;
+                var oThis=  this,
+                    oVt = oThis.oLs[oThis.currentDate]['vehicleTypes'];
+                    if(!oVt){
+                        alert('Problem in getting config data from server. Please contact server team immediately.');
+                        return;
+                    }
 
-                for(var i=0;i<oThis.vehicleTypes.length;i++){
-                    if(oThis.vehicleTypes[i].id == sId){
-                        return oThis.vehicleTypes[i];
+                for(var i=0;i<oVt.length;i++){
+                    if(oVt[i].id == sId){
+                        return oVt[i];
                     }
                 }
                 return null;
@@ -547,7 +558,7 @@ angular.module('sigmaCabsApp')
                 return null;
             },
 
-            fnGetTravelTypes: function(){
+            fnGetTravelTypes : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['travelTypes'];
             },
@@ -575,6 +586,34 @@ angular.module('sigmaCabsApp')
                 return oData;
             },
 
+            /* per Thanish, tariffType are the columns in the tariff sheet.
+               Eg. Small, Medium, Tavera, Xylo/Innova
+            */
+            tariffTypes : [{
+                id : 1,
+                tariffType : 'Small',
+            },{
+                id : 3,
+                tariffType : 'Medium',
+            },{
+                id : 5,
+                tariffType : 'Tavera',
+            },{
+                id : 6,
+                tariffType : 'Xylo / Innova',
+            }],
+            fnGetTariffTypes : function() {
+                return this.tariffTypes;
+            },
+            fnGetTariffTypeById : function(sId) {
+                var aTt = this.tariffTypes;
+                for(var i=0;i<aTt.length;i++){
+                    if(sId == aTt[i].id){
+                        return aTt[i]
+                    }
+                }
+                return null;
+            },
 
             /* Old settings. will be deleted later */
             isPrimaryTraveller: {
@@ -606,7 +645,8 @@ angular.module('sigmaCabsApp')
             }],
             
             fnGetVehicleTypes : function(){
-                return this.vehicleTypes;
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['vehicleTypes'];
             },
             vehicleAttachmentTypeNames: {
                 '1': '[COV] Operated by Company',

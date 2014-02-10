@@ -11,22 +11,6 @@ angular.module('sigmaCabsApp')
 
           sHtml = "";
 
-          // Make the header
-          // sHtml += "<tr><th class='headMultiVehicleTable'>Booking Details</th>";
-          // for(var i=0;i<scope.vehicleCounts.small;i++){
-          //   sHtml += "<th style='text-align: center;'>Small [" + (i +1) + "]</th>";  
-          // }
-          // for(var i=0;i<scope.vehicleCounts.medium;i++){
-          //   sHtml += "<th style='text-align: center;'>Medium [" + (i +1) + "]</th>";  
-          // }
-          // for(var i=0;i<scope.vehicleCounts.tavera;i++){
-          //   sHtml += "<th style='text-align: center;'>Tavera [" + (i +1) + "]</th>";  
-          // }
-          // for(var i=0;i<scope.vehicleCounts.xyloAndInnova;i++){
-          //   sHtml += "<th style='text-align: center;'>Xylo/ Innova [" + (i +1) + "]</th>";  
-          // }
-          // sHtml += "</tr>";
-
           aBookingDetails = ['Vehicle Type','Pickup', 'Drop', 'Date', 'Time', 'Pas. Name', 'Pas. Phone', 'Journey Type', 'Sub-Journey', 'Landmark1', 'Landmark2', 'Vehicle Avail.'];
 
           sHtml += "<tr>";
@@ -59,13 +43,13 @@ angular.module('sigmaCabsApp')
               sRtnHtml +="</td>"; // Time
               sRtnHtml +="<td><input ng-model='aTmpBookings[" + iBookingKey + "].passengerName' class='textFieldCompact' type='text' /></td>"; // Passenger Name
               sRtnHtml +="<td><input ng-model='aTmpBookings[" + iBookingKey + "].passengerPhone' class='textFieldCompact' type='text' /></td>"; // Passenger Phone
-              sRtnHtml +="<td><select ng-model='aTmpBookings[" + iBookingKey + "].journeyType' class=' validate[maxSize[36]] selectFieldCompact'></select></td>"; // Journey Type
-              sRtnHtml +="<td><select ng-model='aTmpBookings[" + iBookingKey + "].subJourneyType'  class=' validate[maxSize[36]] selectFieldCompact'></select></td>"; // Journey Sub-Type
+              sRtnHtml +="<td><select ng-model='aTmpBookings[" + iBookingKey + "].journeyType' class=' validate[maxSize[36]] selectFieldCompact' data-ng-options='obj.id as obj.journeyType for obj in journeyTypes'></select></td>"; // Journey Type
+              sRtnHtml +="<td><select ng-model='aTmpBookings[" + iBookingKey + "].subJourneyType'  class=' validate[maxSize[36]] selectFieldCompact' data-ng-options='obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}'></select></td>"; // Journey Sub-Type
               sRtnHtml +="<td><input ng-model='aTmpBookings[" + iBookingKey + "].landmark1' class='textFieldCompact' type='text' /></td>"; // Landmark 1
               sRtnHtml +="<td><input ng-model='aTmpBookings[" + iBookingKey + "].landmark2' class='textFieldCompact' type='text' /></td>"; // Landmark 2
               sRtnHtml +="<td style='background:#6EC5B8;'>{{ aTmpBookings[" + iBookingKey + "].vehicleAvailability }}</td>"; // Vehicle Availability
             return sRtnHtml;
-          }
+          };
 
           var iBookingCount = 0;
           for(var i=0;i<scope.vehicleCounts.small;i++){
