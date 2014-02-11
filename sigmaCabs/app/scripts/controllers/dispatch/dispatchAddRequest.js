@@ -7,36 +7,14 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('dispatchFeedback', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('dispatchAddRequest', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
-		console.log('inside dispatchFeedback', oVehicleData);
+		console.log('inside dispatchAddRequest', oVehicleData);
 
 		scope.vehicleDetails = oVehicleData;
 		console.log(scope.vehicleDetails.vehicleMainDetials);
-		scope.tab = 1;
-
-		scope.fnIsActive = function(iTab){
-			return scope.tab == iTab ? true : false;
-		};
-
-		scope.fnChangeSaveText = function(){
-			switch(scope.tab){
-				case 1:
-					scope.saveText = 'Save Complaint'
-				break;
-				case 2:
-					scope.saveText = 'Save Suggestions'
-				break;
-				case 3:
-					scope.saveText = 'Save Feedback'
-				break;
-				case 4:
-					scope.saveText = 'Ratings'
-				break;
-			}
-		};
-
+		
 		scope.close = function() {
 			dialog.close();
 		}

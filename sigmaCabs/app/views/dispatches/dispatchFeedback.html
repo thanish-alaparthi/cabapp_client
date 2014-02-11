@@ -1,36 +1,132 @@
-<div class="modal-dialog">
+<div class="modal-dialog add-request">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
-            <h4 class="modal-title">Feedback</h4>
+            <h4 class="modal-title">Driver / Dispatcher Request</h4>
         </div>
         <div class="popupCallerInfo">
             <div class="left innerLabelContainer">
-                <span  class="innerLabel">Caller Name: </span>
-                <span>New Caller</span>
+                <span class="innerLabel">Caller Name:</span>
+                <span>{{ customerName }}</span>
             </div>
             <div class="right innerLabelContainer">
-                <span class="innerLabel">Caller Ph.: </span>
-                <span>888888</span>
+                <span class="innerLabel">Caller Ph.:</span>
+                <span>{{ customerMobile }}</span>
             </div>
         </div>
-        <div class="modal-body" > 
-            <fieldset class="left">
-                <legend class="searchbox-border">Feedback</legend>
+        <div class="modal-body">
+            <fieldset>
+                <legend class="searchbox-border">Driver / Dispatcher Request</legend>
 
-                <!-- <div class="fieldContainer  relative">
-                    <label class="labelCompact">Status</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" ng-model="stateValue"></select>
+                <div class="customer-booking-tabs">
+                    <ul class="nav nav-tabs">
+                        <li data-ng-class="{ active: fnIsActive(1)}" data-ng-click="tab = 1;fnChangeSaveText();"><a>Complaints</a>
+                        </li>
+                        <li data-ng-class="{ active: fnIsActive(2)}" data-ng-click="tab = 2;fnChangeSaveText();"><a>Suggestions</a>
+                        </li>
+                        <li data-ng-class="{ active: fnIsActive(3)}" data-ng-click="tab = 3;fnChangeSaveText();"><a>Feedback</a>
+                        </li>
+                        <li data-ng-class="{ active: fnIsActive(4)}" data-ng-click="tab = 4;fnChangeSaveText();"><a>Ratings</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-body cust-request" data-ng-show="tab==1">
+                        <div class="fieldContainer  relative">
+                            <label class="labelCompact">Complaint By</label>
+                            <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                        </div>
+                        <div class="fieldContainer  relative">
+                            <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                            <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                        </div>
+                        <div class="fieldContainer relative">
+                            <label class="labelCompact">Priority</label>
+                            <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                        </div>
+                        <div class="fieldContainer  relative" style="height:75px;">
+                            <label class="labelCompact">Comments</label>
+                            <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
+                        </div>
+                        <p class="clear"/>
+                    </div>
+
+                    <div class="tab-body cust-request" data-ng-show="tab==2">
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Company Name</label>
+                            <input data-ng-model="corporateRequestDetails.companyName" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative  ">
+                            <label class="labelCompact">Email</label>
+                            <input data-ng-model="corporateRequestDetails.email" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative  ">
+                            <label class="labelCompact">Website</label>
+                            <input data-ng-model="corporateRequestDetails.website" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative  ">
+                            <label class="labelCompact">Contact Person</label>
+                            <input data-ng-model="corporateRequestDetails.contactPerson" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative  ">
+                            <label class="labelCompact">Contact No.1</label>
+                            <input data-ng-model="corporateRequestDetails.contact1" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative  ">
+                            <label class="labelCompact">Contact No.2</label>
+                            <input data-ng-model="corporateRequestDetails.contact2" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative  ">
+                            <label class="labelCompact">Company Address</label>
+                            <input data-ng-model="corporateRequestDetails.companyAddress" style="width: 289px;" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
+                            <label class="labelCompact">Comment</label>
+                            <textarea data-ng-model="corporateRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
+                        </div>
+                        <p class="clear"/>
+                    </div>
+
+                    <div class="tab-body cust-request" data-ng-show="tab==3">
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Travel Type</label>
+                             <select data-ng-model="specialRequestDetails.travelType" class=" validate[maxSize[36]] selectFieldCompact"  ng-options="obj.id as obj.travelType for obj in travelTypes"></select>
+                        </div>
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Contact Person</label>
+                            <input data-ng-model="specialRequestDetails.contactPerson" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Contact No.1</label>
+                            <input data-ng-model="specialRequestDetails.contact1" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Contact No.2</label>
+                            <input data-ng-model="specialRequestDetails.contact2" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer left relative">
+                            <label class="labelCompact">Address</label>
+                            <input data-ng-model="specialRequestDetails.address" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        </div>
+                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
+                            <label class="labelCompact">Comment</label>
+                            <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
+                        </div>
+                        <p class="clear"/>
+                    </div>
+
+                    <div class="tab-body" data-ng-show="tab==4">
+                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
+                            <label class="labelCompact">Comment</label>
+                            <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
+                        </div>
+                        <p class="clear"/>
+                    </div>
                 </div>
-                <div class="fieldContainer  relative" style="height:75px;">
-                    <label class="labelCompact">Comments</label>
-                    <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
-                </div> -->
             </fieldset>
-            <p class="clear"/>
+            <p class="clear" />
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndCloseRequest()">{{ saveText }}</button>
         </div>
     </div>
 </div>

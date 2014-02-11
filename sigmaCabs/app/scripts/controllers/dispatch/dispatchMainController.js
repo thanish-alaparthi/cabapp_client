@@ -349,8 +349,6 @@ angular.module('sigmaCabsApp')
             scope.fnInit();
         });
 
-
-
         // function to change sub-Journey Types
         scope.fnPopSubJourneyTypes = function() {
             scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.vehicleMainDetials.journeyType);
@@ -400,18 +398,6 @@ angular.module('sigmaCabsApp')
         scope.fnLoadUnexpectedError = function() {
             // scope.existingCustomerAddBooking = URLService.view('errorResponseFormatMisMatch');
             alert('in fnLoadUnexpectedError');
-        };
-
-
-
-        scope.fnFeedback = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('dispatchFeedback'),
-                controller: 'dispatchFeedback',
-                dialogClass: 'modalClass add-request',
-                resolve: {}
-            };
-            modalWindow.addDataToModal($scope.opts);
         };
 
         scope.fnChangeVehiclePhone = function() {
@@ -615,6 +601,53 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnOpenDispatcherAddRequest = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('dispatchAddRequest'),
+                controller: 'dispatchAddRequest',
+                dialogClass: 'modalClass add-request',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnFeedback = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('dispatchFeedback'),
+                controller: 'dispatchFeedback',
+                dialogClass: 'modalClass add-request',
+                resolve: {
+                    editMode: [
+
                         function() {
                             return false;
                         }

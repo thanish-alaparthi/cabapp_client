@@ -172,6 +172,7 @@ angular.module('sigmaCabsApp')
         //'vehicleData': 'views/dispatches/vehicleData.html',
         'vehiclePerformance': 'views/dispatches/vehiclePerformance.html',
         'dispatchFeedback': 'views/dispatches/dispatchFeedback.html',
+        'dispatchAddRequest': 'views/dispatches/dispatchAddRequest.html',
         'changeVehiclePhone': 'views/dispatches/changeVehiclePhone.html',
         'changeVehicleLocation': 'views/dispatches/changeVehicleLocation.html',
         'changeVehicleStatus': 'views/dispatches/changeVehicleStatus.html',
