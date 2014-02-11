@@ -81,7 +81,38 @@ angular.module('sigmaCabsApp')
 		scope.$watch('customerDetails', function(newVal, oldVal) {
 			if(!angular.equals(newVal,oldVal)){
 				if(scope.customerDetails.mobile && scope.customerDetails.name){
-					scope.fnSaveCustomerDetails();
+					scope.fnSaveCustomerDetails({
+						"id":scope.customerDetails.id, 
+						"name" : scope.customerDetails.name, 
+						"mobile" : scope.customerDetails.mobile,
+						"altMobile" : scope.customerDetails.altMobile
+					});
+				} else {
+					console.log('Mobile and Name are mandatory in customer save.');
+				}
+			}
+		}, true);
+
+		// watch to save the data
+		scope.$watch('searchedCustomerDetails', function(newVal, oldVal) {
+			console.log('searchedCustomerDetails',scope.searchedCustomerDetails);
+			if(!angular.equals(newVal,oldVal)){
+				if( (scope.searchedCustomerDetails.altMobile || scope.searchedCustomerDetails.mobile)
+					&& scope.searchedCustomerDetails.name){
+					var sMainMobile = "", sAltMobile = "";
+					if(scope.searchedCustomerDetails.mobile){
+						sMainMobile = scope.searchedCustomerDetails.mobile;
+						sAltMobile = scope.searchedCustomerDetails.altMobile;
+					} else {
+						sMainMobile = scope.searchedCustomerDetails.altMobile;
+						sAltMobile = "";
+					}
+					scope.fnSaveSearchedCustomerDetails({
+						"id":scope.searchedCustomerDetails.id, 
+						"name" : scope.searchedCustomerDetails.name, 
+						"mobile" : sMainMobile,
+						"altMobile" : sAltMobile
+					});
 				} else {
 					console.log('Mobile and Name are mandatory in customer save.');
 				}
@@ -91,12 +122,12 @@ angular.module('sigmaCabsApp')
 		/*
 			Save customer details function.
 		*/
-		scope.fnSaveCustomerDetails = function() {
+		scope.fnSaveCustomerDetails = function(oData) {
 			CustomerService.fnUpdateCustomerDetails({
-				"id":scope.customerDetails.id, 
-				"name" : scope.customerDetails.name, 
-				"mobile" : scope.customerDetails.mobile,
-				"altMobile" : scope.customerDetails.mobile2
+				"id":oData.id, 
+				"name" : oData.name, 
+				"mobile" : oData.mobile,
+				"mobile2" : oData.altMobile
 			})
 			.success(function(data, status, headers, config){
 				console.log('Success CustomerSave: ',data);
@@ -111,6 +142,32 @@ angular.module('sigmaCabsApp')
 			})
 			.error(function(data, status, headers, config){
 				console.log('error Customer Save: ',data);
+			});
+		};
+
+		/*
+			Save searched customer details function.
+		*/
+		scope.fnSaveSearchedCustomerDetails = function(oData) {
+			CustomerService.fnUpdateCustomerDetails({
+				"id":oData.id, 
+				"name" : oData.name, 
+				"mobile" : oData.mobile,
+				"mobile2" : oData.altMobile
+			})
+			.success(function(data, status, headers, config){
+				console.log('Success CustomerSave: ',data);
+				if(data.status == 200){
+					if(  data.result.hasOwnProperty('id')){
+						scope.searchedCustomerDetails.id = data.result.id;						
+					}
+					if((data.result.length && data.result[0].id)){
+						scope.searchedCustomerDetails.id = data.result[0].id;				
+					}
+				}
+			})
+			.error(function(data, status, headers, config){
+				console.log('error searched Customer Save: ',data);
 			});
 		};
 

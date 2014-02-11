@@ -49,8 +49,15 @@ angular.module('sigmaCabsApp')
 
 
         var scope = $scope;
+
+        scope.callerPhone = $routeParams.mobile;
+
         scope.callTime = PrerequisiteService.fnGetCallTime();
         scope.headCustomerCode = "-";
+
+        scope.searchDetails = {
+            searchString : ''
+        };
 
         scope.showBookingDetails =  true;
         scope.tmpDetails = {};
@@ -68,10 +75,16 @@ angular.module('sigmaCabsApp')
         // scope.tmpVehicleType = "1";
         // scope.tmpVehicleName = "1";
 
+        scope.searchedCustomerDetails = {
+            name : '',
+            mobile : '',
+            altMobile : ''
+        };
+
         // Set the default Data
         scope.customerDetails = {
             name : '',
-            callerPhone : $routeParams.mobile,
+            callerPhone : scope.callerPhone,
             mobile2 : '',
             id : ''
         };
@@ -120,7 +133,7 @@ angular.module('sigmaCabsApp')
                     scope.customerDetails.mobile = scope.callerPhone;
                 } else if( data.status==200 
                     && data.result) {
-                    scope.fnSetCustomerDetails(data);                        
+                    scope.fnSetCustomerDetails(data, true);                        
                 } else {    // error in data.result object.
                     console.log('Erro in result: fnSearchCustomerByMobile', data);   
                 }
@@ -129,7 +142,7 @@ angular.module('sigmaCabsApp')
             });
         };
 
-        scope.fnSetCustomerDetails = function(data) {
+        scope.fnSetCustomerDetails = function(data, isFromSearchBox) {
             // set the customerCode
             scope.headCustomerCode = data.result[0].customerDetails.customerCode || "LalaSendTheCOde";
             scope.headCustomerCategory = data.result[0].customerDetails.category;
@@ -138,7 +151,27 @@ angular.module('sigmaCabsApp')
             scope.headDaysBookingsCount = data.result[0].customerDetails.bookingCountOfTheDay;
 
             scope.callerInfo = " (Existing Caller)";
-            scope.customerDetails = data.result[0].customerDetails; // set the customer data which server response.
+            
+            if(isFromSearchBox){
+                scope.searchedCustomerDetails = data.result[0].customerDetails; // set the customer data which server response.
+
+                // if callerPhone is altPHone den display mainPhone as altPhone
+                if(scope.searchDetails.searchString == scope.searchedCustomerDetails.mobile2){
+                    scope.searchedCustomerDetails.altMobile = scope.searchedCustomerDetails.mobile;
+                } else {
+                    scope.searchedCustomerDetails.altMobile = scope.searchedCustomerDetails.mobile2;
+                }
+            } else {
+                scope.customerDetails = data.result[0].customerDetails; // set the customer data which server response.
+
+                // if callerPhone is altPHone den display mainPhone as altPhone
+                if(scope.callerPhone == scope.customerDetails.mobile2){
+                    scope.customerDetails.altMobile = scope.customerDetails.mobile;
+                } else {
+                    scope.customerDetails.altMobile = scope.customerDetails.mobile2;
+                }
+            }
+
 
             // check if enquiry is sent.
             if(data.result[0].hasOwnProperty('latestEnquiry')){                            
@@ -154,7 +187,6 @@ angular.module('sigmaCabsApp')
             }
         }
 
-        scope.callerPhone = $routeParams.mobile;
         scope.callerInfo = "";
 
         scope.fnInit = function() {
@@ -165,7 +197,7 @@ angular.module('sigmaCabsApp')
 
                 // make a call to server to get the user details...
                 BookingService.fnFindCustomerByMobile({
-                    mobile: $routeParams.mobile
+                    mobile: scope.callerPhone
                 })
                 .success(function(data, status, headers, config) {
                     console.log('Success fnFindCustomerByMobile: ', typeof data, data);

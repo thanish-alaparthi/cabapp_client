@@ -64,6 +64,13 @@ angular.module('sigmaCabsApp')
                     oThis.oLs[currentDate] = {};
                 }
                 oThis.oLs[currentDate][sType] = oResult;
+
+
+                // store tariff properly per vehicleType
+                if(sType == 'tariff'){
+                    oThis.fnStoreTariffData();
+                }
+
                 return true;
             },
             fnSuccessCallback : function(data, status,fnHeaders, oXhr, config) {
@@ -342,6 +349,44 @@ angular.module('sigmaCabsApp')
             },
             fnGetTariffData : function(){           // function to return TariffData
                 return this.oLs[this.currentDate]['tariff'];
+            },
+            fnStoreTariffData : function() {
+                var oThis = this,
+                    aTd = oThis.fnGetTariffData(),
+                    aFormatedTd = {};
+
+                for(var k in aTd){
+                    var tariffData = aTd[k],
+                        oTd = [],
+                        sTmpDuration = '',
+                        sTmpKms = '';
+                    for(var i=0;i<tariffData.length;i++) {
+                        var tariffRow = {
+                            'duration': tariffData[i].duration,
+                            'kms' : tariffData[i].kms
+                        }
+                        tariffRow['vehicleType' + tariffData[i].vehicleType] = tariffData[i].price;
+                        for(var j=i;j<tariffData.length;j++){
+                            if(    tariffData[i].duration == tariffData[j].duration
+                                && tariffData[i].kms == tariffData[j].kms
+                            ){
+                                tariffRow['vehicleType' + tariffData[j].vehicleType] = tariffData[j].price;
+                            }
+                        }
+                        if(sTmpDuration != tariffData[i].duration && sTmpKms != tariffData[i].kms) {
+                            oTd.push(tariffRow);
+                            sTmpDuration = tariffData[i].duration;
+                            sTmpKms = tariffData[i].kms;
+                        }
+                    }
+                    aFormatedTd[k] = oTd;
+                }
+                oThis.fnAddToLocalStorage('tariffTypeOnVehicleType', aFormatedTd);
+            },
+            fnGetTariffByVehicleType : function(sVehicleType){
+                var oThis = this;
+
+                return this.oLs[this.currentDate]['tariffTypeOnVehicleType'][sVehicleType] || null;
             },
             fnFormatDate : function(sDate){
                 if(!sDate || sDate.length < 10){
