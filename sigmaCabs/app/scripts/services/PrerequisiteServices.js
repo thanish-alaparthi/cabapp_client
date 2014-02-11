@@ -371,6 +371,7 @@ angular.module('sigmaCabsApp')
                                 && tariffData[i].kms == tariffData[j].kms
                             ){
                                 tariffRow['vehicleType' + tariffData[j].vehicleType] = tariffData[j].price;
+                                tariffRow['tariffObj_vehicleType' + tariffData[j].vehicleType] = tariffData[j];
                             }
                         }
                         if(sTmpDuration != tariffData[i].duration && sTmpKms != tariffData[i].kms) {

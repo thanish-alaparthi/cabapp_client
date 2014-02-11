@@ -295,8 +295,8 @@ angular.module('sigmaCabsApp')
             scope.fnMultipurposeSearch(scope.searchDetails.searchString);
         };
 
-        scope.fnRefreshBookingTariffGrid = function(aTariffTypes) {
-        	// since there is no way to find out proper plan for each tariffType, loop through and
+        scope.fnRefreshBookingTariffGrid = function(tariffDetails) {
+        	scope.tariffGridData = tariffDetails;
         };
 
         // check whether boookingDetails are saved from cancelBooking or dispostion form
@@ -309,8 +309,15 @@ angular.module('sigmaCabsApp')
         $rootScope.$on('eventSingleTariffSelected', function(ev, oData) {
         	// single tariff will send oData.tariffType as id and not as an array.
         	// add the tariffType to booking details
-        	scope.bookingDetails.tariffType = oData.tariffType;
 
-        	scope.fnRefreshBookingTariffGrid([oData.tariffType]);
+        	console.log('eventSingleTariffSelected triggered');
+
+        	scope.bookingDetails.tariffType = oData.tariffType;
+        	scope.fnRefreshBookingTariffGrid(oData.tariffDetails);
         });
+
+        scope.$watch('tariffGridData', function(newVal, oldVal){
+	    	console.log('<<<<<<<<<<<<>>>>>scope.tariffGridData changed', newVal);
+	    	 // angular.copy(newVal, scope.aData);
+	    });
 	});

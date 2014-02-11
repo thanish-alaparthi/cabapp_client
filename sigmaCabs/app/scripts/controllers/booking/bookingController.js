@@ -59,6 +59,19 @@ angular.module('sigmaCabsApp')
             searchString : ''
         };
 
+        scope.tariffGridData = null;
+        // [{
+        //  vehicleType: 'small',
+        //  vehicleName: 'small',
+        //  duration: 'small',
+        //  amount: 'small',
+        //  extraKm: 'small',
+        //  graceTime: 'small',
+        //  extraHour: 'small',
+        //  extraCharges: 'small',
+        //  comments: 'small'
+        // }];
+
         scope.showBookingDetails =  true;
         scope.tmpDetails = {};
 

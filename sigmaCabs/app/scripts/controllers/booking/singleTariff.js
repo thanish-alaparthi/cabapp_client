@@ -13,45 +13,68 @@ angular.module('sigmaCabsApp')
 
         var scope = $scope;
 
-        scope.customerDetails = oCustomer;
-        scope.selectedTariffTypeName = '';
 
+		console.log('in singleTariffController oBooking,oCustomer',oBooking,oCustomer);
+
+        scope.customerDetails = oCustomer;
 
         scope.selectedJourneyType = PrerequisiteService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(oBooking.subJourneyType);
         scope.selectedSubJourneyType = PrerequisiteService.fnGetJourneyObjectById(oBooking.subJourneyType);
 
+        scope.selectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(oBooking.vehicleType);
+        scope.selectedVehicleName = PrerequisiteService.fnGetVehicleNameById(oBooking.vehicleName);
+        console.log('scope.selectedVehicleName', scope.selectedVehicleName);
 
         scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
+
+        scope.roData = {};
+
+        scope.roData.vehicleType = scope.selectedVehicleType.vehicleType;
+        scope.roData.vehicleName = scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : 'Any-Vehicle';
+        scope.roData.journeyTypeName = scope.selectedJourneyType.journeyType;
+        scope.roData.subJourneyTypeName = scope.selectedSubJourneyType.journeyType;
+        scope.roData.pickupPlace = oBooking.pickupPlace;
+        scope.roData.dropPlace = oBooking.dropPlace;
+        scope.roData.pickupDate = PrerequisiteService.fnFormatDate(oBooking.pickuDate);
+        scope.roData.pickupTime = oBooking.pickupTime;
+
+        scope.roData.duration = '';
+        scope.roData.km = '';
+        scope.roData.amount = '';
+        scope.roData.extraKmCharge = '';
+        scope.roData.graceTime = '';
+        scope.roData.extraCharges = '';
+        scope.roData.extraHourCharge = '';
+        scope.roData.comments = '';
+        
+        scope.roData.discount = '';        
+        scope.roData.customerGrade = '';
+        scope.roData.customerCategory = '';
 
         scope.close = function() {
 			dialog.close();
 		};
 
-		console.log('in singleTariffController oBooking,oCustomer',oBooking,oCustomer);
+		scope.selctedTariffType = {};
 
-		$scope.editCell = function (row, cell, column, col){
-			console.log('ColIndex::: ',col.colIndex());
-	      var cellObj = column + 'Obj';
-	      scope.comments = row[cellObj].comments;
-	      scope.duration = row[cellObj].duration;
-	      scope.extHrPrice = row[cellObj].extraHrPrice;
-	      scope.extKmPrice = row[cellObj].extraKmPrice;
-	      scope.kms = row[cellObj].kms;
-	      scope.price = row[cellObj].price;
 
-	      console.log(column, cellObj, row[cellObj], row);
+		$scope.fnEditCell = function (row, cell, columnSelected, col){
+			var tariffObj = row['tariffObj_' + columnSelected];
+			console.log('Selected Package: ', tariffObj);
 
-	      $scope.selectedCell = cell;
-	      $scope.selectedRow = row;
-	      $scope.selectedColumn = column;
-	      var seletedTariffData = row[cellObj];
+			angular.copy(tariffObj, scope.selctedTariffType);
 
-	      console.log('TariffType  ID: ',row[cellObj].tariffType);
-	      scope.selectedTariffTypeId = row[cellObj].tariffType;
-	      scope.selectedTariffType = PrerequisiteService.fnGetTariffTypeById(row[cellObj].tariffType);
-	      if(scope.selectedTariffType){
-	      	scope.selectedTariffTypeName = ' of ' + scope.selectedTariffType.tariffType + '.';
-	      }
+
+
+			//set the readonly Fields
+			scope.roData.duration = tariffObj.duration;
+	        scope.roData.km = tariffObj.kms;
+	        scope.roData.amount = tariffObj.price;
+	        scope.roData.extraKmCharge = tariffObj.extraKmPrice;
+	        scope.roData.graceTime = tariffObj.graceTime;
+	        scope.roData.extraCharges = tariffObj.extraCharge;
+	        scope.roData.extraHourCharge = tariffObj.extraHrPrice;
+	        scope.roData.comments = tariffObj.comments;
 	    };
 	    
 	    $scope.updateCell = function(){
@@ -62,17 +85,10 @@ angular.module('sigmaCabsApp')
 	    $scope.selectedRow;
 	    $scope.selectedColumn;
 	    
-	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex();" ng-click="editCell(row.entity, row.getProperty(col.field), col.field, col);"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
+	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex();" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col);"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
 	    
 	    scope.tariffData = PrerequisiteService.fnGetTariffByVehicleType(scope.selectedJourneyType.id);
 
-	    var tariffRow = {
-	    	'duration': '',
-	    	'kms': ''
-	    };
-
-	    console.log('SelectedJourneyTypes: ',scope.selectedJourneyType);
-	    console.log('tariffData: >>>>',PrerequisiteService.fnGetTariffData());
 	    console.log('tariffData: >>>>',scope.tariffData);
 
 	    var fieldName, keyValue, cellObj, objName = 'Obj';
@@ -80,47 +96,6 @@ angular.module('sigmaCabsApp')
 
 	    var sTmpDuration = '',
 	    	sTmpKms = '';
-
-	    // for(var i=0;i<tariffData.length;i++) {
-	    // 	var tariffRow = {
-	    // 		'duration': tariffData[i].duration,
-	    // 		'kms' : tariffData[i].kms
-	    // 	}
-	    // 	tariffRow['vehicleType' + tariffData[i].vehicleType] = tariffData[i].price;
-	    // 	for(var j=i;j<tariffData.length;j++){
-	    // 		if(    tariffData[i].duration == tariffData[j].duration
-	    // 			&& tariffData[i].kms == tariffData[j].kms
-	    // 		){
-	    // 			tariffRow['vehicleType' + tariffData[j].vehicleType] = tariffData[j].price;
-	    // 		}
-	    // 	}
-	    // 	if(sTmpDuration != tariffData[i].duration && sTmpKms != tariffData[i].kms) {
-	    // 		scope.oDataForTariffGrid.push(tariffRow);
-	    // 		sTmpDuration = tariffData[i].duration;
-	    // 		sTmpKms = tariffData[i].kms;
-	    // 	}
-	    // }
-
-	    // for(var pkgType in tariffData){
-	    // 	var catType = tariffData[pkgType];
-	    // 	var cellObj = catType;
-	    // 	for(var keyName in catType){
-	    // 		if(tariffRow[keyName] != undefined){
-	    // 			tariffRow[keyName] = catType[keyName];
-	    // 		}
-	    // 		if(keyName == 'tariffType'){
-	    // 			fieldName = keyName + catType[keyName] ;
-	    // 			tariffRow[fieldName] = '';
-	    // 			tariffRow[fieldName + objName] = cellObj;
-
-	    // 		}
-
-	    // 		if(keyName == 'price'){
-	    // 			tariffRow[fieldName] = catType[keyName];
-	    // 		}
-	    // 	}	    	
-	    // }
-	    
 
 	    $scope.colDefs = [
 	        {field:'duration', displayName:'Duration', width: '*'},
@@ -138,8 +113,22 @@ angular.module('sigmaCabsApp')
 	    /* EOF dynamic Columns */
 
 	    scope.fnConfirmTariffAndExit = function(){
+	    	var oT = {
+    			vehicleType : scope.selectedVehicleType.vehicleType,
+    			vehicleName : scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : 'Any-Vehicle',
+    			duration : scope.selctedTariffType.duration,
+    			distance : scope.selctedTariffType.kms,
+    			amount : scope.selctedTariffType.price,
+    			extraKm : scope.selctedTariffType.extraKmPrice,
+    			graceTime : scope.selctedTariffType.graceTime,
+    			extraHour : scope.selctedTariffType.extraHrPrice,
+    			extraCharges : scope.selctedTariffType.extraCharges,
+    			comments : scope.selctedTariffType.comments,
+    			id: scope.selctedTariffType.id
+    		};
 	    	$rootScope.$emit('eventSingleTariffSelected', {
-	    		tariffId : scope.selectedTariffTypeId
+	    		tariffId : scope.selectedTariffTypeId,
+	    		tariffDetails: oT
 	    	});
 
 	    	scope.close();

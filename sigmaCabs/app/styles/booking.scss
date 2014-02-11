@@ -274,5 +274,24 @@ tr:nth-child(odd) {
   padding-left : 10px;
 }
 .tariffFieldContainer{
-  height:25px;
+  padding: 0px 10px 0px 0px;
+}
+.tariffDetailsContainer .displayTextWrapper{
+  max-width: 360px;
+}
+.tariffFieldContainer span{
+  background: #ccc;
+  padding: 0px 5px;
+  width: 100%;
+  display: block;
+  margin: 5px 0px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.margin-right50 {
+  margin-right: 50px !important;
+}
+.margin-top10 {
+  margin-top: 10px !important;
 }
