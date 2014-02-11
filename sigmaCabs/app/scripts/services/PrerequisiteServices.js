@@ -37,14 +37,22 @@ angular.module('sigmaCabsApp')
             oLs: oLs,
             iApiCount : 0,  // count of successful/Error callback returned.
             iApiLimit : 0,  // Total number of API calls made.
-            fnEmitEvent : function(){
+            fnEmitEvent : function(sMyDataToken, isFromError){
+
                 var oThis = this;
                 oThis.iApiCount++;
-                console.log('No. of Prerequisite API returned:', oThis.iApiCount, '. Total Prerequisite APIs are: ', oThis.iApiLimit);
+
+                console.log('No. of Prerequisite API returned:', oThis.iApiCount, '. Total Prerequisite APIs are: ', oThis.iApiLimit, '(',sMyDataToken,')');
+                if(isFromError){
+                    console.error('################### ERROR in Config Response. clearing localstorage ###############:::', sMyDataToken);
+
+                    oThis.oLs = {};
+                }
+
                 if(oThis.iApiCount == oThis.iApiLimit) {
                     $rootScope.$emit('eventPrerequisitsLoaded');
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
-                }   
+                }
             },
             fnAddToLocalStorage : function(sType, oResult){
                 var oThis = this;
@@ -58,10 +66,26 @@ angular.module('sigmaCabsApp')
                 oThis.oLs[currentDate][sType] = oResult;
                 return true;
             },
-
+            fnSuccessCallback : function(data, status,fnHeaders, oXhr, config) {
+                var oMe = oXhr.oMe;
+                console.log('success ',oXhr.myDataToken, ': ', data, typeof data); 
+                if(typeof data == 'string'){
+                    oMe.fnEmitEvent(oXhr.myDataToken,true);
+                    return;
+                }
+                if(oMe.fnAddToLocalStorage(oXhr.myDataToken, data.result)) {
+                    oMe.fnEmitEvent(oXhr.myDataToken, false);
+                }
+            },
+            fnErrorCallback : function(data, status, fnHeaders, oXhr, config) {
+                var oMe = oXhr.oThis;
+                console.log('error ',oXhr.myDataToken,': ', data);
+                oMe.fnEmitEvent(oXhr.myDataToken, true);
+            },
             // call for interrelated configuration/Prequisite data
             fnGetPrerequisites: function() {
                 var oThis = this;
+
                 //Note: the call will be made only if data is not present in the local storage on day basis
                 $rootScope.$emit('eventPrerequisitsLoaded');
                 if (isDataExistsInLocalStorage) {
@@ -73,171 +97,104 @@ angular.module('sigmaCabsApp')
 
                 console.log('No LocalStore data: getting Prerequisite Data for ' + oThis.currentDate+' from server...');
 
-
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllJourneyTypes'),
                     method: 'GET',
+                    myDataToken : 'journeyTypes',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetAllJourneyTypes: ', data); 
-                    if(oThis.fnAddToLocalStorage('journeyTypes', data.result)) {   // add JourneyTypes                        
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetAllJourneyTypes: ', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllBookingStates'),
                     method: 'GET',
+                    myDataToken : 'bookingStates',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetAllBookingStates: ', data);
-                    if(oThis.fnAddToLocalStorage('bookingStates', data.result)) { // add BookingStates
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetAllBookingStates: ', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllGrades'),
                     method: 'GET',
+                    myDataToken : 'grades',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetAllGrades: ', data);
-                    if(oThis.fnAddToLocalStorage('grades', data.result)) {    // add Grades
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetAllGrades: ', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllReasons'),
                     method: 'GET',
+                    myDataToken : 'reason',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetAllReasons: ', data);
-                    if(oThis.fnAddToLocalStorage('reason', data.result)) {    // add Reasons
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetAllReasons: ', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllTariff'),
                     method: 'GET',
+                    myDataToken : 'tariff',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetAllTariff: ', data);
-                    if(oThis.fnAddToLocalStorage('tariff', data.result)) {    // add Tariffs
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetAllTariff: ', data);
-                    oThis.fnEmitEvent();
-                });
-                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
-                $http({
-                    url: URLService.service('RestApiGetBookingStatues'),
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetBookingStatues: ', data);
-                    if(oThis.fnAddToLocalStorage('bookingStatues', data.result)) {    // add bookingStatuses
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetBookingStatues: ', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetVehicleNames'),
                     method: 'GET',
+                    myDataToken : 'vehicleNames',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetVehicleNames: ', data);
-                    if(oThis.fnAddToLocalStorage('vehicleNames', data.result)) {    // add vehicle Names
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetVehicleNames: ', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetStatistics'),
                     method: 'GET',
+                    myDataToken : 'statistics',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetStatistics: *****************', data); 
-                    if(oThis.fnAddToLocalStorage('statistics', data.result)) {   // add JourneyTypes                        
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetStatistics: *****************', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetTravelType'),
                     method: 'GET',
+                    myDataToken : 'travelTypes',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestApiGetTravelType:', data); 
-                    if(oThis.fnAddToLocalStorage('travelTypes', data.result)) {   // add TravelTypes                        
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestApiGetTravelType:', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestGetAllVehicleTypes'),
                     method: 'GET',
+                    myDataToken : 'vehicleTypes',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function(data, status, headers, config) {
-                    console.log('success RestGetAllVehicleTypes:', data); 
-                    if(oThis.fnAddToLocalStorage('vehicleTypes', data.result)) {   // add vehicleTypes                        
-                        oThis.fnEmitEvent();
-                    }
-                }).error(function(data, status, headers, config) {
-                    console.log('error RestGetAllVehicleTypes:', data);
-                    oThis.fnEmitEvent();
-                });
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
             },
 
 
@@ -436,7 +393,7 @@ angular.module('sigmaCabsApp')
                 return aD[1];
             },
             fnGetBookingStatusName : function(sBookingStatusId){
-                var aBs = this.oLs[this.currentDate]['bookingStatues'],
+                var aBs = this.oLs[this.currentDate]['bookingStates'],
                     iCount = aBs.length;
 
                 for(var i=0;i<iCount;i++){
@@ -558,7 +515,7 @@ angular.module('sigmaCabsApp')
                 return null;
             },
 
-            fnGetTravelTypes: function(){
+            fnGetTravelTypes : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['travelTypes'];
             },

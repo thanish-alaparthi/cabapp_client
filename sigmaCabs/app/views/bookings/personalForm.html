@@ -1,11 +1,7 @@
 <fieldset class="searchbox-border customerDetailsContainer left">
     <legend class="searchbox-border">Customer Details <span>{{ callerInfo }}</span></legend>
-    <div class="relative">
-        <div class="fieldContainer clearBoth relative clearBoth">
-            <label class="labelCompact">Search </label>
-            <input type="text" ng-model="searchDetails.searchString" class="textFieldCompact"  />
-            <button class="btnCompact btn-success" data-ng-click="fnSearchCustomer();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
-        </div>
+    <div class="relative">      
+
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Caller Name </label>
             <input type="text" ng-model="customerDetails.name" class="left validate[required,maxSize[128]] textFieldCompact"  />
@@ -17,19 +13,28 @@
             <input checked class="left smsCheckbox" type="checkbox" value="">
         </div>
         <div class="fieldContainer clearBoth relative ">
-            <label class="labelCompact">Alt. Ph.</label>
-            <input type="text" ng-model="customerDetails.mobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
+            <label class="labelCompact">Caller Ph.2</label>
+            <input type="text" ng-model="customerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
             <input class="left smsCheckbox" type="checkbox" value="">
+        </div>
+
+        <div class="fieldContainer clearBoth relative clearBoth">
+            <label class="labelCompact">Search </label>
+            <input type="text" style="width: 70px;" ng-model="searchDetails.searchString" class="textFieldCompact"  />
+            <button class="btnCompact btn-success" data-ng-click="fnSearchCustomer();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>            
+            <input class="smsCheckbox" type="checkbox" style="margin: 0px 0px 0px 4px !important;" value="">
+        </div>
+
+        <div class="fieldContainer clearBoth relative" >
+            <label class="labelCompact">Cust. Name</label>
+            <input type="text" ng-model="searchedCustomerDetails.name" style="position:absolute;" class="validate[required,maxSize[128]] textFieldCompact" />
         </div>
         <div class="fieldContainer clearBoth relative ">
-            <label class="labelCompact">Pas. Ph.</label>
-            <input type="text" ng-model="bookingDetails.primaryMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
+            <label class="labelCompact">Cust. Ph.2</label>
+            <input type="text" ng-model="searchedCustomerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
             <input class="left smsCheckbox" type="checkbox" value="">
         </div>
-        <div class="fieldContainer clearBoth relative" >
-            <label class="labelCompact">Pas. Name</label>
-            <input type="text" ng-model="bookingDetails.primaryPassanger" style="position:absolute;" class="validate[required,maxSize[128]] textFieldCompact" />
-        </div>
+
         <hr class="buttonSpliter" />
         <div class="clearBoth relative mainButtonContainer">
             <button class="left btnCompact btn-success" data-ng-click="fnBlockCustomer();">Block Caller</button>
