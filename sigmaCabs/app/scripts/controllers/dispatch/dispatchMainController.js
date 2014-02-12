@@ -286,7 +286,10 @@ angular.module('sigmaCabsApp')
                 switch (scope.vehicleMainDetials.vehicleState) {
                     case "1":
                         scope.vehicleDetails.vehicleName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.details.vehicleName).vehicleName;
+                        scope.vehicleDetails.vehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetials.details.vehicleType).vehicleType;
                         scope.vehicleDetails.newLocation = scope.vehicleMainDetials.details.location;
+                        scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetials.details.condition);
+                        scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetials.details.paymentStatus);
                         scope.vLoginView = true;
                         break;
                     case "2":

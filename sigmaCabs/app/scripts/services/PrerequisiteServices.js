@@ -465,16 +465,17 @@ angular.module('sigmaCabsApp')
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
             },
-            fnGetVehicleTypeById : function(sId){
-                var oThis=  this,
-                    oVt = oThis.oLs[oThis.currentDate]['vehicleTypes'];
-                    if(!oVt){
-                        alert('Problem in getting config data from server. Please contact server team immediately.');
-                        return;
-                    }
+            fnGetVehicleTypeById: function(sId) {
+                var oThis = this,
+                    oVt = oThis.oLs[oThis.currentDate]['vehicleTypes'],
+                    oVtLength = oVt.length;
+                if (!oVt) {
+                    alert('Problem in getting config data from server. Please contact server team immediately.');
+                    return;
+                }
 
-                for(var i=0;i<oVt.length;i++){
-                    if(oVt[i].id == sId){
+                for (var i = 0; i < oVtLength; i++) {
+                    if (oVt[i].id == sId) {
                         return oVt[i];
                     }
                 }
@@ -505,12 +506,34 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
-            fnGetVehicleDisplayNameById : function(sId){
+            fnGetVehicleDisplayNameById: function(sId) {
                 var oThis = this,
                     oVn = oThis.oLs[oThis.currentDate]['vehicleNames'];
-                for(var i=0;i<oVn.length;i++){
-                    if(oVn[i].id == sId){
+                for (var i = 0; i < oVn.length; i++) {
+                    if (oVn[i].id == sId) {
                         return oVn[i].vehicleName;
+                    }
+                }
+                return null;
+            },
+            fnGetVehicleConditionTextById: function(sId) {
+                var oThis = this,
+                    oVcondition = oThis.fnGetVehicleConditionTypes(),
+                    oVconditionLength = oVcondition.length;
+                for (var i = 0; i < oVconditionLength; i++) {
+                    if (oVcondition[i].id == sId) {
+                        return oVcondition[i].condition;
+                    }
+                }
+                return null;
+            },
+            fnGetVehicleStatusTextById: function(sId) {
+                var oThis = this,
+                    oVs = oThis.fnGetStatusTypes(),
+                    oVsLength = oVs.length;
+                for (var i = 0; i < oVsLength; i++) {
+                    if (oVs[i].id == sId) {
+                        return oVs[i].status;
                     }
                 }
                 return null;

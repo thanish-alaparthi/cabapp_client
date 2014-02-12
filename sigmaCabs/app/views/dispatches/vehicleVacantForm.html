@@ -1,43 +1,47 @@
 <fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;height:212px;">
     <legend class="searchbox-border">Vehicle Vacant</legend>
 
-    <div class="fieldContainer  relative left">
+    <div class="fieldContainer relative left">
         <label class="labelCompact">Login Time</label>
-        <input type="text" ng-model="vehicleMainDetials.details.loginTime" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.loginTime}}</span>
     </div>
-    <div class="fieldContainer  relative right">
+    <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Vacant Time</label>
-        <input type="text" ng-model="vehicleMainDetials.details.vacantTime" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.vacantTime}}</span>
     </div>
-    <div class="fieldContainer  relative left">
+    <p class="clear" />
+    <div class="fieldContainer relative left">
         <label class="labelCompact">No.of Breaks</label>
-        <input type="text" ng-model="vehicleMainDetials.details.breakCount" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.breakCount}}</span>
     </div>
-    <div class="fieldContainer  relative right">
+    <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact" title="Overall Break Time">Overall BT</label>
-        <input type="text" ng-model="vehicleMainDetials.details.breakTime" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.breakTime}}</span>
     </div>
-     <div class="fieldContainer  relative left">
+    <p class="clear" />
+     <div class="fieldContainer relative left">
         <label class="labelCompact">No.of Bkings</label>
-        <input type="text" ng-model="vehicleMainDetials.details.bookingCount" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.bookingCount}}</span>
     </div>
-    <div class="fieldContainer  relative right">
+    <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Day Collection</label>
-        <input type="text" ng-model="vehicleMainDetials.details.dayCollection" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.dayCollection}}</span>
     </div>
-    <div class="fieldContainer  relative left">
+    <div class="fieldContainer relative left">
         <label class="labelCompact">Current Loc</label>
-        <input type="text" ng-model="vehicleMainDetials.details.location" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.location}}</span>
     </div>
 
         <p class="clear"/>
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div>
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleChangeLocation()">Landmark Change</button> <!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
+            <!-- <button class="btnCompact btn-success" data-ng-click="fnVehicleChangeLocation()">Landmark Change</button>  --><!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
             <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStart()">Break Start</button>
             <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStop()">Break Stop</button>
             <button class="btnCompact btn-success" data-ng-click="fnVehicleLogout()">Logout</button>
+            <button class="btnCompact btn-success">Accepted</button>
+            <button class="btnCompact btn-danger">Rejected</button>
         </div>
         <p class="clear"/>
     </div>

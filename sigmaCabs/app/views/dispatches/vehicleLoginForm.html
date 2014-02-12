@@ -3,25 +3,24 @@
 
     <div class="fieldContainer relative left">
         <label class="labelCompact">Vehicle Name</label>
-        <input type="text" ng-model="vehicleDetails.vehicleName" class="validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleDetails.vehicleName}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Vehicle Type</label>
-        <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.details.vehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes">
-            <option>Choose</option>
-        </select>
+        <span>{{vehicleDetails.vehicleType}}</span>
     </div>
+    <p class="clear" />
     <div class="fieldContainer relative left">
         <label class="labelCompact">Current Loc</label>
-        <input type="text" ng-model="vehicleMainDetials.details.location" class="validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.location}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact">New Location</label>
-        <input type="text" ng-model="vehicleDetails.newLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder=""/>
+        <input type="text" ng-model="vehicleDetails.newLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder="New Location" googleplace/>
     </div>
      <div class="fieldContainer relative left">
         <label class="labelCompact">Reg. No.</label>
-        <input type="text" ng-model="vehicleMainDetials.details.registrationNumber" class="validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.registrationNumber}}</span>
     </div>
     <div class="fieldContainer relative right" style="width: 180px;">
         <label class="labelCompact">V.Model</label>
@@ -29,23 +28,19 @@
     </div>
     <div class="fieldContainer relative left">
         <label class="labelCompact">V.Condition</label>
-        <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.details.condition" data-ng-options="obj.id as obj.condition for obj in vehicleConditionTypes">
-            <option>Choose</option>
-        </select>
+        <span>{{vehicleDetails.vConditionText}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Status</label>
-        <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.details.paymentStatus" data-ng-options="obj.id as obj.status for obj in vehicleStatusTypes">
-            <option>Choose</option>
-        </select>
+        <span>{{vehicleDetails.vStatusText}}</span>
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div>
             <button class="btnCompact btn-success" data-ng-click="fnVehicleLogin()" data-ng-show="bloginShow">Login</button>
-            <button class="btnCompact btn-success" data-ng-click="fnChangeVehicleStatus()">Change Status</button>
-            <button class="btnCompact btn-success" data-ng-click="fnChangeVehiclePhone()">Change Phone No.</button>
+            <!-- <button class="btnCompact btn-success" data-ng-click="fnChangeVehicleStatus()">Change Status</button>
+            <button class="btnCompact btn-success" data-ng-click="fnChangeVehiclePhone()">Change Phone No.</button> -->
         </div>
         <p class="clear"/>
     </div>

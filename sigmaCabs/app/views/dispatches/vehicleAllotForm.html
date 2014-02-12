@@ -2,38 +2,40 @@
     <legend class="searchbox-border">Vehicle Allot</legend>
     <div class="fieldContainer relative left">
         <label class="labelCompact">Pickup Date</label>
-        <input type="text" ng-model="vehicleMainDetials.details.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.pickupDate}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Pickup Time</label>
-        <input type="text" ng-model="vehicleMainDetials.details.pickupTime" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.pickupTime}}</span>
     </div>
+    <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact">Vehicle Name</label>
-        <input type="text" ng-model="vehicleDetails.vehicleName" class="validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleDetails.vehicleName}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Vehicle Type</label>
-        <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.details.vehicleType" data-ng-options="obj.id as obj.vehicleType for obj in vehicleTypes">
-            <option>Choose</option>
-        </select>
+        <span>{{vehicleMainDetials.details.vehicleType}}</span>
     </div>
+    <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact">Pickup</label>
-        <input type="text" ng-model="vehicleMainDetials.details.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.pickupPlace}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Drop Place</label>
-        <input type="text" ng-model="vehicleMainDetials.details.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.dropPlace}}</span>
     </div>
+    <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact">Cust Name.</label>
-        <input type="text" ng-model="vehicleMainDetials.details.customerName" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.customerName}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Cust Ph.</label>
-        <input type="text" ng-model="vehicleMainDetials.details.customerMobile" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.customerMobile}}</span>
     </div>
+    <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact">Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
@@ -42,6 +44,7 @@
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div>
+    <p class="clear"/>
     <!-- <div class="fieldContainer relative left">
         <label class="labelCompact">Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
@@ -52,11 +55,11 @@
     </div> -->
     <div class="fieldContainer relative left">
         <label class="labelCompact">Landmark1</label>
-        <input type="text" ng-model="vehicleMainDetials.details.landmark1" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.landmark1}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Landmark2</label>
-        <input type="text" ng-model="vehicleMainDetials.details.landmark2" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <span>{{vehicleMainDetials.details.landmark2}}</span>
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />
@@ -66,6 +69,9 @@
             <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
             <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
             <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingComplaint()">Complaints</button>
+            <button class="btnCompact btn-success">Change Tariff</button>
+            <button class="btnCompact btn-success">Change Vehicle</button>
+            <button class="btnCompact btn-success">Change Pickup Location</button>
         </div>
         <p class="clear"/>
     </div>
