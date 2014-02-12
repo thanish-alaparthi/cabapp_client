@@ -8,26 +8,6 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .run(function(AuthenticationService, $window, URLService, $rootScope, PrerequisiteService) {
-        // check for userSession.. and redirect to login screen if session dznt exists.
-        AuthenticationService.getSession()
-            .success(function(oData) {
-                $rootScope.$broadcast('userInfoFromSession', {
-                    "displayName": "Mario Ray",
-                    "role": 1,
-                    "id": 234565434
-                });
-                return;
-                if (oData.status != 200) {
-                    $window.location = URLService.page('logout');
-
-                } else {
-                    // trigger the event to show all the userName
-                    $rootScope.$broadcast('userInfoFromSession', oData.result.userInfo);
-
-                }
-            });
-    })
     .controller('bookingController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService) {
 
         //attach safeApply
@@ -50,8 +30,10 @@ angular.module('sigmaCabsApp')
 
         var scope = $scope;
 
+        // save the getCall phone in scope.
         scope.callerPhone = $routeParams.mobile;
 
+        // show the current time as callTime
         scope.callTime = PrerequisiteService.fnGetCallTime();
         scope.headCustomerCode = "-";
 
@@ -59,20 +41,12 @@ angular.module('sigmaCabsApp')
             searchString : ''
         };
 
+        // variable which holds tariffGrid data
         scope.tariffGridData = null;
-        // [{
-        //  vehicleType: 'small',
-        //  vehicleName: 'small',
-        //  duration: 'small',
-        //  amount: 'small',
-        //  extraKm: 'small',
-        //  graceTime: 'small',
-        //  extraHour: 'small',
-        //  extraCharges: 'small',
-        //  comments: 'small'
-        // }];
 
-        scope.showBookingDetails =  true;
+        scope.showBookingDetails =  true;        
+        scope.showExistingCustomerAddBooking = true;
+        scope.callerInfo = "";
         scope.tmpDetails = {};
 
         scope.showBookingDetailsTab = function(){
@@ -85,9 +59,11 @@ angular.module('sigmaCabsApp')
             $scope.showTariffDetails =  true;
         };
 
-        // scope.tmpVehicleType = "1";
-        // scope.tmpVehicleName = "1";
+        // there can be a scenario wherein existing user calls, but asks to book for another existing or new customer.
+        // for that issue we are maintaining a separate object called workareaCustomerDetails in short waCustomerDetails
+        scope.waCustomerDetails = {};
 
+        // variable which stores searchedCustomerDetails
         scope.searchedCustomerDetails = {
             name : '',
             mobile : '',
@@ -117,24 +93,20 @@ angular.module('sigmaCabsApp')
         };
         scope.bookingHistoryDetails = [];
 
-
-        /* Add Views to the bookings */
-
-        // get the phoneNumber from the URL if exists
-        // console.log("Rout Params: ", $routeParams.mobile);
-
+        // add the loading text message
         scope.existingCustomerAddBooking = URLService.view("loadingText");
-        scope.loadingText = "booking data"
+        scope.loadingText = "booking data";
 
+        // fn which loads unexpected error
         scope.fnLoadUnexpectedError = function() {
             scope.existingCustomerAddBooking = URLService.view('errorResponseFormatMisMatch');
         };
+        // fn which loads booking view
         scope.fnLoadBookingView = function() {
             scope.existingCustomerAddBooking = URLService.view('existingCustomerAddBooking');
         };
 
-        scope.showExistingCustomerAddBooking = true;
-
+        // fn to search customer by mobile.
         scope.fnSearchCustomerByMobile = function(sMobile){
             BookingService.fnFindCustomerByMobile({
                 mobile: sMobile
@@ -155,6 +127,7 @@ angular.module('sigmaCabsApp')
             });
         };
 
+        // fn which sets the customer details in the model.
         scope.fnSetCustomerDetails = function(data, isFromSearchBox) {
             // set the customerCode
             scope.headCustomerCode = data.result[0].customerDetails.customerCode || "LalaSendTheCOde";
@@ -174,6 +147,8 @@ angular.module('sigmaCabsApp')
                 } else {
                     scope.searchedCustomerDetails.altMobile = scope.searchedCustomerDetails.mobile2;
                 }
+                // assign workareaCustmerDetails with searchedCustomerDetails
+                angular.copy(scope.searchedCustomerDetails, scope.waCustomerDetails);
             } else {
                 scope.customerDetails = data.result[0].customerDetails; // set the customer data which server response.
 
@@ -183,6 +158,8 @@ angular.module('sigmaCabsApp')
                 } else {
                     scope.customerDetails.altMobile = scope.customerDetails.mobile2;
                 }
+                //assign workareaCustomerDetails with customerDetails
+                angular.copy(scope.customerDetails, scope.waCustomerDetails);
             }
 
 
@@ -198,22 +175,18 @@ angular.module('sigmaCabsApp')
                 // make the historyDetails in readable form instead of ids
                 scope.bookingHistoryDetails = PrerequisiteService.fnFormatBookingHistoryData(data.result[0].bookingHistory);
             }
-        }
+        };
 
-        scope.callerInfo = "";
 
         scope.fnInit = function() {
             // since mobile is passed, hit server to get CustomerDetails Based on the server
             if (scope.callerPhone) { // mobile passed
-                // set the default view to Add a booking
-                scope.showExistingCustomerAddBooking = true;
-
                 // make a call to server to get the user details...
                 BookingService.fnFindCustomerByMobile({
                     mobile: scope.callerPhone
                 })
                 .success(function(data, status, headers, config) {
-                    console.log('Success fnFindCustomerByMobile: ', typeof data, data);
+                    console.log('Success fnFindCustomerByIncomingCallPhone: ', typeof data, data);
 
                     if(typeof data !='object') {    // misMatched data is sent from the server.
                         scope.fnLoadUnexpectedError();  // show a red error msg.
@@ -231,7 +204,7 @@ angular.module('sigmaCabsApp')
                         scope.fnSetCustomerDetails(data);                        
                     } else {    // error in data.result object.
                         console.log('Erro in result: fnFindCustomerByMobile', data);   
-                    }
+                    }                    
 
                     scope.fnLoadBookingView();
                 })
@@ -241,12 +214,15 @@ angular.module('sigmaCabsApp')
                     alert('There was some error while getting customer details. ');
                     scope.fnLoadBookingView();
                 });
-            } else {
+            } else {    
                 scope.fnLoadBookingView();
+                console.warn('Landing on callTaker view even when there is no in-coming call.');
             }
         };
 
-
+        scope.fnFormatTariffGridDetails = function(oData){
+            console.log('fnFormatTariffGridDetails', oData);
+        };
 
         // Main Controller Init Point
         // // waits until configuration/prerequisits data loads always
@@ -269,9 +245,11 @@ angular.module('sigmaCabsApp')
             scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
 
+            // also load tariffGridData
+            scope.fnFormatTariffGridDetails(PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffType));            
 
             scope.headBookingType = scope.bookingDetails.bookingStatusName;
-            scope.headBookingCode = scope.bookingDetails.bookingCode || 'LalaSendBookCode';
+            scope.headBookingCode = scope.bookingDetails.bookingCode;
 
         });
     });

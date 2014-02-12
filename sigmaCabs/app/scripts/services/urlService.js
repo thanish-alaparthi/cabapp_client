@@ -57,6 +57,7 @@ angular.module('sigmaCabsApp')
         'RestApiSaveBooking' : '',
         'RestApiSearchByVehicleMobile' : '',
         'RestApiGetStatistics':'?url=vehicle/getAvailableStatistics',        
+        'RestApiGetAvailableVehicles':'',        
         'RestGetTariffById': '',
         'RestGetAllVehicleTypes' : '?url=config/getAllVehicleTypes',
 

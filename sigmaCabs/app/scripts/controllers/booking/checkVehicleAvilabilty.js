@@ -3,91 +3,87 @@
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('chkVehicleAvailabilityController', function($scope, PrerequisiteService, BookingService,CustomerService, $rootScope, URLService, $dialog, dialog) {
+	.controller('chkVehicleAvailabilityController', function(oBooking, oCustomer, $scope, PrerequisiteService, VehiclesService, BookingService,CustomerService, $rootScope, URLService, $dialog, dialog) {
 
 		var scope = $scope;
-		console.log('inside checkVehicleAvilabilty');
+		console.log('inside chkVehicleAvailabilityController', oBooking);
+
+		scope.bReservation = false;
+
+		// get the vehicleAvailablity
+		VehiclesService.fnGetAvailableVehicles({
+			requestTime : PrerequisiteService.formatToServerDate(oBooking.pickupDate) + ' ' + oBooking.pickupHours + ':' + oBooking.pickupMinutes + ':00'
+		})
+		.success(function(data, status,fnHeaders, oXhr, config){
+			console.log('success fnGetAvailableVehicles: ', data);
+			// scope.bReservation = true;
+		})
+		.error(function(data, status,fnHeaders, oXhr, config){
+			console.log('error fnGetAvailableVehicles: ', data);
+		});
 
 		scope.close = function(){
 			dialog.close();
 		};
 
-		scope.singleTariffData = [{
-				'type': 'Expected Vehicles',
-				'small': '4',
-				'medium': '11',
-				'large': '10',
-			}, {
-				'type':'While Driving',
-				'small': '4',
-				'medium': '11',
-				'large': '10'
-			}, {
-				'type':'Bookings Existing',
-				'small': '4',
-				'medium': '11',
-				'large': '10'
-			},{
-				'type':'Action',
-				'small' : 'yes',
-				'medium' : 'yes',
-				'large' : 'yes',
-			}
-		];
+        scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
 
-		/*scope.singleTariffData = [{
-			'Expected Vehicles' : {
-				'small': '4',
-				'medium': '11',
-				'large': '10'
-			},
-			'While Driving' : {
-				'small': '4',
-				'medium': '11',
-				'large': '10'
-			}, 
-			'Bookings Existing' : {
-				'small': '4',
-				'medium': '11',
-				'large': '10'
-			}, 
-			'Action': {
-				'small' : 'yes',
-				'medium' : 'yes',
-				'large' : 'yes',
-			}
-		}];*/
 
-		scope.singleTariffData = scope.singleTariffData;
-		for(var key in scope.singleTariffData ){
-			scope.singleTariffData[key]['vehilce'] = key;
-		}
+        var sCellTemplateHtml = '<div class="ngCellText" style="{{ (row.entity[\'type\'] == \'Color Code\' ? \'background-color:\' + row.getProperty(col.field) : \'\') }}{{ (row.entity[\'type\'] == \'Total\' ? \'font-weight: bold;\' : \'\') }}" ng-class="col.colIndex()">{{row.entity[\'type\'] == \'Color Code\' && col.field !=\'type\' ? \'\' :row.getProperty(col.field)}}</div>';
 
-		console.log(scope.singleTariffData)
 
-		scope.singleTariffGridOptions = {
-			data: 'singleTariffData',
-			rowHeight: 25,
-			columnDefs: [{
-				field: 'type',
-				displayName: 'Type'
-			},{
-				field: 'small',
-				displayName: 'Small'
-			}, {
-				field: 'medium',
-				displayName: 'Medium'
-			}, {
-				field: 'large',
-				displayName: 'Large'
-			}],
-			enablePaging: false,
-			showFooter: false,
+		// build column heads
+		$scope.availableVehicleGridColumnHeads = [
+	        {field:'type', displayName:'Type', width: '*', cellTemplate: sCellTemplateHtml}
+	    ];
+	    /* Add dynamic Columns */
+	    for(var i=0;i<scope.vehicleTypes.length;i++){
+	    	$scope.availableVehicleGridColumnHeads.push({
+	    		field : 'vehicleType' + scope.vehicleTypes[i].id,
+	    		displayName : scope.vehicleTypes[i].vehicleType,
+	    		width: '*',
+	    		cellTemplate: sCellTemplateHtml
+	    	});
+	    }
+	    /* EOF dynamic Columns */
+
+	    scope.vehicleAvailabilityData = [{
+	    	'type' : 'Vehicle Available',
+	    	'vehicleType1' : '10',
+	    	'vehicleType2' : '7',
+	    	'vehicleType3' : '78',
+	    	'vehicleType4' : '89'
+	    }, {
+	    	'type' : 'While Driving',
+	    	'vehicleType1' : '29',
+	    	'vehicleType2' : '54',
+	    	'vehicleType3' : '87',
+	    	'vehicleType4' : '22'
+	    }, {
+	    	'type' : 'Total',
+	    	'vehicleType1' : '39',
+	    	'vehicleType2' : '61',
+	    	'vehicleType3' : '165',
+	    	'vehicleType4' : '111'
+	    }, {
+	    	'type' : 'Bookings',
+	    	'vehicleType1' : '39',
+	    	'vehicleType2' : '61',
+	    	'vehicleType3' : '165',
+	    	'vehicleType4' : '111'
+	    }, {
+	    	'type' : 'Color Code',
+	    	'vehicleType1' : '#ff0',
+	    	'vehicleType2' : '#CCC',
+	    	'vehicleType3' : '#F00',
+	    	'vehicleType4' : '#0AF5FF'
+	    }];
+
+		scope.vehicleAvailabilityGridOptions = {
+			data: 'vehicleAvailabilityData',
+			rowHeight: 25,			
 			multiSelect: false,
-			totalServerItems: 'totalServerItems',
-			afterSelectionChange: function(oRow) {
-				// console.log(oRow.selectionProvider.selectedItems[0]);
-			}
+			columnDefs: 'availableVehicleGridColumnHeads'
 		};
 
 		scope.tariffVehiclesList = [{
@@ -102,6 +98,30 @@ angular.module('sigmaCabsApp')
 				'small': 'SC-111',
 				'medium': 'SC-111',
 				'large': 'SC-111'
+			},{
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
+			},{
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
+			},{
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
+			},{
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
+			},{
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
+			},{
+				'small' : 'SC-111',
+				'medium' : 'SC-111',
+				'large' : 'SC-111',
 			},{
 				'small' : 'SC-111',
 				'medium' : 'SC-111',
@@ -131,8 +151,4 @@ angular.module('sigmaCabsApp')
 				// console.log(oRow.selectionProvider.selectedItems[0]);
 			}
 		};
-
-
-
-
 	});

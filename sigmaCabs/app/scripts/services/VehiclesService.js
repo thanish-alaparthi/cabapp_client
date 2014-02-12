@@ -89,6 +89,19 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     } 
                 });
-            }
+            },
+            fnGetAvailableVehicles: function(oDataParams) {
+                return $http({
+                    url: URLService.service('RestApiGetAvailableVehicles'),
+                    method: 'POST',
+                    data : {
+                        url: 'vehicle/getAvailableStatistics',
+                        data: JSON.stringify(oDataParams)   
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
         }
     });

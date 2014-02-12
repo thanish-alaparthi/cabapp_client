@@ -23,7 +23,48 @@ angular.module('sigmaCabsApp')
           }
         };
 
+        scope.aData = [];
 		// scope.aData = [{
+		// 	vehicleType: 'small',
+		// 	vehicleName: 'small',
+		// 	duration: 'small',
+		// 	amount: 'small',
+		// 	extraKm: 'small',
+		// 	graceTime: 'small',
+		// 	extraHour: 'small',
+		// 	extraCharges: 'small',
+		// 	comments: 'small'
+		// }, {
+		// 	vehicleType: 'small',
+		// 	vehicleName: 'small',
+		// 	duration: 'small',
+		// 	amount: 'small',
+		// 	extraKm: 'small',
+		// 	graceTime: 'small',
+		// 	extraHour: 'small',
+		// 	extraCharges: 'small',
+		// 	comments: 'small'
+		// }, {
+		// 	vehicleType: 'small',
+		// 	vehicleName: 'small',
+		// 	duration: 'small',
+		// 	amount: 'small',
+		// 	extraKm: 'small',
+		// 	graceTime: 'small',
+		// 	extraHour: 'small',
+		// 	extraCharges: 'small',
+		// 	comments: 'small'
+		// }, {
+		// 	vehicleType: 'small',
+		// 	vehicleName: 'small',
+		// 	duration: 'small',
+		// 	amount: 'small',
+		// 	extraKm: 'small',
+		// 	graceTime: 'small',
+		// 	extraHour: 'small',
+		// 	extraCharges: 'small',
+		// 	comments: 'small'
+		// }, {
 		// 	vehicleType: 'small',
 		// 	vehicleName: 'small',
 		// 	duration: 'small',

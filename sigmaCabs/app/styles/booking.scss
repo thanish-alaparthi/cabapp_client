@@ -295,3 +295,21 @@ tr:nth-child(odd) {
 .margin-top10 {
   margin-top: 10px !important;
 }
+
+.modalClass.vehicle-availability .modal-dialog {
+  width: 1085px !important;
+}
+
+.booking-types-fieldset .labelCompact{
+  width: 139px;
+}
+
+.maskVehicleReserve {
+  position: absolute;
+  height: 335px;
+  border: 0px solid red;
+  z-index: 3;
+  background: #ccc;
+  opacity: 0.5;
+  width: 462px;
+}

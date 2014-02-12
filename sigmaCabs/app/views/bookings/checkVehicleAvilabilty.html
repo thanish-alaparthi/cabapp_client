@@ -4,27 +4,140 @@
             <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
             <h4 class="modal-title">Check Availability</h4>
         </div>
-        <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span  class="innerLabel">Caller Name: </span>
+                <span>{{ customerDetails.name }}</span>
+            </div>
+            <div class="right innerLabelContainer">
+                <span class="innerLabel">Caller Ph.: </span>
+                <span>{{ customerDetails.mobile }}</span>
+            </div>
+        </div>
+        <div class="modal-body clearfix" style="padding-top: 0px; padding-bottom: 0px;">
         
-             <div class="clearfix singleTariffContainer">
+             <div class="left">
                
-               <div class="left">
-               <legend class="searchbox-border">Vehicle Availabilty</legend>
-                    <div style="height:163px; width:450px;" id="singleTariffGrid" class = "bookingHistoryGrid">
-                        <div class="gridStyle" ng-grid="singleTariffGridOptions" style="height:100%;margin:0px;"></div>
+                <div class="clearfix">
+                 <div class="left margin-right10">
+                  <div class="clearfix">
+                    <fieldset>
+                     <legend class="searchbox-border">Vehicle Availability</legend>
+                        <div style="height:163px; width:450px;" id="singleTariffGrid" class = "bookingHistoryGrid">
+                            <div class="gridStyle" ng-grid="vehicleAvailabilityGridOptions" style="height:100%;margin:0px;"></div>
+                        </div>
+                    </fieldset>
+                  </div>
+                  <div class="clearfix">
+                      <div class="left margin-right10">
+                        <fieldset class="booking-types-fieldset">
+                            <legend class="searchbox-border">1. Booking Types</legend>
+                            <div>
+                                <label class="labelCompact">2. Urgent</label>
+                                <div class ="left"> &lt; 30min</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">3. Immediate</label>
+                                <div class ="left"> 30min - 1Hr</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">4. Regular</label>
+                                <div class ="left"> 1Hr - 3Hr</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">5. Sufficient</label>
+                                <div class ="left"> 3Hr - 6Hr</div>
+                            </div>
+                            <div>
+                                <label class="labelCompact">6. Advance-Current</label>
+                                <div class ="left"> 6Hr - 24Hr</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">7. Advance</label>
+                                <div class ="left">Next Day</div>
+                            </div> 
+                        </fieldset>
+                      </div>
+                      <div class="left">
+                         <fieldset class="booking-types-fieldset" style="min-height: 152px; padding-top: 25px !important;">
+                            <legend class="searchbox-border">Stages</legend>
+                            <div>
+                                <label class="labelCompact">1. Mid-night</label>
+                                <div class ="left"> &lt; 6Hr</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">2. Morning</label>
+                                <div class ="left"> 6Hr - 11Hr</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">3. Afternoon</label>
+                                <div class ="left"> 11Hr - 16Hr</div>
+                            </div> 
+                            <div>
+                                <label class="labelCompact">4. Evening</label>
+                                <div class ="left"> 16Hr - 22Hr</div>
+                            </div>
+                        </fieldset>
+                      </div>
+                  </div>
+                 </div>
+                 <div class="left ">
+                  <fieldset style="height: 335px;">
+                    <legend class="searchbox-border">Status</legend>
+                    <div style="margin-top:130px;">
+                      <div style="width:70px;height: 30px;margin: 0px 10px 10px 10px; background:orange;"></div>
+                      <div style="margin: 0px 10px 10px 10px;text-align: center;font-weight: bold;">Not-OK</div>
                     </div>
-               </div>
-               <div class="left tariffVehicles"> 
+                  </fieldset>
+                 </div>
+                 <div class="clearfix">
+                <p class="clear" />
+          </div>
+        </div>
+                </div>
+
+
+
+               <div class="left tariffVehicles">                 
+                  <div class="maskVehicleReserve" data-ng-hide="bReservation" title="Reservation gets unlocked if booking type is Immediate or urgent"></div>
+                <fieldset>
                    <legend class="searchbox-border">Allocation list</legend>
                    <div style="height:163px; width:450px;" id="tariffVehicles" class = "bookingHistoryGrid">
                         <div class="gridStyle" ng-grid="tariffVehiclesGridOptions" style="height:100%;margin:0px;"></div>
                     </div>
+                </fieldset>
+                <fieldset style="height: 152px;">
+                   <legend class="searchbox-border">Selected Vehicle Details</legend>
+                   <div>
+                        <label class="labelCompact">Code</label>
+                        <div class ="left">{{ roVehicle.vehicleCode }}</div>
+                    </div> 
+                        <p class="clear"/>
+                   <div>
+                        <label class="labelCompact">Type</label>
+                        <div class ="left">{{ roVehicle.vehicleType }}</div>
+                    </div> 
+                        <p class="clear"/>
+                   <div>
+                        <label class="labelCompact">Name</label>
+                        <div class ="left">{{ roVehicle.vehicleName }}</div>
+                    </div> 
+                        <p class="clear"/>
+                   <div>
+                        <label class="labelCompact">Phone</label>
+                        <div class ="left">{{ roVehicle.vehiclePhone }}</div>
+                        <p class="clear"/>
+                    </div>
+                    <hr class="buttonSpliter">
+                    <div class="clearBoth relative mainButtonContainer">
+                      <button type="button" class="right btn-success btnCompact" ng-click="fnReserve()" title="Reserve selected vehicle and close this popup">Reserve & Close</button>
+                    </div>
+                </fieldset>
+
                </div>
              </div>
-            
-        </div>
-        <div class="modal-footer">            
-        	<button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Allocate</button>
+        <div class="modal-footer margin-top10">            
+        	<button type="button" class="btn-success btnCompact" ng-click="close()">Close</button>
         </div>
     </div>
 </div>

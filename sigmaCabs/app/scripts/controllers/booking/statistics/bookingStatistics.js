@@ -12,7 +12,7 @@ angular.module('sigmaCabsApp')
 
 	var scope = $scope;
 	scope.bookingStatistics = URLService.view('bookingStatistics');
-	scope.statisticsData = PrerequisiteService.fnGetStatistics();
+	// scope.statisticsData = PrerequisiteService.fnGetStatistics();
 	scope.statisticsGridData = [];
 	for(var key in scope.statisticsData ){
 		scope.statisticsData[key]['vehilce'] = PrerequisiteService.fnGetVehicleNameById(key).vehicleName;

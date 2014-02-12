@@ -56,6 +56,10 @@ angular.module('sigmaCabsApp')
 				field: 'dropPlace',
 				displayName: 'Drop'
 			}, {
+				field: 'vehicleDisplayType',
+				displayName: 'Type',
+				width: 80
+			}, {
 				field: 'vehicleDisplayName',
 				displayName: 'Vehicle',
 				width: 80

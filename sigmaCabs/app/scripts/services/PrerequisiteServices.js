@@ -170,16 +170,16 @@ angular.module('sigmaCabsApp')
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
-                $http({
-                    url: URLService.service('RestApiGetStatistics'),
-                    method: 'GET',
-                    myDataToken : 'statistics',
-                    oMe : oThis,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                // oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                // $http({
+                //     url: URLService.service('RestApiGetStatistics'),
+                //     method: 'GET',
+                //     myDataToken : 'statistics',
+                //     oMe : oThis,
+                //     headers: {
+                //         'Content-Type': 'application/x-www-form-urlencoded'
+                //     }
+                // }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
@@ -353,7 +353,8 @@ angular.module('sigmaCabsApp')
             fnStoreTariffData : function() {
                 var oThis = this,
                     aTd = oThis.fnGetTariffData(),
-                    aFormatedTd = {};
+                    aFormatedTd = {},
+                    oTariffById = {};
 
                 for(var k in aTd){
                     var tariffData = aTd[k],
@@ -361,6 +362,7 @@ angular.module('sigmaCabsApp')
                         sTmpDuration = '',
                         sTmpKms = '';
                     for(var i=0;i<tariffData.length;i++) {
+                        oTariffById[tariffData[i].id] = tariffData[i];
                         var tariffRow = {
                             'duration': tariffData[i].duration,
                             'kms' : tariffData[i].kms
@@ -383,6 +385,7 @@ angular.module('sigmaCabsApp')
                     aFormatedTd[k] = oTd;
                 }
                 oThis.fnAddToLocalStorage('tariffTypeOnVehicleType', aFormatedTd);
+                oThis.fnAddToLocalStorage('tariffById', oTariffById);
             },
             fnGetTariffByVehicleType : function(sVehicleType){
                 var oThis = this;
@@ -453,11 +456,11 @@ angular.module('sigmaCabsApp')
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['reason'];
             },
-			fnGetStatistics : function(){
-                var oThis = this;
-                //return oThis.oLs[oThis.currentDate]['statistics'];
-                return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
-            },
+			// fnGetStatistics : function(){
+   //              var oThis = this;
+   //              //return oThis.oLs[oThis.currentDate]['statistics'];
+   //              return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
+   //          },
             fnGetVehicleNames : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
@@ -473,6 +476,21 @@ angular.module('sigmaCabsApp')
                 for(var i=0;i<oVt.length;i++){
                     if(oVt[i].id == sId){
                         return oVt[i];
+                    }
+                }
+                return null;
+            },
+            fnGetVehicleDisplayTypeById : function(sId){
+                var oThis=  this,
+                    oVt = oThis.oLs[oThis.currentDate]['vehicleTypes'];
+                    if(!oVt){
+                        alert('Problem in getting config data from server. Please contact server team immediately.');
+                        return;
+                    }
+
+                for(var i=0;i<oVt.length;i++){
+                    if(oVt[i].id == sId){
+                        return oVt[i].vehicleType;
                     }
                 }
                 return null;
@@ -537,7 +555,8 @@ angular.module('sigmaCabsApp')
                     oBh.pickupDisplayDate = oThis.fnFormatDate(oBh.pickupDate);
                     oBh.pickupDisplayTime = oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
                     oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
-                    oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName);
+                    oBh.vehicleDisplayType = oThis.fnGetVehicleDisplayTypeById(oBh.vehicleType);
+                    oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName) || 'Any-Vehicle';
                     oRtn.push(oBh);
                 }
                 return oRtn;
@@ -588,35 +607,42 @@ angular.module('sigmaCabsApp')
                 }];
                 return oData;
             },
+            fnGetTariffById : function(sId){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['tariffById'][sId];
+            },
 
             /* per Thanish, tariffType are the columns in the tariff sheet.
                Eg. Small, Medium, Tavera, Xylo/Innova
             */
-            tariffTypes : [{
-                id : 1,
-                tariffType : 'Small',
-            },{
-                id : 3,
-                tariffType : 'Medium',
-            },{
-                id : 5,
-                tariffType : 'Tavera',
-            },{
-                id : 6,
-                tariffType : 'Xylo / Innova',
-            }],
-            fnGetTariffTypes : function() {
-                return this.tariffTypes;
-            },
-            fnGetTariffTypeById : function(sId) {
-                var aTt = this.tariffTypes;
-                for(var i=0;i<aTt.length;i++){
-                    if(sId == aTt[i].id){
-                        return aTt[i]
-                    }
-                }
-                return null;
-            },
+            // tariffTypes : [{
+            //     id : 1,
+            //     tariffType : 'Small',
+            // },{
+            //     id : 3,
+            //     tariffType : 'Medium',
+            // },{
+            //     id : 5,
+            //     tariffType : 'Tavera',
+            // },{
+            //     id : 6,
+            //     tariffType : 'Xylo / Innova',
+            // }],
+            // fnGetTariffTypes : function() {
+            //     return this.tariffTypes;
+            // },
+            // fnGetTariffTypeById : function(sId) {
+            //     var aTt = this.tariffTypes;
+            //     for(var i=0;i<aTt.length;i++){
+            //         if(sId == aTt[i].id){
+            //             return aTt[i]
+            //         }
+            //     }
+            //     return null;
+            // },
+
+
+
 
             /* Old settings. will be deleted later */
             isPrimaryTraveller: {

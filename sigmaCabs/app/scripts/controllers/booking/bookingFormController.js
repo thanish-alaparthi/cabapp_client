@@ -146,11 +146,27 @@ angular.module('sigmaCabsApp')
 		scope.fnPopVehicleNames();
 
 		scope.checkVehicleAvilabilty = function(){
+			if(!scope.customerDetails.id) {
+				alert('Please save the customer details first.');
+				return;
+			}
 			$scope.opts = {
 				templateUrl: URLService.view('vehicleAvailabilityCheck'),
 				controller: 'chkVehicleAvailabilityController',
-				dialogClass: 'modalClass',
-				resolve: {}
+				dialogClass: 'modalClass vehicle-availability',
+				resolve: {
+					editMode: [
+						function() {
+							return false;
+						}
+					],
+					oBooking : function(){
+						return scope.bookingDetails
+					},
+					oCustomer : function(){
+						return scope.customerDetails
+					}
+				}
 			};
 			modalWindow.addDataToModal($scope.opts);
 		};
