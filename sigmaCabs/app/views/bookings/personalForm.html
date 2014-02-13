@@ -14,13 +14,13 @@
         </div>
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Caller Ph.2</label>
-            <input type="text" ng-model="customerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
+            <input type="text" phone ng-model="customerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
             <input class="left smsCheckbox" type="checkbox" value="">
         </div>
 
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Search </label>
-            <input type="text" style="width: 70px;" ng-model="searchDetails.searchString" class="textFieldCompact"  />
+            <input type="text" phone style="width: 70px;" ng-model="searchDetails.searchString" class="textFieldCompact"  />
             <button class="btnCompact btn-success" data-ng-click="fnSearchCustomer();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>            
             <input class="smsCheckbox" type="checkbox" style="margin: 0px 0px 0px 4px !important;" value="">
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Cust. Ph.2</label>
-            <input type="text" ng-model="searchedCustomerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
+            <input type="text" phone ng-model="searchedCustomerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
             <input class="left smsCheckbox" type="checkbox" value="">
         </div>
 

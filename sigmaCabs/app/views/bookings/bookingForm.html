@@ -3,7 +3,7 @@
 
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup Date</label>
-        <input type="text" datepicker ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <input type="text" datepicker ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-change="fnChangeTimePerDate()" />
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Pickup Time</label>

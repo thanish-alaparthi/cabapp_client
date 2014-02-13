@@ -1,21 +1,21 @@
 <fieldset class="" data-ng-controller="bookingHistory" style="clear:both;">
     <legend class="searchbox-border">Booking History</legend>
     <div class="historyBarContainer">
+        <div class="left historyBarItem">
+            <span class="historyBarLabel">Grade: </span>
+            <span class="historyBarValue">{{ headCustomerGrade }}</span>
+        </div>
     	<div class="left historyBarItem">
     		<span class="historyBarLabel">Category: </span>
     		<span class="historyBarValue">{{headCustomerCategory}}</span>
     	</div>
-    	<div class="left historyBarItem">
-    		<span class="historyBarLabel">Grade: </span>
-    		<span class="historyBarValue">{{ headCustomerGrade }}</span>
-    	</div>
+        <div class="left historyBarItem">
+            <span class="historyBarLabel">Discount: </span>
+            <span class="historyBarValue">{{headCustomerDiscount}}</span>
+        </div>
     	<div class="left historyBarItem">
     		<span class="historyBarLabel">Trip Count: </span>
     		<span class="historyBarValue">{{headCustomerTripCount}}</span>
-    	</div>
-    	<div class="left historyBarItem">
-    		<span class="historyBarLabel">BOD: </span>
-    		<span class="historyBarValue">{{headDaysBookingsCount}}</span>
     	</div>
     	<div class="left historyBarItem">
     		<span class="historyBarLabel"><a class="viewAllHistoryLink">View History</a></span>

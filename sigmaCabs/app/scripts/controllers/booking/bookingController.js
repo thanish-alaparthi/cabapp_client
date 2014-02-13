@@ -134,7 +134,7 @@ angular.module('sigmaCabsApp')
             scope.headCustomerCategory = data.result[0].customerDetails.category;
             scope.headCustomerGrade = PrerequisiteService.fnGetGradeById(data.result[0].customerDetails.grade).grade;
             scope.headCustomerTripCount = data.result[0].customerDetails.tripCount;
-            scope.headDaysBookingsCount = data.result[0].customerDetails.bookingCountOfTheDay;
+            scope.headCustomerDiscount = data.result[0].customerDetails.discount;
 
             scope.callerInfo = " (Existing Caller)";
             
@@ -246,7 +246,7 @@ angular.module('sigmaCabsApp')
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
 
             // also load tariffGridData
-            scope.fnFormatTariffGridDetails(PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffType));            
+            scope.fnFormatTariffGridDetails(PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffId));            
 
             scope.headBookingType = scope.bookingDetails.bookingStatusName;
             scope.headBookingCode = scope.bookingDetails.bookingCode;

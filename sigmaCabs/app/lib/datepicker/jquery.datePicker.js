@@ -5,7 +5,7 @@
  * .
  * $Id$
  **/
-
+;
 (function($){
     
 	$.fn.extend({

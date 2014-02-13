@@ -27,6 +27,7 @@
  * @type Array
  * @cat Plugins/Methods/Date
  */
+ ;
 Date.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 /**

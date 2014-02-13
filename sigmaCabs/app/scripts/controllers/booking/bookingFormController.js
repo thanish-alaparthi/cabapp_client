@@ -20,6 +20,37 @@ angular.module('sigmaCabsApp')
 			scope.tmpDetails.tmpVehicleName = scope.bookingDetails.vehicleName;
 		}
 
+		// fn to change the time dd
+		scope.fnChangeTimePerDate = function(){
+			if(  scope.bookingDetails.bookingStatus == ""
+				|| (scope.bookingDetails.bookingStatus != PreConfigService.WHILE_DRIVING
+			    	&& scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_COMPLETED_N_CLOSED
+			    	&& scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_CANCELLED)
+			) {
+				// show future time if date is selected date is todays date.
+				var aHr = PrerequisiteService.hours;
+				var sBkdt = PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate);
+				if(PrerequisiteService.currentDate == sBkdt){
+					console.log('pickupDate is currentDate');
+					var oDt = new Date();
+					console.log(oDt.getHours(), oDt.getMinutes());
+					var aSelHr = {},
+						iLimitHour = oDt.getHours()
+					for(var sHr in aHr){
+						if(sHr >= iLimitHour){
+							aSelHr[sHr] = sHr;
+						}
+					}
+					console.log(scope.hours);
+					scope.hours = aSelHr;
+					console.log(scope.hours);
+					scope.$apply();
+				} else {
+					scope.hours = PrerequisiteService.hours;
+					scope.$apply();
+				}
+			}
+		};
 
 		// function to change sub-Journey Types
 		scope.fnPopSubJourneyTypes = function() {
@@ -34,6 +65,11 @@ angular.module('sigmaCabsApp')
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleNames = function() {
+			// clear the tariff selection
+			scope.bookingDetails.tariffId = null;
+			scope.tariffGridData = null;
+			scope.$emit('eventVehicleTypeChanged');
+
 			scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpDetails.tmpVehicleType);
 			scope.tmpDetails.tmpVehicleName = "";
 			scope.bookingDetails.vehicleType = scope.tmpSelectedVehicleType.id;
@@ -50,7 +86,6 @@ angular.module('sigmaCabsApp')
 	                status : '1'
 	            });
 			}
-			
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleTypes = function() {
@@ -146,7 +181,7 @@ angular.module('sigmaCabsApp')
 		scope.fnPopVehicleNames();
 
 		scope.checkVehicleAvilabilty = function(){
-			if(!scope.customerDetails.id) {
+			if(!scope.waCustomerDetails.id) {
 				alert('Please save the customer details first.');
 				return;
 			}
@@ -164,7 +199,7 @@ angular.module('sigmaCabsApp')
 						return scope.bookingDetails
 					},
 					oCustomer : function(){
-						return scope.customerDetails
+						return scope.waCustomerDetails
 					}
 				}
 			};
@@ -190,7 +225,7 @@ angular.module('sigmaCabsApp')
 						return scope.bookingDetails
 					},
 					oCustomer : function(){
-						return scope.customerDetails
+						return scope.waCustomerDetails
 					}
 				}
 			};
@@ -198,7 +233,7 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnOpenDisposition = function(){
-			if(!scope.customerDetails.id) {
+			if(!scope.waCustomerDetails.id) {
 				alert('Please save the customer details first.');
 				return;
 			}
@@ -221,20 +256,20 @@ angular.module('sigmaCabsApp')
 							pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
 							pickupPlace : scope.bookingDetails.pickupPlace, 
 							dropPlace : scope.bookingDetails.dropPlace, 
-							primaryPassanger : (scope.bookingDetails.primaryPassanger ? scope.bookingDetails.primaryPassanger : scope.customerDetails.name),
-							primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
-							extraMobile : scope.customerDetails.mobile2, 
+							primaryPassanger : '',
+							primaryMobile : '',
+							extraMobile : '',
 							landmark1 : scope.bookingDetails.landmark1, 
 							landmark2 : scope.bookingDetails.landmark2, 
 							vehicleName : scope.bookingDetails.vehicleName, 
 							vehicleType : scope.bookingDetails.vehicleType, 
 							subJourneyType : scope.bookingDetails.subJourneyType, 
 							bookingStatus : null,	// reset the booking status in disposition.
-							customerId : scope.customerDetails.id
+							customerId : scope.waCustomerDetails.id
 						}
 					},
 					oCustomer : function(){
-						return scope.customerDetails
+						return scope.waCustomerDetails
 					}
 				}
 			};
@@ -252,7 +287,7 @@ angular.module('sigmaCabsApp')
 		}
 
 		scope.checkTariff = function(){
-			if(!scope.customerDetails.id) {
+			if(!scope.waCustomerDetails.id) {
 				alert('Please save the customer details first.');
 				return;
 			}
@@ -269,20 +304,20 @@ angular.module('sigmaCabsApp')
 							pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
 							pickupPlace : scope.bookingDetails.pickupPlace, 
 							dropPlace : scope.bookingDetails.dropPlace, 
-							primaryPassanger : (scope.bookingDetails.primaryPassanger ? scope.bookingDetails.primaryPassanger : scope.customerDetails.name),
-							primaryMobile : (scope.bookingDetails.primaryMobile ? scope.bookingDetails.primaryMobile : scope.customerDetails.mobile), 
-							extraMobile : scope.customerDetails.mobile2, 
+							primaryPassanger : '',
+							primaryMobile : '',
+							extraMobile : '',
 							landmark1 : scope.bookingDetails.landmark1, 
 							landmark2 : scope.bookingDetails.landmark2, 
 							vehicleName : scope.bookingDetails.vehicleName, 
 							vehicleType : scope.bookingDetails.vehicleType, 
 							subJourneyType : scope.bookingDetails.subJourneyType, 
 							bookingStatus : null,	// reset the booking status in disposition.
-							customerId : scope.customerDetails.id
+							customerId : scope.waCustomerDetails.id
 						}
 					},
 					oCustomer : function(){
-						return scope.customerDetails
+						return scope.waCustomerDetails
 					}
 				}
 			};

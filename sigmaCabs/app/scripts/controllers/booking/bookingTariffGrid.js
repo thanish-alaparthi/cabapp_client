@@ -100,6 +100,8 @@ angular.module('sigmaCabsApp')
 	    	console.log('>>>>>scope.tariffGridData changed', newVal);
 	    	if(newVal){
 	    		scope.aData = [newVal];
+	    	} else {
+	    		scope.aData = [];
 	    	}
 	    });
 	});

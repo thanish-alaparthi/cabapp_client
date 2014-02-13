@@ -59,12 +59,18 @@ angular.module('sigmaCabsApp')
 
 
 		$scope.fnEditCell = function (row, cell, columnSelected, col){
+
 			var tariffObj = row['tariffObj_' + columnSelected];
 			console.log('Selected Package: ', tariffObj);
 
+
+			// check if vehicleType match with tariffDetails and bookingDetails
+			if(tariffObj.vehicleType != oBooking.vehicleType) {
+				alert('Tariff vehicle Type mis-match with that of booking details. \n\nPlease select '+ scope.selectedVehicleType.vehicleType + ' tariff plan.');
+				return;
+			}
+
 			angular.copy(tariffObj, scope.selctedTariffType);
-
-
 
 			//set the readonly Fields
 			scope.roData.duration = tariffObj.duration;
@@ -127,7 +133,7 @@ angular.module('sigmaCabsApp')
     			id: scope.selctedTariffType.id
     		};
 	    	$rootScope.$emit('eventSingleTariffSelected', {
-	    		tariffId : scope.selectedTariffTypeId,
+	    		tariffId : oT.id,
 	    		tariffDetails: oT
 	    	});
 

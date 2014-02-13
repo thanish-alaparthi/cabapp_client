@@ -132,56 +132,79 @@ angular.module('sigmaCabsApp')
 			});
 		};
 
+		scope.fnValidateBookingForm = function() {
+			if(!scope.waCustomerDetails.id) {
+				alert('Caller details are not specified. Please fill in the caller information first.');
+				return false;
+			}
+			if(!scope.bookingDetails.pickupPlace){
+				alert('Please enter a pickup place.');
+				return false;
+			}	
+			if(!scope.bookingDetails.dropPlace){
+				alert('Please enter a drop place.');
+				return false;
+			}		
+			if(!scope.bookingDetails.tariffId){
+				alert('Please select a tariff Plan.');
+				return false;
+			}
+			if(!scope.bookingDetails.subJourneyType){
+				alert('Please select a Sub-Journey type.');
+				return false;
+			}
+
+			return true;
+		};
+
 
 		// fn to save the booking details
 		scope.fnSaveBooking = function() {
-			if(!scope.waCustomerDetails.id) {
-				alert('Caller details are not specified. Please fill in the caller information first.');
+			if(! scope.fnValidateBookingForm()){
 				return;
 			}
+
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
 				pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
 				pickupPlace : scope.bookingDetails.pickupPlace, 
-				dropPlace : scope.bookingDetails.dropPlace, 
-				primaryPassanger : '',
-				primaryMobile : '',
-				extraMobile : '',
-				tariffId : scope.bookingDetails.tariffType,
+				dropPlace : scope.bookingDetails.dropPlace,
+				tariffId : scope.bookingDetails.tariffId,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.bookingDetails.vehicleName, 
 				vehicleType : scope.bookingDetails.vehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
-				customerId : scope.waCustomerDetails.id
+				customerId : scope.waCustomerDetails.id,
+				refCustomerId : scope.customerDetails.id,
+				reserveVehicleId : scope.reserveVehicleId
 			});
 		};
 
 		scope.fnSaveAsNewBooking = function() {
-			if(!scope.waCustomerDetails.id) {
-				alert('Caller details are not specified. Please fill in the caller information first.');
+			if(! scope.fnValidateBookingForm()){
 				return;
 			}
+
 			console.log('Saving as new booking...');
 			scope.fnApiSaveBooking({
 				id : "", 
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
 				pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
 				pickupPlace : scope.bookingDetails.pickupPlace, 
-				dropPlace : scope.bookingDetails.dropPlace, 
-				primaryPassanger : '',
-				primaryMobile : '',
-				extraMobile : '',
-				tariffId : scope.bookingDetails.tariffType,
+				dropPlace : scope.bookingDetails.dropPlace,
+				tariffId : scope.bookingDetails.tariffId,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.bookingDetails.vehicleName, 
 				vehicleType : scope.bookingDetails.vehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
-				customerId : scope.waCustomerDetails.id
+				customerId : scope.waCustomerDetails.id,				
+				refCustomerId : scope.customerDetails.id,
+				reserveVehicleId : scope.reserveVehicleId
 			});
 		};
 
@@ -236,6 +259,23 @@ angular.module('sigmaCabsApp')
 			modalWindow.addDataToModal($scope.opts);
 		};
 
+		scope.fnClearBookingForm = function() {
+			scope.bookingDetails = {
+	            pickupDate : PrerequisiteService.fnFormatDate(),
+	            pickupHours : PrerequisiteService.fnFormatHours(),
+	            pickupMinutes : PrerequisiteService.fnFormatMinutes(),
+	            pickupAddress : '',
+	            pickupLandmark : '',
+	            dropAddress : '',
+	            passengerCount : '',
+	            luggageType : '',
+	            comments : '',
+	            vehicleType: '',
+	            id: '',
+	            customerId : ''
+	        };
+		};
+
 		scope.fnApiSaveBooking = function(oData){
 			BookingService.fnSaveBooking(oData)
 			.success(function(data, status, headers, config) {				
@@ -245,6 +285,8 @@ angular.module('sigmaCabsApp')
 
 				if(data.status == 200){
 					alert('Booking Saved successfully.');
+					// clear booking form
+					scope.fnClearBookingForm();
 					return;
 				}
 
@@ -283,9 +325,16 @@ angular.module('sigmaCabsApp')
         $rootScope.$on('eventSingleTariffSelected', function(ev, oData) {
         	// single tariff will send oData.tariffType as id and not as an array.
         	// add the tariffType to booking details
-        	console.log('eventSingleTariffSelected triggered');
-        	scope.bookingDetails.tariffType = oData.tariffType;
+        	console.log('eventSingleTariffSelected triggered', oData);
+        	scope.bookingDetails.tariffId = oData.tariffId;
         	scope.fnRefreshBookingTariffGrid(oData.tariffDetails);
+        });
+
+        // catch eventVehicleTypeChanged to reload tariffGrid.
+        $rootScope.$on('eventVehicleTypeChanged', function(ev, oData) {
+        	console.log('eventVehicleTypeChanged triggered', oData);
+        	scope.bookingDetails.tariffId = null;
+        	scope.fnRefreshBookingTariffGrid(null);
         });
 
 
@@ -347,7 +396,6 @@ angular.module('sigmaCabsApp')
 
 		// watch for tariffGridData change to refresh tariffGrid
         scope.$watch('tariffGridData', function(newVal, oldVal){
-	    	console.log('<<<<<<<<<<<<>>>>>scope.tariffGridData changed', newVal);
-	    	 // angular.copy(newVal, scope.aData);
+	    	console.log('scope.tariffGridData changed', newVal);
 	    });
 	});
