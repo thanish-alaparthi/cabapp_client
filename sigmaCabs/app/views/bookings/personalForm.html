@@ -4,7 +4,7 @@
 
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Caller Name </label>
-            <input type="text" ng-model="customerDetails.name" class="left validate[required,maxSize[128]] textFieldCompact"  />
+            <input type="text" ng-model="customerDetails.name" class="left validate[required,maxSize[128]] textFieldCompact" ng-blur="fnCustomerDetailsBlured()" />
             <span class="smsText">SMS</span>
         </div>
         <div class="fieldContainer clearBoth relative clearBoth">
@@ -14,7 +14,7 @@
         </div>
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Caller Ph.2</label>
-            <input type="text" phone ng-model="customerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
+            <input type="text" phone ng-model="customerDetails.altMobile"  ng-blur="fnCustomerDetailsBlured()" class="left validate[required,maxSize[128]] textFieldCompact"/>
             <input class="left smsCheckbox" type="checkbox" value="">
         </div>
 
@@ -27,11 +27,11 @@
 
         <div class="fieldContainer clearBoth relative" >
             <label class="labelCompact">Cust. Name</label>
-            <input type="text" ng-model="searchedCustomerDetails.name" style="position:absolute;" class="validate[required,maxSize[128]] textFieldCompact" />
+            <input type="text" ng-model="searchedCustomerDetails.name"  ng-blur="fnSearchedCustomerDetailsBlured()" style="position:absolute;" class="validate[required,maxSize[128]] textFieldCompact" />
         </div>
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Cust. Ph.2</label>
-            <input type="text" phone ng-model="searchedCustomerDetails.altMobile" class="left validate[required,maxSize[128]] textFieldCompact" />
+            <input type="text" phone ng-model="searchedCustomerDetails.altMobile" ng-blur="fnSearchedCustomerDetailsBlured()" class="left validate[required,maxSize[128]] textFieldCompact" />
             <input class="left smsCheckbox" type="checkbox" value="">
         </div>
 

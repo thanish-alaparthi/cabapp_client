@@ -277,6 +277,9 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.checkMultiVehicle = function(){
+			alert("Coming very soon.\n Sorry for the inconvenience.");
+
+			return;
 			$scope.opts = {
 				templateUrl: 'views/bookings/checkMultiVehicle.html',
 				controller: 'chkMultiVehicleController',

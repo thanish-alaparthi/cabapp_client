@@ -60,6 +60,7 @@ angular.module('sigmaCabsApp')
         'RestApiGetAvailableVehicles':'',        
         'RestGetTariffById': '',
         'RestGetAllVehicleTypes' : '?url=config/getAllVehicleTypes',
+        'RestGetAllCategories' : '?url=config/getAllCategories',
 
 
         'addVehicle' :  "", //"?url=vehicle/save",

@@ -31,6 +31,7 @@ angular.module('sigmaCabsApp')
 				limit: 5
 			})
 			.success(function(data, status, headers, config){				
+				scope.bookingHistoryDetails = [];
 				console.log('Success  fnGetLatestCustomerBookings: ',data);
 				if(data.status == 500){
 					console.warn("fnGetLatestCustomerBookings 500", data);
@@ -52,7 +53,7 @@ angular.module('sigmaCabsApp')
                 return;
             }
             if(!isNaN(sSearchPre) && sSearch.length == 10){ // mobile
-            	console.log('Searching by PoneNo.');
+            	console.log('Searching by PoneNo.');            	
                 scope.fnSearchCustomerByMobile(sSearch);
                 return;
             }
@@ -73,6 +74,50 @@ angular.module('sigmaCabsApp')
 		/*
 			Save customer details function.
 		*/
+		scope.fnCustomerDetailsBlured = function(){
+			console.log('fnCustomerDetailsBlured');
+			if(scope.customerDetails.mobile && scope.customerDetails.name){
+				scope.fnSaveCustomerDetails({
+					"id":scope.customerDetails.id, 
+					"name" : scope.customerDetails.name, 
+					"mobile" : scope.customerDetails.mobile,
+					"altMobile" : scope.customerDetails.altMobile
+				});
+			} else {
+				console.log('Mobile and Name are mandatory in customer save.');
+			}
+		};
+		scope.fnSearchedCustomerDetailsBlured = function(){
+			console.log('fnSearchedCustomerDetailsBlured');
+
+			// attach search number as customerMobile.
+			var sSearch = scope.searchDetails.searchString;
+			if(sSearch.length == 10){
+				scope.searchedCustomerDetails.mobile = sSearch;
+			}
+
+			if( (scope.searchedCustomerDetails.altMobile || scope.searchedCustomerDetails.mobile)
+				&& scope.searchedCustomerDetails.name){
+				var sMainMobile = "", sAltMobile = "";
+				if(scope.searchedCustomerDetails.mobile){
+					sMainMobile = scope.searchedCustomerDetails.mobile;
+					sAltMobile = scope.searchedCustomerDetails.altMobile;
+				} else {
+					sMainMobile = scope.searchedCustomerDetails.altMobile;
+					sAltMobile = "";
+				}
+				if(sAltMobile.length == 10 || sMainMobile.length== 10){
+					scope.fnSaveSearchedCustomerDetails({
+						"id":scope.searchedCustomerDetails.id, 
+						"name" : scope.searchedCustomerDetails.name, 
+						"mobile" : sMainMobile,
+						"altMobile" : sAltMobile
+					});
+				}
+			} else {
+				console.log('Mobile and Name are mandatory in customer save.');
+			}
+		};
 		scope.fnSaveCustomerDetails = function(oData) {
 			CustomerService.fnUpdateCustomerDetails({
 				"id":oData.id, 
@@ -178,7 +223,7 @@ angular.module('sigmaCabsApp')
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
 				customerId : scope.waCustomerDetails.id,
-				refCustomerId : scope.customerDetails.id,
+				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
 				reserveVehicleId : scope.reserveVehicleId
 			});
 		};
@@ -281,12 +326,11 @@ angular.module('sigmaCabsApp')
 			.success(function(data, status, headers, config) {				
 				console.log('Success fnSaveBooking: ',data);
 
-				scope.fnRefreshBookingHistory();
-
 				if(data.status == 200){
 					alert('Booking Saved successfully.');
 					// clear booking form
 					scope.fnClearBookingForm();
+					scope.fnRefreshBookingHistory();
 					return;
 				}
 
@@ -354,43 +398,16 @@ angular.module('sigmaCabsApp')
         },true);
         // watch for customerDetails to save the data of customer
 		scope.$watch('customerDetails', function(newVal, oldVal) {
-			if(!angular.equals(newVal,oldVal)){
-				if(scope.customerDetails.mobile && scope.customerDetails.name){
-					scope.fnSaveCustomerDetails({
-						"id":scope.customerDetails.id, 
-						"name" : scope.customerDetails.name, 
-						"mobile" : scope.customerDetails.mobile,
-						"altMobile" : scope.customerDetails.altMobile
-					});
-				} else {
-					console.log('Mobile and Name are mandatory in customer save.');
-				}
+			if(!angular.equals(newVal,oldVal)){				
+				console.log('Customer details changed....');
+				
 			}
 		}, true);
 
 		// watch for searchedCustomerDetails to save the data of searchedCustomer
 		scope.$watch('searchedCustomerDetails', function(newVal, oldVal) {
-			console.log('searchedCustomerDetails',scope.searchedCustomerDetails);
-			if(!angular.equals(newVal,oldVal)){
-				if( (scope.searchedCustomerDetails.altMobile || scope.searchedCustomerDetails.mobile)
-					&& scope.searchedCustomerDetails.name){
-					var sMainMobile = "", sAltMobile = "";
-					if(scope.searchedCustomerDetails.mobile){
-						sMainMobile = scope.searchedCustomerDetails.mobile;
-						sAltMobile = scope.searchedCustomerDetails.altMobile;
-					} else {
-						sMainMobile = scope.searchedCustomerDetails.altMobile;
-						sAltMobile = "";
-					}
-					scope.fnSaveSearchedCustomerDetails({
-						"id":scope.searchedCustomerDetails.id, 
-						"name" : scope.searchedCustomerDetails.name, 
-						"mobile" : sMainMobile,
-						"altMobile" : sAltMobile
-					});
-				} else {
-					console.log('Mobile and Name are mandatory in customer save.');
-				}
+			if(!angular.equals(newVal,oldVal)){				
+					console.log('searchedCustomerDetails changed');
 			}
 		}, true);
 

@@ -63,13 +63,6 @@ angular.module('sigmaCabsApp')
         // for that issue we are maintaining a separate object called workareaCustomerDetails in short waCustomerDetails
         scope.waCustomerDetails = {};
 
-        // variable which stores searchedCustomerDetails
-        scope.searchedCustomerDetails = {
-            name : '',
-            mobile : '',
-            altMobile : ''
-        };
-
         // Set the default Data
         scope.customerDetails = {
             name : '',
@@ -106,6 +99,21 @@ angular.module('sigmaCabsApp')
             scope.existingCustomerAddBooking = URLService.view('existingCustomerAddBooking');
         };
 
+        //fn which clears searchedCustomer details
+        scope.fnClearSearchCustomerDetails = function() {
+            scope.searchedCustomerDetails = {
+                name : '',
+                mobile : '',
+                altMobile : '',
+                id : ''
+            };
+        };
+
+
+        // variable which stores searchedCustomerDetails
+        scope.fnClearSearchCustomerDetails();
+
+
         // fn to search customer by mobile.
         scope.fnSearchCustomerByMobile = function(sMobile){
             BookingService.fnFindCustomerByMobile({
@@ -114,8 +122,13 @@ angular.module('sigmaCabsApp')
             .success(function(data, status, headers, config) {
                 if(data.status == 500){ // no data found of customer/booking 
                     console.log('500 fnSearchCustomerByMobile', data);
-                    // make callPhone as mobile 
-                    scope.customerDetails.mobile = scope.callerPhone;
+                    
+                    // clear searchCustomerDetails as there is no customer
+                    scope.fnClearSearchCustomerDetails();
+
+                    // copy customerDetails in workArea.
+                    angular.copy(scope.customerDetails, scope.waCustomerDetails);   
+
                 } else if( data.status==200 
                     && data.result) {
                     scope.fnSetCustomerDetails(data, true);                        
@@ -131,7 +144,7 @@ angular.module('sigmaCabsApp')
         scope.fnSetCustomerDetails = function(data, isFromSearchBox) {
             // set the customerCode
             scope.headCustomerCode = data.result[0].customerDetails.customerCode || "LalaSendTheCOde";
-            scope.headCustomerCategory = data.result[0].customerDetails.category;
+            scope.headCustomerCategory = data.result[0].customerDetails.category ? PrerequisiteService.fnGetCustomerCategoryById(data.result[0].customerDetails.category).categoryName : "-";
             scope.headCustomerGrade = PrerequisiteService.fnGetGradeById(data.result[0].customerDetails.grade).grade;
             scope.headCustomerTripCount = data.result[0].customerDetails.tripCount;
             scope.headCustomerDiscount = data.result[0].customerDetails.discount;
@@ -230,8 +243,13 @@ angular.module('sigmaCabsApp')
             scope.fnInit();
         });
 
-        $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {
-            scope.bookingDetails = {};
+        scope.$watch('bookingDetails', function(newVal,oldVal){
+            console.log('>>>>',scope.bookingDetails.pickupPlace);
+            scope.safeApply();
+            // scope.bookingDetails.$render();
+        });
+
+        $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {            
             console.log('eventSelectedBookingFromHistory: ', oData);
 
             scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType;
@@ -241,6 +259,8 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
 
             scope.bookingDetails = oData.bookingDetails;
+            //angular.copy(oData.bookingDetails, scope.bookingDetails);
+            console.log('~~~~~~~~~~~~~~~~~~',oData.bookingDetails.pickupPlace);
             scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
             scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
@@ -250,6 +270,7 @@ angular.module('sigmaCabsApp')
 
             scope.headBookingType = scope.bookingDetails.bookingStatusName;
             scope.headBookingCode = scope.bookingDetails.bookingCode;
+            scope.safeApply();
 
         });
     });

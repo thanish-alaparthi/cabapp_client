@@ -276,8 +276,20 @@ tr:nth-child(odd) {
 .tariffFieldContainer{
   padding: 0px 10px 0px 0px;
 }
-.tariffDetailsContainer .displayTextWrapper{
-  max-width: 360px;
+.tariffDetailsContainer {
+  .displayTextWrapper {
+    width: 360px;
+    word-wrap: break-word;
+    .left-column {
+      float: left;
+      margin-right: 20px;
+      width: 155px;
+    }
+    .right-column {
+      float: left;
+      width: 155px;
+    }
+  }
 }
 .tariffFieldContainer span{
   background: #ccc;

@@ -202,6 +202,16 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAllCategories'),
+                    method: 'GET',
+                    myDataToken : 'customerCategories',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
             },
 
 
@@ -464,6 +474,22 @@ angular.module('sigmaCabsApp')
             fnGetVehicleNames : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
+            },
+            fnGetCustomerCategories : function(){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['customerCategories'];
+            },
+            fnGetCustomerCategoryById: function(sId) {
+                var oThis = this,
+                    oVt = oThis.oLs[oThis.currentDate]['customerCategories'],
+                    oVtLength = oVt.length;
+
+                for (var i = 0; i < oVtLength; i++) {
+                    if (oVt[i].id == sId) {
+                        return oVt[i];
+                    }
+                }
+                return null;
             },
             fnGetVehicleTypeById: function(sId) {
                 var oThis = this,
