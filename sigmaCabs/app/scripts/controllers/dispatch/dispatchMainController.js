@@ -283,6 +283,11 @@ angular.module('sigmaCabsApp')
                 scope.vVacantView = false;
                 scope.vAllotView = false;
 
+                // select first driver by default
+                if(scope.vehicleMainDetials.driver.length) {
+                    scope.vehicleMainDetials.selectedDriver = scope.vehicleMainDetials.driver[0].id;
+                }
+
                 switch (scope.vehicleMainDetials.vehicleState) {
                     case "1":
                         scope.vehicleDetails.vehicleName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.details.vehicleName).vehicleName;

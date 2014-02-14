@@ -588,6 +588,9 @@ angular.module('sigmaCabsApp')
                 }, {
                     id: 3,
                     categoryName : 'Call-Taker'
+                }, {
+                    id: 4,
+                    categoryName : 'Driver'
                 }];
                 return aRtn;
             },

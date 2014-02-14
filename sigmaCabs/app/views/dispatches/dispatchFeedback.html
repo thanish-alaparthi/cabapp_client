@@ -31,95 +31,51 @@
                     </ul>
 
                     <div class="tab-body cust-request" data-ng-show="tab==1">
-                        <div class="fieldContainer  relative">
-                            <label class="labelCompact">Complaint By</label>
-                            <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                        <div class="fieldContainer relative">
+                            <label class="labelCompact">Category By</label>
+                             <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="feedback.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                         </div>
-                        <div class="fieldContainer  relative">
+                        <div class="fieldContainer relative">
                             <label class="labelCompact">Reason</label><!--  ng-model="" -->
-                            <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                            <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="feedback.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleComplaintReasonTypes"></select>
                         </div>
                         <div class="fieldContainer relative">
                             <label class="labelCompact">Priority</label>
-                            <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                            <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="feedback.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
                         </div>
-                        <div class="fieldContainer  relative" style="height:75px;">
+                        <div class="fieldContainer relative" style="height:75px;">
                             <label class="labelCompact">Comments</label>
-                            <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
+                            <textarea data-ng-model="feedback.comments" class=""></textarea>
                         </div>
                         <p class="clear"/>
                     </div>
 
                     <div class="tab-body cust-request" data-ng-show="tab==2">
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Company Name</label>
-                            <input data-ng-model="corporateRequestDetails.companyName" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        <div class="fieldContainer relative">
+                            <label class="labelCompact">Category By</label>
+                            <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                         </div>
-                        <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Email</label>
-                            <input data-ng-model="corporateRequestDetails.email" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        <div class="fieldContainer relative">
+                            <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                            <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleSuggestionReasonTypes"></select>
                         </div>
-                        <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Website</label>
-                            <input data-ng-model="corporateRequestDetails.website" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                        <div class="fieldContainer relative">
+                            <label class="labelCompact">Priority</label>
+                            <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
                         </div>
-                        <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Contact Person</label>
-                            <input data-ng-model="corporateRequestDetails.contactPerson" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Contact No.1</label>
-                            <input data-ng-model="corporateRequestDetails.contact1" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Contact No.2</label>
-                            <input data-ng-model="corporateRequestDetails.contact2" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Company Address</label>
-                            <input data-ng-model="corporateRequestDetails.companyAddress" style="width: 289px;" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
-                            <label class="labelCompact">Comment</label>
-                            <textarea data-ng-model="corporateRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
+                        <div class="fieldContainer relative" style="height:75px;">
+                            <label class="labelCompact">Comments</label>
+                            <textarea data-ng-model="suggestions.comments" class=""></textarea>
                         </div>
                         <p class="clear"/>
                     </div>
 
                     <div class="tab-body cust-request" data-ng-show="tab==3">
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Travel Type</label>
-                             <select data-ng-model="specialRequestDetails.travelType" class=" validate[maxSize[36]] selectFieldCompact"  ng-options="obj.id as obj.travelType for obj in travelTypes"></select>
-                        </div>
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Contact Person</label>
-                            <input data-ng-model="specialRequestDetails.contactPerson" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Contact No.1</label>
-                            <input data-ng-model="specialRequestDetails.contact1" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Contact No.2</label>
-                            <input data-ng-model="specialRequestDetails.contact2" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer left relative">
-                            <label class="labelCompact">Address</label>
-                            <input data-ng-model="specialRequestDetails.address" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
-                        </div>
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
-                            <label class="labelCompact">Comment</label>
-                            <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
-                        </div>
-                        <p class="clear"/>
+                        Display information from API...
                     </div>
 
                     <div class="tab-body" data-ng-show="tab==4">
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
-                            <label class="labelCompact">Comment</label>
-                            <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
-                        </div>
-                        <p class="clear"/>
+                        Display information from API...
                     </div>
                 </div>
             </fieldset>

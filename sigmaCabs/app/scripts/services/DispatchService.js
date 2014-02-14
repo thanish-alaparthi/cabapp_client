@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .factory('DispatchService', function($http, URLService, $rootScope ) {
+    .factory('DispatchService', function($http, URLService, $rootScope) {
         var oUser = null;
 
         return {
@@ -17,8 +17,8 @@ angular.module('sigmaCabsApp')
                     url: URLService.service('RestApiSearchByVehicleMobile'),
                     method: 'POST',
                     data: {
-                          url : "vehicle/search"
-                        , data : JSON.stringify(oDataParams)
+                        url: "vehicle/search",
+                        data: JSON.stringify(oDataParams)
                     },
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -229,12 +229,26 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnVehicleBookingComplaint: function(oDataParams) {
+            fnVehicleComplaint: function(oDataParams) {
                 return $http({
                     method: 'POST',
                     url: URLService.service('RestApiVehicleBookingComplaint'),
                     data: {
                         url: "booking/complaint",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleSuggestion: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBookingComplaint'),
+                    data: {
+                        url: "booking/complaint", // should change to suggestion API
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {

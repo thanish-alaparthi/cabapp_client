@@ -13,13 +13,13 @@
         </div>
         <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">Vehicle Ph.</label>
-            <input type="text" ng-model="vehicleMainDetials.details.registeredMobile" class="left validate[required,maxSize[128]] textFieldCompact" readonly />
+            <input type="text" ng-model="vehicleMainDetials.details.registeredMobile" class="left validate[required,maxSize[128]] textFieldCompact" readonly phone />
             <input name="" checked class="left smsCheckbox" type="checkbox" value="">
         </div>
         <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Owner No.</label>
-            <input type="text" ng-model="vehicleMainDetials.owner.mobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
-            <input name="" class="left smsCheckbox" type="checkbox" value="">
+            <input type="text" ng-model="vehicleMainDetials.owner.mobile" class="left validate[required,maxSize[10]] textFieldCompact" phone/>
+            <input name="" class="left smsCheckbox" type="checkbox" value="" >
         </div>
         <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Current Place</label>

@@ -19,11 +19,18 @@ angular.module('sigmaCabsApp')
 		scope.close = function() {
 			dialog.close();
 		}
+
 		scope.fnSaveAndClose = function() {
+			var newMobile = scope.newMobile || '';
+			if (newMobile === '' || newMobile.length < 10) {
+				alert('Please enter valid Mobile No.');
+				return;
+			}
+
 			scope.oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
 				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-				"mobile": scope.newMobile,
+				"mobile": newMobile,
 				"comments": scope.phoneChangeComments
 			};
 
