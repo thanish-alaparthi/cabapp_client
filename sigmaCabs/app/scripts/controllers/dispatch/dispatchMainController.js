@@ -536,6 +536,31 @@ angular.module('sigmaCabsApp')
                 alert('Please select driver.')
             }
         };
+        scope.fnVehicleBreakdown = function() {
+            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+                $scope.opts = {
+                    templateUrl: URLService.view('vehicleBreakDown'),
+                    controller: 'vehicleBreakDown',
+                    dialogClass: 'modalClass cancel-booking-container',
+                    resolve: {
+                        editMode: [
+                            function() {
+                                return false;
+                            }
+                        ],
+                        oVehicleData: function() {
+                            var oData = {
+                                vehicleMainDetials: scope.vehicleMainDetials
+                            };
+                            return oData;
+                        }
+                    }
+                };
+                modalWindow.addDataToModal($scope.opts);
+            } else {
+                alert('Please select driver.')
+            }
+        };
         scope.fnVehicleLogout = function() {
             $scope.opts = {
                 templateUrl: URLService.view('vehicleLogout'),
@@ -602,10 +627,79 @@ angular.module('sigmaCabsApp')
             modalWindow.addDataToModal($scope.opts);
         };
 
-        scope.fnVehicleBookingComplaint = function() {
+        scope.fnVehicleBookingTariff = function() {
             $scope.opts = {
-                templateUrl: URLService.view('vehicleBookingComplaint'),
-                controller: 'vehicleBookingComplaint',
+                templateUrl: URLService.view('vehicleBookingTariff'),
+                controller: 'vehicleBookingTariff',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnChangeVehicle = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('changeVehicle'),
+                controller: 'changeVehicle',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnVehicleBookingCancel = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingCancel'),
+                controller: 'vehicleBookingCancel',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnChangeVehPickupLocation = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('changeVehPickupLocation'),
+                controller: 'changeVehPickupLocation',
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [

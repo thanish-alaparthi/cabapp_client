@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
-            <h4 class="modal-title">Change Vehicle Location</h4>
+            <h4 class="modal-title">Change Vehicle</h4>
         </div>
         <div class="popupCallerInfo">
             <div class="left innerLabelContainer">
@@ -16,18 +16,22 @@
         </div>
         <div class="modal-body" > 
             <fieldset class="left">
-                <legend class="searchbox-border">Change Vehicle Location</legend>
-                <div class="fieldContainer relative">
-                    <label class="labelCompact">Current Location</label>
-                    <span>{{vehicleDetails.vehicleMainDetials.details.location}}</span>
+                <legend class="searchbox-border">Change Vehicle</legend>
+                <div class="fieldContainer  relative">
+                    <label class="labelCompact">Complaint By</label><!--  ng-model="" -->
+                    <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                </div>
+                <div class="fieldContainer  relative">
+                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                    <select class="validate[maxSize[36]] selectFieldCompact"></select>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">New Location</label>
-                    <input type="text" ng-model="changeLocation.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
+                    <label class="labelCompact">Priority</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact"></select>
                 </div>
-                <div class="fieldContainer relative">
-                    <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="changeLocation.currentKms" maxlength="15" class="textFieldCompact" />
+                <div class="fieldContainer  relative" style="height:75px;">
+                    <label class="labelCompact">Comments</label>
+                    <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
                 </div>
             </fieldset>
             <p class="clear"/>

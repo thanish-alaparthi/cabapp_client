@@ -79,26 +79,6 @@ angular.module('sigmaCabsApp')
 				});
 		};
 
-		scope.fnVehicleBookingCancel = function() {
-			scope.vehicleLoginObj = {
-				"vehicleId": "3",
-				"driverId": "13",
-				"bookingId": "123"
-			};
-
-			alert('WIP...');
-
-			/*DispatchService.fnVehicleConfirm(scope.vehicleLoginObj)
-				.success(function(data, status, headers, config) {
-					console.log('Success: ', data);
-					scope.bVehConfirmShow = false;
-					alert(data.result[0].message);
-				})
-				.error(function(data, status, headers, config) {
-					console.log('Error: ', data)
-				});*/
-		};
-
 		/*scope.close = function(){
 			dialog.close();
 		};*/

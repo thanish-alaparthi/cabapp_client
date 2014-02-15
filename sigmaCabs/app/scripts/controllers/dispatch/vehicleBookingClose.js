@@ -15,6 +15,7 @@ angular.module('sigmaCabsApp')
 
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
+        scope.vehiclePackageTypes = PrerequisiteService.fnGetTariffByJtypeVType("1", "1");
 
         scope.close = function() {
             dialog.close();

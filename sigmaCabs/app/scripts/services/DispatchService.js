@@ -255,6 +255,76 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
+            },
+
+            fnVehicleBreakDown: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBreakDown'),
+                    data: {
+                        url: "booking/complaint", // should change to suggestion API
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleChangeTariff: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBreakDown'),
+                    data: {
+                        url: "booking/complaint", // should change to suggestion API
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnChangeVehicle: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBreakDown'),
+                    data: {
+                        url: "booking/complaint", // should change to suggestion API
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnVehicleBookingCancel: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiCancelBooking'),
+                    data: {
+                        url: "booking/cancel", // should change to suggestion API
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnUpdateVehPickupLocation: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiVehicleBreakDown'),
+                    data: {
+                        url: "booking/complaint", // should change to suggestion API
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
             }
         }
     });

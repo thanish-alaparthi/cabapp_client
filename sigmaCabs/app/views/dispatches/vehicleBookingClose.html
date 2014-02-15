@@ -55,7 +55,7 @@
                 </div>
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Actual Package</label>
-                    <select ng-model="bookingClose.tariffActual" class="validate[maxSize[36]] selectFieldCompact"></select>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingClose.tariffActual" data-ng-options="obj.id as obj.text for obj in vehiclePackageTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Total Amount</label>
