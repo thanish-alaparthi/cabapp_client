@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('bookingController', function($scope, $rootScope, URLService, BookingService, $routeParams, PrerequisiteService) {
+    .controller('bookingController', function($scope, $rootScope, URLService, BookingService, VehiclesService, $routeParams, PrerequisiteService) {
 
         //attach safeApply
         $scope.safeApply = function(fn) {
@@ -49,6 +49,27 @@ angular.module('sigmaCabsApp')
         scope.callerInfo = "";
         scope.tmpDetails = {};
 
+        scope.fnClearBookingForm = function() {
+            scope.bookingDetails = {
+                pickupDate : PrerequisiteService.fnFormatDate(),
+                pickupHours : PrerequisiteService.fnFormatHours(),
+                pickupMinutes : PrerequisiteService.fnFormatMinutes(),
+                pickupAddress : '',
+                pickupLandmark : '',
+                dropAddress : '',
+                passengerCount : '',
+                luggageType : '',
+                comments : '',
+                vehicleType: '1',
+                vehicleName: '',
+                id: '',
+                customerId : ''
+            };
+            scope.tmpDetails.tmpVehicleType = '1';
+            scope.tmpDetails.tmpVehicleName = '';
+            scope.tmpDetails.tmpJourneyType = '1';
+        };
+
         scope.showBookingDetailsTab = function(){
             $scope.showTariffDetails =  false;
             $scope.showBookingDetails =  true;
@@ -57,6 +78,14 @@ angular.module('sigmaCabsApp')
         scope.showTariffDetailsTab = function() {
             $scope.showBookingDetails =  false;
             $scope.showTariffDetails =  true;
+
+
+            window.setTimeout(function(){
+                $(window).resize();
+                $(window).resize();
+            }, 1000);
+
+
         };
 
         // there can be a scenario wherein existing user calls, but asks to book for another existing or new customer.
@@ -70,20 +99,7 @@ angular.module('sigmaCabsApp')
             mobile2 : '',
             id : ''
         };
-        scope.bookingDetails = {
-            pickupDate : PrerequisiteService.fnFormatDate(),
-            pickupHours : PrerequisiteService.fnFormatHours(),
-            pickupMinutes : PrerequisiteService.fnFormatMinutes(),
-            pickupAddress : '',
-            pickupLandmark : '',
-            dropAddress : '',
-            passengerCount : '',
-            luggageType : '',
-            comments : '',
-            vehicleType: '',
-            id: '',
-            customerId : ''
-        };
+        scope.fnClearBookingForm();
         scope.bookingHistoryDetails = [];
 
         // add the loading text message
@@ -190,10 +206,117 @@ angular.module('sigmaCabsApp')
             }
         };
 
+        scope.fnGetApiOverallStatistics = function() {
+            VehiclesService.fnGetOverAllStatistics()
+            .success(function(data, status, headers, config) {
+                console.log('success fnGetApiOverallStatistics', data);
+                
+            })
+            .error(function(data, status, headers, config) {
+                console.log("Error in fnGetApiOverallStatistics", arguments);
+            });
+        };
 
-        scope.fnInit = function() {
+        scope.fnColorRows = function(oData){
+            for(var i=0;i<oData.length;i++){
+                for(var j=0;j<scope.vehicleTypes.length;j++){
+                        var sColor = sColor == 'aqua' ? 'orange' : 'aqua';
+                    oData[i]['vehicleType' + scope.vehicleTypes[j].id + '_color'] = sColor;
+                    
+                }
+            }
+            return oData;
+        }
+
+        scope.fnLoadMainTariffGrids = function() {
+            // load the tariff grids
+            scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
+            scope.colDefs = [
+                {field:'duration', displayName:'Hrs', width: '60'},
+                {field:'kms', displayName:'Kms', width: '60'}
+            ];
+            /* Add dynamic Columns */
+            for(var i=0;i<scope.vehicleTypes.length;i++){
+                var sD = scope.vehicleTypes[i].vehicleType;
+                if(scope.vehicleTypes[i].id == '4'){
+                    sD = 'Innova';
+                } else if(scope.vehicleTypes[i].id == '2'){
+                    sD = 'Verito';
+                }
+                scope.colDefs.push({
+                    field : 'vehicleType' + scope.vehicleTypes[i].id,
+                    displayName : sD,
+                    width: 60,
+                    // cellTemplate : '<div style="{{col.field == \'vehicleType1\' ? \'background-color: red\' : \'background-color:green;\'}}" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
+                    cellTemplate : '<div ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
+                });
+            }
+           
+            var oX= [], oY=[], oZ=[];
+            var g = PrerequisiteService.fnGetTariffByVehicleType(1),
+                f = PrerequisiteService.fnGetTariffByVehicleType(2),
+                l = PrerequisiteService.fnGetTariffByVehicleType(4);
+            angular.copy(g, oX);
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>',oX);
+            scope.tmpCityTariff = scope.fnColorRows(oX);
+            angular.copy(f, oY);
+            scope.tmpAirportTariff = scope.fnColorRows(oY);
+            angular.copy(l, oZ);
+            scope.tmpOutstationTariff = scope.fnColorRows(oZ);
+
+            scope.mainTariffCityGrid = { 
+              data: 'tmpCityTariff',
+              multiSelect: false,
+              columnDefs: 'colDefs',
+              enableCellSelection : true
+            };
+            scope.mainTariffAirportGrid = { 
+              data: 'tmpAirportTariff',
+              multiSelect: false,
+              columnDefs: 'colDefs',
+              enableCellSelection : true
+            }
+            scope.mainTariffOutstationGrid = { 
+              data: 'tmpOutstationTariff',
+              multiSelect: false,
+              columnDefs: 'colDefs',
+              enableCellSelection : true
+            };
+        };
+
+
+        scope.fnInit = function() {            
+
+            scope.fnLoadMainTariffGrids();
+
+            scope.mainTariffDetails = URLService.view('mainTariffDetails');
+
+
+            // add dropdwon fields
+            scope.hours = PrerequisiteService.hours;
+            scope.minutes = PrerequisiteService.minutes;
+            scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
+            scope.vehicleNames = PrerequisiteService.fnGetVehicleNames();
+            scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
+            scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
+
+
             // since mobile is passed, hit server to get CustomerDetails Based on the server
             if (scope.callerPhone) { // mobile passed
+
+                // get the 
+                scope.fnGetApiOverallStatistics();
+
+                // show rush or normal hours in statistcs
+                var oDt = new Date();
+                if((oDt.getHours() >= 6 && oDt.getHours <= 11)
+                    || (oDt.getHours() >= 16 && oDt.getHours <= 22)
+                ){
+                    scope.sHourType = "Rush Hours";
+                } else {
+                    scope.sHourType = "Normal Hours";
+                }
+
                 // make a call to server to get the user details...
                 BookingService.fnFindCustomerByMobile({
                     mobile: scope.callerPhone
@@ -235,6 +358,8 @@ angular.module('sigmaCabsApp')
 
         scope.fnFormatTariffGridDetails = function(oData){
             console.log('fnFormatTariffGridDetails', oData);
+            $rootScope.$emit('eventTariffGridDataChanged', oData);
+            // scope.tariffGridData = oData;
         };
 
         // Main Controller Init Point
@@ -249,7 +374,10 @@ angular.module('sigmaCabsApp')
             // scope.bookingDetails.$render();
         });
 
-        $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {            
+        $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {                        
+            // clear booking form
+            scope.fnClearBookingForm(); 
+
             console.log('eventSelectedBookingFromHistory: ', oData);
 
             scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType;
@@ -259,14 +387,25 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
 
             scope.bookingDetails = oData.bookingDetails;
-            //angular.copy(oData.bookingDetails, scope.bookingDetails);
-            console.log('~~~~~~~~~~~~~~~~~~',oData.bookingDetails.pickupPlace);
             scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
             scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
 
             // also load tariffGridData
-            scope.fnFormatTariffGridDetails(PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffId));            
+            var oT = PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffId);
+            scope.fnFormatTariffGridDetails({
+                amount: oT.price,
+                comments: oT.comments,
+                distance: oT.distance,
+                duration: oT.duration,
+                extraCharges: '',
+                extraHour: oT.extraHrPrice,
+                extraKm: oT.extraKmPrice,
+                graceTime: '',
+                id: oT.id,
+                vehicleName: scope.bookingDetails.vehicleName ? PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName).vehicleName : 'Any-Vehicle',
+                vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
+            });
 
             scope.headBookingType = scope.bookingDetails.bookingStatusName;
             scope.headBookingCode = scope.bookingDetails.bookingCode;

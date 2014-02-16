@@ -12,7 +12,11 @@ angular.module('sigmaCabsApp')
 
 		// get the vehicleAvailablity
 		VehiclesService.fnGetAvailableVehicles({
-			requestTime : PrerequisiteService.formatToServerDate(oBooking.pickupDate) + ' ' + oBooking.pickupHours + ':' + oBooking.pickupMinutes + ':00'
+			requestTime : PrerequisiteService.formatToServerDate(oBooking.pickupDate) + ' ' + oBooking.pickupHours + ':' + oBooking.pickupMinutes + ':00',
+			vehicleType : oBooking.vehicleType,
+			vehicleName : oBooking.vehicleName,
+			subJourneyType : oBooking.subJourneyType,
+			
 		})
 		.success(function(data, status,fnHeaders, oXhr, config){
 			console.log('success fnGetAvailableVehicles: ', data);

@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('ExistingCustomerAddBooking', function($scope, PrerequisiteService,PreConfigService, BookingService,CustomerService, $rootScope, URLService, modalWindow) {
+	.controller('ExistingCustomerAddBooking', function($scope, PrerequisiteService,PreConfigService, BookingService,CustomerService, $rootScope, URLService, modalWindow,$timeout) {
 
 		var scope = $scope;
 
@@ -304,33 +304,17 @@ angular.module('sigmaCabsApp')
 			modalWindow.addDataToModal($scope.opts);
 		};
 
-		scope.fnClearBookingForm = function() {
-			scope.bookingDetails = {
-	            pickupDate : PrerequisiteService.fnFormatDate(),
-	            pickupHours : PrerequisiteService.fnFormatHours(),
-	            pickupMinutes : PrerequisiteService.fnFormatMinutes(),
-	            pickupAddress : '',
-	            pickupLandmark : '',
-	            dropAddress : '',
-	            passengerCount : '',
-	            luggageType : '',
-	            comments : '',
-	            vehicleType: '',
-	            id: '',
-	            customerId : ''
-	        };
-		};
-
 		scope.fnApiSaveBooking = function(oData){
 			BookingService.fnSaveBooking(oData)
 			.success(function(data, status, headers, config) {				
 				console.log('Success fnSaveBooking: ',data);
 
 				if(data.status == 200){
-					alert('Booking Saved successfully.');
 					// clear booking form
-					scope.fnClearBookingForm();
+					scope.fnClearBookingForm();					
 					scope.fnRefreshBookingHistory();
+					
+					alert('Booking Saved successfully.');
 					return;
 				}
 
@@ -356,7 +340,9 @@ angular.module('sigmaCabsApp')
 
         // fn which refreshes the tariff grid.
         scope.fnRefreshBookingTariffGrid = function(tariffDetails) {
-        	scope.tariffGridData = tariffDetails;
+        	// scope.tariffGridData = tariffDetails;   
+        	console.log('fnRefreshBookingTariffGrid', tariffDetails)     	
+            $rootScope.$emit('eventTariffGridDataChanged', tariffDetails);
         };
 
         // check whether boookingDetails are saved from cancelBooking or dispostion form
@@ -412,7 +398,7 @@ angular.module('sigmaCabsApp')
 		}, true);
 
 		// watch for tariffGridData change to refresh tariffGrid
-        scope.$watch('tariffGridData', function(newVal, oldVal){
-	    	console.log('scope.tariffGridData changed', newVal);
-	    });
+     //    scope.$watch('tariffGridData', function(newVal, oldVal){
+	    // 	console.log('######################scope.tariffGridData changed', newVal);
+	    // },true);
 	});

@@ -1,17 +1,12 @@
-<div>
-    <div class="fieldContainer relative left">
-        <label class="control-label">Vehicle Code</label>
-        <input type="text" ng-model="vehicle.vehicleCode" class="form-control validate[required,maxSize[128]] large" placeholder="Vehicle Code" />
-    </div>
+<div class="vehicleBasicDetails">
     <div class="fieldContainer relative left">
         <label class="control-label">Vehicle Type</label>
         <select class="form-control validate[maxSize[36]] large" id="vehicle_type" data-ng-model="vehicle.vehicleType" data-ng-options="k as v for (k,v) in vehicleTypes">
         </select>
     </div>
     <div class="fieldContainer relative left">
-        <label class="control-label">Vehicle Brand</label>
-        <select class="form-control validate[maxSize[36]] large" id="vehicle_brand" ng-model="vehicle.brand" ng-options="value.id as value.name for value in vehicleBrands">
-            <option value="">Select a Brand</option>
+        <label class="control-label">Vehicle Name</label>
+        <select class="form-control validate[maxSize[36]] large" id="vehicle_type" data-ng-model="vehicle.vehicleType" data-ng-options="k as v for (k,v) in vehicleTypes">
         </select>
     </div>
     <div class="fieldContainer relative left">
@@ -19,31 +14,18 @@
         <select class="form-control validate[maxSize[36]] large" id="vehicle_attachmentType" ng-model="vehicle.vehicleAttachmentType" ng-options="value.type as value.name group by value.attachmentCategory for value in vehicleAttachmentTypes">
         </select>
     </div>
-
     <div class="fieldContainer relative left">
-        <label class="control-label">Actual Owner</label>
-        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        <label class="control-label">Operated By</label>
+        <select class="form-control validate[maxSize[36]] large" id="vehicle_attachmentType" ng-model="vehicle.vehicleAttachmentType" ng-options="value.type as value.name group by value.attachmentCategory for value in vehicleAttachmentTypes">
         </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Vehicle ID</label>
+        <input type="text" ng-model="vehicle.vehicleCode" class="form-control validate[required,maxSize[128]] large" placeholder="Vehicle Code" />
     </div>
     <div class="fieldContainer relative left">
         <label class="control-label">Registration #</label>
         <input type="text" ng-model="vehicle.registrationNumber" id="vehicle_registrationNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registration Number" />
-    </div>
-    <div class="fieldContainer relative left">
-        <label class="control-label">Registration Mobile #</label>
-        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
-    </div>
-    <div class="fieldContainer relative left">
-        <label class="control-label">IMEI #</label>
-        <input type="text" ng-model="vehicle.imeiNumber" id="vehicle_imeiNumber" class="form-control validate[required,maxSize[128]] large" placeholder="IMEI Number" />
-    </div>
-    <div class="fieldContainer relative left">
-        <label class="control-label">Year of Manufacturing</label>
-        <input type="text" ng-model="vehicle.manufacturingYear" id="vehicle_manufacturingYear" class="form-control validate[required,maxSize[128]] large" placeholder="Year of Manufacturing" />
-    </div>
-    <div class="fieldContainer relative left">
-        <label class="control-label">Month of Manufacturing</label>
-        <input type="text" ng-model="vehicle.manufacturingMonth" class="form-control validate[required,maxSize[128]] large" placeholder="Month of Manufacturing" />
     </div>
     <div class="fieldContainer relative left">
         <label class="control-label">Engine #</label>
@@ -54,23 +36,147 @@
         <input type="text" ng-model="vehicle.chesisNumber" id="vehicle_chesisNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Chesis Number" />
     </div>
     <div class="fieldContainer relative left">
-        <label class="control-label">vehicle Color</label>
-        <input type="text" ng-model="vehicle.vehicleColor" id="vehicle_color" class="form-control validate[required,maxSize[128]] large" placeholder="Vehicle Color" />
+        <label class="control-label">Year of Manufacturing</label>
+        <input type="text" ng-model="vehicle.manufacturingYear" id="vehicle_manufacturingYear" class="form-control validate[required,maxSize[128]] large" placeholder="Year of Manufacturing" />
     </div>
     <div class="fieldContainer relative left">
-        <label class="control-label">Carrier</label>
-        <select class="form-control validate[maxSize[36]] large" id="vehicle_carrier" ng-model="vehicle.carrier" ng-options="value.type as value.title for value in carrierRadioTypes">
+        <label class="control-label">Month of Manufacturing</label>
+        <input type="text" ng-model="vehicle.manufacturingMonth" class="form-control validate[required,maxSize[128]] large" placeholder="Month of Manufacturing" />
+    </div>
+
+<fieldset style="clear:both;" class="simMaintenance">
+    <legend>Sim Maintenance</legend>    
+    <div class="fieldContainer relative left">
+        <label class="control-label">Veh. Reg. Mobile</label>
+        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="" />
+    </div> 
+    <div class="fieldContainer relative left">
+        <label class="control-label">Provided By</label>                   
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
         </select>
     </div>
     <div class="fieldContainer relative left">
-        <label class="control-label">Company Branding</label>
-        <select class="form-control validate[maxSize[36]] large" id="vehicle_company_branding" ng-model="vehicle.companyBranding" ng-options="value.type as value.title for value in brandingOptoins">
+        <label class="control-label" title="Min. Rental+Tax">Rental+Tax</label>
+        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="simFacilities form-control validate[required,maxSize[128]] large" placeholder="" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label" title="Credit Limit">Credit Limit</label>
+        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="simFacilities form-control validate[required,maxSize[128]] large" placeholder="" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label" title="Charges per minute">Charges P/M</label>
+        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="simFacilities form-control validate[required,maxSize[128]] large" placeholder="" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label" title="Free Calls">Free Calls</label>
+        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="simFacilities form-control validate[required,maxSize[128]] large" placeholder="" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label" title="Advance Payments">Adv.</label>
+        <input type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="simFacilities form-control validate[required,maxSize[128]] large" placeholder="" />
+    </div>
+<div class="fieldContainer relative left">
+            <label class="control-label">CUG</label>            
+            <select class="simFacilities form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label">Outgoing</label>            
+            <select class="simFacilities form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label" title="Outgoing Message">Msg.</label>            
+            <select class="simFacilities form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+    </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label" title="Caller Tunes">C.Tunes</label>
+            <select class=" simFacilities form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+        </div>
+        <div class="fieldContainer relative left">
+            <label class="control-label">GPRS</label>
+            <select class="simFacilities form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+        </div>
+</fieldset>
+
+<fieldset>
+    <legend>Owner Details</legend>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Owner ID</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
         </select>
     </div>    
+    <div class="fieldContainer relative left">
+        <label class="control-label">Owner Name</label>
+        <input readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Mobile1</label>
+        <input  readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Mobile2</label>
+        <input readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <a href="">Full View</a>
+    </div>
+</fieldset>
 
+<fieldset>
+    <legend>Driver1 Details</legend>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver1 ID</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+    </div>    
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver1 Name</label>
+        <input readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver1 Mobile1</label>
+        <input  readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver1 Mobile2</label>
+        <input readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <a href="">Full View</a>
+    </div>
+</fieldset>
+
+
+<fieldset>
+    <legend>Driver2 Details</legend>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver2 ID</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="vehicle.actualOwner" ng-options="value.id as value.name for value in vehicleOwnersList">
+        </select>
+    </div>    
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver2 Name</label>
+        <input readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver2 Mobile1</label>
+        <input  readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Driver2 Mobile2</label>
+        <input readonly type="text" ng-model="vehicle.registeredMobileNumber" id="vehicle_registeredMobileNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Registered Mobile Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <a href="">Full View</a>
+    </div>
+</fieldset>
 
     <div class="fieldContainer relative left">
-        <label class="control-label">Vehicle ID</label>
-        <input type="text" readonly="readonly" ng-model="vehicle.id" class="form-control validate[required,maxSize[128]] large" placeholder="Vehicle ID" />
+        <label class="control-label">vehicle Color</label>
+        <input type="text" ng-model="vehicle.vehicleColor" id="vehicle_color" class="form-control validate[required,maxSize[128]] large" placeholder="Vehicle Color" />
     </div>
 </div>

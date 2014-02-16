@@ -7,8 +7,8 @@
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Pickup Time</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingDetails.pickupHours" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingDetails.pickupHours" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnValidatePickupTime()"  data-ng-model="bookingDetails.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Vehicle Type</label>
@@ -56,6 +56,7 @@
         <div style="text-align: center;">            
             <button class="btnCompact btn-danger" data-ng-show="bShowCancelBookingBtn" data-ng-click="fnOpenCancelBooking()" title="Cancel Booking" >Cancel</button>
             <button class="btnCompact btn-success" data-ng-show="bShowSaveBookingBtn" data-ng-click="fnSaveBooking()" title="Save as Booking">Save</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowReconfirmBookingBtn" data-ng-click="fnSaveBooking()" title="Re-confirm Booking">Re-confirm</button>
             <button class="btnCompact btn-success" data-ng-show="bShowSaveAsNewBookingBtn" data-ng-click="fnSaveAsNewBooking()" title="Save this booking as a new booking">Save as New</button>
             <button class="btnCompact btn-success" data-ng-show="bShowDispositionBtn" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</button>
             <button class="btnCompact btn-success" data-ng-show="bShowCustFeedbackBtn" data-ng-click="fnOpenCustFeedback()" title="Open Feedback. To take customer feedback.">Feedback</button>

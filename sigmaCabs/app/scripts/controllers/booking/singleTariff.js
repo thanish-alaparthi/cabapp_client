@@ -58,8 +58,8 @@ angular.module('sigmaCabsApp')
 		scope.selctedTariffType = {};
 
 
-		$scope.fnEditCell = function (row, cell, columnSelected, col){
-
+		$scope.fnEditCell = function (row, cell, columnSelected, col, cellId){
+			console.log('@@@@@@@@', cellId, $('#' + cellId));
 			var tariffObj = row['tariffObj_' + columnSelected];
 			console.log('Selected Package: ', tariffObj);
 
@@ -69,6 +69,10 @@ angular.module('sigmaCabsApp')
 				alert('Tariff vehicle Type mis-match with that of booking details. \n\nPlease select '+ scope.selectedVehicleType.vehicleType + ' tariff plan.');
 				return;
 			}
+
+			$('.myTariffSelected').removeClass('myTariffSelected');
+			$('#' + cellId).addClass('myTariffSelected');
+			
 
 			angular.copy(tariffObj, scope.selctedTariffType);
 
@@ -91,9 +95,20 @@ angular.module('sigmaCabsApp')
 	    $scope.selectedRow;
 	    $scope.selectedColumn;
 	    
-	    var basicCellTemplate = '<div class="ngCellText" ng-class="col.colIndex();" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col);"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
+	    var basicCellTemplate = '<div id="{{col.field + \'_color\' + col.id + row.getProperty(col.field)}}"  class="ngCellText col3 colt3" ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }"  ng-class="{myHoverClass: row.getProperty(col.field + \'_colorClass\')}" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,col.field + \'_color\' + col.id + row.getProperty(col.field));"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
 	    
-	    scope.tariffData = PrerequisiteService.fnGetTariffByVehicleType(scope.selectedJourneyType.id);
+
+        scope.fnColorRows = function(oData){
+            for(var i=0;i<oData.length;i++){
+                oData[i]['vehicleType' + oBooking.vehicleType + '_color'] = '#D6D6D6';
+                oData[i]['vehicleType' + oBooking.vehicleType + '_colorClass'] = 'true';
+            }
+            return oData;
+        }
+
+        var oX = [];
+        angular.copy(PrerequisiteService.fnGetTariffByVehicleType(scope.selectedJourneyType.id), oX);
+	    scope.tariffData = scope.fnColorRows(oX);
 
 	    console.log('tariffData: >>>>',scope.tariffData);
 
@@ -146,7 +161,11 @@ angular.module('sigmaCabsApp')
 	      data: 'tariffData',
 	      multiSelect: false,
 	      columnDefs: 'colDefs',
-	      enableCellSelection : true
+	      enableCellSelection : false,
+	      enableRowSelection: false,
+			afterSelectionChange: function () {
+		      console.log('grid>>>>>>>>>>>>>>>', arguments);
+		    }
 	    };
 
     });

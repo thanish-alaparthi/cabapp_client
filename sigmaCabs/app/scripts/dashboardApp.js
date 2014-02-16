@@ -38,6 +38,10 @@ angular.module('sigmaCabsApp', [
         templateUrl: 'views/booking.html',
         controller: 'bookingController'
       })
+      .when('/customer', {  
+        templateUrl: 'views/customer.html',
+        controller: 'customersMainController'
+      })
       .otherwise({
         redirectTo: '/' // redirect to dashboard.html 
       });

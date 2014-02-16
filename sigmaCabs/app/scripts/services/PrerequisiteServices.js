@@ -29,64 +29,64 @@ angular.module('sigmaCabsApp')
             isDataExistsInLocalStorage = ((oLs.hasOwnProperty(currentDate)) ? true : false),
 
             iApiCount = 0,
-            fnEmitSuccess = function() {
+            fnEmitSuccess = function(){
                 $rootScope.$emit('eventPrerequisitsLoaded');
             };
 
         return {
             oLs: oLs,
-            iApiCount: 0, // count of successful/Error callback returned.
-            iApiLimit: 0, // Total number of API calls made.
-            fnEmitEvent: function(sMyDataToken, isFromError) {
+            iApiCount : 0,  // count of successful/Error callback returned.
+            iApiLimit : 0,  // Total number of API calls made.
+            fnEmitEvent : function(sMyDataToken, isFromError){
 
                 var oThis = this;
                 oThis.iApiCount++;
 
-                console.log('No. of Prerequisite API returned:', oThis.iApiCount, '. Total Prerequisite APIs are: ', oThis.iApiLimit, '(', sMyDataToken, ')');
-                if (isFromError) {
+                console.log('No. of Prerequisite API returned:', oThis.iApiCount, '. Total Prerequisite APIs are: ', oThis.iApiLimit, '(',sMyDataToken,')');
+                if(isFromError){
                     console.error('################### ERROR in Config Response. clearing localstorage ###############:::', sMyDataToken);
 
                     oThis.oLs = {};
                 }
 
-                if (oThis.iApiCount == oThis.iApiLimit) {
+                if(oThis.iApiCount == oThis.iApiLimit) {
                     $rootScope.$emit('eventPrerequisitsLoaded');
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
                 }
             },
-            fnAddToLocalStorage: function(sType, oResult) {
+            fnAddToLocalStorage : function(sType, oResult){
                 var oThis = this;
-                if (typeof oResult == 'string') {
-                    console.warn(sType, ' gave empty data for Prerequisite.');
+                if(typeof oResult == 'string'){
+                    console.warn(sType,' gave empty data for Prerequisite.');
                 }
 
-                if (!oThis.oLs.hasOwnProperty(currentDate)) {
+                if(!oThis.oLs.hasOwnProperty(currentDate)){
                     oThis.oLs[currentDate] = {};
                 }
                 oThis.oLs[currentDate][sType] = oResult;
 
 
                 // store tariff properly per vehicleType
-                if (sType == 'tariff') {
+                if(sType == 'tariff'){
                     oThis.fnStoreTariffData();
                 }
 
                 return true;
             },
-            fnSuccessCallback: function(data, status, fnHeaders, oXhr, config) {
+            fnSuccessCallback : function(data, status,fnHeaders, oXhr, config) {
                 var oMe = oXhr.oMe;
-                console.log('success ', oXhr.myDataToken, ': ', data, typeof data);
-                if (typeof data == 'string') {
-                    oMe.fnEmitEvent(oXhr.myDataToken, true);
+                console.log('success ',oXhr.myDataToken, ': ', data, typeof data); 
+                if(typeof data == 'string'){
+                    oMe.fnEmitEvent(oXhr.myDataToken,true);
                     return;
                 }
-                if (oMe.fnAddToLocalStorage(oXhr.myDataToken, data.result)) {
+                if(oMe.fnAddToLocalStorage(oXhr.myDataToken, data.result)) {
                     oMe.fnEmitEvent(oXhr.myDataToken, false);
                 }
             },
-            fnErrorCallback: function(data, status, fnHeaders, oXhr, config) {
+            fnErrorCallback : function(data, status, fnHeaders, oXhr, config) {
                 var oMe = oXhr.oThis;
-                console.log('error ', oXhr.myDataToken, ': ', data);
+                console.log('error ',oXhr.myDataToken,': ', data);
                 oMe.fnEmitEvent(oXhr.myDataToken, true);
             },
             // call for interrelated configuration/Prequisite data
@@ -96,75 +96,75 @@ angular.module('sigmaCabsApp')
                 //Note: the call will be made only if data is not present in the local storage on day basis
                 $rootScope.$emit('eventPrerequisitsLoaded');
                 if (isDataExistsInLocalStorage) {
-                    setTimeout(function() {
+                    setTimeout(function(){
                         fnEmitSuccess();
-                    }, 0);
+                    },0);
                     return;
                 }
 
-                console.log('No LocalStore data: getting Prerequisite Data for ' + oThis.currentDate + ' from server...');
+                console.log('No LocalStore data: getting Prerequisite Data for ' + oThis.currentDate+' from server...');
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllJourneyTypes'),
                     method: 'GET',
-                    myDataToken: 'journeyTypes',
-                    oMe: oThis,
+                    myDataToken : 'journeyTypes',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllBookingStates'),
                     method: 'GET',
-                    myDataToken: 'bookingStates',
-                    oMe: oThis,
+                    myDataToken : 'bookingStates',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllGrades'),
                     method: 'GET',
-                    myDataToken: 'grades',
-                    oMe: oThis,
+                    myDataToken : 'grades',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllReasons'),
                     method: 'GET',
-                    myDataToken: 'reason',
-                    oMe: oThis,
+                    myDataToken : 'reason',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetAllTariff'),
                     method: 'GET',
-                    myDataToken: 'tariff',
-                    oMe: oThis,
+                    myDataToken : 'tariff',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetVehicleNames'),
                     method: 'GET',
-                    myDataToken: 'vehicleNames',
-                    oMe: oThis,
+                    myDataToken : 'vehicleNames',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -181,33 +181,33 @@ angular.module('sigmaCabsApp')
                 //     }
                 // }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestApiGetTravelType'),
                     method: 'GET',
-                    myDataToken: 'travelTypes',
-                    oMe: oThis,
+                    myDataToken : 'travelTypes',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
 
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestGetAllVehicleTypes'),
                     method: 'GET',
-                    myDataToken: 'vehicleTypes',
-                    oMe: oThis,
+                    myDataToken : 'vehicleTypes',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
-                oThis.iApiLimit++; // increment iApiLimit for every Prerequisite API call.
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
                     url: URLService.service('RestGetAllCategories'),
                     method: 'GET',
-                    myDataToken: 'customerCategories',
-                    oMe: oThis,
+                    myDataToken : 'customerCategories',
+                    oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -215,19 +215,19 @@ angular.module('sigmaCabsApp')
             },
 
 
-            defaultBookingHour: sDefaultBookingHours.toString(), // default booking Hours
-            defaultBookingMinutes: '00', // default booking minutes
-            currentDate: currentDate, // current Date
+            defaultBookingHour: sDefaultBookingHours.toString(),    // default booking Hours
+            defaultBookingMinutes: '00',    // default booking minutes
+            currentDate: currentDate,   // current Date
             nextYearDate: nextYearDate, // Next days date
 
-            priorities: { //Priorites
+            priorities: {               //Priorites
                 '1': 'Normal',
                 '2': 'Important',
                 '3': 'High',
                 '4': 'Critical'
             },
 
-            hours: { // Hours dropdown
+            hours: {                    // Hours dropdown
                 '00': '00',
                 '01': '01',
                 '02': '02',
@@ -253,7 +253,7 @@ angular.module('sigmaCabsApp')
                 '22': '22',
                 '23': '23',
             },
-            minutes: { // minutes dropdown
+            minutes: {              // minutes dropdown
                 '00': '00',
                 '10': '10',
                 '20': '20',
@@ -262,112 +262,112 @@ angular.module('sigmaCabsApp')
                 '50': '50'
             },
 
-            fnGetJourneyTypes: function() { // Function to return Only Main JourneyTypes
+            fnGetJourneyTypes : function(){         // Function to return Only Main JourneyTypes
                 // filter main journey types i.e. where parentId = 0;
                 var aRtn = [],
                     oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].parentId == 0) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].parentId == 0) {
                         aRtn.push(oJt[i]);
                     }
                 }
                 return aRtn;
             },
-            fnGetJourneyTypeBySubJourneyTypeId: function(sId) { // Function to return Only Main JourneyTypes
+            fnGetJourneyTypeBySubJourneyTypeId : function(sId){         // Function to return Only Main JourneyTypes
                 // filter main journey types i.e. where parentId = 0;
                 var aRtn = [],
                     oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].id == sId) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sId) {
                         return oJt[i];
                     }
                 }
                 return null;
             },
-            fnGetJourneyObjectById: function(sId) { // Function to return Only One JourneyType based on id
+            fnGetJourneyObjectById : function(sId){         // Function to return Only One JourneyType based on id
                 var aRtn = [],
                     oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].id == sId) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sId) {
                         return oJt[i];
                     }
                 }
                 return null;
             },
-            fnGetAllJourneyTypes: function() { // Function to return Only Main JourneyTypes
+            fnGetAllJourneyTypes : function(){         // Function to return Only Main JourneyTypes
                 return this.oLs[this.currentDate]['journeyTypes'];
             },
-            fnGetSubJourneyTypes: function(sParentId) { // Function to return Only sub JourneyTypes
+            fnGetSubJourneyTypes : function(sParentId){         // Function to return Only sub JourneyTypes
                 // filter sub journey types i.e. where parentId = sParentId;
                 var aRtn = [],
                     oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].parentId == sParentId) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].parentId == sParentId) {
                         aRtn.push(oJt[i]);
                     }
                 }
                 return aRtn;
             },
-            fnGetMainJourneyTypeOfSubJourneyType: function(sSubJourneyTypeId) { //function to find out MainJourneyType based on SubJourneyTypeId
+            fnGetMainJourneyTypeOfSubJourneyType : function(sSubJourneyTypeId){    //function to find out MainJourneyType based on SubJourneyTypeId
                 var oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].id == sSubJourneyTypeId) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sSubJourneyTypeId) {
                         return oJt[i];
                     }
                 }
 
                 return null;
             },
-            fnGetJourneyTypeName: function(sId) { //function to get journey type name
+            fnGetJourneyTypeName : function(sId){    //function to get journey type name
                 var oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].id == sId) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sId) {
                         return oJt[i].journeyType;
                     }
                 }
 
                 return null;
             },
-            fnGetMainJourneyTypeObjectBySubJourneyTypeId: function(sSubJourneyTypeId) { //function to find out MainJourneyType based on SubJourneyTypeId
+            fnGetMainJourneyTypeObjectBySubJourneyTypeId : function(sSubJourneyTypeId){    //function to find out MainJourneyType based on SubJourneyTypeId
                 var oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length,
                     sSelId = null;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (oJt[i].id == sSubJourneyTypeId) {
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].id == sSubJourneyTypeId) {
                         sSelId = oJt[i].parentId;
                         break;
                     }
                 }
-                if (sSelId) {
+                if(sSelId){
                     return this.fnGetJourneyObjectById(sSelId);
                 }
 
                 return null;
             },
-            fnGetTariffData: function() { // function to return TariffData
+            fnGetTariffData : function(){           // function to return TariffData
                 return this.oLs[this.currentDate]['tariff'];
             },
-            fnStoreTariffData: function() {
+            fnStoreTariffData : function() {
                 var oThis = this,
                     aTd = oThis.fnGetTariffData(),
                     aFormatedTd = {},
                     oTariffById = {},
                     oPackage = {};
 
-                for (var k in aTd) {
+                for(var k in aTd){
                     var tariffData = aTd[k],
                         tariffDataLength = tariffData.length,
                         oTd = [],
@@ -379,25 +379,28 @@ angular.module('sigmaCabsApp')
                         var oTempPackage = tariffData[i];
 
                         oTariffById[tariffData[i].id] = tariffData[i];
-                        oPackage[k][tariffData[i].vehicleType] = oPackage[k][tariffData[i].vehicleType] || [];
-
+						oPackage[k][tariffData[i].vehicleType] = oPackage[k][tariffData[i].vehicleType] || [];
+                        oTariffById[tariffData[i].id]['duration'] = tariffData[i].duration;
+                        oTariffById[tariffData[i].id]['distance'] = tariffData[i].kms;
                         var tariffRow = {
-                            'duration': tariffData[i].duration,
-                            'kms': tariffData[i].kms
-                        };
+                            'duration': tariffData[i].duration / 60,
+                            'kms' : tariffData[i].kms
+                        }
 
                         oTempPackage.text = 'D ' + tariffData[i].duration + ' - K ' + tariffData[i].kms + ' - P ' + tariffData[i].price;
                         oPackage[k][tariffData[i].vehicleType].push(oTempPackage);
 
                         tariffRow['vehicleType' + tariffData[i].vehicleType] = tariffData[i].price;
-                        for (var j = i; j < tariffData.length; j++) {
-                            if (tariffData[i].duration == tariffData[j].duration && tariffData[i].kms == tariffData[j].kms) {
+                        for(var j=i;j<tariffData.length;j++){
+                            if(    tariffData[i].duration == tariffData[j].duration
+                                && tariffData[i].kms == tariffData[j].kms
+                            ){
                                 tariffRow['vehicleType' + tariffData[j].vehicleType] = tariffData[j].price;
                                 tariffRow['tariffObj_vehicleType' + tariffData[j].vehicleType] = tariffData[j];
                             }
 
                         }
-                        if (sTmpDuration != tariffData[i].duration && sTmpKms != tariffData[i].kms) {
+                        if(sTmpDuration != tariffData[i].duration && sTmpKms != tariffData[i].kms) {
                             oTd.push(tariffRow);
                             sTmpDuration = tariffData[i].duration;
                             sTmpKms = tariffData[i].kms;
@@ -409,26 +412,27 @@ angular.module('sigmaCabsApp')
                 oThis.fnAddToLocalStorage('tariffById', oTariffById);
                 oThis.fnAddToLocalStorage('vehilcePackageByJtype', oPackage);
             },
-            fnGetTariffByVehicleType: function(sVehicleType) {
+            fnGetTariffByVehicleType : function(sVehicleType){
                 var oThis = this;
 
                 return this.oLs[this.currentDate]['tariffTypeOnVehicleType'][sVehicleType] || null;
             },
+
             fnGetTariffByJtypeVType: function(jType, sVehicleType) {
                 var oThis = this;
 
                 return this.oLs[this.currentDate]['vehilcePackageByJtype'][jType][sVehicleType] || null;
             },
-            fnFormatDate: function(sDate) {
-                if (!sDate || sDate.length < 10) {
+            fnFormatDate : function(sDate){
+                if(!sDate || sDate.length < 10){
                     return this.fnFormatDate(this.currentDate);
                 }
 
                 var aD = sDate.split('-');
                 return aD[2] + '/' + aD[1] + '/' + aD[0];
             },
-            formatToServerDate: function(sDate) {
-                if (sDate.length < 10) {
+            formatToServerDate : function(sDate){
+                if(sDate.length < 10){
                     return this.currentDate;
                 }
 
@@ -437,11 +441,14 @@ angular.module('sigmaCabsApp')
             },
 
 
-            fnFormatHours: function(sTime) {
-                if (!sTime || sTime.length < 8) {
+            fnFormatHours : function(sTime){
+                if(!sTime || sTime.length < 8){
                     var oD = new Date();
                     return this.fnFormatHours(
-                        (oD.getHours() <= 9 ? '0' + oD.getHours() : oD.getHours()) + ':' + (oD.getMinutes() <= 9 ? '0' + oD.getMinutes() : oD.getMinutes()) + ':00'
+                        (oD.getHours()<=9 ? '0'+oD.getHours() : oD.getHours()) 
+                        + ':' 
+                        + (oD.getMinutes() <=9? '0' + oD.getMinutes() : oD.getMinutes()) 
+                        +':00'
                     );
                 }
                 var aD = sTime.split(':');
@@ -449,44 +456,47 @@ angular.module('sigmaCabsApp')
             },
 
 
-            fnFormatMinutes: function(sTime) {
-                if (!sTime || sTime.length < 8) {
+            fnFormatMinutes : function(sTime){
+                if(!sTime || sTime.length < 8){
                     var oD = new Date(),
-                        sM = (oD.getMinutes() - (oD.getMinutes() % 10) + (oD.getMinutes() % 10 + (10 - oD.getMinutes() % 10))),
-                        sM = (sM < 60 ? sM : (sM - 10));
+                        sM = (oD.getMinutes() - (oD.getMinutes()%10) +  (oD.getMinutes()%10 + (10 - oD.getMinutes()%10 ))),
+                        sM = (sM<60 ? sM : (sM - 10));
 
                     return this.fnFormatMinutes(
-                        (oD.getHours() <= 9 ? '0' + oD.getHours() : oD.getHours()) + ':' + sM + ':00'
+                        (oD.getHours()<=9 ? '0'+oD.getHours() : oD.getHours()) 
+                        + ':' 
+                        + sM
+                        +':00'
                     );
                 }
                 var aD = sTime.split(':');
                 return aD[1];
             },
-            fnGetBookingStatusName: function(sBookingStatusId) {
+            fnGetBookingStatusName : function(sBookingStatusId){
                 var aBs = this.oLs[this.currentDate]['bookingStates'],
                     iCount = aBs.length;
 
-                for (var i = 0; i < iCount; i++) {
-                    if (aBs[i].id == sBookingStatusId) {
+                for(var i=0;i<iCount;i++){
+                    if(aBs[i].id == sBookingStatusId){
                         return aBs[i].bookingStatus;
                     }
                 }
                 return null;
             },
-            fnGetReasons: function() {
+            fnGetReasons : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['reason'];
             },
-            // fnGetStatistics : function(){
-            //              var oThis = this;
-            //              //return oThis.oLs[oThis.currentDate]['statistics'];
-            //              return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
-            //          },
-            fnGetVehicleNames: function() {
+			// fnGetStatistics : function(){
+   //              var oThis = this;
+   //              //return oThis.oLs[oThis.currentDate]['statistics'];
+   //              return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
+   //          },
+            fnGetVehicleNames : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
             },
-            fnGetCustomerCategories: function() {
+            fnGetCustomerCategories : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['customerCategories'];
             },
@@ -518,26 +528,26 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
-            fnGetVehicleDisplayTypeById: function(sId) {
-                var oThis = this,
+            fnGetVehicleDisplayTypeById : function(sId){
+                var oThis=  this,
                     oVt = oThis.oLs[oThis.currentDate]['vehicleTypes'];
-                if (!oVt) {
-                    alert('Problem in getting config data from server. Please contact server team immediately.');
-                    return;
-                }
+                    if(!oVt){
+                        alert('Problem in getting config data from server. Please contact server team immediately.');
+                        return;
+                    }
 
-                for (var i = 0; i < oVt.length; i++) {
-                    if (oVt[i].id == sId) {
+                for(var i=0;i<oVt.length;i++){
+                    if(oVt[i].id == sId){
                         return oVt[i].vehicleType;
                     }
                 }
                 return null;
             },
-            fnGetVehicleNameById: function(sId) {
+            fnGetVehicleNameById : function(sId){
                 var oThis = this,
                     oVn = oThis.oLs[oThis.currentDate]['vehicleNames'];
-                for (var i = 0; i < oVn.length; i++) {
-                    if (oVn[i].id == sId) {
+                for(var i=0;i<oVn.length;i++){
+                    if(oVn[i].id == sId){
                         return oVn[i];
                     }
                 }
@@ -575,46 +585,46 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
-
-            getDispositionTypes: function(sId) {
+            
+            getDispositionTypes : function(sId){
                 var aRtn = [{
                     id: PreConfigService.BOOKING_ENQUIRY,
-                    dispositionName: 'Enquiry'
+                    dispositionName : 'Enquiry'
                 }, {
                     id: PreConfigService.BOOKING_FOLLOW_UP,
-                    dispositionName: 'Follow-up'
+                    dispositionName : 'Follow-up'
                 }, {
                     id: PreConfigService.BOOKING_REJECTED,
-                    dispositionName: 'Rejected'
+                    dispositionName : 'Rejected'
                 }];
                 return aRtn;
             },
-            fnGetCancelBookingCategory: function(sId) {
+            fnGetCancelBookingCategory : function(sId){
                 var aRtn = [{
-                    id: 1,
-                    categoryName: 'Customer'
+                    id: 1, 
+                    categoryName : 'Customer'
                 }, {
                     id: 2,
-                    categoryName: 'Dispatcher'
+                    categoryName : 'Dispatcher'
                 }, {
                     id: 3,
-                    categoryName: 'Call-Taker'
+                    categoryName : 'Call-Taker'
                 }, {
                     id: 4,
-                    categoryName: 'Driver'
+                    categoryName : 'Driver'
                 }];
                 return aRtn;
             },
 
-            fnFormatBookingHistoryData: function(aData) {
+            fnFormatBookingHistoryData : function(aData){
                 var oThis = this,
                     oRtn = [],
                     iCount = aData.length;
-                for (var i = 0; i < iCount; i++) {
+                for(var i=0;i<iCount;i++){
                     var oBh = aData[i];
-                    oBh.srno = (i + 1);
+                    oBh.srno = (i+1);
                     oBh.bookingStatusName = oThis.fnGetBookingStatusName(oBh.bookingStatus);
-                    oBh.bookingDisplayDate = oThis.fnFormatDate(oBh.bookingDate) + ' ' + oThis.fnFormatHours(oBh.bookingTime) + ':' + oThis.fnFormatMinutes(oBh.bookingTime);
+                    oBh.bookingDisplayDate = oThis.fnFormatDate(oBh.bookingDate) +' '+ oThis.fnFormatHours(oBh.bookingTime)+':'+ oThis.fnFormatMinutes(oBh.bookingTime);
                     oBh.pickupDisplayDate = oThis.fnFormatDate(oBh.pickupDate);
                     oBh.pickupDisplayTime = oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
                     oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
@@ -624,26 +634,26 @@ angular.module('sigmaCabsApp')
                 }
                 return oRtn;
             },
-            fnGetCallTime: function() {
+            fnGetCallTime : function(){
                 var oD = new Date(),
                     sH = oD.getHours(),
                     sM = oD.getMinutes(),
                     sS = oD.getSeconds();
 
-                return ((sH <= 9 ? '0' + sH : sH) + ':' + (sM <= 9 ? '0' + sM : sM) + ':' + (sS <= 9 ? '0' + sS : sS));
+                return ((sH <=9? '0' + sH: sH) + ':' + (sM <=9? '0' + sM: sM) + ':' + (sS <=9? '0' + sS: sS));
             },
-            fnGetGradeById: function(sId) {
+            fnGetGradeById : function(sId){
                 var oThis = this,
                     oG = oThis.oLs[oThis.currentDate]['grades'];
-                for (var i = 0; i < oG.length; i++) {
-                    if (oG[i].id == sId) {
+                for(var i=0;i<oG.length;i++){
+                    if(oG[i].id == sId){
                         return oG[i];
                     }
                 }
                 return null;
             },
 
-            fnGetTravelTypes: function() {
+            fnGetTravelTypes : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['travelTypes'];
             },
@@ -670,39 +680,36 @@ angular.module('sigmaCabsApp')
                 }];
                 return oData;
             },
-            fnGetTariffById: function(sId) {
+            fnGetTariffById : function(sId){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['tariffById'][sId];
             },
 
-            /* per Thanish, tariffType are the columns in the tariff sheet.
-               Eg. Small, Medium, Tavera, Xylo/Innova
-            */
-            // tariffTypes : [{
-            //     id : 1,
-            //     tariffType : 'Small',
-            // },{
-            //     id : 3,
-            //     tariffType : 'Medium',
-            // },{
-            //     id : 5,
-            //     tariffType : 'Tavera',
-            // },{
-            //     id : 6,
-            //     tariffType : 'Xylo / Innova',
-            // }],
-            // fnGetTariffTypes : function() {
-            //     return this.tariffTypes;
-            // },
-            // fnGetTariffTypeById : function(sId) {
-            //     var aTt = this.tariffTypes;
-            //     for(var i=0;i<aTt.length;i++){
-            //         if(sId == aTt[i].id){
-            //             return aTt[i]
-            //         }
-            //     }
-            //     return null;
-            // },
+            
+            insuranceType: [{
+                "title": "Full",
+                "type": "1"
+            }, {
+                "title": "Comprehensive",
+                "type": "2"
+            }, {
+                "title": "Third-Party",
+                "type": "3"
+            }],
+            roadTaxType: [{
+                "title": "Quarterly",
+                "type": "1"
+            }, {
+                "title": "Half-Yearly",
+                "type": "2"
+            }, {
+                "title": "Yearly",
+                "type": "3"
+            }, {
+                "title": "Life-Tax",
+                "type": "4"
+            }],
+
 
 
 
@@ -716,12 +723,16 @@ angular.module('sigmaCabsApp')
                 '2': 'Card'
             },
             userTypes: {
-                '1': 'Driver',
-                '2': 'Client',
-                '3': 'Customer',
-                '4': 'Other-Employee',
-                '5': 'Dispatcher',
-                '6': 'Call-Taker'
+                '1': 'Client',
+                '2': 'Owner',
+                '3': 'Driver',
+                '4': 'Dispatcher',
+                '5': 'Call-Taker',
+                '6': 'Admin',
+                '7': 'Super-Admin',
+                '8': 'Quality Analyst',
+                '9': 'Team Leader',
+                '91': 'Manager'
             },
             userJobCategoriesNames: {
                 '1': 'Permanant',
@@ -734,8 +745,8 @@ angular.module('sigmaCabsApp')
                 'type': '2',
                 'title': 'Contract'
             }],
-
-            fnGetVehicleTypes: function() {
+            
+            fnGetVehicleTypes : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleTypes'];
             },
@@ -781,13 +792,6 @@ angular.module('sigmaCabsApp')
             }, {
                 "title": "Carrier With Lock",
                 "type": "3"
-            }],
-            insuranceType: [{
-                "title": "Full",
-                "type": "1"
-            }, {
-                "title": "Composite",
-                "type": "2"
             }],
             permitType: [{
                 "title": "Full",
@@ -870,7 +874,7 @@ angular.module('sigmaCabsApp')
                 title: 'Office',
                 type: '2'
             }]
-            /* EOF : Old settings. will be deleted later */
+             /* EOF : Old settings. will be deleted later */
         }
 
     });

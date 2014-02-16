@@ -47,6 +47,7 @@ angular.module('sigmaCabsApp')
 			.success(function(data, status, headers, config){
 				console.log('success fnSaveDisposition',data);
 				if(data.status == 200){
+					alert('Disposition saved successfully.');
 					$rootScope.$emit('eventRefreshBookingHistory', {});
 					scope.close();
 				}

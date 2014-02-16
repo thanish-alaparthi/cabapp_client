@@ -1,0 +1,36 @@
+<div class="modal-dialog user-add-update-container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
+            <h4 class="modal-title">Add User</h4>
+        </div>
+        <div class="modal-body" style="padding-top: 0px; padding-bottom: 0px;">
+        
+            <div class="tabs">
+                <div class="tabHeader clearfix">
+                <div  ng-repeat="tab in tabs" class="left">
+                    <div ng-click="handleTabClick(tab.id)" ng-model="aMTab" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}" ng-show = "tab.showTab">
+                        <div class="employeeTab left"></div>
+                        <span>{{tab.label}}</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="alert alert-error clearfix" ng-show="showError">
+                <div ng-bind-html-unsafe="errorMsg" class="left"></div>
+                <button type="button" name="dupBdgErrorMsgBtn" id="dupBdgErrorMsgBtn" class="close left" ng-click="     hideErrorMsg()">&times;
+                </button>
+            </div>
+
+            <div class="assetCertTab clearfix">
+                <div  ng-include src ="wizardHandler.currentTab"> 
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="handleNext()" ng-show = "showNext">Next</button>
+            <button type="button" class="btn btn-default" ng-click="handleSaveAndExit()">Save & Exit</button>
+        </div>
+    </div>
+</div>

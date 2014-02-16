@@ -33,17 +33,13 @@ angular.module('sigmaCabsApp')
 				if(PrerequisiteService.currentDate == sBkdt){
 					console.log('pickupDate is currentDate');
 					var oDt = new Date();
-					console.log(oDt.getHours(), oDt.getMinutes());
-					var aSelHr = {},
-						iLimitHour = oDt.getHours()
-					for(var sHr in aHr){
-						if(sHr >= iLimitHour){
-							aSelHr[sHr] = sHr;
-						}
-					}
-					console.log(scope.hours);
-					scope.hours = aSelHr;
-					console.log(scope.hours);
+					oDt.setMinutes(oDt.getMinutes() + 20);
+
+					var	sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours();
+
+
+					scope.bookingDetails.pickupHours = sHr.toString();
+					// alert(scope.bookingDetails.pickupHours);
 					scope.$apply();
 				} else {
 					scope.hours = PrerequisiteService.hours;
@@ -110,6 +106,7 @@ angular.module('sigmaCabsApp')
 			}
 
 			if(!scope.bookingDetails.id){
+				scope.bShowReconfirmBookingBtn = false;
 				scope.bShowCancelBookingBtn = false;
 				scope.bShowSaveBookingBtn = true;
 				scope.bShowSaveAsNewBookingBtn = false;
@@ -117,11 +114,19 @@ angular.module('sigmaCabsApp')
 				scope.bShowCustFeedbackBtn = true;
 			}else if(scope.bookingDetails.id
 					&& (   scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_ENQUIRY
-						|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_FOLLOW_UP
-						|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_REJECTED)
+						|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_FOLLOW_UP)
 			){	
 				scope.bShowCancelBookingBtn = false;
 				scope.bShowSaveBookingBtn = true;
+				scope.bShowSaveAsNewBookingBtn = false;
+				scope.bShowDispositionBtn = true;			
+				scope.bShowCustFeedbackBtn = true;
+			}else if(scope.bookingDetails.id
+					&& (scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_REJECTED)
+			){	
+				scope.bShowCancelBookingBtn = false;
+				scope.bShowSaveBookingBtn = false;
+				scope.bShowReconfirmBookingBtn = true;
 				scope.bShowSaveAsNewBookingBtn = false;
 				scope.bShowDispositionBtn = true;			
 				scope.bShowCustFeedbackBtn = true;
@@ -156,14 +161,6 @@ angular.module('sigmaCabsApp')
 
 		$scope.gPlace;
 	
-		// add dropdwon fields
-		scope.hours = PrerequisiteService.hours;
-		scope.minutes = PrerequisiteService.minutes;
-		scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
-		scope.vehicleNames = PrerequisiteService.fnGetVehicleNames();
-		scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
-		scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
-
 		// If booking is opened in edit Mode... than we have to set JourneyType based on subJourneyType
 		if(scope.bookingDetails.subJourneyType){
 			var oJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
@@ -342,5 +339,46 @@ angular.module('sigmaCabsApp')
 				scope.fnPopSubJourneyTypes();
 			}
 		},true);
+
+		scope.fnValidatePickupTime = function(){
+			console.log('Validate pickupTime');
+			if(  scope.bookingDetails.bookingStatus == ""
+				|| (scope.bookingDetails.bookingStatus != PreConfigService.WHILE_DRIVING
+			    	&& scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_COMPLETED_N_CLOSED
+			    	&& scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_CANCELLED)
+			) {
+				// show future time if date is selected date is todays date.
+				var aHr = PrerequisiteService.hours;
+				var sBkdt = PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate);
+				if(PrerequisiteService.currentDate == sBkdt){
+					console.log('pickupDate is currentDate');
+					var oDt = new Date(),
+						oPkDt = new Date(PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate) + ' ' + scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00'),
+						sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours();
+					if(oPkDt.getTime() < oDt.getTime()){
+						var oDtNw = new Date();
+						oDtNw.setMinutes(oDtNw.getMinutes() + 20);
+
+						var	sHr = oDtNw.getHours() <=9 ? '0' + oDtNw.getHours() : oDtNw.getHours();
+
+						alert('Pickup time should be future time.');
+						var sMn = (oDtNw.getMinutes() + (10 - (oDtNw.getMinutes()%10)));
+						sMn = sMn <=9 ? '0'+sMn : sMn;
+						if(parseInt(sMn) >= 60){
+							sHr++;
+							sMn = '00';							
+						}
+						if(parseInt(sHr) >23){
+							sHr = 23;
+							sMn = 50;
+						}
+						scope.bookingDetails.pickupHours = sHr.toString();
+						scope.bookingDetails.pickupMinutes = sMn.toString();
+						console.log(sHr,sMn);
+					}
+				}
+			}
+
+		}
 
 	});

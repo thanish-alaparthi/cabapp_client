@@ -1,0 +1,33 @@
+<div>
+     <div class="fieldContainer relative left">
+        <label class="control-label">Type (Polution/Fitness)</label>
+        <select class="form-control validate[maxSize[36]] large" ng-model="tmpRoadTaxDetails.premiumType" ng-options="value.type as value.title for value in polutionAndFitness">
+        </select>
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Number</label>
+        <input type="text" ng-model="tmpRcDetails.rcNumber" class="form-control validate[required,maxSize[128]] large" placeholder="Number" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Start Date</label>
+        <input type="text" ng-model="tmpRcDetails.issueDate" class="form-control validate[required,maxSize[128]] large" placeholder="Start Date" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Expiry Date</label>
+        <input type="text" ng-model="tmpRcDetails.expiryDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Amount</label>
+        <input type="text" ng-model="tmpRcDetails.expiryDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Amount" />
+    </div>
+    <div class="fieldContainer relative left">
+        <label class="control-label">Add to List</label>
+        <input type="button"  ng-click="fnAddRcToList();" value="{{rcAddButon}}" class="large left" />
+        <input type="hidden"  name="rowIndex" ng-model="tmpRcDetails.rowIndex" />
+    </div>
+    <div class="supportTabGridContainer">
+        <div ng-grid="rcGridOptions" class="supportTabGrid"></div>
+    </div>
+    <p class="clear"/>    
+</div>
+

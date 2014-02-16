@@ -18,7 +18,7 @@
 }
 
 .existing-customer-booking, .firt-time-customer{
-  width: 100%;
+  /* width: 100%; */
 }
 
 .firstTimeCustomerContainer .softAlertMessages i{
@@ -324,4 +324,17 @@ tr:nth-child(odd) {
   background: #ccc;
   opacity: 0.5;
   width: 462px;
+}
+
+.myHoverClass:active{
+  background: green !important;
+}
+.myHoverClass:hover{
+  background: #000 !important;
+  color: #FFF !important;
+  cursor: pointer;
+}
+.myTariffSelected{
+  background: #F5F5B1 !important;
+  cursor: pointer;
 }

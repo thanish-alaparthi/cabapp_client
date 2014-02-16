@@ -1,5 +1,5 @@
-<div>
-	 <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+<div class="">
+	 <fieldset class="liscenseDetailsFieldset searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
         <legend class="searchbox-border">Liscense Details</legend>
         
 	    <div class="fieldContainer relative left">
@@ -15,13 +15,13 @@
 	        <input type="text" ng-model="user.driverDetails.liscenseDetails.issuedAt"  class="form-control validate[required,maxSize[128]] large" placeholder="Issued At" />
 	    </div>
 	    <div class="fieldContainer relative left">
-	        <label class="control-label">Liscense Type</label>
-	        <input type="text" ng-model="user.driverDetails.liscenseDetails.licenseType"  class="form-control validate[required,maxSize[128]] large" placeholder="Liscence Type" />
+	        <label class="control-label">Expiry Date</label>
+	        <input type="text"  class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
 	    </div>
     </fieldset>
 
 
-	 <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+	 <fieldset class="liscenseDetailsFieldset searchbox-border user-addupdate-addresses-fieldset" style="float: right;margin-top: 0px !important;margin-bottom: 0px !important;">
         <legend class="searchbox-border">Badge Details</legend>
         
 	    <div class="fieldContainer relative left">
@@ -39,22 +39,101 @@
         <legend class="searchbox-border">Current Vehicle Attached</legend>
         
 	    <div class="fieldContainer relative left">
-	        <label class="control-label">Vehicle</label>	        
+	        <label class="control-label">Driver Type</label>	        
         	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
         </select>
 	    </div>
 	    <div class="fieldContainer relative left">
-	        <label class="control-label">Issue Date</label>
-	        <input type="text" ng-model="user.driverDetails.currentVehicleAttached.issueDate" class="form-control validate[required,maxSize[128]] large" placeholder="Issue Date" />
+	        <label class="control-label">Attached</label>	        
+        	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
+        </select>
 	    </div>
 	    <div class="fieldContainer relative left">
-	        <label class="control-label">Expiry Date</label>
-	        <input type="text" ng-model="user.driverDetails.currentVehicleAttached.expiryDate" class="form-control validate[required,maxSize[128]] large" placeholder="Expiry Date" />
+	        <label class="control-label">Company</label>	        
+        	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
+        </select>
+	    </div>
+	    
+    </fieldset> 
+	 <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+        <legend class="searchbox-border">Referrence Details</legend>
+        
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Referred By </label>	        
+        	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
+        </select>
 	    </div>
 	    <div class="fieldContainer relative left">
-	        <label class="control-label">Assigned On Date</label>
-	        <input type="text" ng-model="user.driverDetails.currentVehicleAttached.assignedOnDate"  class="form-control validate[required,maxSize[128]] large" placeholder="Assigned On Date" />
+	        <label class="control-label">Name</label>	        
+        	<input type="text"  class="form-control validate[required,maxSize[128]] large" placeholder="Name" />
+        </select>
 	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Mobile1</label>	        
+        	<input type="text"  class="form-control validate[required,maxSize[128]] large" placeholder="Mobile1" />
+        </select>
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Mobile2</label>	        
+        	<input type="text"  class="form-control validate[required,maxSize[128]] large" placeholder="Mobile2" />
+        </select>
+    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Office Phone</label>	        
+        	<input type="text"  class="form-control validate[required,maxSize[128]] large" placeholder="Office Phone" />
+        </select>
+	    </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Address Line 1</label>
+            <input type="text" class="form-control validate[required,maxSize[128]] large" placeholder="Address Line 1"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Address Line 2</label>
+            <input type="text" class="form-control validate[required,maxSize[128]] large" placeholder="Address Line 2"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">City</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].city" class="form-control validate[required,maxSize[128]] large" placeholder="City"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">State</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].state" class="form-control validate[required,maxSize[128]] large" placeholder="State"/>
+        </div>
+        <div class = "fieldContainer relative left">
+            <label class="control-label">Pincode</label>
+            <input type="text" ng-model="user.basicDetails.addresses[0].pincode" class="form-control validate[required,maxSize[128]] large" placeholder="Pincode"/>
+        </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Emp Code (Emp who referred this Driver)</label>	        
+        	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
+        </select>
+	    </div>
+
     </fieldset>  
+    <fieldset class="searchbox-border user-addupdate-addresses-fieldset" style="float: left;margin-top: 0px !important;margin-bottom: 0px !important;">
+        <legend class="searchbox-border">Medical Details</legend>
+        
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Checkup Processed Date</label>	        
+        	<input type="text" class="form-control validate[required,maxSize[128]] large" placeholder="YYYY-MM-DD " />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Report #</label>	        
+        	<select class="form-control validate[maxSize[36]] large" ng-model="user.driverDetails.currentVehicleAttached.vehicleId" ng-options="value.id as value.code for value in vehicleList">
+        </select>
+	    </div>	   
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Eye Checkup Left</label>
+	        <input type="text" class="form-control validate[required,maxSize[128]] large" placeholder="Left " />
+	    </div> 
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Eye Checkup Right</label>
+	        <input type="text" class="form-control validate[required,maxSize[128]] large" placeholder="Right " />
+	    </div>
+	    <div class="fieldContainer relative left">
+	        <label class="control-label">Eye Checkup Date</label>
+	        <input type="text" class="form-control validate[required,maxSize[128]] large" placeholder="YYYY-MM-DD " />
+	    </div> 
+    </fieldset> 
     <p class="clear"/>  
 </div>

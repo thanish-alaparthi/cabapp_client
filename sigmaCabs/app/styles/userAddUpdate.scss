@@ -5,7 +5,8 @@
   margin-bottom: 2px;
 }
 .user-add-update-container .fieldContainer{
-  margin-top: 15px;
+  margin: 15px 10px 10px 10px;
+  border: 0px solid red;
   height: 65px;
 }
 .user-add-update-container .userPerformanceTab .fieldContainer{
@@ -32,7 +33,7 @@
   
 }
 .user-add-update-container .user-addupdate-addresses-fieldset .large{
-  width: 150px;
+  width: 170px;
 }
 
 
@@ -51,4 +52,26 @@
 }
 .personalDetailsContainer fieldset{
   margin-bottom: 15px;
+}
+
+.educationalDetails .large{
+  width: 137px;
+}
+.pastExperienceDetails .large{
+  width: 137px;
+}
+.educationalDetails .fieldContainer,
+.pastExperienceDetails .fieldContainer{
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.liscenseDetailsFieldset .large{
+  width: 140px !important;
+}
+
+.simMaintenance .large{
+  width: 110px !important;
+}
+.simFacilities.large{
+  width: 65px !important;
 }

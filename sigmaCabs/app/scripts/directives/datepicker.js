@@ -2,7 +2,7 @@ angular.module('sigmaCabsApp')
   .directive('datepicker', function(PrerequisiteService, $compile) {
     return {
       require: 'ngModel',
-      link: function(scope, element, attrs, model) {
+      link: function(scope, element, attrs, ngModel) {
 
 
         fnFormatServerDate = function(oDate){
@@ -87,14 +87,21 @@ angular.module('sigmaCabsApp')
               }    
               console.log('DateClosed:: Selected: ',oMd.join());
             } else {
-              model.$setViewValue(fnFormatDate(selectedDates[0]));
+              ngModel.$setViewValue(fnFormatDate(selectedDates[0]));
             }
           });
 
-        scope.$watch('model',function(){
-          console.log('watching date....', model.$modelValue);
-          element.dpSetSelected(model.$modelValue);
-        });
+        // scope.$watch('model',function(){
+        //   console.log('watching date....', model.$modelValue);
+        //   element.dpSetSelected(model.$modelValue);
+        // });
+
+        scope.$watch(function () {
+            return ngModel.$modelValue;
+         }, function(newValue) {
+             console.log('watching date....', ngModel.$modelValue);
+            element.dpSetSelected(ngModel.$modelValue);
+         });
 
         element.bind('blur', function(){
           var sVal = element.val(),

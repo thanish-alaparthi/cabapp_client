@@ -16,14 +16,9 @@
         <input type="text" ng-model="tmpInsuranceDetails.provider" class="form-control validate[required,maxSize[128]] large" placeholder="Provider" />
     </div>
     <div class="fieldContainer relative left">
-        <label class="control-label">Name</label>
-        <input type="text" ng-model="tmpInsuranceDetails.name" class="form-control validate[required,maxSize[128]] large" placeholder="Name" />
-    </div>
-    <div class="fieldContainer relative left">
         <label class="control-label">Insurance Type</label>
         <select class="form-control validate[maxSize[36]] large" ng-model="tmpInsuranceDetails.insuranceType" ng-options="value.type as value.title for value in insuranceTypeOptions">
         </select>
-
     </div>
     <div class="fieldContainer relative left">
         <label class="control-label">Amount</label>

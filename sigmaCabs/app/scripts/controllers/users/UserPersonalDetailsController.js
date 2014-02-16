@@ -12,22 +12,36 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 		$scope.gPlace;
 
+		scope.sUserIdLabel = 'user Code';
+
 		console.log('>> in UserPersonalDetailsController: ',scope.user);
 
 		$scope.$watch('user.userType', function() {
+			switch(scope.user.userType){
+				case '1':
+					scope.sUserIdLabel = "Client ID";
+				break;
+				case '2':
+					scope.sUserIdLabel = "Owner ID";
+				break;
+				default:
+					scope.sUserIdLabel = "Employee ID";
+				break;
+			}
+
+
 			if(scope.user && scope.user.userType){
-				if(scope.user.userType == '1' ){	// Driver
-					scope.tabs[1].showTab = true;
-					scope.tabs[2].showTab = true;
-					
-				} else if (scope.user.userType == '4' 
-						|| scope.user.userType == '5' 
-						|| scope.user.userType == '6' ) { // , Dispatcher, call-taker, other employee
-					scope.tabs[1].showTab = true;
-					scope.showNext = true;
-				} else {
-					scope.tabs[1].showTab = false;
-					scope.tabs[2].showTab = false;
+				// show/hide driver tab.
+				if(scope.user.userType == '3' ){	// Driver
+					scope.tabs[3].showTab = true;
+				}else{
+					scope.tabs[3].showTab = false;
+				}
+				// show/hide clientDetails tab.
+				if(scope.user.userType == '1' ){	// Client
+					scope.tabs[4].showTab = true;
+				}else{
+					scope.tabs[4].showTab = false;
 				}
 			}
 		}, true);

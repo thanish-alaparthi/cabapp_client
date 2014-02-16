@@ -57,7 +57,7 @@ angular.module('sigmaCabsApp')
         'RestApiVehicleBookingComplaint' : '',
         'RestApiSaveBooking' : '',
         'RestApiSearchByVehicleMobile' : '',
-        'RestApiGetStatistics':'?url=vehicle/getAvailableStatistics',        
+        'RestApiGetOverallStatistics':'?url=vehicle/getOverallStatistics',        
         'RestApiGetAvailableVehicles':'',        
         'RestGetTariffById': '',
         'RestGetAllVehicleTypes' : '?url=config/getAllVehicleTypes',
@@ -114,12 +114,19 @@ angular.module('sigmaCabsApp')
         'bookingSnapshotTarrifDetails' : 'views/bookings/bookingSnapshotTarrifDetails.html',
         'bookingSnapshotRouteMapDetails' : 'views/bookings/bookingSnapshotRouteMapDetails.html',
 
+        'customerPersonalDetailsTab' : "views/customers/personalDetailsTab",
+        'customerProfessionalDetailsTab' : "views/customers/professionalDetailsTab",
+        'customerLinkagesDetailsTab' : "views/customers/customerLinkagesDetailsTab",
+
+
         'userPersonalDetailsTab' : "views/users/personalDetailsTab",
         'professionalDetailsTab' : "views/users/professionalDetailsTab",
         'driverDetailsTab' : "views/users/driverDetailsTab",
+        'clientInvestmentDetailsTab' : "views/users/clientInvestmentDetailsTab",
 
         'userEducationalDetailsSubTab' : "views/users/educationalDetailsTab.html",
         'userPastExperienceDetailsTab' : "views/users/pastExperienceDetailsTab.html",
+        'userLinkagesDetailsTab' : "views/users/userLinkagesDetailsTab",
 
         'vehicleBasicDetails': 'views/vehicles/basicDetailsTab',
         'vehicleExteriorCondtionTab' : 'views/vehicles/vehicleExteriorCondtionTab',
@@ -132,6 +139,7 @@ angular.module('sigmaCabsApp')
         'vehicleSupportPermitDetailsSubTab' : 'views/vehicles/permitDetailsTab.html',
         'vehicleSupportRoadTaxDetailsSubTab' : 'views/vehicles/roadTaxDetailsTab.html',
         'vehicleSupportRcDetailsSubTab' : 'views/vehicles/rcDetailsTab.html',
+        'vehicleSupportPollutionAndFitnessSubTab' : 'views/vehicles/pollutionAndFitnessDetailsTab.html',
 
         'vehicleExterirorDentAndScratchesDetailsSubTab' : 'views/vehicles/dentAndScratchesTab.html',
         'vehicleExterirorTyresDetailsSubTab' : 'views/vehicles/tyresDetailsTab.html',
@@ -162,6 +170,7 @@ angular.module('sigmaCabsApp')
         'blockCustomerMain' : 'views/bookings/blockCustomerMain.html',
         'customerRequestMain' : 'views/bookings/customerRequestMain.html',
         'bookingTariffTable' : 'views/bookings/bookingTariffTable.html',
+        'mainTariffDetails' : 'views/bookings/mainTariffDetails.html',
         'checkTariff':'views/bookings/checkTariff.html',
         'singleTariff':'views/bookings/singleTariff.html',
         'bookingStatistics' : 'views/bookings/statistics/bookingStatistics.html',

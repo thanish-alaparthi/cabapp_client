@@ -109,21 +109,17 @@ angular.module('sigmaCabsApp')
 				displayName: 'Year of Passing'
 			}, {
 				field: 'institute',
-				displayName: 'Institute',
+				displayName: 'Institute/College',
 				visible: false
 			}, {
-				field: 'degreeDiploma',
-				displayName: 'Degree/ Diploma'
-			}, {
-				field: 'grade',
-				displayName: 'Grade'
+				field: 'qualification',
+				displayName: 'Qualification'
 			}, {
 				field: 'percentMarks',
 				displayName: 'Percent/ Marks'
 			}, {
-				field: 'attachment',
-				displayName: 'Attachment',
-				visible: false
+				field: 'grade',
+				displayName: 'Grade'
 			}, {
 				field: 'id',
 				displayName: 'EducationalDetailsId',
@@ -223,12 +219,8 @@ angular.module('sigmaCabsApp')
 				field: 'location',
 				displayName: 'Location'
 			}, {
-				field: 'description',
-				displayName: 'Description'
-			}, {
-				field: 'attachment',
-				displayName: 'Attachment',
-				visible: false
+				field: 'employeeId',
+				displayName: 'employeeId'
 			}, {
 				field: 'id',
 				displayName: 'PastExperienceDetailsId',

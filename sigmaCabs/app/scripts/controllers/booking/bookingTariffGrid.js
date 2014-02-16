@@ -96,10 +96,11 @@ angular.module('sigmaCabsApp')
 	      columnDefs: 'colDefs',
 	    };
 
-	    scope.$watch('tariffGridData', function(newVal, oldVal){
-	    	console.log('>>>>>scope.tariffGridData changed', newVal);
-	    	if(newVal){
-	    		scope.aData = [newVal];
+	    $rootScope.$on('eventTariffGridDataChanged', function(oEvent, oData){
+	    	console.log('>>>>>scope.tariffGridData changed', arguments);
+	    	// scope.tariffGridData = oData;	
+	    	if(oData){
+	    		scope.aData = [oData];
 	    	} else {
 	    		scope.aData = [];
 	    	}

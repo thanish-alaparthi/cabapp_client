@@ -249,6 +249,15 @@ angular.module('sigmaCabsApp')
             scope.tempVehicleConditionTypes = PrerequisiteService.vehicleConditionTypes;
             scope.entertainmentOptions = PrerequisiteService.entertainmentOptions;
             scope.insuranceTypeOptions = PrerequisiteService.insuranceType;
+            scope.roadTaxTypeOptions = PrerequisiteService.roadTaxType;
+
+            scope.polutionAndFitness = [{
+                type: '1',
+                title: 'Polution'
+            },{
+                type: '2',
+                title: 'Fitness'
+            }];
         /*
             EOF : Setup for basic details 
         */
@@ -274,6 +283,7 @@ angular.module('sigmaCabsApp')
         scope.vehiclePermitDetails = URLService.view('vehicleSupportPermitDetailsSubTab');
         scope.vehicleRoadTaxDetails = URLService.view('vehicleSupportRoadTaxDetailsSubTab');
         scope.vehicleRcDetails = URLService.view('vehicleSupportRcDetailsSubTab');
+        scope.vehiclePollutionAndFitness = URLService.view('vehicleSupportPollutionAndFitnessSubTab');
         /*
             EOF : Setup sub-Tabs for SupportDetails Tab
         */
@@ -390,15 +400,15 @@ angular.module('sigmaCabsApp')
             "showTab": true,
             "template": URLService.view('vehicleBasicDetails')
         }, {
-            "label": 'Support Details',
-            "tooltip": 'Support Details',
+            "label": 'Paper Validity',
+            "tooltip": 'Paper Validity',
             "id": 1,
             "selected": false,
             "showTab": true,
             "template": URLService.view('vehicleSupportDetailsTab')
         }, {
-            "label": 'Exterior Condition',
-            "tooltip": 'Exterior Condition',
+            "label": 'Vehicle Condition',
+            "tooltip": 'Vehicle Condition',
             "id": 2,
             "selected": false,
             "showTab": true,

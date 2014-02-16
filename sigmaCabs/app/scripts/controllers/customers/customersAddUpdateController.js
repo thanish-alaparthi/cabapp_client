@@ -8,7 +8,7 @@ Author: chot2::dev.chot2@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('usersAddUpdateController', function(oUser, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, UsersService,VehiclesService, appUtils) {
+	.controller('customersAddUpdateController', function(oUser, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, UsersService,VehiclesService, appUtils) {
 		var scope = $scope,
 			oDate = new Date(),
 			yyyy = oDate.getFullYear().toString(),
@@ -117,35 +117,21 @@ angular.module('sigmaCabsApp')
 			"id": 0,
 			"selected": true,
 			"showTab": true,
-			"template": URLService.view('userPersonalDetailsTab')
+			"template": URLService.view('customerPersonalDetailsTab')
 		}, {
 			"label": 'Professional Details',
 			"tooltip": 'Professional Details',
 			"id": 1,
 			"selected": false,
 			"showTab": true,
-			"template": URLService.view('professionalDetailsTab')
+			"template": URLService.view('customerProfessionalDetailsTab')
 		}, {
 			"label": 'Linkages',
 			"tooltip": 'Linkages',
 			"id": 2,
 			"selected": false,
 			"showTab": true,
-			"template": URLService.view('userLinkagesDetailsTab')
-		}, {
-			"label": 'Driver Details',
-			"tooltip": 'Driver Details',
-			"id": 3,
-			"showTab": false,
-			"selected": false,
-			"template": URLService.view('driverDetailsTab')
-		}, {
-			"label": 'Client Details',
-			"tooltip": 'Client Details',
-			"id": 4,
-			"showTab": false,
-			"selected": false,
-			"template": URLService.view('clientInvestmentDetailsTab')
+			"template": URLService.view('customerLinkagesDetailsTab')
 		}];
 
 		var tabCounter = 0;

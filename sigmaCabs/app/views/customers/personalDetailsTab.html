@@ -7,23 +7,38 @@
         <label class="control-label">Last Name</label>
         <input type="text" ng-model="user.basicDetails.lastName" class="form-control validate[required,maxSize[128]] large" placeholder="Last Name"/>
     </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Marital Status</label>
+        <input type="text" ng-model="user.basicDetails.lastName" class="form-control validate[required,maxSize[128]] large" placeholder="Marital Status"/>
+    </div>
+    <div class = "fieldContainer relative left">
+        <label class="control-label">Wedding Anniversary</label>
+        <input type="text" ng-model="user.basicDetails.lastName" class="form-control validate[required,maxSize[128]] large" placeholder="YYYY-MM-DD" />
+    </div>
      <div class = "fieldContainer relative left">
-        <label class="control-label">User Type</label>
+        <label class="control-label">Gender</label>
+        <select class="form-control validate[maxSize[36]] large" data-ng-model="user.userType" ></select>
+    </div>
+     <div class = "fieldContainer relative left">
+        <label class="control-label">Customer Category</label>
         <select class="form-control validate[maxSize[36]] large" data-ng-model="user.userType" data-ng-options="k as v for (k,v) in userTypes">                
     </select>
     </div>
+     <div class = "fieldContainer relative left">
+        <label class="control-label">Customer Grade</label>
+        <select class="form-control validate[maxSize[36]] large" data-ng-model="user.userType" data-ng-options="k as v for (k,v) in userTypes">                
+    </select>
+    </div>
+     <div class = "fieldContainer relative left">
+        <label class="control-label">Discount</label>
+        <input type="text" ng-model="user.basicDetails.lastName" class="form-control validate[required,maxSize[128]] large" placeholder="" readonly />
+    </div>
     <div class = "fieldContainer relative left">
-        <label class="control-label">Job Category</label>
+        <label class="control-label">Job Category (Job/Business)</label>
         <select class="form-control validate[maxSize[36]] large" ng-model="user.basicDetails.jobCategory" ng-options="value.type as value.title for value in userJobCategories"></select>
     </div>
-    <div class = "fieldContainer relative left">
-        <label class="control-label">Username</label>
-        <input type="text" ng-model="user.basicDetails.username" class="form-control validate[required,maxSize[128]] large" placeholder="Username"/>
-    </div>
-    <div class = "fieldContainer relative left">
-        <label class="control-label">Password</label>
-        <input type="text" ng-model="user.basicDetails.password" class="form-control validate[required,maxSize[128]] large" placeholder="Password"/>
-    </div>  
+    
+
     <div class = "fieldContainer relative left">
         <label class="control-label">Email</label>
         <input type="text" ng-model="user.basicDetails.email" class="form-control validate[required,maxSize[128]] large" placeholder="Contact Email"/>

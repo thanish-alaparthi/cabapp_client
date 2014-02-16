@@ -61,9 +61,7 @@
 
 
     </div>
-    <div  ng-show = "showTariffDetails">
-    		Tariff Details
-    </div>
+    <div  ng-show = "showTariffDetails" data-ng-include="mainTariffDetails"></div>
 
     <div ng-class= "vehicleAvailContainer" ng-show = "showVehicleAvailability">
     		Vehicle Availability
