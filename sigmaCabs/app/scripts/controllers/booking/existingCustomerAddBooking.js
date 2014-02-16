@@ -37,6 +37,7 @@ angular.module('sigmaCabsApp')
 					console.warn("fnGetLatestCustomerBookings 500", data);
 				} else {
 					scope.bookingHistoryDetails = PrerequisiteService.fnFormatBookingHistoryData(data.result);
+            		$(window).resize();
 				}
 			})
 			.error(function(data, status, headers, config){

@@ -113,6 +113,8 @@ angular.module('sigmaCabsApp')
         // fn which loads booking view
         scope.fnLoadBookingView = function() {
             scope.existingCustomerAddBooking = URLService.view('existingCustomerAddBooking');
+
+            $(window).resize();
         };
 
         //fn which clears searchedCustomer details
@@ -303,8 +305,8 @@ angular.module('sigmaCabsApp')
 
             // show rush or normal hours in statistcs
             var oDt = new Date();
-            if((oDt.getHours() >= 6 && oDt.getHours <= 11)
-                || (oDt.getHours() >= 16 && oDt.getHours <= 22)
+            if((oDt.getHours() >= 6 && oDt.getHours() <= 11)
+                || (oDt.getHours() >= 16 && oDt.getHours() <= 22)
             ){
                 scope.sHourType = "Rush Hours";
             } else {
