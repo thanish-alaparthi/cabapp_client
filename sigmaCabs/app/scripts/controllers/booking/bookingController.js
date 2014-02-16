@@ -301,21 +301,23 @@ angular.module('sigmaCabsApp')
             scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
 
 
+            // show rush or normal hours in statistcs
+            var oDt = new Date();
+            if((oDt.getHours() >= 6 && oDt.getHours <= 11)
+                || (oDt.getHours() >= 16 && oDt.getHours <= 22)
+            ){
+                scope.sHourType = "Rush Hours";
+            } else {
+                scope.sHourType = "Normal Hours";
+            }
+            
             // since mobile is passed, hit server to get CustomerDetails Based on the server
             if (scope.callerPhone) { // mobile passed
 
                 // get the 
                 scope.fnGetApiOverallStatistics();
 
-                // show rush or normal hours in statistcs
-                var oDt = new Date();
-                if((oDt.getHours() >= 6 && oDt.getHours <= 11)
-                    || (oDt.getHours() >= 16 && oDt.getHours <= 22)
-                ){
-                    scope.sHourType = "Rush Hours";
-                } else {
-                    scope.sHourType = "Normal Hours";
-                }
+                
 
                 // make a call to server to get the user details...
                 BookingService.fnFindCustomerByMobile({

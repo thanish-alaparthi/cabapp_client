@@ -1,6 +1,21 @@
-<fieldset class="" style="width:360px;margin-left: 7px;" ng-controller = "bookingStatisticsController">
+<fieldset class="" style="width:382px;margin-left: 6px;" ng-controller = "bookingStatisticsController">
     <legend class="searchbox-border">Statistics</legend>
-    <div style="height:192px;" id="customerBookingGridID" class = "bookingHistoryGrid">
+    <div style="height:160px;" id="customerBookingGridID" class = "bookingHistoryGrid">
     	<div class="gridStyle" ng-grid="gridStatisticsData" style="height:100%;margin:0px;background-color:transparent;"></div>
+    </div>
+    <div class="mainButtonContainer" style="margin-top:4px;text-align:center;">    	
+	    <div style="display:inline-block;float:left;border: 1px solid #999; border-radius: 5px; padding: 0px 5px; font-weight: bold;">{{ sHourType }}</div>
+    	<div class="fieldContainer  relative right">
+	        <div class="btn-group">
+                <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown">
+                Select Hours<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:void(0);" data-ng-click="fnChangeVehiclePhone()">1 Hour</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="fnVehicleChangeLocation()">2 Hours</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="fnChangeVehicleStatus()">3 Hours</a></li>
+                </ul>
+            </div>
+	    </div>
     </div>
 </fieldset>
