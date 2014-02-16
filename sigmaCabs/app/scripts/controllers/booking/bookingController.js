@@ -67,7 +67,12 @@ angular.module('sigmaCabsApp')
             };
             scope.tmpDetails.tmpVehicleType = '1';
             scope.tmpDetails.tmpVehicleName = '';
+
             scope.tmpDetails.tmpJourneyType = '1';
+            scope.bookingDetails.subJourneyType = '5'; 
+
+            // also clear selected Tariff Grid
+            $rootScope.$emit('eventTariffGridDataChanged', null);
         };
 
         scope.showBookingDetailsTab = function(){
@@ -388,10 +393,11 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName;
 
             var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(oData.bookingDetails.subJourneyType);
+
             scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
 
             scope.bookingDetails = oData.bookingDetails;
-            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format
+            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format;
             scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
 

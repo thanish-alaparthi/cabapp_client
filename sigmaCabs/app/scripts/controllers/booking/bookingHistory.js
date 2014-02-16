@@ -64,8 +64,8 @@ angular.module('sigmaCabsApp')
 				displayName: 'Vehicle',
 				width: 80
 			}, {
-				field: 'package',
-				displayName: 'Package',
+				field: 'subJourneyTypeName',
+				displayName: 'Sub-Journey Type',
 				width: 80
 			}, {
 				field: 'bookingStatusName',
@@ -83,9 +83,7 @@ angular.module('sigmaCabsApp')
 			enablePaging: false,
 			showFooter: false,
 			multiSelect: false,
-			totalServerItems: 'totalServerItems',
-			afterSelectionChange: function(oRow) {
-				// console.log(oRow.selectionProvider.selectedItems[0]);
-			}
+	      	enableCellSelection : false,
+	      	enableRowSelection: false
 		};
 	});

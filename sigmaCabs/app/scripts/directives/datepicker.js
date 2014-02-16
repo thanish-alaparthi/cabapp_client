@@ -99,7 +99,7 @@ angular.module('sigmaCabsApp')
         scope.$watch(function () {
             return ngModel.$modelValue;
          }, function(newValue) {
-             console.log('watching date....', ngModel.$modelValue);
+             console.log('watching date....', ngModel.$modelValue, newValue);
             element.dpSetSelected(ngModel.$modelValue);
          });
 

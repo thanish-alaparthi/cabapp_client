@@ -121,6 +121,7 @@ angular.module('sigmaCabsApp')
 				scope.bShowSaveAsNewBookingBtn = false;
 				scope.bShowDispositionBtn = true;			
 				scope.bShowCustFeedbackBtn = true;
+				scope.bShowReconfirmBookingBtn = false;
 			}else if(scope.bookingDetails.id
 					&& (scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_REJECTED)
 			){	
@@ -136,6 +137,7 @@ angular.module('sigmaCabsApp')
 			){	
 				scope.bShowCancelBookingBtn = true;
 				scope.bShowSaveBookingBtn = true;
+				scope.bShowReconfirmBookingBtn = false;
 				scope.bShowSaveAsNewBookingBtn = true;
 				scope.bShowDispositionBtn = true;			
 				scope.bShowCustFeedbackBtn = true;
@@ -144,6 +146,7 @@ angular.module('sigmaCabsApp')
 			){	
 				scope.bShowCancelBookingBtn = false;
 				scope.bShowSaveBookingBtn = true;
+				scope.bShowReconfirmBookingBtn = false;
 				scope.bShowSaveAsNewBookingBtn = true;
 				scope.bShowDispositionBtn = true;			
 				scope.bShowCustFeedbackBtn = true;
@@ -153,6 +156,7 @@ angular.module('sigmaCabsApp')
 			){	
 				scope.bShowCancelBookingBtn = false;
 				scope.bShowSaveBookingBtn = false;
+				scope.bShowReconfirmBookingBtn = false;
 				scope.bShowSaveAsNewBookingBtn = true;
 				scope.bShowDispositionBtn = true;			
 				scope.bShowCustFeedbackBtn = true;

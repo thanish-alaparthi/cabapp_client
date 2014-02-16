@@ -95,7 +95,7 @@ angular.module('sigmaCabsApp')
                     url: URLService.service('RestApiDefaultEmpty'),
                     method: 'POST',
                     data : {
-                        url: 'vehicle/getAvailableStatistics',
+                        url: 'vehicle/getAvailability',
                         data: JSON.stringify(oDataParams)   
                     },
                     headers: {
