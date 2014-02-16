@@ -70,11 +70,9 @@ angular.module('sigmaCabsApp')
             scope.vehicleConditionTypes = PrerequisiteService.fnGetVehicleConditionTypes();
             scope.vehicleStatusTypes = PrerequisiteService.fnGetStatusTypes();
 
-             // show rush or normal hours in statistcs
+            // show rush or normal hours in statistcs
             var oDt = new Date();
-            if((oDt.getHours() >= 6 && oDt.getHours() <= 11)
-                || (oDt.getHours() >= 16 && oDt.getHours() <= 22)
-            ){
+            if ((oDt.getHours() >= 6 && oDt.getHours() <= 11) || (oDt.getHours() >= 16 && oDt.getHours() <= 22)) {
                 scope.sHourType = "Rush Hours";
             } else {
                 scope.sHourType = "Normal Hours";

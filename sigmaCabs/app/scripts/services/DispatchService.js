@@ -276,7 +276,7 @@ angular.module('sigmaCabsApp')
                     method: 'POST',
                     url: URLService.service('RestApiDefaultEmpty'),
                     data: {
-                        url: "booking/complaint", // should change to suggestion API
+                        url: "booking/saveTariffChangeInfo",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {
