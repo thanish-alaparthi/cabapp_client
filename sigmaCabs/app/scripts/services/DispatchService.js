@@ -14,7 +14,7 @@ angular.module('sigmaCabsApp')
         return {
             fnFindVehicleByMobile: function(oDataParams) {
                 return $http({
-                    url: URLService.service('RestApiSearchByVehicleMobile'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     method: 'POST',
                     data: {
                         url: "vehicle/search",
@@ -92,7 +92,7 @@ angular.module('sigmaCabsApp')
             fnVehicleLogin: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleLogin'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/login",
                         data: JSON.stringify(oDataParams)
@@ -106,7 +106,7 @@ angular.module('sigmaCabsApp')
             fnChangeVehicleStatus: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleChangeStatus'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/statechange",
                         data: JSON.stringify(oDataParams)
@@ -120,7 +120,7 @@ angular.module('sigmaCabsApp')
             fnChangeVehiclePhone: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleChangePhone'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/mobilechange",
                         data: JSON.stringify(oDataParams)
@@ -134,7 +134,7 @@ angular.module('sigmaCabsApp')
             fnVehicleChangeLocation: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleChangeLocation'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/locationchange",
                         data: JSON.stringify(oDataParams)
@@ -148,7 +148,7 @@ angular.module('sigmaCabsApp')
             fnVehicleBreakStart: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBreakStart'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/breakstart",
                         data: JSON.stringify(oDataParams)
@@ -162,7 +162,7 @@ angular.module('sigmaCabsApp')
             fnVehicleBreakStop: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBreakStop'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/breakend",
                         data: JSON.stringify(oDataParams)
@@ -176,7 +176,7 @@ angular.module('sigmaCabsApp')
             fnVehicleLogout: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleLogout'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/logout",
                         data: JSON.stringify(oDataParams)
@@ -190,7 +190,7 @@ angular.module('sigmaCabsApp')
             fnVehicleConfirm: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleConfirm'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/dispatch",
                         data: JSON.stringify(oDataParams)
@@ -204,7 +204,7 @@ angular.module('sigmaCabsApp')
             fnVehicleBookingStart: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBookingStart'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/start",
                         data: JSON.stringify(oDataParams)
@@ -218,7 +218,7 @@ angular.module('sigmaCabsApp')
             fnVehicleBookingClose: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBookingClose'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/close",
                         data: JSON.stringify(oDataParams)
@@ -232,7 +232,7 @@ angular.module('sigmaCabsApp')
             fnVehicleComplaint: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBookingComplaint'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/complaint",
                         data: JSON.stringify(oDataParams)
@@ -246,7 +246,7 @@ angular.module('sigmaCabsApp')
             fnVehicleSuggestion: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBookingComplaint'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/complaint", // should change to suggestion API
                         data: JSON.stringify(oDataParams)
@@ -260,9 +260,9 @@ angular.module('sigmaCabsApp')
             fnVehicleBreakDown: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBreakDown'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
-                        url: "booking/complaint", // should change to suggestion API
+                        url: "vehicle/saveBreakDownInfo",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {
@@ -274,7 +274,7 @@ angular.module('sigmaCabsApp')
             fnVehicleChangeTariff: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBreakDown'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/complaint", // should change to suggestion API
                         data: JSON.stringify(oDataParams)
@@ -288,9 +288,9 @@ angular.module('sigmaCabsApp')
             fnChangeVehicle: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBreakDown'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
-                        url: "booking/complaint", // should change to suggestion API
+                        url: "booking/saveVehicleChangeInfo",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {
@@ -302,7 +302,7 @@ angular.module('sigmaCabsApp')
             fnVehicleBookingCancel: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiCancelBooking'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/cancel", // should change to suggestion API
                         data: JSON.stringify(oDataParams)
@@ -316,9 +316,23 @@ angular.module('sigmaCabsApp')
             fnUpdateVehPickupLocation: function(oDataParams) {
                 return $http({
                     method: 'POST',
-                    url: URLService.service('RestApiVehicleBreakDown'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     data: {
-                        url: "booking/complaint", // should change to suggestion API
+                        url: "booking/savePickupChangeInfo",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnLoadCurrentDayData: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiDefaultEmpty'),
+                    data: {
+                        url: "vehicle/getAssociatedBookings",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {

@@ -92,7 +92,7 @@ angular.module('sigmaCabsApp')
             },
             fnGetAvailableVehicles: function(oDataParams) {
                 return $http({
-                    url: URLService.service('RestApiGetAvailableVehicles'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     method: 'POST',
                     data : {
                         url: 'vehicle/getAvailableStatistics',
@@ -105,7 +105,7 @@ angular.module('sigmaCabsApp')
             },
             fnGetOverAllStatistics: function(oDataParams) {
                 return $http({
-                    url: URLService.service('RestApiGetAvailableVehicles'),
+                    url: URLService.service('RestApiDefaultEmpty'),
                     method: 'POST',
                     data : {
                         url: 'vehicle/getOverallStatistics',

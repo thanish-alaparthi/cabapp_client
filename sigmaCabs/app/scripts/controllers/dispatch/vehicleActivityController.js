@@ -62,6 +62,7 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnVehicleConfirm = function() {
+			console.log(scope.vehicleMainDetials);
 			scope.vehicleLoginObj = {
 				"vehicleId": "3",
 				"driverId": "13",

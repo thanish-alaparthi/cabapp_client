@@ -14,7 +14,7 @@ angular.module('sigmaCabsApp')
 		return {
 			fnUpdateCustomerDetails: function(oDataParams) {
 				return $http({
-					url: URLService.service('RestApiSaveCustomerDetails'),
+					url: URLService.service('RestApiDefaultEmpty'),
 					method: 'POST',
 					data: {
 						  url : "customer/save"
@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnBlockCustomer: function(oDataParams) {
 				return $http({
-					url: URLService.service('RestApiBlockCustomer'),
+					url: URLService.service('RestApiDefaultEmpty'),
 					method: 'POST',
 					data: {
 						  url : "blockcaller/save"
@@ -40,7 +40,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnSaveRegularRequest: function(oDataParams) {
 				return $http({
-					url: URLService.service('RestApiRegularRequest'),
+					url: URLService.service('RestApiDefaultEmpty'),
 					method: 'POST',
 					data: {
 						  url : "booking/saveRegularEnquiryInfo"
@@ -53,7 +53,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnSaveCorporateRequest: function(oDataParams) {
 				return $http({
-					url: URLService.service('RestApiSaveCorporateRequest'),
+					url: URLService.service('RestApiDefaultEmpty'),
 					method: 'POST',
 					data: {
 						  url : "booking/saveCorporateEnquiryInfo"
@@ -66,7 +66,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnSaveSpecialRequest: function(oDataParams) {
 				return $http({
-					url: URLService.service('RestApiSaveSpecialRequest'),
+					url: URLService.service('RestApiDefaultEmpty'),
 					method: 'POST',
 					data: {
 						  url : "booking/saveSpecialEnquiryInfo"

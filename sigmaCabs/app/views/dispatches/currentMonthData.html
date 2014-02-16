@@ -1,29 +1,32 @@
 <fieldset class="left" style="width:52.6%;margin-right: 7px;height: 220px;">
-    <legend class="searchbox-border">Current Date Bookings</legend>
-    <div style="height:180px;margin-right: 20px;width:68%;" id="customerBookingGridID" class="bookingHistoryGrid left">
-    	<div style="margin-bottom:5px;">
-    		<span><strong>LT:&nbsp;</strong></span>
-    		<span class="margin-right10"><strong>10:30:25</strong></span>
+    <legend class="searchbox-border">Current Day Bookings</legend>
+    <div style="margin-bottom:5px;">
+        <span title="Login Time"><strong>LT:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>10:30</strong></span>
 
-    		<span><strong>PL:&nbsp;</strong></span>
-    		<span class="margin-right10"><strong>ABC</strong></span>
+        <span title="Previous Location"><strong>PL:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>ABC</strong></span>
 
-    		<span><strong>CL:&nbsp;</strong></span>
-    		<span class="margin-right10"><strong>XYZ</strong></span>
-    		
-    		<span><strong>Status:&nbsp;</strong></span>
-    		<span class="margin-right10"><strong>Driving</strong></span>
-    	</div>
+        <span title="Current Location"><strong>CL:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>XYZ</strong></span>
+        
+        <span><strong>Status:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>Driving</strong></span>
+
+        <span title="Total Booking"><strong>TB:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>4</strong></span>
+
+        <span title="Rejected Booking"><strong>RB:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>1</strong></span>
+
+        <span title="Cancelled Booking"><strong>CB:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>1</strong></span>
+    </div>
+    <div style="height:180px;margin-right: 20px;width:72%;" id="customerBookingGridID" class="bookingHistoryGrid left">
+    	
     	<div class="gridStyle" ng-grid="gridCurrentMonthData" style="min-height:160px;"></div>
     </div>
-    <div style="width:28%;margin-top: 20px;" class="left">
-    	<div class="fieldContainer relative clearBoth">
-    		<span title="Total Booking"><strong>TB:&nbsp;</strong></span>
-    		<span class="margin-right10"><strong>4</strong></span>
-
-    		<span title="Rejected Booking"><strong>RB:&nbsp;</strong></span>
-    		<span class="margin-right10"><strong>1</strong></span>
-    	</div>
+    <div style="width:24%;margin-top: 20px;" class="left">
     	<div class="fieldContainer relative clearBoth">
             <label class="labelCompact">Day Collection</label>
             <span>1500 rs</span>

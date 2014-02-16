@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnSaveBooking : function(oDataParams){
 				return $http({
-					url: URLService.service('RestApiSaveBooking'), 
+					url: URLService.service('RestApiDefaultEmpty'), 
 					method: 'POST',
 					data: {
 						  url : "booking/save"
@@ -53,7 +53,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnCancelBooking : function(oDataParams){
 				return $http({
-					url: URLService.service('RestApiCancelBooking'), 
+					url: URLService.service('RestApiDefaultEmpty'), 
 					method: 'POST',
 					data: {
 						  url : "booking/cancel"
@@ -66,7 +66,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnGetLatestCustomerBookings : function(oDataParams){
 				return $http({
-					url: URLService.service('RestApiGetLatestBookings'), 
+					url: URLService.service('RestApiDefaultEmpty'), 
 					method: 'POST',
 					data: {
 						  url : "customer/getLatestBookings"
@@ -79,7 +79,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnSaveDisposition : function(oDataParams){
 				return $http({
-					url: URLService.service('RestApiSaveBooking'), 
+					url: URLService.service('RestApiDefaultEmpty'), 
 					method: 'POST',
 					data: {
 						  url : "booking/save"
@@ -92,7 +92,7 @@ angular.module('sigmaCabsApp')
 			},
 			fnGetTariffById : function(oDataParams){
 				return $http({
-					url: URLService.service('RestGetTariffById'), 
+					url: URLService.service('RestApiDefaultEmpty'), 
 					method: 'POST',
 					data: {
 						  url : "tariff/getTariffInfo"

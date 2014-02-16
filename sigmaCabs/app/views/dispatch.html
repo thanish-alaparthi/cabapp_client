@@ -70,14 +70,19 @@
 	            <!-- <input type="text" ng-model="customer.customerDetails.callTime" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
 	        </div>
 	        <div class="fieldContainer left marginRightLeft5 bookingInput">
-	            <label class="labelCompact">Customer ID</label>
-	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
+	            <label class="labelCompact">Vehicle Code</label>
+	            <span class = "bokingLabel">{{vCode}}</span>
 	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
 	        </div>
 
 	        <div class="fieldContainer left marginRightLeft5 bookingInput">
-	            <label class="labelCompact">Booking Type</label>
-	            <span class = "bokingLabel" data-ng-bind="bookingType"></span>
+	            <label class="labelCompact" title="Vehicle Type & Name">Type & Name</label>
+	            <span class = "bokingLabel">{{vType}} - {{vName}}</span>
+	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
+	        </div>
+	        <div class="fieldContainer left marginRightLeft5 bookingInput">
+	            <label class="labelCompact" title="Vehicle Start Kms.">Start Kms.</label>
+	            <span class = "bokingLabel">{{vStartKms}}</span>
 	            <!-- <input type="text" ng-model="customer.customerDetails.customerID" class="left validate[required,maxSize[128]] textFieldCompact"  /> -->
 	        </div>
 	        <div class="callTransfer left marginRightLeft5">
@@ -91,10 +96,10 @@
 			        <button class="btnCompact btn-success">Go</button>			    
 	        </div>
 
-	        <div class="fieldContainer right marginRightLeft5">
+	        <!-- <div class="fieldContainer right marginRightLeft5">
 	            <label class="labelCompact bokingSelect">Booking Number</label>
 	            <span class = "bokingLabel" data-ng-bind="customerID"></span>
-	        </div>
+	        </div> -->
 		</div>
 		<div class="soft-msg" data-ng-include="viewLoader"></div>
 	    <div class="dashboard-search">

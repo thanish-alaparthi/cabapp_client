@@ -26,7 +26,6 @@ angular.module('sigmaCabsApp')
 		scope.fnSaveAndClose = function() {
 			var driverId = scope.vehicleDetails.vehicleMainDetials.selectedDriver || '',
 				oData = {
-					"id": "", // need to check with lala about id
 					"requester": scope.breakDown.categoryId,
 					"vehicleId": scope.vehicleDetails.vehicleMainDetials.id || '',
 					"driverId": driverId,

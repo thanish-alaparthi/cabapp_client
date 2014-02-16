@@ -21,17 +21,22 @@ angular.module('sigmaCabsApp')
         }
         scope.fnSaveAndClose = function() {
             var oData = {
-                "id": "", // need to check with lala about id
-                "requester": "1",
                 "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
                 "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-                "bookingId": "13",
-                "reasonId": "2",
-                "priority": "1",
-                "comments": "this is test"
+                "bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+                "currentLocation": "Ameerpet",
+                "newLocation": scope.changePickup.newLocation,
+                "latitude": "1745.852",
+                "longitude": "145821.369",
+                "comments": scope.changePickup.comments
             };
 
-            DispatchService.fnVehicleBookingComplaint(oData)
+            if(oData.newLocation === '') {
+                alert('Please enter new location');
+                return;
+            }
+
+            DispatchService.fnUpdateVehPickupLocation(oData)
                 .success(function(data, status, headers, config) {
                     console.log('Success: ', data);
                     scope.close();
