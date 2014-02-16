@@ -24,70 +24,20 @@ angular.module('sigmaCabsApp')
         };
 
         scope.aData = [];
-		// scope.aData = [{
-		// 	vehicleType: 'small',
-		// 	vehicleName: 'small',
-		// 	duration: 'small',
-		// 	amount: 'small',
-		// 	extraKm: 'small',
-		// 	graceTime: 'small',
-		// 	extraHour: 'small',
-		// 	extraCharges: 'small',
-		// 	comments: 'small'
-		// }, {
-		// 	vehicleType: 'small',
-		// 	vehicleName: 'small',
-		// 	duration: 'small',
-		// 	amount: 'small',
-		// 	extraKm: 'small',
-		// 	graceTime: 'small',
-		// 	extraHour: 'small',
-		// 	extraCharges: 'small',
-		// 	comments: 'small'
-		// }, {
-		// 	vehicleType: 'small',
-		// 	vehicleName: 'small',
-		// 	duration: 'small',
-		// 	amount: 'small',
-		// 	extraKm: 'small',
-		// 	graceTime: 'small',
-		// 	extraHour: 'small',
-		// 	extraCharges: 'small',
-		// 	comments: 'small'
-		// }, {
-		// 	vehicleType: 'small',
-		// 	vehicleName: 'small',
-		// 	duration: 'small',
-		// 	amount: 'small',
-		// 	extraKm: 'small',
-		// 	graceTime: 'small',
-		// 	extraHour: 'small',
-		// 	extraCharges: 'small',
-		// 	comments: 'small'
-		// }, {
-		// 	vehicleType: 'small',
-		// 	vehicleName: 'small',
-		// 	duration: 'small',
-		// 	amount: 'small',
-		// 	extraKm: 'small',
-		// 	graceTime: 'small',
-		// 	extraHour: 'small',
-		// 	extraCharges: 'small',
-		// 	comments: 'small'
-		// }];
 	  
 	    scope.colDefs = [
-	       	{field:'vehicleType', displayName:'Type', width: '80'},
-	        {field:'vehicleName', displayName:'Name', width: '100'},
-	        {field:'duration', displayName:'Duration', width: '*'},
-	        {field:'distance', displayName:'Distance', width: '*'},
+	       	{field:'vehicleType', displayName:'V.Type', width: '80'},
+	        {field:'vehicleName', displayName:'V.Name', width: '100'},
+	        {field:'duration', displayName:'Package', width: '*'},
+	        {field:'distance', displayName:'Min. KMs.', width: '*'},
 	        {field:'amount', displayName:'Amount', width: '*'},
 	        {field:'extraKm', displayName:'Extra K.M.', width: '*'},
-	        {field:'graceTime', displayName:'Grace Time', width: '*'},
-	        {field:'extraHour', displayName:'Extra Hour', width: '*'},
+	        {field:'graceTime', displayName:'Grace Tm.', width: '*'},
 	        {field:'extraCharges', displayName:'Extra Charges', width: '*'},
-	        {field:'comments', displayName:'Comments', width: '500'},
-	        {field:'id', displayName:'Id',display:false, width: '*'}
+	        {field:'extraHour', displayName:'Extra Hours', width: '*'},
+	        {field:'driverBatha', displayName:'Driver Batha', width: '*'},
+	        {field:'comments', displayName:'Comments', width: '380'},
+	        {field:'id', displayName:'Id',visible:false, width: '*'}
 	    ];
 
 	    scope.gridBookingTariffOptions = { 
@@ -96,7 +46,7 @@ angular.module('sigmaCabsApp')
 	      columnDefs: 'colDefs',
 	    };
 
-	    $rootScope.$on('eventTariffGridDataChanged', function(oEvent, oData){
+	    var oEventTarfDataChngd = $rootScope.$on('eventTariffGridDataChanged', function(oEvent, oData){
 	    	console.log('>>>>>scope.tariffGridData changed', arguments);
 	    	// scope.tariffGridData = oData;	
 	    	if(oData){
@@ -104,5 +54,13 @@ angular.module('sigmaCabsApp')
 	    	} else {
 	    		scope.aData = [];
 	    	}
+
+	    	$(window).resize();
 	    });
+
+
+	    scope.$on('$destroy', function () {
+            console.log('destroying bookingTariffGrid');
+            oEventTarfDataChngd();
+        });
 	});

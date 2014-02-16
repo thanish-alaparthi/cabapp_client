@@ -57,7 +57,7 @@
                             <span class = "" data-ng-bind="roData.pickupTime"></span>
                         </div>
                         <p class="clear"/>
-                    <div>
+                    </div>
 
                     <div class="tariffFieldContainer margin-top10">
                         <div class="left-column">
@@ -105,14 +105,17 @@
                             <div class ="left" data-ng-bind="roData.customerCategory"></div>
                         </div> 
                         <p class="clear" />
-                        <div>
-                            <label class="labelCompact">Comments</label>
-                            <div class ="left" data-ng-bind="roData.comments"></div>
-                        </div>
-                        <p class="clear" />
                     </div>
 
-                </fieldset>    
+                </fieldset>  
+
+                
+            </div>
+            <div class="left tariffDetailsContainer">
+            <fieldset class="left" style="width: 372px;"> 
+                    <legend>Comments</legend>                
+                    <div class ="left" data-ng-bind="roData.comments"></div>
+            </fieldset>
             </div>
          </div>
         </div>

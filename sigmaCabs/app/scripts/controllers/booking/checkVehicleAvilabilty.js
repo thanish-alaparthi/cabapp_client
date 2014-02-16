@@ -20,6 +20,11 @@ angular.module('sigmaCabsApp')
 		})
 		.success(function(data, status,fnHeaders, oXhr, config){
 			console.log('success fnGetAvailableVehicles: ', data);
+			if(data.status == 200){
+				scope.bReservation = data.result[0].reserve;
+			} else {
+				alert('There was some error in getting vehicle availablility.');
+			}
 			// scope.bReservation = true;
 		})
 		.error(function(data, status,fnHeaders, oXhr, config){

@@ -18,6 +18,11 @@ angular.module('sigmaCabsApp')
         var sCellTemplateHtml = '<div class="ngCellText" style="{{ (row.entity[\'type\'] == \'Color Code\' ? \'background-color:\' + row.getProperty(col.field) : \'\') }}{{ (row.entity[\'type\'] == \'Total\' ? \'font-weight: bold;\' : \'\') }}" ng-class="col.colIndex()">{{row.entity[\'type\'] == \'Color Code\' && col.field !=\'type\' ? \'\' :row.getProperty(col.field)}}</div>';
 
 
+        scope.fnShowStatistics = function(iHour){
+        	scope.selStatisticHour = iHour + ' Hour '
+        };
+
+
 		// build column heads
 		$scope.availableVehicleGridColumnHeads = [
 	        {field:'type', displayName:'Type', width: '80', cellTemplate: sCellTemplateHtml}

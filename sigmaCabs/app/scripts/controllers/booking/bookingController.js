@@ -209,7 +209,7 @@ angular.module('sigmaCabsApp')
             // check if enquiry is sent.
             if(data.result[0].hasOwnProperty('bookingHistory')){
                 // make the historyDetails in readable form instead of ids
-                scope.bookingHistoryDetails = PrerequisiteService.fnFormatBookingHistoryData(data.result[0].bookingHistory);
+                scope.bookingHistoryDetails = PrerequisiteService.fnFormatBookingHistoryData(data.result[0].bookingHistory, scope.waCustomerDetails);
             }
         };
 
@@ -373,7 +373,7 @@ angular.module('sigmaCabsApp')
 
         // Main Controller Init Point
         // // waits until configuration/prerequisits data loads always
-        $rootScope.$on('eventPrerequisitsLoaded', function(){
+        var oRootEventPrereqLoaded = $rootScope.$on('eventPrerequisitsLoaded', function(){
             scope.fnInit();
         });
 
@@ -383,11 +383,11 @@ angular.module('sigmaCabsApp')
             // scope.bookingDetails.$render();
         });
 
-        $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {                        
+        var oEventSelBokgFrmHist  = $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {                        
             // clear booking form
             scope.fnClearBookingForm(); 
 
-            console.log('eventSelectedBookingFromHistory: ', oData);
+            console.log('<<||>> eventSelectedBookingFromHistory: ', oData);
 
             scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType;
             scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName;
@@ -397,7 +397,7 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
 
             scope.bookingDetails = oData.bookingDetails;
-            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate);    // setDate in DD/MM/YYYY format;
+            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate, true);    // setDate in DD/MM/YYYY format;
             scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
             scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
 
@@ -407,7 +407,7 @@ angular.module('sigmaCabsApp')
                 amount: oT.price,
                 comments: oT.comments,
                 distance: oT.distance,
-                duration: oT.duration,
+                duration: (oT.duration / 60),
                 extraCharges: '',
                 extraHour: oT.extraHrPrice,
                 extraKm: oT.extraKmPrice,
@@ -417,9 +417,20 @@ angular.module('sigmaCabsApp')
                 vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
             });
 
-            scope.headBookingType = scope.bookingDetails.bookingStatusName;
+            //  scope.headBookingType = scope.bookingDetails.bookingStatusName;
             scope.headBookingCode = scope.bookingDetails.bookingCode;
             scope.safeApply();
 
         });
+
+        scope.$on('eventHeadBookingType',function(event, oData){
+            scope.headBookingType = oData.type
+        });
+
+        scope.$on('$destroy', function () {
+            console.log('NNNNNNNNNNNNNNNNNNNNNNNNNNNN');
+            oEventSelBokgFrmHist();
+            oRootEventPrereqLoaded();
+        });
+    
     });

@@ -47,9 +47,9 @@ angular.module('sigmaCabsApp')
         scope.roData.extraHourCharge = '';
         scope.roData.comments = '';
         
-        scope.roData.discount = '';        
-        scope.roData.customerGrade = '';
-        scope.roData.customerCategory = '';
+        scope.roData.discount = oCustomer.discount || 0;        
+        scope.roData.customerGrade = PrerequisiteService.fnGetGradeById(oCustomer.grade)['grade'];;
+        scope.roData.customerCategory = PrerequisiteService.fnGetCustomerCategoryById(oCustomer.category)['categoryName'];
 
         scope.close = function() {
 			dialog.close();
@@ -77,14 +77,14 @@ angular.module('sigmaCabsApp')
 			angular.copy(tariffObj, scope.selctedTariffType);
 
 			//set the readonly Fields
-			scope.roData.duration = tariffObj.duration;
-	        scope.roData.km = tariffObj.kms;
-	        scope.roData.amount = tariffObj.price;
-	        scope.roData.extraKmCharge = tariffObj.extraKmPrice;
-	        scope.roData.graceTime = tariffObj.graceTime;
-	        scope.roData.extraCharges = tariffObj.extraCharge;
-	        scope.roData.extraHourCharge = tariffObj.extraHrPrice;
-	        scope.roData.comments = tariffObj.comments;
+			scope.roData.duration = tariffObj.duration / 60;
+	        scope.roData.km = tariffObj.kms || 0;
+	        scope.roData.amount = tariffObj.price || 0;
+	        scope.roData.extraKmCharge = tariffObj.extraKmPrice || 0;
+	        scope.roData.graceTime = tariffObj.graceTime || 0;
+	        scope.roData.extraCharges = tariffObj.extraCharge || 0;
+	        scope.roData.extraHourCharge = tariffObj.extraHrPrice || 0;
+	        scope.roData.comments = tariffObj.comments || '-';
 	    };
 	    
 	    $scope.updateCell = function(){
@@ -137,7 +137,7 @@ angular.module('sigmaCabsApp')
 	    	var oT = {
     			vehicleType : scope.selectedVehicleType.vehicleType,
     			vehicleName : scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : 'Any-Vehicle',
-    			duration : scope.selctedTariffType.duration,
+    			duration : (scope.selctedTariffType.duration / 60),
     			distance : scope.selctedTariffType.kms,
     			amount : scope.selctedTariffType.price,
     			extraKm : scope.selctedTariffType.extraKmPrice,

@@ -344,6 +344,41 @@ angular.module('sigmaCabsApp')
 			}
 		},true);
 
+		scope.fnSetBookingTypeInHeader = function(){
+			var oPkDt = new Date(PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate) + ' ' + scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00'),
+				oCurDt = new Date(),
+				sTmDif = (oPkDt.getTime() - oCurDt.getTime()),
+				sHrMil = (60 * 60 * 1000),
+				s30MinMil = (30 * 60 * 1000),
+				s3HrMil = (3 * sHrMil),
+				s6HrMil = (6 * sHrMil),
+				s24HrMil = (24 * sHrMil);
+
+				
+
+				var sHeadBookingType = "";
+
+				if(sTmDif <= s30MinMil){
+					sHeadBookingType = "Urgent";
+				} else if(sTmDif > s30MinMil && sTmDif <= sHrMil){					
+					sHeadBookingType = "Immediate";
+				} else if(sTmDif > sHrMil && sTmDif <= s3HrMil){					
+					sHeadBookingType = "Regular";
+				} else if(sTmDif > s3HrMil && sTmDif <= s6HrMil){					
+					sHeadBookingType = "Sufficient";
+				} else if(sTmDif > s6HrMil && sTmDif <= s24HrMil){					
+					sHeadBookingType = "Advance-Current";
+				} else if(sTmDif > s24HrMil){					
+					sHeadBookingType = "Advance";
+				}
+
+				console.clear()
+				console.log('TmDif',sTmDif/ (60 * 1000), sHeadBookingType);
+				scope.$emit('eventHeadBookingType',{
+					type : sHeadBookingType
+				});
+		};
+
 		scope.fnValidatePickupTime = function(){
 			console.log('Validate pickupTime');
 			if(  scope.bookingDetails.bookingStatus == ""
@@ -382,6 +417,8 @@ angular.module('sigmaCabsApp')
 					}
 				}
 			}
+
+			scope.fnSetBookingTypeInHeader();
 
 		}
 

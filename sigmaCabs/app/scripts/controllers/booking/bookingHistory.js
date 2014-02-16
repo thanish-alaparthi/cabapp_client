@@ -33,40 +33,42 @@ angular.module('sigmaCabsApp')
 				field: 'srno',
 				displayName: '#',
 				width : 30
-			},{
-				field: 'bookingDisplayDate',
-				displayName: 'Booking Date'
-			},{
-				field: 'pickupDisplayDate',
-				displayName: 'Trip Date'
 			}, {
 				field: 'bookingCode',
-				displayName: 'Booking#'
+				displayName: 'Booking#',
+				width: '65'
+			},{
+				field: 'bookingDisplayDate',
+				displayName: 'Booking Dt. & Tm.',
+				width: '110'
+			},{
+				field: 'pickupDisplayDateAndTime',
+				displayName: 'Pickup Dt. & Tm.',
+				width: '110'
 			}, {
 				field: 'primaryPassanger',
-				displayName: 'Passenger Name'
-			}, {
-				field: 'pickupDisplayTime',
-				displayName: 'Start Time',
-				width: 85
+				displayName: 'Passenger Name',
+				width: 110
 			}, {
 				field: 'pickupPlace',
-				displayName: 'Pickup'
+				displayName: 'Pickup',
+				width: '*'
 			}, {
 				field: 'dropPlace',
-				displayName: 'Drop'
-			}, {
-				field: 'vehicleDisplayType',
-				displayName: 'Type',
-				width: 80
-			}, {
-				field: 'vehicleDisplayName',
-				displayName: 'Vehicle',
-				width: 80
+				displayName: 'Drop',
+				width: '*'
 			}, {
 				field: 'subJourneyTypeName',
 				displayName: 'Sub-Journey Type',
-				width: 80
+				width: '125'
+			}, {
+				field: 'vehicleDisplayType',
+				displayName: 'V. Type',
+				width: 60
+			}, {
+				field: 'vehicleDisplayName',
+				displayName: 'V. Name',
+				width: 70
 			}, {
 				field: 'bookingStatusName',
 				displayName: 'Status',
@@ -77,7 +79,7 @@ angular.module('sigmaCabsApp')
 				visible: false
 			}, { 
 				displayName: 'Action',
-				width: 110,
+				width: 70,
 				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED) ? "Book Again" : "Edit/View" )}}</button></div>'
 			}],
 			enablePaging: false,

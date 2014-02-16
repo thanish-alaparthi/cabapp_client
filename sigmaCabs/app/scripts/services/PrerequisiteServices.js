@@ -616,7 +616,7 @@ angular.module('sigmaCabsApp')
                 return aRtn;
             },
 
-            fnFormatBookingHistoryData : function(aData){
+            fnFormatBookingHistoryData : function(aData, oCustomer){
                 var oThis = this,
                     oRtn = [],
                     iCount = aData.length;
@@ -625,8 +625,8 @@ angular.module('sigmaCabsApp')
                     oBh.srno = (i+1);
                     oBh.bookingStatusName = oThis.fnGetBookingStatusName(oBh.bookingStatus);
                     oBh.bookingDisplayDate = oThis.fnFormatDate(oBh.bookingDate) +' '+ oThis.fnFormatHours(oBh.bookingTime)+':'+ oThis.fnFormatMinutes(oBh.bookingTime);
-                    oBh.pickupDisplayDate = oThis.fnFormatDate(oBh.pickupDate);
-                    oBh.pickupDisplayTime = oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
+                    oBh.pickupDisplayDateAndTime = oThis.fnFormatDate(oBh.pickupDate) + ' ' + oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
+                    oBh.primaryPassanger = oCustomer ? oCustomer.name : '-'
                     oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
                     oBh.vehicleDisplayType = oThis.fnGetVehicleDisplayTypeById(oBh.vehicleType);
                     oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName) || 'Any-Vehicle';
