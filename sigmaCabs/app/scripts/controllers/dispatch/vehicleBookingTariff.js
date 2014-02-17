@@ -42,6 +42,7 @@ angular.module('sigmaCabsApp')
                             dropPlace: "Ameerpet, Hyderabad, Andhra Pradesh, India",
                             extraMobile: "",
                             id: "19",
+                            discount: 0,
                             landmark1: "asdfffccffd",
                             landmark2: "sadf",
                             pickupDate: "2014-02-16",
@@ -72,7 +73,22 @@ angular.module('sigmaCabsApp')
                         }
                     },
                     oCustomer: function() {
-                        return scope.waCustomerDetails
+                        return {
+                            "id": "6",
+                            "name": "Kumar",
+                            "mobile": "9666096662",
+                            "mobile2": "9703888888",
+                            "email": null,
+                            "bloodGroup": null,
+                            "dob": null,
+                            "occupation": null,
+                            "grade": "1",
+                            "customerCode": "459819",
+                            "category": "2",
+                            "tripCount": "0",
+                            "status": "1",
+                            "altMobile": "9703888888"
+                        };
                     }
                 }
             };
@@ -90,7 +106,7 @@ angular.module('sigmaCabsApp')
 
         scope.fnSaveAndClose = function() {
             var oData = {
-                "bookingId": "19",//scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+                "bookingId": "19", //scope.vehicleDetails.vehicleMainDetials.bookingId || '',
                 "optedTariffId": "2", // scope.vehicleDetails.vehicleMainDetials.details.tarriff
                 "changedTariffId": scope.vChangeTariff.newTariffId || '',
                 "changedBy": scope.vChangeTariff.categoryId || '',

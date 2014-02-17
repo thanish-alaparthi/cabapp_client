@@ -648,11 +648,15 @@ body {
 
 /*screen fit*/
 
-@media (min-width: 1200px) {
+/*@media (min-width: 1200px) {
   .container {
-    /*width: 1170px;*/
+    width: 1170px;
     width: 100%;
   }
+}*/
+.container {
+  width: 1280px !important;
+  overflow: auto;
 }
 
 .textFieldCompact {

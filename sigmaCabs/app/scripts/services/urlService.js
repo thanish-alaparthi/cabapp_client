@@ -173,6 +173,7 @@ angular.module('sigmaCabsApp')
                 'vehicleBreakDown': 'views/dispatches/vehicleBreakDown.html',
                 'vehicleBookingTariff': 'views/dispatches/vehicleBookingTariff.html',
                 'changeVehicle': 'views/dispatches/changeVehicle.html',
+                'vehicleBookingRejected': 'views/dispatches/vehicleBookingRejected.html',
                 'vehicleBookingCancel': 'views/dispatches/vehicleBookingCancel.html',
                 'changeVehPickupLocation': 'views/dispatches/changeVehPickupLocation.html',
                 'vehicleBookingComplaint': 'views/dispatches/vehicleBookingComplaint.html',

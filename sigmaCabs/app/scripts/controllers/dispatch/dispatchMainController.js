@@ -745,4 +745,104 @@ angular.module('sigmaCabsApp')
             };
             modalWindow.addDataToModal($scope.opts);
         };
+
+        scope.fnVehicleRejectBooking = function() {
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingRejected'),
+                controller: 'vehicleBookingRejected',
+                dialogClass: 'modalClass add-request',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetials: scope.vehicleMainDetials
+                        };
+                        return oData;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnOpenDisposition = function(){
+            /*if(!scope.waCustomerDetails.id) {
+                alert('Please save the customer details first.');
+                return;
+            }*/
+
+            $scope.opts = {
+                templateUrl: URLService.view('dispositionForm'),
+                controller: 'dispositionBooking',
+                dialogClass: 'modalClass disposition-booking-container',
+                resolve: {
+                    editMode: [
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oBooking : function(){
+                        // send readyToSave booking details
+                        return {
+                            bookingStatus: null,
+                            customerId: "2",
+                            dropPlace: "Ameerpet, Hyderabad, Andhra Pradesh, India",
+                            extraMobile: "",
+                            id: "19",
+                            discount: 0,
+                            landmark1: "asdfffccffd",
+                            landmark2: "sadf",
+                            pickupDate: "2014-02-16",
+                            pickupPlace: "Narayanaguda, Hyderabad",
+                            pickupTime: "02:40:00",
+                            primaryMobile: "",
+                            primaryPassanger: "",
+                            subJourneyType: "7",
+                            vehicleName: null,
+                            vehicleType: "2"
+
+
+                            /*id : "",    // always save booking as new in disposition.
+                            pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
+                            pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
+                            pickupPlace : scope.bookingDetails.pickupPlace, 
+                            dropPlace : scope.bookingDetails.dropPlace, 
+                            primaryPassanger : '',
+                            primaryMobile : '',
+                            extraMobile : '',
+                            landmark1 : scope.bookingDetails.landmark1, 
+                            landmark2 : scope.bookingDetails.landmark2, 
+                            vehicleName : scope.bookingDetails.vehicleName, 
+                            vehicleType : scope.bookingDetails.vehicleType, 
+                            subJourneyType : scope.bookingDetails.subJourneyType, 
+                            bookingStatus : null,   // reset the booking status in disposition.
+                            customerId : scope.waCustomerDetails.id*/
+                        }
+                    },
+                    oCustomer : function(){
+                        return {
+                            "id": "6",
+                            "name": "Kumar",
+                            "mobile": "9666096662",
+                            "mobile2": "9703888888",
+                            "email": null,
+                            "bloodGroup": null,
+                            "dob": null,
+                            "occupation": null,
+                            "grade": "1",
+                            "customerCode": "459819",
+                            "category": "2",
+                            "tripCount": "0",
+                            "status": "1",
+                            "altMobile": "9703888888"
+                        };
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
     });
