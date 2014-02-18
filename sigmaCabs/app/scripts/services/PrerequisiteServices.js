@@ -710,6 +710,42 @@ angular.module('sigmaCabsApp')
                 "type": "4"
             }],
 
+            fnFormatVehicleAvailabilityData : function(oData, sVehicleType) {
+                // returns proper vehicleData array to show in the grid.
+                // if send param is supplied than return an object {summary: [properData], color: <Number>}
+                var oVt = this.fnGetVehicleTypes(),
+                    iCount = oData.length,
+                    iVtCount = oVt.length,
+                    aR = [],
+                    aReturn = [],
+                    sColor = '';
+
+                for(var i=0;i<iCount;i++){
+                    aReturn[i] = {
+                        type : oData[i].state
+                    };
+                    for(var j=0;j<iVtCount;j++){
+                        if(oData[i].state == 'Color Code'){                            
+                            if(oData[i][oVt[j].id] < 0){
+                                aReturn[i]['vehicleType' + oVt[j].id] = PreConfigService.VEHICLE_NOT_AVAILABLE_COLOR;
+                            } else if(oData[i][oVt[j].id] == 0){
+                                aReturn[i]['vehicleType' + oVt[j].id] = PreConfigService.VEHICLE_PROBABLILY_AVAILABLE_COLOR;
+                            } else if(oData[i][oVt[j].id] > 0){
+                                aReturn[i]['vehicleType' + oVt[j].id] = PreConfigService.VEHICLE_AVAILABLE_COLOR;
+                            }
+                            if(sVehicleType && parseInt(oVt[j].id) == parseInt(sVehicleType)){
+                                sColor = aReturn[i]['vehicleType' + oVt[j].id];
+                            }
+                        } else {
+                            aReturn[i]['vehicleType' + oVt[j].id] = oData[i][oVt[j].id];
+                        }
+                    }
+                }
+                angular.copy(aReturn,aR);
+
+                return sVehicleType ? {'summary' : aR, 'color': sColor} : aR;
+            },
+
 
 
 

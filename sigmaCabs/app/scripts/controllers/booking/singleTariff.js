@@ -70,6 +70,7 @@ angular.module('sigmaCabsApp')
 				return;
 			}
 
+			// need to check for a better way of doing this.
 			$('.myTariffSelected').removeClass('myTariffSelected');
 			$('#' + cellId).addClass('myTariffSelected');
 			

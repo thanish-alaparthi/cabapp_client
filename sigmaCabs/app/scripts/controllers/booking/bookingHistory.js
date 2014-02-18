@@ -18,6 +18,7 @@ angular.module('sigmaCabsApp')
 			console.log('selectedBookingId: ',oRow.entity);
    			var oX = {};
    			angular.copy(oRow.entity, oX);
+   			oX.vehicleName = oX.vehicleName ? oX.vehicleName : "";
 			$rootScope.$emit('eventSelectedBookingFromHistory', {
 				bookingDetails : oX
 			});

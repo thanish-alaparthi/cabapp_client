@@ -25,7 +25,6 @@ angular.module('sigmaCabsApp')
 
 
 		scope.$on('eventVehicleCountMoreThanLimit', function(){
-			alert(1);
 		});
 
 

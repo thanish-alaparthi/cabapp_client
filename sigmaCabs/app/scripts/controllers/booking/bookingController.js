@@ -389,8 +389,8 @@ angular.module('sigmaCabsApp')
 
             console.log('<<||>> eventSelectedBookingFromHistory: ', oData);
 
-            scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType;
-            scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName;
+            scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType ? oData.bookingDetails.vehicleType : "1";
+            scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName ? oData.bookingDetails.vehicleName : "";
 
             var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(oData.bookingDetails.subJourneyType);
 

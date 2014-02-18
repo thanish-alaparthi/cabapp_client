@@ -19,7 +19,11 @@ angular.module('sigmaCabsApp')
             BOOKING_VEHICLE_ASSIGNED : 5,
             WHILE_DRIVING : 6,
             BOOKING_COMPLETED_N_CLOSED : 7,
-            BOOKING_CANCELLED : 8
+            BOOKING_CANCELLED : 8,
+
+            VEHICLE_AVAILABLE_COLOR : '#00FF00',
+            VEHICLE_PROBABLILY_AVAILABLE_COLOR : '#FFA500',
+            VEHICLE_NOT_AVAILABLE_COLOR : '#FF0000',
         };
 
     });

@@ -3,25 +3,83 @@
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('chkVehicleAvailabilityController', function(oBooking, oCustomer, $scope, PrerequisiteService, VehiclesService, BookingService,CustomerService, $rootScope, URLService, $dialog, dialog) {
+	.controller('chkVehicleAvailabilityController', function(oBooking, oCustomer, $scope, PrerequisiteService, PreConfigService, VehiclesService, BookingService,CustomerService, $rootScope, URLService, $dialog, dialog) {
 
 		var scope = $scope;
 		console.log('inside chkVehicleAvailabilityController', oBooking);
 
 		scope.bReservation = false;
+		scope.sState = "";
+
+		scope.selectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(oBooking.vehicleType);
+        scope.selectedVehicleName = PrerequisiteService.fnGetVehicleNameById(oBooking.vehicleName);
+        
+		scope.fnFormatVehiclesDataForReserve = function(oData){
+			var aRtn = [],
+				oVt = PrerequisiteService.fnGetVehicleTypes(),
+				iVtCount = oVt.length,
+				iMaxCount = 0;
+			// check which vehicleType has the highest length in info, so we hav to iterate only dat many times.
+			for(var i=0;i<iVtCount;i++){
+				var iC = oData[i].info.length;
+				if(iC > iMaxCount){
+					iMaxCount = iC;
+				}
+			}
+			console.log('Max',iMaxCount);
+			for(var i=0;i<iMaxCount;i++) {
+				var oRow = {};				
+				for(var j=0;j<iVtCount;j++){
+					if(oData[j].info[i]){
+						oRow['vehicleType'+ oData[j].type] = oData[j].info[i].vehicleCode;
+						oRow['vehicleObj'+ oData[j].type] = oData[j].info[i];
+					} else {
+						oRow['vehicleType'+ oData[j].type] = '-'
+					}
+				}
+				aRtn.push(oRow);
+			}
+			console.log('reserve Data', aRtn);
+			return aRtn;
+		};
+
 
 		// get the vehicleAvailablity
 		VehiclesService.fnGetAvailableVehicles({
 			requestTime : PrerequisiteService.formatToServerDate(oBooking.pickupDate) + ' ' + oBooking.pickupHours + ':' + oBooking.pickupMinutes + ':00',
 			vehicleType : oBooking.vehicleType,
 			vehicleName : oBooking.vehicleName,
-			subJourneyType : oBooking.subJourneyType,
-			
+			subJourneyType : oBooking.subJourneyType			
 		})
 		.success(function(data, status,fnHeaders, oXhr, config){
 			console.log('success fnGetAvailableVehicles: ', data);
 			if(data.status == 200){
-				scope.bReservation = data.result[0].reserve;
+				var oD = PrerequisiteService.fnFormatVehicleAvailabilityData(data.result.summary, oBooking.vehicleType);
+				scope.vehicleAvailabilityData = oD['summary'];
+				scope.sColor = {background: oD['color']};
+				switch(oD['color']){
+					case PreConfigService.VEHICLE_AVAILABLE_COLOR :
+						scope.sState = "Available";
+					break;
+					case PreConfigService.VEHICLE_PROBABLILY_AVAILABLE_COLOR :
+						scope.sState = "Probably-Available"
+					break;
+					case PreConfigService.VEHICLE_NOT_AVAILABLE_COLOR :
+						scope.sState = "Not-Available";
+					break;
+					default:
+						scope.sState = "";
+					break;
+				}
+
+				if(data.result.reserve) {
+					scope.tariffVehiclesList = scope.fnFormatVehiclesDataForReserve(data.result.details);
+				} else {
+					scope.tariffVehiclesList = [];
+				}
+
+				scope.bReservation = data.result.reserve;
+
 			} else {
 				alert('There was some error in getting vehicle availablility.');
 			}
@@ -37,14 +95,45 @@ angular.module('sigmaCabsApp')
 
         scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
 
+        $scope.fnEditCell = function (row, cell, columnSelected, col, cellId){
+			console.log('@@@@@@@@', cellId, $('#' + cellId));
+			var tariffObj = row['tariffObj_' + columnSelected];
+			console.log('Selected Package: ', tariffObj);
 
-        var sCellTemplateHtml = '<div class="ngCellText" style="{{ (row.entity[\'type\'] == \'Color Code\' ? \'background-color:\' + row.getProperty(col.field) : \'\') }}{{ (row.entity[\'type\'] == \'Total\' ? \'font-weight: bold;\' : \'\') }}" ng-class="col.colIndex()">{{row.entity[\'type\'] == \'Color Code\' && col.field !=\'type\' ? \'\' :row.getProperty(col.field)}}</div>';
+			// check if vehicleType match with tariffDetails and bookingDetails
+			if(tariffObj.vehicleType != oBooking.vehicleType) {
+				alert('Vehicle Type mis-match with that of booking details. \n\nPlease select '+ scope.selectedVehicleType.vehicleType + ' vehicle.');
+				return;
+			}
+
+			// need to check for a better way of doing this.
+			$('.myTariffSelected').removeClass('myTariffSelected');
+			$('#' + cellId).addClass('myTariffSelected');
+			
+
+			angular.copy(tariffObj, scope.selctedTariffType);
+
+			//set the readonly Fields
+			scope.roData.duration = tariffObj.duration / 60;
+	        scope.roData.km = tariffObj.kms || 0;
+	        scope.roData.amount = tariffObj.price || 0;
+	        scope.roData.extraKmCharge = tariffObj.extraKmPrice || 0;
+	        scope.roData.graceTime = tariffObj.graceTime || 0;
+	        scope.roData.extraCharges = tariffObj.extraCharge || 0;
+	        scope.roData.extraHourCharge = tariffObj.extraHrPrice || 0;
+	        scope.roData.comments = tariffObj.comments || '-';
+	    };
+
+
+        var sCellTemplateHtml = '<div class="ngCellText" style="{{ (row.entity[\'type\'] == \'Color Code\' ? \'background-color:\' + row.getProperty(col.field) : \'\') }}{{ (row.entity[\'type\'] == \'total\' ? \'font-weight: bold;\' : \'\') }}" ng-class="col.colIndex()">{{row.entity[\'type\'] == \'Color Code\' && col.field !=\'type\' ? \'\' :row.getProperty(col.field)}}</div>',
+        	sCellTemplateHtmlForReserve = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,col.field + \'_color\' + col.id + row.getProperty(col.field));">{{row.getProperty(col.field)}}</div>';
 
 
 		// build column heads
-		$scope.availableVehicleGridColumnHeads = [
+		scope.availableVehicleGridColumnHeads = [
 	        {field:'type', displayName:'Type', width: '*', cellTemplate: sCellTemplateHtml}
 	    ];
+	    scope.reserveGridColumnHeads = [];
 	    /* Add dynamic Columns */
 	    for(var i=0;i<scope.vehicleTypes.length;i++){
 	    	$scope.availableVehicleGridColumnHeads.push({
@@ -53,108 +142,36 @@ angular.module('sigmaCabsApp')
 	    		width: '*',
 	    		cellTemplate: sCellTemplateHtml
 	    	});
+
+	    	scope.reserveGridColumnHeads.push({
+	    		field : 'vehicleType' + scope.vehicleTypes[i].id,
+	    		displayName : scope.vehicleTypes[i].vehicleType,
+	    		width: '*',
+	    		cellTemplate: sCellTemplateHtmlForReserve
+	    	});
 	    }
 	    /* EOF dynamic Columns */
-
-	    scope.vehicleAvailabilityData = [{
-	    	'type' : 'Vehicle Available',
-	    	'vehicleType1' : '10',
-	    	'vehicleType2' : '7',
-	    	'vehicleType3' : '78',
-	    	'vehicleType4' : '89'
-	    }, {
-	    	'type' : 'While Driving',
-	    	'vehicleType1' : '29',
-	    	'vehicleType2' : '54',
-	    	'vehicleType3' : '87',
-	    	'vehicleType4' : '22'
-	    }, {
-	    	'type' : 'Total',
-	    	'vehicleType1' : '39',
-	    	'vehicleType2' : '61',
-	    	'vehicleType3' : '165',
-	    	'vehicleType4' : '111'
-	    }, {
-	    	'type' : 'Bookings',
-	    	'vehicleType1' : '39',
-	    	'vehicleType2' : '61',
-	    	'vehicleType3' : '165',
-	    	'vehicleType4' : '111'
-	    }, {
-	    	'type' : 'Color Code',
-	    	'vehicleType1' : '#ff0',
-	    	'vehicleType2' : '#CCC',
-	    	'vehicleType3' : '#F00',
-	    	'vehicleType4' : '#0AF5FF'
-	    }];
 
 		scope.vehicleAvailabilityGridOptions = {
 			data: 'vehicleAvailabilityData',
 			rowHeight: 25,			
 			multiSelect: false,
+	      	enableCellSelection : false,
+	      	enableRowSelection: false,
 			columnDefs: 'availableVehicleGridColumnHeads'
 		};
 
-		scope.tariffVehiclesList = [{
-				'small': 'SC-111',
-				'medium': 'SC-111',
-				'large': 'SC-111',
-			}, {
-				'small': 'SC-111',
-				'medium': 'SC-111',
-				'large': 'SC-111'
-			}, {
-				'small': 'SC-111',
-				'medium': 'SC-111',
-				'large': 'SC-111'
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			},{
-				'small' : 'SC-111',
-				'medium' : 'SC-111',
-				'large' : 'SC-111',
-			}
-		];
-
+		scope.tariffVehiclesList = [];
 
 		scope.tariffVehiclesGridOptions = {
 			data: 'tariffVehiclesList',
 			rowHeight: 25,
-			columnDefs: [{
-				field: 'small',
-				displayName: 'Small'
-			}, {
-				field: 'medium',
-				displayName: 'Medium'
-			}, {
-				field: 'large',
-				displayName: 'Large'
-			}],
+			columnDefs: 'reserveGridColumnHeads',
 			enablePaging: false,
 			showFooter: false,
 			multiSelect: false,
+	      	enableCellSelection : false,
+	      	enableRowSelection: false,
 			totalServerItems: 'totalServerItems',
 			afterSelectionChange: function(oRow) {
 				// console.log(oRow.selectionProvider.selectedItems[0]);

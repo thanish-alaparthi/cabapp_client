@@ -94,6 +94,11 @@ angular.module('sigmaCabsApp')
 			scope.tmpDetails.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
 
 			scope.bookingDetails.vehicleName = scope.tmpSelectedVehicleName.id;
+
+			
+			// clear the tariff selection
+			scope.bookingDetails.tariffId = null;
+			scope.tariffGridData = null;
 		};
 
 		// function to show/Hide booking related buttons

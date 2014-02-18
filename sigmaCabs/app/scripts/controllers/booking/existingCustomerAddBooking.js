@@ -209,6 +209,7 @@ angular.module('sigmaCabsApp')
 			if(! scope.fnValidateBookingForm()){
 				return;
 			}
+			console.log('saving Booking data', scope.tmpDetails);
 
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
@@ -219,8 +220,8 @@ angular.module('sigmaCabsApp')
 				tariffId : scope.bookingDetails.tariffId,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
-				vehicleName : scope.bookingDetails.vehicleName, 
-				vehicleType : scope.bookingDetails.vehicleType, 
+				vehicleName : scope.bookingDetails.vehicleName,
+				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
 				customerId : scope.waCustomerDetails.id,
@@ -234,7 +235,7 @@ angular.module('sigmaCabsApp')
 				return;
 			}
 
-			console.log('Saving as new booking...');
+			console.log('Saving as new booking...', scope.tmpDetails);
 			scope.fnApiSaveBooking({
 				id : "", 
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
@@ -245,7 +246,7 @@ angular.module('sigmaCabsApp')
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.bookingDetails.vehicleName, 
-				vehicleType : scope.bookingDetails.vehicleType, 
+				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
 				customerId : scope.waCustomerDetails.id,				
