@@ -12,27 +12,37 @@ angular.module('sigmaCabsApp')
 
 		var scope = $scope;
 		console.log('inside vehicleBreakStart', oVehicleData);
+		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasons();
 
 		scope.vehicleDetails = oVehicleData;
 		scope.breakStart = {};
-		scope.breakStart.newLocation = scope.vehicleDetails.vehicleMainDetials.details.location;
+		scope.breakStart.newLocation = scope.vehicleDetails.vehicleMainDetials.location;
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
-			scope.oData = {
-				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-				"reasonId": "2",
-				"location": scope.breakStart.newLocation,
-				"lattitude": "12345.564",
-				"longitude": "988756.345",
-				"comments": "This is test.... functionality done", //only if reason is other
-				"breakTime": scope.breakStart.breakStartTime
-			};
+			var driverId = scope.vehicleDetails.vehicleMainDetials.selectedDriver || '',
+				oData = {
+					"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+					"driverId": driverId,
+					"reasonId": scope.breakStart.reasonId || '',
+					"location": scope.breakStart.newLocation,
+					"lattitude": "12345.564",
+					"longitude": "988756.345",
+					"comments": scope.breakStart.comments, // only if reason id is others
+					"breakTime": scope.breakStart.breakStartTime
+				};
 
-			DispatchService.fnVehicleBreakStart(scope.oData)
+			if (oData.reasonId === '') {
+				alert('Please select required information');
+				return;
+			} else if (driverId === '') {
+				alert('Please select driver in vehicle information');
+				return;
+			}
+
+			DispatchService.fnVehicleBreakStart(oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();

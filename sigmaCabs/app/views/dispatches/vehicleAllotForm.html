@@ -1,6 +1,6 @@
 <fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;">
     <legend class="searchbox-border">Vehicle Allot</legend>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup Date</label>
         <span>{{vehicleMainDetials.details.pickupDate}}</span>
     </div>
@@ -9,7 +9,7 @@
         <span>{{vehicleMainDetials.details.pickupTime}}</span>
     </div>
     <p class="clear"/>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Vehicle Name</label>
         <span>{{vehicleDetails.vehicleName}}</span>
     </div>
@@ -18,16 +18,16 @@
         <span>{{vehicleMainDetials.details.vehicleType}}</span>
     </div>
     <p class="clear"/>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup</label>
-        <span>{{vehicleMainDetials.details.pickupPlace}}</span>
+        <span title="{{vehicleMainDetials.details.pickupPlace}}" class="ellipsisText">{{vehicleMainDetials.details.pickupPlace}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Drop Place</label>
-        <span>{{vehicleMainDetials.details.dropPlace}}</span>
+        <span class="ellipsisText" title="{{vehicleMainDetials.details.dropPlace}}">{{vehicleMainDetials.details.dropPlace}}</span>
     </div>
     <p class="clear"/>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Cust Name.</label>
         <span>{{vehicleMainDetials.details.customerName}}</span>
     </div>
@@ -36,7 +36,7 @@
         <span>{{vehicleMainDetials.details.customerMobile}}</span>
     </div>
     <p class="clear"/>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
     </div>
@@ -53,7 +53,7 @@
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div> -->
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Landmark1</label>
         <span>{{vehicleMainDetials.details.landmark1}}</span>
     </div>

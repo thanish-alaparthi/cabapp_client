@@ -35,15 +35,16 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 
 		scope.bloginShow = true;
-		scope.bVehCancelShow = true;
+		/*scope.bVehCancelShow = true;*/
 
 		//$scope.driversList = ["SAmeer", "Gandhar", "Thanish", "Driver1", "Driver2", "Driver3", "Driver4"];
 
 		scope.fnVehicleLogin = function() {
+			console.log(scope.vehicleMainDetials);
 			scope.vehicleLoginObj = {
-				"vehicleId": "15",
-				"driverId": "28",
-				"location": "Nana Nagar",
+				"vehicleId": scope.vehicleMainDetials.id,
+				"driverId": scope.vehicleMainDetials.selectedDriver,
+				"location": scope.vehicleDetails.loginLocation,
 				"lattitude": "1234.56",
 				"longitude": "6789.56"
 			};
@@ -53,8 +54,9 @@ angular.module('sigmaCabsApp')
 			DispatchService.fnVehicleLogin(scope.vehicleLoginObj)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
-					scope.bloginShow = false;
+					//scope.bloginShow = false;
 					alert(data.result[0].message);
+					scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)
@@ -62,18 +64,24 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnVehicleConfirm = function() {
+			var bookingId = scope.vehicleMainDetials.bookingId || '';
 			console.log(scope.vehicleMainDetials);
+			if(bookingId === '') {
+				alert('Please enter Booking Id');
+				return false;
+			}
+
 			scope.vehicleLoginObj = {
-				"vehicleId": "3",
-				"driverId": "13",
-				"bookingId": "123"
+				"vehicleId": scope.vehicleMainDetials.id,
+				"driverId": scope.vehicleMainDetials.selectedDriver,
+				"bookingId": bookingId
 			};
 
 			DispatchService.fnVehicleConfirm(scope.vehicleLoginObj)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
-					scope.bVehConfirmShow = false;
 					alert(data.result[0].message);
+					scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

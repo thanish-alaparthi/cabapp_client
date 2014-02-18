@@ -15,7 +15,7 @@ angular.module('sigmaCabsApp')
 		scope.vehicleDetails = oVehicleData;
 		scope.changeLocation = {};
 
-		console.log(scope.vehicleDetails.vehicleMainDetials.details.location);
+		console.log(scope.vehicleDetails.vehicleMainDetials.location);
 
 		scope.close = function() {
 			dialog.close();

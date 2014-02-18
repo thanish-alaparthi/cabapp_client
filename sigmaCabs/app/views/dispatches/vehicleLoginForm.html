@@ -12,11 +12,11 @@
     <p class="clear" />
     <div class="fieldContainer relative left">
         <label class="labelCompact">Current Loc</label>
-        <span>{{vehicleMainDetials.details.location}}</span>
+        <span>{{vehicleMainDetials.location}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact">New Location</label>
-        <input type="text" ng-model="vehicleDetails.newLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder="New Location" googleplace/>
+        <input type="text" ng-model="vehicleDetails.loginLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder="New Location" googleplace/>
     </div>
      <div class="fieldContainer relative left">
         <label class="labelCompact">Reg. No.</label>
@@ -24,7 +24,7 @@
     </div>
     <div class="fieldContainer relative right" style="width: 180px;">
         <label class="labelCompact">V.Model</label>
-        <span>{{vehicleMainDetials.details.mfgDate}}</span>
+        <span>{{vehicleDetails.loginVehModel}}</span>
     </div>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Paper Validity</label>

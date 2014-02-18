@@ -23,7 +23,7 @@
                 </div>
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Break Reason</label>
-                    <select class="validate[maxSize[36]] selectFieldCompact"></select>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="breakStart.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleBreakReasonTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Request Time</label>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;display:none;">
                     <label class="labelCompact">Comments</label>
-                    <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
+                    <textarea data-ng-model="breakStart.comments" class="cancelBookingComment"></textarea>
                 </div>
             </fieldset>
             <p class="clear"/>

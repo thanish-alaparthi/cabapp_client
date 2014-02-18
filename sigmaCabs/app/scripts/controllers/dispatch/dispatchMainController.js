@@ -78,11 +78,9 @@ angular.module('sigmaCabsApp')
                 scope.sHourType = "Normal Hours";
             }
 
-            // since mobile is passed, hit server to get vehicleDetails Based on the server
-            if (scope.callerPhone) { // mobile passed
-                // make a call to server to get the user details...
+            scope.fnVehicleSearch = function(mobileNo) {
                 DispatchService.fnFindVehicleByMobile({
-                    mobile: $routeParams.mobile
+                    mobile: mobileNo
                 })
                     .success(function(data, status, headers, config) {
                         console.log('Success fnFindVehicleByMobile: ', typeof data, data);
@@ -110,6 +108,12 @@ angular.module('sigmaCabsApp')
                         alert('There was some error while getting vehicle details. ');
                         // scope.fnLoadDispactherView();
                     });
+            };
+
+            // since mobile is passed, hit server to get vehicleDetails Based on the server
+            if (scope.callerPhone) { // mobile passed
+                // make a call to server to get the user details...
+                scope.fnVehicleSearch(scope.callerPhone);
             } else {
                 // scope.fnLoadDispactherView();
             }
@@ -271,15 +275,18 @@ angular.module('sigmaCabsApp')
                     case "1":
                         scope.vehicleDetails.vehicleName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.details.vehicleName).vehicleName;
                         scope.vehicleDetails.vehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetials.details.vehicleType).vehicleType;
-                        scope.vehicleDetails.newLocation = scope.vehicleMainDetials.details.location;
+                        scope.vehicleDetails.loginLocation = scope.vehicleMainDetials.location;
+                        scope.vehicleDetails.loginVehModel = scope.vehicleMainDetials.details.mfgMonth + ' - ' + scope.vehicleMainDetials.details.mfgYear;
+                        //scope.vehicleDetails.loginPaymentStatus = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetials.paymentStatus);
                         scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetials.details.condition);
-                        scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetials.details.paymentStatus);
+                        scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetials.paymentStatus);
+
                         scope.vLoginView = true;
                         break;
                     case "2":
                         scope.vVacantView = true;
                         break;
-                    case "3":
+                    case "4":
                         scope.vAllotView = true;
                         break;
                 }
@@ -400,6 +407,7 @@ angular.module('sigmaCabsApp')
                     dialogClass: 'modalClass cancel-booking-container',
                     resolve: {
                         editMode: [
+
                             function() {
                                 return false;
                             }
@@ -425,6 +433,7 @@ angular.module('sigmaCabsApp')
                     dialogClass: 'modalClass cancel-booking-container',
                     resolve: {
                         editMode: [
+
                             function() {
                                 return false;
                             }
@@ -477,6 +486,7 @@ angular.module('sigmaCabsApp')
                     dialogClass: 'modalClass cancel-booking-container',
                     resolve: {
                         editMode: [
+
                             function() {
                                 return false;
                             }
@@ -549,6 +559,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -571,6 +582,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -593,6 +605,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass cancel-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
@@ -747,6 +760,11 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnVehicleRejectBooking = function() {
+            var bookingId = scope.vehicleMainDetials.bookingId || '';
+            if(bookingId === '') {
+                alert('Please enter Booking Id');
+                return;
+            }
             $scope.opts = {
                 templateUrl: URLService.view('vehicleBookingRejected'),
                 controller: 'vehicleBookingRejected',
@@ -769,7 +787,7 @@ angular.module('sigmaCabsApp')
             modalWindow.addDataToModal($scope.opts);
         };
 
-        scope.fnOpenDisposition = function(){
+        scope.fnOpenDisposition = function() {
             /*if(!scope.waCustomerDetails.id) {
                 alert('Please save the customer details first.');
                 return;
@@ -781,11 +799,12 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass disposition-booking-container',
                 resolve: {
                     editMode: [
+
                         function() {
                             return false;
                         }
                     ],
-                    oBooking : function(){
+                    oBooking: function() {
                         // send readyToSave booking details
                         return {
                             bookingStatus: null,
@@ -823,7 +842,7 @@ angular.module('sigmaCabsApp')
                             customerId : scope.waCustomerDetails.id*/
                         }
                     },
-                    oCustomer : function(){
+                    oCustomer: function() {
                         return {
                             "id": "6",
                             "name": "Kumar",
@@ -845,4 +864,16 @@ angular.module('sigmaCabsApp')
             };
             modalWindow.addDataToModal($scope.opts);
         };
+
+        // handling custom events
+        var oEventVehicleLogout = $rootScope.$on('eventVehicleLogout', function(oEvent, oData) {
+            console.log('>>>>>scope.eventVehicleLogout changed', arguments);
+            scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNo);
+        });
+
+
+        scope.$on('$destroy', function() {
+            console.log('destroying oEventVehicleLogout');
+            oEventVehicleLogout();
+        });
     });

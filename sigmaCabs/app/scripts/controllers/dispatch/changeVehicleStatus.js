@@ -16,7 +16,7 @@ angular.module('sigmaCabsApp')
 
 		scope.vehicleDetails = oVehicleData;
 		scope.statusComments = '';
-		previousStatusId = scope.vehicleDetails.vehicleMainDetials.details.paymentStatus;
+		previousStatusId = scope.vehicleDetails.vehicleMainDetials.paymentStatus;
 		scope.stateFrom = previousStatusId;
 		scope.stateTo = previousStatusId;
 

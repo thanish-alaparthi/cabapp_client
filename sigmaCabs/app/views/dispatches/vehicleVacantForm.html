@@ -1,7 +1,7 @@
 <fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;height:212px;">
     <legend class="searchbox-border">Vehicle Vacant</legend>
 
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Login Time</label>
         <span>{{vehicleMainDetials.details.loginTime}}</span>
     </div>
@@ -10,7 +10,7 @@
         <span>{{vehicleMainDetials.details.vacantTime}}</span>
     </div>
     <p class="clear" />
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">No.of Breaks</label>
         <span>{{vehicleMainDetials.details.breakCount}}</span>
     </div>
@@ -19,7 +19,7 @@
         <span>{{vehicleMainDetials.details.breakTime}}</span>
     </div>
     <p class="clear" />
-     <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">No.of Bkings</label>
         <span>{{vehicleMainDetials.details.bookingCount}}</span>
     </div>
@@ -27,12 +27,16 @@
         <label class="labelCompact">Day Collection</label>
         <span>{{vehicleMainDetials.details.dayCollection}}</span>
     </div>
-    <div class="fieldContainer relative left">
+    <p class="clear" />
+    <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Current Loc</label>
-        <span>{{vehicleMainDetials.details.location}}</span>
+        <span>{{vehicleMainDetials.location}}</span>
     </div>
-
-        <p class="clear"/>
+    <div class="fieldContainer relative right" style="width:180px;">
+        <label class="labelCompact">Booking Id</label>
+        <input type="text" ng-model="vehicleMainDetials.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id"/>
+    </div>
+    <p class="clear"/>
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div>

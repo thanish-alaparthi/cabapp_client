@@ -911,3 +911,11 @@ textFieldCompact[disabled] .textFieldCompact {
 .dp-popup{
   z-index : 1050 !important;
 }
+.ellipsisText {
+  display: inline-block;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100px;
+  white-space: nowrap;
+}

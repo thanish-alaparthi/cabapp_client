@@ -15,16 +15,16 @@ angular.module('sigmaCabsApp')
 
 		scope.vehicleDetails = oVehicleData;
 		scope.breakStop = {};
-		scope.breakStop.newLocation = scope.vehicleDetails.vehicleMainDetials.details.location;
+		scope.breakStop.newLocation = scope.vehicleDetails.vehicleMainDetials.location;
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				/*"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,*/
-				"id": "3", // break start id, if already in break start
+				/*"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,*/
+				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+				"id": scope.vehicleMainDetials.details.breakId || '', // break start id, if already in break start
 				"location": scope.breakStop.newLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
