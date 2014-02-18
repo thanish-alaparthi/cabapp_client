@@ -1,0 +1,15 @@
+<div ng-controller="MainBookingHistory">
+	<fieldset style="width: 100%;clear:both margin: 0px 5px;height: 200px;">
+		<legend>Customer Details</legend>
+		customer details will come here
+	</fieldset>
+
+	<fieldset style="width: 100%;float: left; margin: 0px 5px 0px 0px;height: 440px;">
+		<legend>Booking History</legend>
+		<div class="gridStyle" ng-grid="mainBookingHistoryGrid" style="margin:0px;height: 400px;"></div>
+	</fieldset>
+	<fieldset style="width: 562px;float: left; margin: 0px 0px;height: 440px;display: none;">
+		<legend>Voice Recordings</legend>
+		<div class="gridStyle" ng-grid="mainVoiceRecordingGrid" style="margin:0px;height: 400px;"></div>
+	</fieldset>
+</div>

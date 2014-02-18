@@ -24,11 +24,21 @@ angular.module('sigmaCabsApp')
 
 
 
+
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
 
 
         var scope = $scope;
+        
+        scope.fnResizeWindowHack = function() {
+             window.setTimeout(function(){                
+                 window.setTimeout(function(){
+                    $(window).resize();
+                }, 5000);
+                $(window).resize();
+            }, 1000);
+        };
 
         // save the getCall phone in scope.
         scope.callerPhone = $routeParams.mobile;
@@ -76,21 +86,30 @@ angular.module('sigmaCabsApp')
         };
 
         scope.showBookingDetailsTab = function(){
-            $scope.showTariffDetails =  false;
-            $scope.showBookingDetails =  true;
+            scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  true;
+
+            scope.fnResizeWindowHack();
         };
 
         scope.showTariffDetailsTab = function() {
-            $scope.showBookingDetails =  false;
-            $scope.showTariffDetails =  true;
+            scope.showBookingDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showTariffDetails =  true;
+
+            scope.fnResizeWindowHack();
+        };
+
+        scope.showBookingHistoryDetailsTab = function() {
+            scope.showBookingHistoryDetails =  true;
+            scope.showTariffDetails =  false;
+            scope.showBookingDetails =  false;
 
 
-            window.setTimeout(function(){
-                $(window).resize();
-                $(window).resize();
-            }, 1000);
+            scope.mainBookingHistory = URLService.view('mainBookingHistoryDetails');
 
-
+            scope.fnResizeWindowHack();
         };
 
         // there can be a scenario wherein existing user calls, but asks to book for another existing or new customer.
@@ -119,7 +138,7 @@ angular.module('sigmaCabsApp')
         scope.fnLoadBookingView = function() {
             scope.existingCustomerAddBooking = URLService.view('existingCustomerAddBooking');
 
-            $(window).resize();
+            scope.fnResizeWindowHack();
         };
 
         //fn which clears searchedCustomer details
@@ -297,7 +316,6 @@ angular.module('sigmaCabsApp')
             scope.fnLoadMainTariffGrids();
 
             scope.mainTariffDetails = URLService.view('mainTariffDetails');
-
 
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;

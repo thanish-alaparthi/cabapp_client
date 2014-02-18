@@ -149,6 +149,7 @@ angular.module('sigmaCabsApp')
                 'customerRequestMain': 'views/bookings/customerRequestMain.html',
                 'bookingTariffTable': 'views/bookings/bookingTariffTable.html',
                 'mainTariffDetails': 'views/bookings/mainTariffDetails.html',
+                'mainBookingHistoryDetails': 'views/bookings/mainBookingHistoryDetails.html',
                 'checkTariff': 'views/bookings/checkTariff.html',
                 'singleTariff': 'views/bookings/singleTariff.html',
                 'bookingStatistics': 'views/bookings/statistics/bookingStatistics.html',
