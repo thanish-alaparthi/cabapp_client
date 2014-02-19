@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBreakStop', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBreakStop', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside vehicleBreakStop', oVehicleData);
@@ -24,7 +24,7 @@ angular.module('sigmaCabsApp')
 			scope.oData = {
 				/*"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,*/
 				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-				"id": scope.vehicleMainDetials.details.breakId || '', // break start id, if already in break start
+				"id": scope.vehicleDetails.vehicleMainDetials.details.breakId || '', // break start id, if already in break start
 				"location": scope.breakStop.newLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
@@ -36,6 +36,7 @@ angular.module('sigmaCabsApp')
 					console.log('Success: ', data);
 					scope.close();
 					alert(data.result[0].message);
+					$rootScope.$emit('eventGetVehicleStatus', null);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

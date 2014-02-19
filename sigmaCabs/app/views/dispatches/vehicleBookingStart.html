@@ -30,16 +30,27 @@
                     <span>{{bookingStart.deadMileage}}</span>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Rating</label>
-                    <span>Poor</span>
+                    <label class="labelCompact">Next Booking</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingStart.nextBooking">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
                 </div>
-                <div class="fieldContainer  relative">
-                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
-                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingStart.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleReasonTypes"></select>
-                </div>
-                <div class="fieldContainer  relative" style="height:75px;">
-                    <label class="labelCompact">Comments</label>
-                    <textarea data-ng-model="bookingStart.comments" class="cancelBookingComment"></textarea>
+                <div class="fieldContainer relative">
+                        <label class="labelCompact">Rating</label>
+                        <span>{{bookingStart.rating}}</span>
+                    </div>
+                <div ng-show="bookingStart.moreInfo">
+                    <div>
+                        <div class="fieldContainer relative">
+                            <label class="labelCompact">Reason</label>
+                            <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingStart.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleReasonTypes"></select>
+                        </div>
+                        <div class="fieldContainer relative" style="height:75px;">
+                            <label class="labelCompact">Comments</label>
+                            <textarea data-ng-model="bookingStart.comments" class="cancelBookingComment"></textarea>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
             <p class="clear"/>

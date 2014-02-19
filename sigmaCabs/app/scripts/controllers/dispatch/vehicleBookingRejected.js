@@ -35,13 +35,13 @@ angular.module('sigmaCabsApp')
                     "comments": scope.vReject.comments
                 };
 
-            if (oData.requester === '' || oData.reasonId === '') {
+            /*if (oData.requester === '' || oData.reasonId === '') {
                 alert('Please select required information');
                 return;
             } else if (scope.vReject.categoryId === 4 && driverId === '') {
                 alert('Please select driver in vehicle information');
                 return;
-            }
+            }*/
 
             DispatchService.fnVehicleRejectBooking(oData)
                 .success(function(data, status, headers, config) {

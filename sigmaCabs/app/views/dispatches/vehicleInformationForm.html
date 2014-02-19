@@ -37,7 +37,7 @@
                 <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown">
                 Add Request <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu">
+                <ul class="dropdown-menu" role="menu" ng-switch on="vehicleMainDetials.vehicleState">
                     <li><a href="javascript:void(0);" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:void(0);" data-ng-click="fnChangeVehiclePhone()">Change Primary No.</a></li>
@@ -46,8 +46,8 @@
                     <li class="divider"></li>
                     <li><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
                     <li class="divider"></li>
-                    <li><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()">Break Start</a></li>
-                    <li><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStop()">Break Stop</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()" ng-switch-when="2">Break Start</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStop()" ng-switch-when="3">Break Stop</a></li>
                     <li><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:void(0);" data-ng-click="">Road Side Booking</a></li>

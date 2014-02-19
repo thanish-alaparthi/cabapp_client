@@ -64,7 +64,7 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnVehicleConfirm = function() {
-			var bookingId = scope.vehicleMainDetials.bookingId || '';
+			var bookingId = scope.vehicleMainDetials.details.bookingId || '';
 			console.log(scope.vehicleMainDetials);
 			if(bookingId === '') {
 				alert('Please enter Booking Id');

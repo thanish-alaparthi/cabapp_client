@@ -1,5 +1,5 @@
 <fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;height:212px;">
-    <legend class="searchbox-border">Vehicle Vacant</legend>
+    <legend class="searchbox-border">Vehicle Vacant {{vStateHeading}}</legend>
 
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Login Time</label>
@@ -34,19 +34,21 @@
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Booking Id</label>
-        <input type="text" ng-model="vehicleMainDetials.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id"/>
+        <input type="text" ng-model="vehicleMainDetials.details.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id"/>
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
-        <div>
-            <!-- <button class="btnCompact btn-success" data-ng-click="fnVehicleChangeLocation()">Landmark Change</button>  --><!--  data-ng-click="fnOpenCancelBooking()" data-ng-show="bShowCancel" -->
-            <!-- <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStart()">Break Start</button>
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStop()">Break Stop</button>
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleLogout()">Logout</button> -->
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Accepted</button>
-            <button class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
+        <div ng-switch on="vehicleMainDetials.vehicleState">
+            <button class="btnCompact btn-success" ng-switch-when="2" data-ng-click="fnVehicleConfirm()">Accepted</button>
+            <button class="btnCompact btn-danger" ng-switch-when="2" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
         </div>
+        <!-- <div>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleChangeLocation()">Landmark Change</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStart()">Break Start</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleBreakStop()">Break Stop</button>
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleLogout()">Logout</button>
+        </div> -->
         <p class="clear"/>
     </div>
 </fieldset>

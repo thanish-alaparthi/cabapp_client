@@ -8,8 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
-
+	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 		var scope = $scope;
 		console.log('inside vehicleBreakStart', oVehicleData);
 		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasons();
@@ -34,19 +33,20 @@ angular.module('sigmaCabsApp')
 					"breakTime": scope.breakStart.breakStartTime
 				};
 
-			if (oData.reasonId === '') {
+			/*if (oData.reasonId === '') {
 				alert('Please select required information');
 				return;
 			} else if (driverId === '') {
 				alert('Please select driver in vehicle information');
 				return;
-			}
+			}*/
 
 			DispatchService.fnVehicleBreakStart(oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();
 					alert(data.result[0].message);
+					$rootScope.$emit('eventGetVehicleStatus', null);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

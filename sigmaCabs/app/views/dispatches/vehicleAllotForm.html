@@ -1,5 +1,5 @@
 <fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;">
-    <legend class="searchbox-border">Vehicle Allot</legend>
+    <legend class="searchbox-border">Vehicle {{vStateHeading}}</legend>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup Date</label>
         <span>{{vehicleMainDetials.details.pickupDate}}</span>
@@ -11,11 +11,11 @@
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Vehicle Name</label>
-        <span>{{vehicleDetails.vehicleName}}</span>
+        <span>{{vehicleDetails.vName}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Vehicle Type</label>
-        <span>{{vehicleMainDetials.details.vehicleType}}</span>
+        <span>{{vehicleDetails.vType}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
@@ -36,13 +36,13 @@
         <span>{{vehicleMainDetials.details.customerMobile}}</span>
     </div>
     <p class="clear"/>
-    <div class="fieldContainer relative left" style="width:180px;">
+    <div class="fieldContainer  relative left">
         <label class="labelCompact">Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer  relative right">
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="vehicleMainDetials.details.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div>
     <p class="clear"/>
     <!-- <div class="fieldContainer relative left">
@@ -65,15 +65,19 @@
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div style="text-align: center;">
-            <button class="btnCompact btn-danger" data-ng-click="fnVehicleBookingCancel()" data-ng-show="bVehCancelShow">Cancel</button>
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Accepted</button>
-            <button class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
+            <div ng-switch on="vehicleMainDetials.vehicleState">
+                <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleBookingCancel()">Cancel</button>
+                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Accepted</button>
+                <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
+
+                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
+                
+                <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnVehicleBookingTariff()">Change Tariff</button>
+                <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnChangeVehPickupLocation()">Change Pickup Location</button>
+                <button ng-switch-when="6" class="btnCompact btn-success" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
+            </div>
             <!-- <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingComplaint()">Complaints</button> -->
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingTariff()">Change Tariff</button>
             <!-- <button class="btnCompact btn-success" data-ng-click="fnChangeVehicle()">Change Vehicle</button> -->
-            <button class="btnCompact btn-success" data-ng-click="fnChangeVehPickupLocation()">Change Pickup Location</button>
         </div>
         <p class="clear"/>
     </div>

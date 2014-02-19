@@ -34,10 +34,10 @@ angular.module('sigmaCabsApp')
 				"comments": scope.vBookingCancel.comments
 			};
 
-			if (oData.cancelCategory === '' || oData.reasonId === '') {
+			/*if (oData.cancelCategory === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
-			}
+			}*/
 
 			DispatchService.fnVehicleBookingCancel(oData)
 				.success(function(data, status, headers, config) {
