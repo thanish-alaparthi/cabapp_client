@@ -11,6 +11,18 @@ angular.module('sigmaCabsApp')
 	.controller('bookingFormController', function($scope, $rootScope, URLService,PrerequisiteService, BookingService, VehiclesService, $dialog, modalWindow, PreConfigService) {
 		var scope = $scope;
 
+		//attach safeApply
+	      $scope.safeApply = function(fn) {
+	        var phase = this.$root.$$phase;
+	        if(phase == '$apply' || phase == '$digest') {
+	          if(fn && (typeof(fn) === 'function')) {
+	            fn();
+	          }
+	        } else {
+	          this.$apply(fn);
+	        }
+	      };
+
 		console.log('bookingFormController: ', scope.bookingDetails);
 
 		if(scope.bookingDetails.vehicleType){
@@ -69,6 +81,8 @@ angular.module('sigmaCabsApp')
 			scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpDetails.tmpVehicleType);
 			scope.tmpDetails.tmpVehicleName = "";
 			scope.bookingDetails.vehicleType = scope.tmpSelectedVehicleType.id;
+			scope.bookingDetails.vehicleName = "";
+
 			if(scope.vehicleNames){
 				for(var i=0;i<scope.vehicleNames.length;i++){
 					if(scope.vehicleNames[i].id == ""){
@@ -85,20 +99,22 @@ angular.module('sigmaCabsApp')
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleTypes = function() {
+			// clear the tariff selection
+			scope.bookingDetails.tariffId = null;
+			scope.tariffGridData = null;
+
+			scope.$emit('eventVehicleNameChanged');
+
 			if(scope.tmpDetails.tmpVehicleName == "") {
 				scope.tmpDetails.tmpVehicleType = '1';
 				scope.bookingDetails.vehicleName = "";
+				scope.safeApply();
 				return;
 			}
 			scope.tmpSelectedVehicleName = PrerequisiteService.fnGetVehicleNameById(scope.tmpDetails.tmpVehicleName);
 			scope.tmpDetails.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
 
 			scope.bookingDetails.vehicleName = scope.tmpSelectedVehicleName.id;
-
-			
-			// clear the tariff selection
-			scope.bookingDetails.tariffId = null;
-			scope.tariffGridData = null;
 		};
 
 		// function to show/Hide booking related buttons
@@ -191,6 +207,11 @@ angular.module('sigmaCabsApp')
 				alert('Please save the customer details first.');
 				return;
 			}
+			if(!scope.bookingDetails.pickupPlace) {
+				alert('Please enter a pickup place.');
+				return;
+			}
+
 			$scope.opts = {
 				templateUrl: URLService.view('vehicleAvailabilityCheck'),
 				controller: 'chkVehicleAvailabilityController',
@@ -300,6 +321,16 @@ angular.module('sigmaCabsApp')
 				alert('Please save the customer details first.');
 				return;
 			}
+
+			if(!scope.bookingDetails.pickupPlace) {
+				alert('Please enter a pickup place.');
+				return;
+			}
+			if(!scope.bookingDetails.dropPlace) {
+				alert('Please enter a drop place.');
+				return;
+			}
+
 			$scope.opts = {
 				templateUrl: URLService.view('singleTariff'),
 				controller: 'singleTariffController',

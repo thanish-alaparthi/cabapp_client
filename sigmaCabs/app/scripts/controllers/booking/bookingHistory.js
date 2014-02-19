@@ -86,6 +86,7 @@ angular.module('sigmaCabsApp')
 			enablePaging: false,
 			showFooter: false,
 			multiSelect: false,
+			enableSorting: false,
 	      	enableCellSelection : false,
 	      	enableRowSelection: false
 		};

@@ -209,7 +209,7 @@ angular.module('sigmaCabsApp')
 			if(! scope.fnValidateBookingForm()){
 				return;
 			}
-			console.log('saving Booking data', scope.tmpDetails);
+			console.log('&&&&&&&&&&&&&&&&&&saving Booking data', scope.tmpDetails, scope.bookingDetails);
 
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
@@ -220,7 +220,7 @@ angular.module('sigmaCabsApp')
 				tariffId : scope.bookingDetails.tariffId,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
-				vehicleName : scope.bookingDetails.vehicleName,
+				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
 				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
@@ -245,7 +245,7 @@ angular.module('sigmaCabsApp')
 				tariffId : scope.bookingDetails.tariffId,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
-				vehicleName : scope.bookingDetails.vehicleName, 
+				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
 				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
@@ -365,6 +365,12 @@ angular.module('sigmaCabsApp')
         // catch eventVehicleTypeChanged to reload tariffGrid.
         $rootScope.$on('eventVehicleTypeChanged', function(ev, oData) {
         	console.log('eventVehicleTypeChanged triggered', oData);
+        	scope.bookingDetails.tariffId = null;
+        	scope.fnRefreshBookingTariffGrid(null);
+        });
+        // catch eventVehicleNameChanged to reload tariffGrid.
+        $rootScope.$on('eventVehicleNameChanged', function(ev, oData) {
+        	console.log('eventVehicleNameChanged triggered', oData);
         	scope.bookingDetails.tariffId = null;
         	scope.fnRefreshBookingTariffGrid(null);
         });
