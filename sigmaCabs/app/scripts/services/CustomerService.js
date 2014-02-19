@@ -76,6 +76,19 @@ angular.module('sigmaCabsApp')
 						'Content-Type': 'application/x-www-form-urlencoded'
 					}
 				});
+			},
+			fnGetCustomerDetailsById: function(oDataParams) {
+				return $http({
+					url: URLService.service('RestApiDefaultEmpty'),
+					method: 'POST',
+					data: {
+						  url : "customer/search"
+						, data : JSON.stringify(oDataParams)
+					},
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					}
+				});
 			}
 		}
 	});

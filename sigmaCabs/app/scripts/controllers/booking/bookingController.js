@@ -102,10 +102,13 @@ angular.module('sigmaCabsApp')
         };
 
         scope.showBookingHistoryDetailsTab = function() {
+            if(!scope.waCustomerDetails.id){
+                alert('Please save the customer details first.');
+                return;
+            }
             scope.showBookingHistoryDetails =  true;
             scope.showTariffDetails =  false;
             scope.showBookingDetails =  false;
-
 
             scope.mainBookingHistory = URLService.view('mainBookingHistoryDetails');
 

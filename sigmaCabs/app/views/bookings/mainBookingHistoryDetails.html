@@ -1,12 +1,72 @@
 <div ng-controller="MainBookingHistory">
-	<fieldset style="width: 100%;clear:both margin: 0px 5px;height: 200px;">
+	<fieldset style="width: 740px;clear:both margin: 0px 5px;height: 200px;">
 		<legend>Customer Details</legend>
-		customer details will come here
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Code </label>
+            <input type="text" readonly ng-model="oMainBookHistCust.customerCode" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Grade </label>
+            <input type="text" readonly ng-model="oMainBookHistCust.grade" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Category </label>
+            <input type="text" readonly ng-model="oMainBookHistCust.category" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Trip Count </label>
+            <input type="text" readonly ng-model="oMainBookHistCust.tripCount" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+        <p class="clear"/>
+        <hr style="margin: 10px; border-color: #333;" />
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Name </label>
+            <input type="text" ng-model="oMainBookHistCust.name" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Gender </label>
+            <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnValidatePickupTime()"  data-ng-model="bookingDetails.pickupMinutes" ng-options='k as v for (k,v) in genders'></select>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Marital Status </label>
+            <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnValidatePickupTime()"  data-ng-model="bookingDetails.pickupMinutes" ng-options='k as v for (k,v) in maritalStates'></select>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Mobile </label>
+            <input type="text" ng-model="oMainBookHistCust.mobile" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Mobile2 </label>
+            <input type="text" ng-model="oMainBookHistCust.mobile2" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Email </label>
+            <input type="text" ng-model="oMainBookHistCust.email" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Occupation </label>
+            <input type="text" ng-model="oMainBookHistCust.occupation" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Birth Date </label>
+            <input type="text" ng-model="oMainBookHistCust.dob" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+		<div class="fieldContainer relative left">
+            <label class="labelCompact text-right">Blood Group </label>
+            <input type="text" ng-model="oMainBookHistCust.bloodGroup" class="left validate[required,maxSize[128]] textFieldCompact"/>
+        </div>
+         <hr class="buttonSpliter" />
+         <div class="mainButtonContainer">
+        <div style="text-align: right;">
+            <button class="btnCompact btn-success" data-ng-click="fnSaveCustomerFullData()" title="Save customer details">Save</button>
+        </div>
+        <p class="clear"/>
+    </div>
 	</fieldset>
 
 	<fieldset style="width: 100%;float: left; margin: 0px 5px 0px 0px;height: 440px;">
 		<legend>Booking History</legend>
-		<div class="gridStyle" ng-grid="mainBookingHistoryGrid" style="margin:0px;height: 400px;"></div>
+		<div class="gridStyle mainBookingHistoryGrid" ng-grid="mainBookingHistoryGrid" style="margin:0px;height: 400px;"></div>
 	</fieldset>
 	<fieldset style="width: 562px;float: left; margin: 0px 0px;height: 440px;display: none;">
 		<legend>Voice Recordings</legend>

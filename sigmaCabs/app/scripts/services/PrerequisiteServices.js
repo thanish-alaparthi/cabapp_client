@@ -746,6 +746,21 @@ angular.module('sigmaCabsApp')
                 return sVehicleType ? {'summary' : aR, 'color': sColor} : aR;
             },
 
+            fnGetGenders : function() {
+                return {
+                    'm' : 'Male',
+                    'f' : 'Female'
+                }
+            },
+            fnGetMaritalStates : function() {
+                return {
+                    '1' : 'Single',
+                    '2' : 'Married',
+                    '3' : 'Divorced',
+                    "4": "widow / Widower"
+                }
+            },
+
 
 
 

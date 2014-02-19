@@ -67,9 +67,8 @@
     		Vehicle Availability
     </div>
 
-    <div ng-class= "bookingHistoryContainer" ng-show = "showBookingHistory">
-    		Booking History
-    </div>
+    
+    <div ng-class= "bookingHistoryContainer" ng-show = "showBookingHistoryDetails" ng-include="mainBookingHistory"></div>
 
     <div ng-class= "myCallHistoryContainer" ng-show = "showMyCallHistory">
     		Call History

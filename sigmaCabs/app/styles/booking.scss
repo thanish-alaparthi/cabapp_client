@@ -338,3 +338,14 @@ tr:nth-child(odd) {
   background: #F5F5B1 !important;
   cursor: pointer;
 }
+
+.mainBookingHistoryGrid .ngHeaderText{
+  font-size: 11px !important;
+}
+.mainBookingHistoryGrid .ngCellText span{
+  font-size: 11px !important;
+}
+
+.text-right {
+  text-align: right !important;
+}

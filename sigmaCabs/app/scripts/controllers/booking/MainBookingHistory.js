@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('MainBookingHistory', function($scope, $rootScope, URLService, BookingService, VehiclesService, $routeParams, PrerequisiteService) {
+    .controller('MainBookingHistory', function($scope, $rootScope, URLService, BookingService, CustomerService, VehiclesService, $routeParams, PrerequisiteService) {
 
       //attach safeApply
       $scope.safeApply = function(fn) {
@@ -25,8 +25,52 @@ angular.module('sigmaCabsApp')
       var scope = $scope;
 
 
+      scope.genders = PrerequisiteService.fnGetGenders();
+      scope.maritalStates = PrerequisiteService.fnGetMaritalStates();
+
+      scope.mainBookingHistoryGridData = [];
+
+      scope.fnLoadCustomerDetailsOnMainBooking = function(){
+        CustomerService.fnGetCustomerDetailsById({
+          id: scope.waCustomerDetails.id
+        })
+        .success(function(data, status, headers, config){
+          console.log('success fnLoadCustomerDetailsOnMainBooking', data);
+          if(data.status == 200) {
+            scope.oMainBookHistCust = data.result[0].customerDetails;
+          }
+        })
+        .error(function(data, status, headers, config){
+
+          console.log('error fnLoadCustomerDetailsOnMainBooking', data);
+        });
+      };
+
+      scope.fnLoadMainBookingHistoryGrid = function() {
+        if(!scope.waCustomerDetails.id){
+          return;
+        }
+        BookingService.fnGetLatestCustomerBookings({
+          id: scope.waCustomerDetails.id
+        })
+        .success(function(data, status, headers, config){       
+          scope.mainBookingHistoryGridData = [];
+          console.log('Success  fnLoadMainBookingHistoryGrid: ',data);
+          if(data.status == 500){
+            console.warn("fnLoadMainBookingHistoryGrid 500", data);
+          } else {
+            scope.mainBookingHistoryGridData = PrerequisiteService.fnFormatBookingHistoryData(data.result, scope.waCustomerDetails);
+                  $(window).resize();
+          }
+        })
+        .error(function(data, status, headers, config){
+          console.log('Error  fnLoadMainBookingHistoryGrid: ',data);
+        });
+      };
+
+
       scope.mainBookingHistoryGrid = {
-        data: 'bookingHistoryDetails',
+        data: 'mainBookingHistoryGridData',
         rowHeight: 25,
         columnDefs: [{
           field: 'srno',
@@ -116,6 +160,8 @@ angular.module('sigmaCabsApp')
       };
 
 
+      scope.fnLoadMainBookingHistoryGrid();
+      scope.fnLoadCustomerDetailsOnMainBooking();
 
 
       scope.$on('$destroy', function () {
