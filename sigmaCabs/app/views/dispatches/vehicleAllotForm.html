@@ -66,14 +66,16 @@
     <div class="mainButtonContainer">
         <div style="text-align: center;">
             <div ng-switch on="vehicleMainDetials.vehicleState">
-                <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleBookingCancel()">Cancel</button>
                 <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Accepted</button>
                 <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
+                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report - Need to remove</button>
 
-                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
-                
+                <button ng-switch-when="5" class="btnCompact btn-danger" data-ng-click="fnVehicleBookingCancel()">Cancel</button>
+                <button ng-switch-when="5" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
+                <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
                 <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnVehicleBookingTariff()">Change Tariff</button>
                 <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnChangeVehPickupLocation()">Change Pickup Location</button>
+                
                 <button ng-switch-when="6" class="btnCompact btn-success" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
             </div>
             <!-- <button class="btnCompact btn-success" data-ng-click="fnVehicleBookingComplaint()">Complaints</button> -->

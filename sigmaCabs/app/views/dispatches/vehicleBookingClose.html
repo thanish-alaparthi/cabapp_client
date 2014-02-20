@@ -19,11 +19,11 @@
                 <legend class="searchbox-border">Closing Report</legend>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Start Time</label>
-                    <span>{{vehicleMainDetials.details.pickupTime}}</span>
+                    <span>{{vehicleDetails.vehicleMainDetials.details.pickupTime}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Time</label>
-                    <span>14:30:25</span>
+                    <span>{{bookingClose.currentTimeDisplay}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Trip Time</label>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="bookingClose.currentKms" maxlength="15" class="textFieldCompact" value="1563"/>
+                    <input type="text" ng-model="bookingClose.currentKms" maxlength="15" class="textFieldCompact" value=""/>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Actual Kms</label>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Selected Package</label>
-                    <span>XYZ</span>
+                    <span>{{bookingClose.tariffDetails.text}}</span>
                 </div>
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Actual Package</label>

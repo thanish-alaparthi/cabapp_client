@@ -10,12 +10,45 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 angular.module('sigmaCabsApp')
     .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
-        var scope = $scope;
+        var scope = $scope,
+            currentTimeStamp = new Date(),
+            currentTimeMsec = currentTimeStamp.getTime(),
+            pickupTimeStamp;
         console.log('inside vehicleBookingClose', oVehicleData);
+        console.log(oTariffData);
 
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
-        scope.vehiclePackageTypes = PrerequisiteService.fnGetTariffByJtypeVType("1", "1");
+        scope.bookingClose.actualKms = scope.vehicleDetails.vehicleMainDetials.details.startKms;
+        scope.bookingClose.currentTimeDisplay = currentTimeStamp.getHours() + ':' + currentTimeStamp.getMinutes();
+        console.log('Journey Type: ' + scope.vehicleDetails.vehicleMainDetials.tempSelectedJourneyTypeId);
+        console.log('vehicle Type: ' + scope.vehicleDetails.vehicleMainDetials.vehicleType);
+        scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffById(scope.vehicleDetails.vehicleMainDetials.details.tariffId);
+        console.log(scope.bookingClose.tariffDetails);
+        scope.vehiclePackageTypes = PrerequisiteService.fnGetTariffByJtypeVType(scope.vehicleDetails.vehicleMainDetials.tempSelectedJourneyTypeId, scope.vehicleDetails.vehicleMainDetials.vehicleType);
+        console.log(scope.vehiclePackageTypes);
+        /*
+        * Decide Actual Package based on following conditions
+        * 1. If it exceeds current package time + grace time
+        * 
+        */
+        pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetials.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetials.details.pickupTime).getTime();
+        console.log('pickupTimeStamp: ' + pickupTimeStamp);
+        console.log('currentTimeStamp: ' + currentTimeMsec);
+        for(var i = 0; i < scope.vehiclePackageTypes.length; i++) {
+            var oPackageData = scope.vehiclePackageTypes[i],
+                packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace);
+            
+            // change package logic goes here
+        }        
+
+        scope.$watch('bookingClose.currentKms', function(newVal) {
+            var currentKms = parseFloat(scope.bookingClose.currentKms),
+                startKms = scope.vehicleDetails.vehicleMainDetials.details.startKms;
+
+            currentKms = (isNaN(currentKms)) ? startKms : currentKms;
+            scope.bookingClose.actualKms = currentKms - startKms;
+        }, true);
 
         scope.close = function() {
             dialog.close();
@@ -30,9 +63,9 @@ angular.module('sigmaCabsApp')
                 "currentKms": scope.bookingClose.currentKms,
                 "actualKms": scope.bookingClose.actualKms,
                 "startTime": scope.vehicleDetails.vehicleMainDetials.details.pickupTime,
-                "currentTime": "14:30:25",
+                "currentTime": scope.bookingClose.currentTimeDisplay,
                 "timeConsumed": "240",
-                "tariffOpted": "3",
+                "tariffOpted": scope.vehicleDetails.vehicleMainDetials.details.tariffId,
                 "tariffActual": "4",
                 "totalAmount": "1500",
                 "paidAmount": scope.bookingClose.paidAmount,

@@ -48,6 +48,7 @@ angular.module('sigmaCabsApp')
                     console.log('Success: ', data);
                     scope.close();
                     alert(data.result[0].message);
+                    $rootScope.$emit('eventGetVehicleStatus', null);
                 })
                 .error(function(data, status, headers, config) {
                     console.log('Error: ', data)

@@ -19,7 +19,9 @@ angular.module('sigmaCabsApp')
         scope.bookingStart = {};
         scope.vehicleDetails.actualKms = 500; // should get from API
         // Decide rating based on Pickup date and time vs current Date and time
-        pickupTimeStamp = scope.vehicleDetails.vehicleMainDetials.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetials.pickupTime;
+        pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetials.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetials.details.pickupTime).getTime();
+        console.log('pickupTimeStamp: ' + pickupTimeStamp);
+        console.log('currentTimeStamp: ' + currentTimeStamp);
         if (pickupTimeStamp < currentTimeStamp) {
             scope.bookingStart.rating = "Poor";
             scope.bookingStart.moreInfo = true;

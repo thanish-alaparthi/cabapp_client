@@ -303,6 +303,8 @@ angular.module('sigmaCabsApp')
                         } else if(scope.vehicleMainDetials.vehicleState == "6") {
                             scope.vStateHeading = ' - In Driving';
                         }
+                        // storing journey type to use in popup's
+                        scope.vehicleMainDetials.tempSelectedJourneyTypeId = oTmpJt.parentId;
                         scope.vAllotView = true;
                         break;
                 }
