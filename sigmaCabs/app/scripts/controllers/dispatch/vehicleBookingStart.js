@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingStart', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('vehicleBookingStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
         var scope = $scope,
             currentTimeStamp = new Date().getTime(),
             pickupTimeStamp;
@@ -47,7 +47,7 @@ angular.module('sigmaCabsApp')
                 "id": "", // need to check with lala about id
                 "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
                 "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-                "bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId,
+                "bookingId": scope.vehicleDetails.vehicleMainDetials.details.bookingId || '',
                 "currentKms": scope.bookingStart.currentKms,
                 "deadMileage": scope.bookingStart.deadMileage,
                 "reasonId": scope.bookingStart.reasonId, // only in the case of poor

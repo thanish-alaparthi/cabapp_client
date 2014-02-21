@@ -158,6 +158,7 @@ angular.module('sigmaCabsApp')
                 'vehicleLoginForm': 'views/dispatches/vehicleLoginForm.html',
                 'vehicleVacantForm': 'views/dispatches/vehicleVacantForm.html',
                 'vehicleAllotForm': 'views/dispatches/vehicleAllotForm.html',
+                'vehicleDefaultForm': 'views/dispatches/vehicleDefaultForm.html',
                 'currentMonthData': 'views/dispatches/currentMonthData.html',
                 'lastMonthHistory': 'views/dispatches/lastMonthHistory.html',
                 //'vehicleData': 'views/dispatches/vehicleData.html',

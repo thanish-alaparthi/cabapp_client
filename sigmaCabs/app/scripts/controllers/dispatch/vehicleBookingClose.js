@@ -13,9 +13,9 @@ angular.module('sigmaCabsApp')
         var scope = $scope,
             currentTimeStamp = new Date(),
             currentTimeMsec = currentTimeStamp.getTime(),
-            pickupTimeStamp;
+            pickupTimeStamp,
+            actualPackage;
         console.log('inside vehicleBookingClose', oVehicleData);
-        console.log(oTariffData);
 
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
@@ -28,26 +28,51 @@ angular.module('sigmaCabsApp')
         scope.vehiclePackageTypes = PrerequisiteService.fnGetTariffByJtypeVType(scope.vehicleDetails.vehicleMainDetials.tempSelectedJourneyTypeId, scope.vehicleDetails.vehicleMainDetials.vehicleType);
         console.log(scope.vehiclePackageTypes);
         /*
-        * Decide Actual Package based on following conditions
-        * 1. If it exceeds current package time + grace time
-        * 
-        */
+         * Decide Actual Package based on following conditions
+         * 1. If it exceeds current package time + grace time
+         *
+         */
         pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetials.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetials.details.pickupTime).getTime();
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
         console.log('currentTimeStamp: ' + currentTimeMsec);
-        for(var i = 0; i < scope.vehiclePackageTypes.length; i++) {
+        for (var i = 0; i < scope.vehiclePackageTypes.length; i++) {
             var oPackageData = scope.vehiclePackageTypes[i],
-                packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace);
-            
+                packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace), // package time + grace time
+                diffMs = (currentTimeMsec - pickupTimeStamp), // milliseconds between now & pickup time
+                diffMinutes = Math.round(diffMs / 60000); // minutes;
+            diffMinutes = 120; // Remove this later
+            //console.log('packageTime: ' + packageTime + ' diffMinutes: ' + diffMinutes);
+            if (diffMinutes <= packageTime) {
+                console.log(oPackageData.id);
+                scope.bookingClose.tariffActual = oPackageData.id;
+                actualPackage = oPackageData;
+                break;
+            }
             // change package logic goes here
-        }        
+        }
 
         scope.$watch('bookingClose.currentKms', function(newVal) {
-            var currentKms = parseFloat(scope.bookingClose.currentKms),
-                startKms = scope.vehicleDetails.vehicleMainDetials.details.startKms;
+            if (newVal != '' && !isNaN(newVal)) {
+                var currentKms = parseFloat(scope.bookingClose.currentKms),
+                    startKms = scope.vehicleDetails.vehicleMainDetials.details.startKms,
+                    packageBaseAmount = parseFloat(actualPackage.price),
+                    packageExtraKmCharge = parseFloat(actualPackage.extraKmPrice),
+                    packageKmLimit = parseFloat(actualPackage.kms),
+                    packageExtraCharge = parseFloat(actualPackage.extraCharges),
+                    totalKmsCharge = 0,
+                    actualKms = 0;
 
-            currentKms = (isNaN(currentKms)) ? startKms : currentKms;
-            scope.bookingClose.actualKms = currentKms - startKms;
+                currentKms = (isNaN(currentKms)) ? startKms : currentKms;
+                actualKms = currentKms - startKms;
+                scope.bookingClose.actualKms = (actualKms < 0) ? 0 : actualKms;
+                console.log('actualKms: ' + actualKms + ' packageKmLimit: ' + packageKmLimit);
+                if (actualKms > packageKmLimit) {
+                    totalKmsCharge = actualKms * packageExtraKmCharge;
+                }
+
+                // Total Amount
+                scope.bookingClose.totalAmount = packageBaseAmount + totalKmsCharge + packageExtraCharge;
+            }
         }, true);
 
         scope.close = function() {

@@ -1,20 +1,27 @@
 <fieldset class="searchbox-border customerDetailsContainer left">
     <legend class="searchbox-border">Driver Details</legend>
     <div class="relative">
-        <div class="fieldContainer relative clearBoth">
+        <div class="fieldContainer clearBoth relative clearBoth">
+            <label class="labelCompact">Search </label>
+            <input type="text" style="width: 70px;" ng-model="searchDetails.searchByVehicleId" class="textFieldCompact"  />
+            <button class="btnCompact btn-success" data-ng-click="fnVehicleSearchButton();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>            
+           <input checked class="smsCheckbox" type="checkbox" checked style="margin-left: 4px !important;">
+        </div>
+        <!-- <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">Search </label>
             <input type="text" ng-model="searchDetails.searchByVehicleId" class="validate[required,maxSize[128]] textFieldCompact"  />
             <button class="btnCompact btn-success" data-ng-click="fnVehicleSearchButton();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>
-        </div>
+            <input name="" checked class="left smsCheckbox" type="checkbox" checked>
+        </div> -->
         <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">V.Owner Name </label>
             <input type="text" ng-model="vehicleMainDetials.owner.name" class="left validate[required,maxSize[128]] textFieldCompact"  />
             <span class="smsText">SMS</span>
         </div>
         <div class="fieldContainer relative clearBoth">
-            <label class="labelCompact">Vehicle Ph.</label>
-            <input type="text" ng-model="vehicleMainDetials.mobileNumber" class="left validate[required,maxSize[128]] textFieldCompact" readonly phone />
-            <input name="" checked class="left smsCheckbox" type="checkbox" checked disabled>
+            <label class="labelCompact">Caller Ph.</label>
+            <input type="text" ng-model="callerPhone" class="left validate[required,maxSize[128]] textFieldCompact" readonly phone />
+            <input name="" checked class="left smsCheckbox" type="checkbox" checked>
         </div>
         <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Owner No.</label>

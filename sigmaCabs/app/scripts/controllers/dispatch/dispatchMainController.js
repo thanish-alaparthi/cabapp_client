@@ -40,6 +40,7 @@ angular.module('sigmaCabsApp')
             scope.vehicleLoginForm = URLService.view('vehicleLoginForm');
             scope.vehicleVacantForm = URLService.view('vehicleVacantForm');
             scope.vehicleAllotForm = URLService.view('vehicleAllotForm');
+            scope.vehicleDefaultForm = URLService.view('vehicleDefaultForm');
             scope.currentMonthData = URLService.view('currentMonthData');
             scope.bookingStatistics = URLService.view('bookingStatistics');
             scope.lastMonthHistory = URLService.view('lastMonthHistory');
@@ -59,6 +60,7 @@ angular.module('sigmaCabsApp')
             scope.vLoginView = false;
             scope.vVacantView = false;
             scope.vAllotView = false;
+            //scope.vDefaultView = false;
 
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;
@@ -265,6 +267,7 @@ angular.module('sigmaCabsApp')
                 scope.vLoginView = false;
                 scope.vVacantView = false;
                 scope.vAllotView = false;
+                //scope.vDefaultView = false;
 
                 // select first driver by default
                 if (scope.vehicleMainDetials.driver.length) {
@@ -281,8 +284,8 @@ angular.module('sigmaCabsApp')
                         scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetials.details.condition);
                         scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetials.paymentStatus);
 
-                        scope.vLoginView = true;
                         scope.vStateHeading = '';
+                        scope.vLoginView = true;
                         break;
                     case "2": // Vacant
                     case "3": // In Break
@@ -305,7 +308,11 @@ angular.module('sigmaCabsApp')
                         }
                         // storing journey type to use in popup's
                         scope.vehicleMainDetials.tempSelectedJourneyTypeId = oTmpJt.parentId;
+                        scope.vehicleMainDetials.details.displayPickupDate = PrerequisiteService.fnFormatDate(scope.vehicleMainDetials.details.pickupDate);
                         scope.vAllotView = true;
+                        break;
+                    default:
+                        scope.vDefaultView = true;
                         break;
                 }
 

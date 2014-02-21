@@ -238,7 +238,7 @@ angular.module('sigmaCabsApp')
 				displayName: 'ID'
 			},{
 				field: 'vehicleCode',
-				displayName: 'Vehicle Code'
+				displayName: 'Vehicle Id'
 			},{
 				field: 'vehicleType',
 				displayName: 'Vehicle Type'

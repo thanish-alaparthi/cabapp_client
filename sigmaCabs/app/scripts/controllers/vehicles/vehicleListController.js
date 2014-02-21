@@ -100,7 +100,7 @@ angular.module('sigmaCabsApp')
 			data: 'vehiclesData',
 			columnDefs: [{
 				field: 'vehicleCode',
-				displayName: 'Vehicle Code'
+				displayName: 'Vehicle Id'
 			},{
 				field: 'vehicleColor',
 				displayName: 'Color'

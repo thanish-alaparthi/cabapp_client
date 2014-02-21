@@ -2,7 +2,7 @@
     <legend class="searchbox-border">Vehicle {{vStateHeading}}</legend>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup Date</label>
-        <span>{{vehicleMainDetials.details.pickupDate}}</span>
+        <span>{{vehicleMainDetials.details.displayPickupDate}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Pickup Time</label>
@@ -66,7 +66,7 @@
     <div class="mainButtonContainer">
         <div style="text-align: center;">
             <div ng-switch on="vehicleMainDetials.vehicleState">
-                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Accepted</button>
+                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Confirm</button>
                 <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
                 <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report - Need to remove</button>
 
@@ -74,7 +74,7 @@
                 <button ng-switch-when="5" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
                 <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report</button>
                 <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnVehicleBookingTariff()">Change Tariff</button>
-                <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnChangeVehPickupLocation()">Change Pickup Location</button>
+                <button ng-switch-when="5" class="btnCompact btn-success" data-ng-click="fnChangeVehPickupLocation()" title="Change Pickup Location">CPL</button>
                 
                 <button ng-switch-when="6" class="btnCompact btn-success" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
             </div>
