@@ -1,8 +1,6 @@
-<fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;height:212px;">
+<fieldset class="dispatchFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;height:212px;">
     <legend class="searchbox-border">Vehicle {{vStateHeading}}</legend>
 
-    <div>
-        <label>Vehicle Details not found..</label>
-    </div>
+    <div class="info-message-text-middle">{{vehicleErrorMessage}}</div>
 </fieldset>
 <p class="clear"/>

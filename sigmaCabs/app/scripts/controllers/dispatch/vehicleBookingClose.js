@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
         var scope = $scope,
             currentTimeStamp = new Date(),
@@ -40,7 +40,7 @@ angular.module('sigmaCabsApp')
                 packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace), // package time + grace time
                 diffMs = (currentTimeMsec - pickupTimeStamp), // milliseconds between now & pickup time
                 diffMinutes = Math.round(diffMs / 60000); // minutes;
-            diffMinutes = 120; // Remove this later
+            //diffMinutes = 120; // Remove this later
             //console.log('packageTime: ' + packageTime + ' diffMinutes: ' + diffMinutes);
             if (diffMinutes <= packageTime) {
                 console.log(oPackageData.id);
@@ -83,7 +83,8 @@ angular.module('sigmaCabsApp')
                 "id": "", // need to check with lala about id
                 "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
                 "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-                "bookingId": "13",
+                "bookingId": scope.vehicleDetails.vehicleMainDetials.details.bookingId,
+                "customerId": scope.vehicleDetails.vehicleMainDetials.details.customerId,
                 "startKms": scope.vehicleDetails.vehicleMainDetials.details.startKms,
                 "currentKms": scope.bookingClose.currentKms,
                 "actualKms": scope.bookingClose.actualKms,
@@ -104,6 +105,7 @@ angular.module('sigmaCabsApp')
                     console.log('Success: ', data);
                     scope.close();
                     alert(data.result[0].message);
+                    $rootScope.$emit('eventGetVehicleStatus', null);
                 })
                 .error(function(data, status, headers, config) {
                     console.log('Error: ', data)

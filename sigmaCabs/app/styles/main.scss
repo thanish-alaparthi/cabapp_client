@@ -184,7 +184,8 @@ body {
     @extend .modal;
   width:auto !important;
   margin: 0px auto;
-  position: absolute !important;
+  /* Commented as it was going onto top when console is open */
+  /*position: absolute !important;*/
   border-radius:0 !important;
   border: $gray_dark_border;
   z-index: 1050 !important;
@@ -918,4 +919,9 @@ textFieldCompact[disabled] .textFieldCompact {
   text-overflow: ellipsis;
   width: 100px;
   white-space: nowrap;
+}
+.info-message-text-middle {
+  font-weight: bold;
+  margin: 70px auto 0;
+  text-align: center;
 }

@@ -456,6 +456,45 @@ angular.module('sigmaCabsApp')
 
 			scope.fnSetBookingTypeInHeader();
 
-		}
+		};
 
+		scope.fnOpenCustFeedback = function() {
+			$scope.opts = {
+				templateUrl: URLService.view('customerFeedback'),
+				controller: 'customerFeedback',
+				dialogClass: 'modalClass add-request',
+				resolve: {
+					editMode: [
+
+						function() {
+							return false;
+						}
+					],
+					oBooking: function() {
+						// send readyToSave booking details
+						return {
+							id: "", // always save booking as new in disposition.
+							pickupDate: PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate),
+							pickupTime: scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00',
+							pickupPlace: scope.bookingDetails.pickupPlace,
+							dropPlace: scope.bookingDetails.dropPlace,
+							primaryPassanger: '',
+							primaryMobile: '',
+							extraMobile: '',
+							landmark1: scope.bookingDetails.landmark1,
+							landmark2: scope.bookingDetails.landmark2,
+							vehicleName: scope.bookingDetails.vehicleName,
+							vehicleType: scope.bookingDetails.vehicleType,
+							subJourneyType: scope.bookingDetails.subJourneyType,
+							bookingStatus: null, // reset the booking status in disposition.
+							customerId: scope.waCustomerDetails.id
+						}
+					},
+					oCustomer: function() {
+						return scope.waCustomerDetails
+					}
+				}
+			};
+			modalWindow.addDataToModal($scope.opts);
+		};
 	});

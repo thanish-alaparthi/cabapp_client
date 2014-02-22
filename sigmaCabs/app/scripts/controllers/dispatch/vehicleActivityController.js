@@ -64,20 +64,47 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnVehicleConfirm = function() {
-			var bookingId = scope.vehicleMainDetials.details.bookingId || '';
+			var bookingId = scope.vehicleMainDetials.details.bookingId || '',
+				oData = {};
 			console.log(scope.vehicleMainDetials);
-			if(bookingId === '') {
-				alert('Please enter Booking Id');
+			if (bookingId === '') {
+				alert('Booking Id not found');
 				return false;
 			}
 
-			scope.vehicleLoginObj = {
+			oData = {
 				"vehicleId": scope.vehicleMainDetials.id,
 				"driverId": scope.vehicleMainDetials.selectedDriver,
 				"bookingId": bookingId
 			};
 
-			DispatchService.fnVehicleConfirm(scope.vehicleLoginObj)
+			DispatchService.fnVehicleConfirm(oData)
+				.success(function(data, status, headers, config) {
+					console.log('Success: ', data);
+					alert(data.result[0].message);
+					scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNumber);
+				})
+				.error(function(data, status, headers, config) {
+					console.log('Error: ', data)
+				});
+		};
+
+		scope.fnVehicleAccepBooking = function() {
+			var bookingId = scope.vehicleMainDetials.details.bookingId || '',
+				oData = {};
+			console.log(scope.vehicleMainDetials);
+			if (bookingId === '') {
+				alert('Please enter Booking Id');
+				return false;
+			}
+
+			oData = {
+				"vehicleId": scope.vehicleMainDetials.id,
+				"driverId": scope.vehicleMainDetials.selectedDriver,
+				"bookingId": bookingId
+			};
+
+			DispatchService.fnVehicleAcceptBooking(oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					alert(data.result[0].message);

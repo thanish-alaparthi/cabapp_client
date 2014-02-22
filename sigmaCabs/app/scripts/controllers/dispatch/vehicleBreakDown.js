@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBreakDown', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBreakDown', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside vehicleBreakDown', oVehicleData);
@@ -35,19 +35,20 @@ angular.module('sigmaCabsApp')
 					"comments": scope.breakDown.comments
 				};
 
-			if (oData.requester === '' || oData.reasonId === '') {
+			/*if (oData.requester === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
 			} else if (scope.breakDown.categoryId === 4 && driverId === '') {
 				alert('Please select driver in vehicle information');
 				return;
-			}
+			}*/
 
 			DispatchService.fnVehicleBreakDown(oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();
 					alert(data.result[0].message);
+					$rootScope.$emit('eventGetVehicleStatus', null);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

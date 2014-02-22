@@ -35,6 +35,7 @@ angular.module('sigmaCabsApp')
         PrerequisiteService.fnGetPrerequisites();
 
         scope.fnInit = function() {
+            var errorMesg = 'Vehicle Details not found..';
             scope.dispatcherMainView = URLService.view('dispatcherMainView');
             scope.vehicleInformationForm = URLService.view('vehicleInformationForm');
             scope.vehicleLoginForm = URLService.view('vehicleLoginForm');
@@ -60,7 +61,7 @@ angular.module('sigmaCabsApp')
             scope.vLoginView = false;
             scope.vVacantView = false;
             scope.vAllotView = false;
-            //scope.vDefaultView = false;
+            scope.vDefaultView = false;
 
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;
@@ -95,6 +96,9 @@ angular.module('sigmaCabsApp')
                         if (data.status == 500) { // no data found of vehicle/booking 
                             console.log('500 fnFindVehicleByMobile', data);
                             scope.callerInfo = " (New Caller)";
+                            scope.vehicleErrorMessage = data.result[0].errorMessage || errorMesg;
+                            scope.vDefaultView = true;
+
                             // make callPhone as mobile 
                             //scope.customerDetails.mobile = scope.callerPhone;
                         } else if (data.status == 200 && data.result) {
@@ -267,7 +271,7 @@ angular.module('sigmaCabsApp')
                 scope.vLoginView = false;
                 scope.vVacantView = false;
                 scope.vAllotView = false;
-                //scope.vDefaultView = false;
+                scope.vDefaultView = false;
 
                 // select first driver by default
                 if (scope.vehicleMainDetials.driver.length) {
@@ -290,6 +294,7 @@ angular.module('sigmaCabsApp')
                     case "2": // Vacant
                     case "3": // In Break
                         scope.vStateHeading = (scope.vehicleMainDetials.vehicleState == "3") ? ' - In Break' : '';
+                        scope.vNextBookingState = (scope.vehicleMainDetials.details.nextBooking == "1") ? 'Yes' : 'No';
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot
@@ -299,17 +304,26 @@ angular.module('sigmaCabsApp')
                         scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
                         scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.vehicleName).vehicleName;
                         scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetials.vehicleType).vehicleType;
-                        if(scope.vehicleMainDetials.vehicleState == "4") {
+                        if (scope.vehicleMainDetials.vehicleState == "4") {
                             scope.vStateHeading = ' - Allot';
-                        } else if(scope.vehicleMainDetials.vehicleState == "5") {
+                        } else if (scope.vehicleMainDetials.vehicleState == "5") {
                             scope.vStateHeading = ' - Attached';
-                        } else if(scope.vehicleMainDetials.vehicleState == "6") {
+                        } else if (scope.vehicleMainDetials.vehicleState == "6") {
                             scope.vStateHeading = ' - In Driving';
                         }
                         // storing journey type to use in popup's
                         scope.vehicleMainDetials.tempSelectedJourneyTypeId = oTmpJt.parentId;
                         scope.vehicleMainDetials.details.displayPickupDate = PrerequisiteService.fnFormatDate(scope.vehicleMainDetials.details.pickupDate);
                         scope.vAllotView = true;
+                        break;
+                    case "7": // Inactive
+                    case "8": // Not in use
+                        scope.vehicleErrorMessage = scope.vehicleMainDetials.details.message;
+                        scope.vDefaultView = true;
+                        break;
+                    case "9": // Vehicle Breakdown
+                        scope.vehicleErrorMessage = "Vehicle in Break down condition";
+                        scope.vDefaultView = true;
                         break;
                     default:
                         scope.vDefaultView = true;
@@ -336,8 +350,10 @@ angular.module('sigmaCabsApp')
                     vcode: sSearch
                 })
                     .success(function(data, status, headers, config) {
-                        if (data.status == 500) { // no data found of customer/booking 
+                        if (data.status == 500) { // no data found of vehicle
                             console.log('500 fnSearchVehicle', data);
+                            scope.vehicleErrorMessage = data.result[0].errorMessage || errorMesg;
+                            scope.vDefaultView = true;
                             // make callPhone as mobile 
                             scope.customerDetails.mobile = scope.callerPhone;
                         } else if (data.status == 200 && data.result) {
@@ -647,26 +663,45 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnVehicleBookingTariff = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('vehicleBookingTariff'),
-                controller: 'vehicleBookingTariff',
-                dialogClass: 'modalClass cancel-booking-container',
-                resolve: {
-                    editMode: [
-
-                        function() {
-                            return false;
-                        }
-                    ],
-                    oVehicleData: function() {
-                        var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
-                        };
-                        return oData;
-                    }
-                }
+            var oData = {
+                "customerId": scope.vehicleMainDetials.details.customerId || ''
             };
-            modalWindow.addDataToModal($scope.opts);
+
+            if (oData.customerId === '') {
+                alert('Error in fetching Customer details');
+                return;
+            }
+            // fetching customer details first
+            DispatchService.fnGetCustomerDetails(oData)
+                .success(function(data, status, headers, config) {
+                    console.log('Success: ', data);
+                    $scope.opts = {
+                        templateUrl: URLService.view('vehicleBookingTariff'),
+                        controller: 'vehicleBookingTariff',
+                        dialogClass: 'modalClass cancel-booking-container',
+                        resolve: {
+                            editMode: [
+
+                                function() {
+                                    return false;
+                                }
+                            ],
+                            oVehicleData: function() {
+                                var obj = {
+                                    vehicleMainDetials: scope.vehicleMainDetials
+                                };
+                                return obj;
+                            },
+                            oCustomerDetails: function() {
+                                return data.result;
+                            }
+                        }
+                    };
+                    modalWindow.addDataToModal($scope.opts);
+                })
+                .error(function(data, status, headers, config) {
+                    console.log('Error: ', data)
+                });
         };
 
         scope.fnChangeVehicle = function() {
@@ -738,29 +773,6 @@ angular.module('sigmaCabsApp')
             modalWindow.addDataToModal($scope.opts);
         };
 
-        scope.fnOpenDispatcherAddRequest = function() {
-            $scope.opts = {
-                templateUrl: URLService.view('dispatchAddRequest'),
-                controller: 'dispatchAddRequest',
-                dialogClass: 'modalClass add-request',
-                resolve: {
-                    editMode: [
-
-                        function() {
-                            return false;
-                        }
-                    ],
-                    oVehicleData: function() {
-                        var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
-                        };
-                        return oData;
-                    }
-                }
-            };
-            modalWindow.addDataToModal($scope.opts);
-        };
-
         scope.fnFeedback = function() {
             $scope.opts = {
                 templateUrl: URLService.view('dispatchFeedback'),
@@ -813,81 +825,58 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnOpenDisposition = function() {
-            /*if(!scope.waCustomerDetails.id) {
-                alert('Please save the customer details first.');
-                return;
-            }*/
-
-            $scope.opts = {
-                templateUrl: URLService.view('dispositionForm'),
-                controller: 'dispositionBooking',
-                dialogClass: 'modalClass disposition-booking-container',
-                resolve: {
-                    editMode: [
-
-                        function() {
-                            return false;
-                        }
-                    ],
-                    oBooking: function() {
-                        // send readyToSave booking details
-                        return {
-                            bookingStatus: null,
-                            customerId: "2",
-                            dropPlace: "Ameerpet, Hyderabad, Andhra Pradesh, India",
-                            extraMobile: "",
-                            id: "19",
-                            discount: 0,
-                            landmark1: "asdfffccffd",
-                            landmark2: "sadf",
-                            pickupDate: "2014-02-16",
-                            pickupPlace: "Narayanaguda, Hyderabad",
-                            pickupTime: "02:40:00",
-                            primaryMobile: "",
-                            primaryPassanger: "",
-                            subJourneyType: "7",
-                            vehicleName: null,
-                            vehicleType: "2"
-
-
-                            /*id : "",    // always save booking as new in disposition.
-                            pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
-                            pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
-                            pickupPlace : scope.bookingDetails.pickupPlace, 
-                            dropPlace : scope.bookingDetails.dropPlace, 
-                            primaryPassanger : '',
-                            primaryMobile : '',
-                            extraMobile : '',
-                            landmark1 : scope.bookingDetails.landmark1, 
-                            landmark2 : scope.bookingDetails.landmark2, 
-                            vehicleName : scope.bookingDetails.vehicleName, 
-                            vehicleType : scope.bookingDetails.vehicleType, 
-                            subJourneyType : scope.bookingDetails.subJourneyType, 
-                            bookingStatus : null,   // reset the booking status in disposition.
-                            customerId : scope.waCustomerDetails.id*/
-                        }
-                    },
-                    oCustomer: function() {
-                        return {
-                            "id": "6",
-                            "name": "Kumar",
-                            "mobile": "9666096662",
-                            "mobile2": "9703888888",
-                            "email": null,
-                            "bloodGroup": null,
-                            "dob": null,
-                            "occupation": null,
-                            "grade": "1",
-                            "customerCode": "459819",
-                            "category": "2",
-                            "tripCount": "0",
-                            "status": "1",
-                            "altMobile": "9703888888"
-                        };
-                    }
-                }
+            var oData = {
+                "customerId": scope.vehicleMainDetials.details.customerId || ''
             };
-            modalWindow.addDataToModal($scope.opts);
+
+            if (oData.customerId === '') {
+                alert('Error in fetching Customer details');
+                return;
+            }
+            // fetching customer details first
+            DispatchService.fnGetCustomerDetails(oData)
+                .success(function(data, status, headers, config) {
+                    console.log('Success: ', data);
+                    $scope.opts = {
+                        templateUrl: URLService.view('dispositionForm'),
+                        controller: 'dispositionBooking',
+                        dialogClass: 'modalClass disposition-booking-container',
+                        resolve: {
+                            editMode: [
+
+                                function() {
+                                    return false;
+                                }
+                            ],
+                            oBooking: function() {
+                                var oDetails = scope.vehicleMainDetials.details;
+                                // send readyToSave booking details
+                                return {
+                                    bookingStatus: null,
+                                    customerId: oDetails.customerId,
+                                    dropPlace: oDetails.dropPlace,
+                                    extraMobile: "",
+                                    id: "19",
+                                    discount: 0,
+                                    landmark1: oDetails.landmark1,
+                                    landmark2: oDetails.landmark2,
+                                    pickupDate: oDetails.pickupDate,
+                                    pickupPlace: oDetails.pickupPlace,
+                                    pickupTime: oDetails.pickupTime,
+                                    primaryMobile: "",
+                                    primaryPassanger: "",
+                                    subJourneyType: oDetails.subJourneyType,
+                                    vehicleName: null,
+                                    vehicleType: scope.vehicleMainDetials.vehicleType
+                                }
+                            },
+                            oCustomer: function() {
+                                return data.result;
+                            }
+                        }
+                    };
+                    modalWindow.addDataToModal($scope.opts);
+                });
         };
 
         // handling custom events

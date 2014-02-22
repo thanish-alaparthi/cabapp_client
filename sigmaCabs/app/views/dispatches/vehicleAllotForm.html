@@ -1,4 +1,4 @@
-<fieldset class="bookingFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;">
+<fieldset class="dispatchFormController left" data-ng-controller="vehicleActivityController" style="margin-left: 7px;">
     <legend class="searchbox-border">Vehicle {{vStateHeading}}</legend>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup Date</label>
@@ -68,7 +68,7 @@
             <div ng-switch on="vehicleMainDetials.vehicleState">
                 <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Confirm</button>
                 <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
-                <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report - Need to remove</button>
+                <!-- <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report - Need to remove</button> -->
 
                 <button ng-switch-when="5" class="btnCompact btn-danger" data-ng-click="fnVehicleBookingCancel()">Cancel</button>
                 <button ng-switch-when="5" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>

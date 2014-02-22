@@ -87,6 +87,7 @@ angular.module('sigmaCabsApp')
                 'bookingHistory': 'views/bookings/bookingHistory.html',
                 'bookingTariffGrid': 'views/bookings/bookingTariffGrid.html',
                 'extraInfoDetails': 'views/bookings/extraInfoDetails.html',
+                'customerFeedback': 'views/bookings/customerFeedback.html',
 
                 'bookingSnapshotPackageDuration': 'views/bookings/bookingSnapshotPackageDurationDetails.html',
                 'bookingSnapshotTarrifDetails': 'views/bookings/bookingSnapshotTarrifDetails.html',
@@ -164,7 +165,6 @@ angular.module('sigmaCabsApp')
                 //'vehicleData': 'views/dispatches/vehicleData.html',
                 'vehiclePerformance': 'views/dispatches/vehiclePerformance.html',
                 'dispatchFeedback': 'views/dispatches/dispatchFeedback.html',
-                'dispatchAddRequest': 'views/dispatches/dispatchAddRequest.html',
                 'changeVehiclePhone': 'views/dispatches/changeVehiclePhone.html',
                 'changeVehicleLocation': 'views/dispatches/changeVehicleLocation.html',
                 'changeVehicleStatus': 'views/dispatches/changeVehicleStatus.html',

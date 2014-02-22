@@ -18,6 +18,7 @@ angular.module('sigmaCabsApp')
         scope.vehicleReasonTypes = PrerequisiteService.fnGetReasons();
         scope.bookingStart = {};
         scope.vehicleDetails.actualKms = 500; // should get from API
+        scope.bookingStart.nextBooking = "1"; // should get from API
         // Decide rating based on Pickup date and time vs current Date and time
         pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetials.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetials.details.pickupTime).getTime();
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
@@ -50,6 +51,7 @@ angular.module('sigmaCabsApp')
                 "bookingId": scope.vehicleDetails.vehicleMainDetials.details.bookingId || '',
                 "currentKms": scope.bookingStart.currentKms,
                 "deadMileage": scope.bookingStart.deadMileage,
+                "nextBooking": scope.bookingStart.nextBooking,
                 "reasonId": scope.bookingStart.reasonId, // only in the case of poor
                 "rating": "1", // only in the case of poor
                 "comments": scope.bookingStart.comments // only in the case of poor

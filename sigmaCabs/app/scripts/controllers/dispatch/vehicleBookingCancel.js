@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBookingCancel', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBookingCancel', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside vehicleBookingCancel', oVehicleData);
@@ -44,6 +44,7 @@ angular.module('sigmaCabsApp')
 					console.log('Success: ', data);
 					scope.close();
 					alert(data.result[0].message);
+					$rootScope.$emit('eventGetVehicleStatus', null);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)
