@@ -1,0 +1,117 @@
+<div id="controlViewWrapper" fit-height-layout ng-model ="containerHeight">
+	<div id = "bookingNav" class= "bookingNav historyBarContainer">
+		<ul class="bookingNav_ul clearfix">
+			<li  ng-class = "(showBookingDetails) ? 'tabSelcted' : ''" ng-click = "showBookingDetailsTab()">Booking</li>
+			<li  ng-class = "(showMyCallBacks) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">My Callbacks</li>
+			<li  ng-class = "(showMycallHistory) ? 'tabSelcted' : ''" ng-click = "showMycallHistoryTab()">My Call History</li>
+			<li  ng-class = "(showTariffDetails) ? 'tabSelcted' : ''" ng-click =  "showTariffDetailsTab()">Tariff</li>
+			<li  ng-class = "(showVehicleAvailability) ? 'tabSelcted' : ''" ng-click = "showVehicleAvailabilityTab()">Vehicle Availability</li>
+			<li  ng-class = "(showBookingHistoryDetails) ? 'tabSelcted' : ''" ng-click = "showBookingHistoryDetailsTab()">Booking History</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Complaints & feedback</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Rating</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Breaks</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Chat</li>
+			<li  ng-class = "(showComplaints) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">Follow Ups</li>
+		</ul>
+	</div>
+	<div class="contentContainer">
+	<div class="panel panel-info custom-panel-overrides pull-left informational-view no-border-bottom" ng-show="informationViewDisplay">
+		<div class="panel-heading custom-panel-header-overrides">
+		  <span class="panel-title">Information</span>		  
+		  <i class="glyphicon glyphicon-remove pull-right" ng-click="infoPanelToggle()"></i>
+		  <span class="clearfix"></span>
+		</div>
+		<div class="panel-body custom-panel-body" fit-height-layout ng-model="bookingGridBorder">
+		  <div class="panel panel-info" accordian-handler>
+				<div class="panel-heading short-panel-heading" ng-click="handleShortPanelClick('bMgmt')">
+				  <span class="panel-title">Booking Management</span>
+				  <i class="glyphicon glyphicon-chevron-right"></i>
+				  <span class="clearfix"></span>
+				</div>
+				<div class="panel-body padding-5-panel-body">
+				  The content is straight forward
+				</div>
+			</div>
+			<div class="panel panel-info" accordian-handler>
+				<div class="panel-heading short-panel-heading" ng-click="handleShortPanelClick('vInfo')">
+				  <span class="panel-title">Vehicles Info</span>
+				  <i class="glyphicon glyphicon-chevron-right"></i>
+				  <span class="clearfix"></span>
+				</div>
+				<div class="panel-body padding-5-panel-body hide">
+				  The content is straight forward
+				</div>
+			</div>
+			<div class="panel panel-info" accordian-handler>
+				<div class="panel-heading short-panel-heading" ng-click="handleShortPanelClick('bInfo')">
+				  <span class="panel-title">Booking Info</span>
+				  <i class="glyphicon glyphicon-chevron-right"></i>
+				  <span class="clearfix"></span>
+				</div>
+				<div class="panel-body padding-5-panel-body hide">
+				  The content is straight forward
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-info custom-panel-overrides pull-left booking-view booking-normal-view no-border-bottom" ng-class="{bookingNoVehicleView:!vehicleViewDisplay,bookingNoInformationalView:!informationViewDisplay,bookingFullView:!infoVehicleCombiDisplay}">
+		<div class="panel-heading custom-panel-header-overrides">
+			<i class="glyphicon glyphicon-chevron-right" ng-click="infoPanelToggle()" ng-show="!informationViewDisplay" title="Open Information view"></i>
+			<div ng-show="showingBookingsGrid">
+			  <span class="panel-title">Bookings</span>
+			  <input id="booking_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder ="Search Bookings" ng-change="bookingSearch()"/>
+			</div>
+			<div ng-show="showingWhilDrivingGrid">
+			  <span class="panel-title">While Driving Vehicles</span>
+			  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder ="Search Vehicles" ng-change="whileDrivingSearch()"/>
+			</div>
+			<div ng-show="showingBookingsInfoGrid">
+			  <span class="panel-title">Booking Info</span>
+			  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder ="Search bookings" ng-change="bookingInfoSearch()"/>
+			</div>
+		  <i class="glyphicon glyphicon-chevron-left pull-right" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>		  
+		  <span class="clearfix"></span>
+		</div>
+		<div class="panel-body custom-panel-body">
+		  	<div id="dispatcherBookingsListGrid" class="gridStyle" ng-grid="gridBookingsData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingBookingsGrid"></div>
+		  	<div id="dispatcherWhileDrivingListGrid" class="gridStyle" ng-grid="gridForWhileDrivingVehiclesData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingWhilDrivingGrid"></div>
+		  	<div id="dispatcherBookingsInfoGrid" class="gridStyle" ng-grid="gridBookingsInfoData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingBookingsInfoGrid"></div>
+		</div>
+	</div>
+	<div class="panel panel-info pull-left vehicles-view custom-panel-overrides no-border-bottom" ng-show="vehicleViewDisplay">
+		<div class="panel-heading custom-panel-header-overrides">
+		  <span class="panel-title">Vehicles</span>
+		  <i class="glyphicon glyphicon-remove pull-right" ng-click="vehiclePanelToggle(false)"></i>
+		  <span class="clearfix"></span>
+		</div>
+		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder" ng-class="{paddTop0:bookingSelected}">
+		  <div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected" ng-class="{vehicleHalfView:vacantVehicleSelected}"> </div>
+		  <!-- <div class="vehicle-info-holder" ng-show='vacantVehicleSelected'>
+				<div class="panel panel-info">
+					<div class="panel-heading short-panel-heading">
+					  <span class="panel-title">Vehicle details</span>
+					  <i class="glyphicon glyphicon-remove" ng-click="vehicleDetailsPageCloseFn()"></i>
+					  <span class="clearfix"></span>
+					</div>
+					<div class="panel-body padding-5-panel-body">
+					  The content is straight forward
+					</div>
+				</div>
+			</div> -->
+			<div ng-show="bookingSelected">
+				<div class="tabs">
+					<div class="tabHeader clearfix">
+				  	<div ng-repeat="tab in tabs" class="tabContainer left">
+				    	<div id="{{tab.splitTabId}}" ng-click="handleTabClick(tab.id)" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}">
+				    		<span class="tabLabel" data-ng-bind="tab.label"></span>
+				  		</div>
+						</div>
+					</div>
+				</div>
+				<div ng-include src ="splitCurrentTab"> 
+				</div>
+			</div>
+		</div>		
+	</div>
+	<span class="clearfix"></span>
+</div>

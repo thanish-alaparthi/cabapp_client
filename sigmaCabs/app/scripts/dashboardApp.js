@@ -34,6 +34,10 @@ angular.module('sigmaCabsApp', [
         templateUrl: 'views/dispatch.html',
         controller: 'dispatchMainController'
       })
+	  .when('/controlView', {  
+        templateUrl: 'views/dispatches/controlView.html',
+        controller: 'controlViewController'
+      })
       .when('/booking', {  
         templateUrl: 'views/booking.html',
         controller: 'bookingController'

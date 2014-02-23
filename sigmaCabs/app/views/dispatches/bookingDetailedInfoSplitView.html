@@ -1,0 +1,9 @@
+<div class="">
+	<div ng-repeat="detail in bookingDetails">
+    <div ng-show="isFieldAvailable(detail.value)" class="fieldData">
+      <span class="heading7 ellipsisLabel" title="{{lang.label.layout_emailField}}" data-ng-bind="detail.name">
+      </span><span ng-show="addr.colon">:</span>
+      <span class="userDtls ellipsisLabel" title="{{detail.value}}" data-ng-bind="detail.value"></span>
+    </div>
+  </div>
+</div>

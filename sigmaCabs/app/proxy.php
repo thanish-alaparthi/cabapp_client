@@ -1,6 +1,7 @@
 <?php	
 // Define IP to where it has to communicate
-$ip = 'http://www.oxylator3is.com/sigma/public/index.php';
+$ip = 'http://183.83.165.240:8080/public/index.php';
+//$ip = 'http://www.oxylator3is.com/sigma/public/index.php';
 // $ip = 'http://localhost/ownmvc/public/index.php';
 
 // Input data to request

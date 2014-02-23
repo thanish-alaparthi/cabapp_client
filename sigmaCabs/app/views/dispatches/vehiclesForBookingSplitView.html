@@ -1,0 +1,16 @@
+<div fit-height-layout ng-model ="bookingVehiclesGridHeight">
+	<div class="gridStyle" id="dispatcherVehiclesForBookingGrid" ng-grid="gridForVehicleBookingsData" style="margin:0px;" ng-class="{vehicleHalfView:bookingVehicleSelected}"></div>
+	<div class="booking-vehicle-info-holder" ng-show='bookingVehicleSelected'>
+		<div class="panel panel-info">
+			<div class="panel-heading short-panel-heading">
+			  <span class="panel-title">Vehicle details</span>
+			  <i class="glyphicon glyphicon-remove" ng-click="bookingVehicleDetailsPageCloseFn()"></i>
+			  <span class="clearfix"></span>
+			</div>
+			<div class="panel-body padding-5-panel-body">
+			  <div class="vehicle-details-holder">
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>

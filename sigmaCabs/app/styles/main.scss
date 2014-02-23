@@ -3,6 +3,8 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import 'sass-bootstrap/lib/bootstrap';
 @import 'signin';
 @import 'dispatch';
+@import 'controlView';
+@import 'dashboard';
 $gray_color_dark: #403F41;
 $gray_dark_border: 1px solid $gray_color_dark;
 $white_color: #ffffff;/*white background*/
@@ -48,6 +50,12 @@ body {
     padding-bottom: 19px;
 }
 
+/* Modifying the container default styles*/
+.container{
+  min-width: 1265px !important;
+  padding-left:5px !important;
+  padding-right:5px !important;
+}
 /* Custom page footer */
 .footer {
     padding-top: 19px;
@@ -167,6 +175,11 @@ body {
 .icons {
     margin: 10px 10px 5px;
     cursor: pointer;
+}
+
+.searchInput{
+  border:solid 1px transparent;
+  outline: solid 0px  transparent;
 }
 
 .searchResults{       
@@ -300,140 +313,10 @@ body {
 .dispathButton{
   margin-top:8px;
 }
-
-
-  .empDetails{
-    .employeesGrid{
-      width:100%;
-      .gridStyle{
-        position:relative;
-        //width: 100%;
-        background: transparent;
-        &.splitViewGrid{
-          border-right: $light_gray_border;
-        }
-      }
-      &.splitViewGrid{
-        width: 50% !important;
-      }
-    }
-    .employeeInfoContainer{
-      width: 50%;
-      .empAssetContainer{
-        min-width: 304px;
-        overflow: auto;
-        border: $light_gray_border;
-        margin-left: 5px;
-        .empSplitTab{
-          min-width:120px !important;
-        }
-        .ngSortButtonDown{
-          right:0px !important;
-        }
-        .ngSortButtonUp{
-           right:0px !important;
-        }
-        .navHeader{
-          .navLabel{
-            @extend .ellipsisLabel;
-            min-width: 220px;
-            max-width: 78%;
-            margin: 10px 20px;
-            font-family: "hiltisb";
-            font-size: 14.5px;
-            text-transform: capitalize;
-          }
-        }
-       .minWidthAlign{
-         min-width:350px;
-        }
-        .personalInfoContainer{
-        .personalInfoHeader{
-          background: #E0E0E0;
-          padding: 5px 10px;
-        }
-        .personalDetails{
-          min-width: 140px;
-          padding: 0 10px;
-          margin: 20px;
-          border-right: 0px solid #ccc;
-          /*height: 260px;*/
-          overflow: auto;
-          .empIconBg{            
-            padding: 10px;
-            margin-left: -19px;
-            .userIcon{
-              @extend .icons-employee_new;
-                width: 131px;
-                height: 128px;
-            }
-          } 
-          .keyValuePairs{
-            margin-top:20px;
-          }
-          
-          .leftContent, .rightContent{
-            width: 50%;
-          }
-          .heading7{            
-            width: 41%;
-            display: inline-block;
-            font-weight:bold;
-          }
-          .userDtls{
-            margin: 0px 0px -5px 20px;
-            max-width: 50%;
-            min-width: 114px;
-          }
-          .employeeAdd{
-            margin: -19px 0px -6px 172px !important;
-            max-width: 114px;
-          }
-        }
-        p{
-          padding-bottom:0;
-          margin-bottom: 0;
-        }
-        .infoContainer{
-          margin: 0 0 15px;
-          width: 220px;
-          .heading{
-            font-family: "hiltisb";
-            margin: 5px 0;
-          }
-          span{
-            @extend .ellipsisLabel;
-            width: 200px;
-          }
-        }
-        }
-        .assetDetailsContainer{
-          width: 100%;
-          .gridStyle{
-            background: transparent;
-            border:0;
-          }
-          .noAssetFoundDiv{
-            margin-top: 50%;
-          }
-        }
-      }
-    }
-  }
-
-
-.addEmpWizardModal{
-  @extend .modal;
-  width:75% !important;
-  height:80% !important;
-  left:5% !important;
-  margin-left:0px !important;
-  right:25% !important;
-  top:10% !important;
-  &.dialog{
-    top: 20% !important;
-  }
-  max-height: 800px !important;
+.ngRow{
+  &:hover{
+    background-color: #c9dde1;
+  }  
 }
 //Add employee form-start
 .slide-frame{
@@ -495,7 +378,7 @@ body {
           border: $light_gray_border;
           height: 202px;
           .empImageIcon{  
-            @extend .icons-Employee_dailogbox;
+            /*@extend .icons-Employee_dailogbox;*/
             width: 170px;
             height: 203px;
           }
@@ -655,10 +538,10 @@ body {
     width: 100%;
   }
 }*/
-.container {
+/*.container {
   width: 1280px !important;
   overflow: auto;
-}
+}*/
 
 .textFieldCompact {
   -webkit-appearance: none;

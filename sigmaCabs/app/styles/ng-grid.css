@@ -85,7 +85,8 @@
   width: 14px;
   height: 14px;
   z-index: 1;
-  background-color: #9fbbb4;
+  //background-color: #9fbbb4;
+  background-color: WhiteSmoke;
   cursor: pointer;
 }
 .ngSortButtonUp {
@@ -179,6 +180,7 @@
 }
 .ngColList {
   list-style-type: none;
+  text-align: left;
 }
 .ngColListItem {
   position: relative;
@@ -388,7 +390,7 @@
 .ngTotalSelectContainer {
   float: left;
   margin: 5px;
-  margin-top: 7px;
+  margin-top: 3px;
 }
 .ngFooterSelectedItems {
   padding: 2px;

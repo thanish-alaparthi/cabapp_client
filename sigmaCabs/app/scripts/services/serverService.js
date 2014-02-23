@@ -1,7 +1,7 @@
 //Data model to communicate with server
 angular.module('sigmaCabsApp')
-.factory('serverService', function($rootScope, $http){
-	var baseUrl = "";
+.factory('serverService', function($rootScope, $http, stubService){
+	var baseUrl = "http://localhost/proxy.php";
 	var serverService = function(data){
 		angular.extend(this, data);
 	}
@@ -9,8 +9,8 @@ angular.module('sigmaCabsApp')
 		var methods = {'P':'POST','G':'GET'};
 		$http({
 				method: methods[method] || 'POST', 
-				url: baseUrl+url, 
-				data:data, 
+				url: baseUrl, 
+				data: {'url':url,'data':data},
 				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.success(function(data, status, headers, config) {
@@ -36,6 +36,10 @@ angular.module('sigmaCabsApp')
 				}
 		  	errorCallback(data);
 		  })
+	};
+	serverService.stubData = function(configData, sucessCallback, errorCallback){
+		var data = stubService.getStubData(configData);
+		sucessCallback(data);
 	};
 	serverService.showGlobalError = function(){
 		/*

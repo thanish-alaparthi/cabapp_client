@@ -1,0 +1,148 @@
+#controlViewWrapper{
+  .contentContainer{
+  /* Grid and Grid Containers CSS start */
+  .custom-panel-overrides{
+    border-radius: 0px;
+    margin-bottom: 5px;
+  }
+  .no-border-bottom{
+    border-bottom: 0px !important;
+  }
+  .custom-panel-header-overrides{
+    border-radius: 0px;
+  }
+  .short-panel-heading{
+    padding: 5px 15px !important;
+  }
+  .short-panel-heading i{
+    float: right;
+    cursor: pointer;
+  }
+  .padding-5-panel-body{
+    padding: 5px !important;
+  }
+  .right-panel-seperator{
+    margin-right:3px;
+  }
+  .control-view-grids{
+    /*font-size:11px;*/
+  }
+  .informational-view{
+    width: 20%;
+    overflow: auto;
+    .panel{
+      margin-bottom: 10px !important;
+    }
+    .short-panel-heading{
+      cursor: pointer;
+    }
+  }
+  .panel-heading{
+      i{
+        cursor: pointer;  
+      }
+    }
+  .booking-view{
+    width: 50%;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    .panel-heading{
+      padding-top: 9px !important;
+      i{
+        cursor: pointer;  
+      }
+    }
+    .searchInput{
+      border-color: #bce8f1 !important;
+    }
+    .panel-info-link{
+      cursor: pointer;
+      font-weight: bold;
+      &:hover{
+        font-color:#bce8f1;
+        text-decoration: underline;
+      }
+    }
+  }
+  .bookingNoInformationalView{
+    width: 70% !important;
+  }
+  .bookingNoVehicleView{
+    width: 80% !important;
+  }
+  .bookingFullView{
+    width:100% !important;
+  }
+  #dispatcherVacantVehiclesGrid.ngPagerContainer{ 
+    margin-top:5px !important;
+  }
+  /* Grid and Grid Containers CSS end */
+  .vehicles-view{
+    width: 30%;
+    .gridStyle{
+      height:100%;
+    }
+    .paddTop0{
+      padding-top:0px!important;
+    }
+    .vehicleHalfView{
+      height: 45% !important;      
+      border-bottom: solid 1px #bce8f1;
+    }
+    .vehicle-info-holder{
+      margin-top: 2px;
+      height: 55%;
+    }
+    .booking-vehicle-info-holder{
+      margin-top: 5px;
+      height: 45%;
+    }
+  }
+  .custom-panel-body{
+    padding:5px !important;
+  }
+  /* Tab css-start */
+  .tabs {
+    height: 35px;
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px solid #d6d4d5;
+  }
+  
+  .tabs .tabHeader {
+    padding-left: 20px;
+    padding: 4px 19px 0;
+    /*background: #e1e1e1;*/
+  }
+  
+  .tabs .tabHeader.userDetailsHeader {
+    padding: 4px 0px 0px 10px !important;
+  }
+  
+  .tabs .tabHeader .tabContainer {
+    position: relative;
+  }
+  
+  .tabs .tabHeader .tabContainer .tab {
+    background: #6b6767;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    line-height: 10px;
+    min-width: 140px;
+  }
+  
+  .tabs .tabHeader .tabContainer .tab .tabLabel { 
+    display: inline-block;
+  }
+  
+  .tabs .tabHeader .tabContainer .tab.selected {
+    background: #333333;
+    border-left: 1px solid #d6d4d5;
+    border-right: 1px solid #d6d4d5;
+  }
+
+  /* Tab css-end */
+
+  }
+}
