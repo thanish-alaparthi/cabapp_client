@@ -19,7 +19,7 @@ angular.module('sigmaCabsApp')
 		scope.vehicleDetails = oVehicleData;
 		scope.feedback = {};
 		scope.suggestions = {};
-		console.log(scope.vehicleDetails.vehicleMainDetials);
+		console.log(scope.vehicleDetails.vehicleMainDetails);
 		scope.saveText = 'Save Complaint'; //default text for save button.
 		scope.tab = 1;
 
@@ -56,16 +56,16 @@ angular.module('sigmaCabsApp')
 		}
 
 		scope.fnSaveAndCloseRequest = function() {
-			var driverId = scope.vehicleDetails.vehicleMainDetials.selectedDriver || '';
+			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '';
 
 			switch (scope.tab) {
 				case 1: // Complaint Save
 					var oData = {
 						"id": "", // need to check with lala about id
 						"requester": scope.feedback.categoryId,
-						"vehicleId": scope.vehicleDetails.vehicleMainDetials.id || '',
+						"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
 						"driverId": driverId,
-						"bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+						"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 						"reasonId": scope.feedback.reasonId || '',
 						"priority": scope.feedback.priorityId || '',
 						"comments": scope.feedback.comments
@@ -87,9 +87,9 @@ angular.module('sigmaCabsApp')
 					var oData = {
 						"id": "", // need to check with lala about id
 						"requester": scope.suggestions.categoryId,
-						"vehicleId": scope.vehicleDetails.vehicleMainDetials.id || '',
-						"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver || '',
-						"bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+						"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
+						"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+						"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 						"reasonId": scope.suggestions.reasonId || '',
 						"priority": scope.suggestions.priorityId || '',
 						"comments": scope.suggestions.comments

@@ -2,11 +2,11 @@
     <legend class="searchbox-border">Vehicle {{vStateHeading}}</legend>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup Date</label>
-        <span>{{vehicleMainDetials.details.displayPickupDate}}</span>
+        <span>{{vehicleMainDetails.details.displayPickupDate}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Pickup Time</label>
-        <span>{{vehicleMainDetials.details.pickupTime}}</span>
+        <span>{{vehicleMainDetails.details.pickupTime}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
@@ -20,20 +20,20 @@
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Pickup</label>
-        <span title="{{vehicleMainDetials.details.pickupPlace}}" class="ellipsisText">{{vehicleMainDetials.details.pickupPlace}}</span>
+        <span title="{{vehicleMainDetails.details.pickupPlace}}" class="ellipsisText">{{vehicleMainDetails.details.pickupPlace}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Drop Place</label>
-        <span class="ellipsisText" title="{{vehicleMainDetials.details.dropPlace}}">{{vehicleMainDetials.details.dropPlace}}</span>
+        <span class="ellipsisText" title="{{vehicleMainDetails.details.dropPlace}}">{{vehicleMainDetails.details.dropPlace}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Cust Name.</label>
-        <span>{{vehicleMainDetials.details.customerName}}</span>
+        <span>{{vehicleMainDetails.details.customerName}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Cust Ph.</label>
-        <span>{{vehicleMainDetials.details.customerMobile}}</span>
+        <span>{{vehicleMainDetails.details.customerMobile}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer  relative left">
@@ -42,7 +42,7 @@
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="vehicleMainDetials.details.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="vehicleMainDetails.details.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div>
     <p class="clear"/>
     <!-- <div class="fieldContainer relative left">
@@ -55,17 +55,17 @@
     </div> -->
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Landmark1</label>
-        <span>{{vehicleMainDetials.details.landmark1}}</span>
+        <span>{{vehicleMainDetails.details.landmark1}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Landmark2</label>
-        <span>{{vehicleMainDetials.details.landmark2}}</span>
+        <span>{{vehicleMainDetails.details.landmark2}}</span>
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
         <div style="text-align: center;">
-            <div ng-switch on="vehicleMainDetials.vehicleState">
+            <div ng-switch on="vehicleMainDetails.vehicleState">
                 <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleConfirm()">Confirm</button>
                 <button ng-switch-when="4" class="btnCompact btn-danger" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
                 <!-- <button ng-switch-when="4" class="btnCompact btn-success" data-ng-click="fnVehicleBookingStart()">Start Report - Need to remove</button> -->

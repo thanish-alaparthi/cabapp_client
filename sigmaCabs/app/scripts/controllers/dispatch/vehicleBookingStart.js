@@ -20,7 +20,7 @@ angular.module('sigmaCabsApp')
         scope.vehicleDetails.actualKms = 500; // should get from API
         scope.bookingStart.nextBooking = "1"; // should get from API
         // Decide rating based on Pickup date and time vs current Date and time
-        pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetials.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetials.details.pickupTime).getTime();
+        pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetails.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetails.details.pickupTime).getTime();
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
         console.log('currentTimeStamp: ' + currentTimeStamp);
         if (pickupTimeStamp < currentTimeStamp) {
@@ -46,9 +46,9 @@ angular.module('sigmaCabsApp')
         scope.fnSaveAndClose = function() {
             scope.oData = {
                 "id": "", // need to check with lala about id
-                "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-                "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-                "bookingId": scope.vehicleDetails.vehicleMainDetials.details.bookingId || '',
+                "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
                 "currentKms": scope.bookingStart.currentKms,
                 "deadMileage": scope.bookingStart.deadMileage,
                 "nextBooking": scope.bookingStart.nextBooking,

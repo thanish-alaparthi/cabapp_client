@@ -23,13 +23,13 @@ angular.module('sigmaCabsApp')
             dialog.close();
         }
         scope.fnSaveAndClose = function() {
-            var driverId = scope.vehicleDetails.vehicleMainDetials.selectedDriver || '',
+            var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
                 oData = {
                     "id": "", // need to check with lala about id
                     "requester": scope.vReject.categoryId,
-                    "vehicleId": scope.vehicleDetails.vehicleMainDetials.id || '',
+                    "vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
                     "driverId": driverId,
-                    "bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+                    "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
                     "reasonId": scope.vReject.reasonId || '',
                     "priority": scope.vReject.priorityId || '',
                     "comments": scope.vReject.comments

@@ -15,15 +15,15 @@ angular.module('sigmaCabsApp')
 		scope.vehicleDetails = oVehicleData;
 		scope.changeLocation = {};
 
-		console.log(scope.vehicleDetails.vehicleMainDetials.location);
+		console.log(scope.vehicleDetails.vehicleMainDetails.location);
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
 				"location": scope.changeLocation.newLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",

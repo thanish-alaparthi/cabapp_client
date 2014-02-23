@@ -40,10 +40,10 @@ angular.module('sigmaCabsApp')
 		//$scope.driversList = ["SAmeer", "Gandhar", "Thanish", "Driver1", "Driver2", "Driver3", "Driver4"];
 
 		scope.fnVehicleLogin = function() {
-			console.log(scope.vehicleMainDetials);
+			console.log(scope.vehicleMainDetails);
 			scope.vehicleLoginObj = {
-				"vehicleId": scope.vehicleMainDetials.id,
-				"driverId": scope.vehicleMainDetials.selectedDriver,
+				"vehicleId": scope.vehicleMainDetails.id,
+				"driverId": scope.vehicleMainDetails.selectedDriver,
 				"location": scope.vehicleDetails.loginLocation,
 				"lattitude": "1234.56",
 				"longitude": "6789.56"
@@ -56,7 +56,7 @@ angular.module('sigmaCabsApp')
 					console.log('Success: ', data);
 					//scope.bloginShow = false;
 					alert(data.result[0].message);
-					scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNumber);
+					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)
@@ -64,17 +64,17 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnVehicleConfirm = function() {
-			var bookingId = scope.vehicleMainDetials.details.bookingId || '',
+			var bookingId = scope.vehicleMainDetails.details.bookingId || '',
 				oData = {};
-			console.log(scope.vehicleMainDetials);
+			console.log(scope.vehicleMainDetails);
 			if (bookingId === '') {
 				alert('Booking Id not found');
 				return false;
 			}
 
 			oData = {
-				"vehicleId": scope.vehicleMainDetials.id,
-				"driverId": scope.vehicleMainDetials.selectedDriver,
+				"vehicleId": scope.vehicleMainDetails.id,
+				"driverId": scope.vehicleMainDetails.selectedDriver,
 				"bookingId": bookingId
 			};
 
@@ -82,7 +82,7 @@ angular.module('sigmaCabsApp')
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					alert(data.result[0].message);
-					scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNumber);
+					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)
@@ -90,17 +90,17 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnVehicleAccepBooking = function() {
-			var bookingId = scope.vehicleMainDetials.details.bookingId || '',
+			var bookingId = scope.vehicleMainDetails.details.bookingId || '',
 				oData = {};
-			console.log(scope.vehicleMainDetials);
+			console.log(scope.vehicleMainDetails);
 			if (bookingId === '') {
 				alert('Please enter Booking Id');
 				return false;
 			}
 
 			oData = {
-				"vehicleId": scope.vehicleMainDetials.id,
-				"driverId": scope.vehicleMainDetials.selectedDriver,
+				"vehicleId": scope.vehicleMainDetails.id,
+				"driverId": scope.vehicleMainDetails.selectedDriver,
 				"bookingId": bookingId
 			};
 
@@ -108,7 +108,7 @@ angular.module('sigmaCabsApp')
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					alert(data.result[0].message);
-					scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNumber);
+					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

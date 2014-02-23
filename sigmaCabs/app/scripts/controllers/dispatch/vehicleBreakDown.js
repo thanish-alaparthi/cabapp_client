@@ -24,12 +24,12 @@ angular.module('sigmaCabsApp')
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
-			var driverId = scope.vehicleDetails.vehicleMainDetials.selectedDriver || '',
+			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
 				oData = {
 					"requester": scope.breakDown.categoryId,
-					"vehicleId": scope.vehicleDetails.vehicleMainDetials.id || '',
+					"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
 					"driverId": driverId,
-					"bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+					"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 					"reasonId": scope.breakDown.reasonId || '',
 					"priority": scope.breakDown.priorityId || '',
 					"comments": scope.breakDown.comments

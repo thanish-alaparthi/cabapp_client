@@ -334,7 +334,7 @@ angular.module('sigmaCabsApp')
 			$scope.opts = {
 				templateUrl: URLService.view('singleTariff'),
 				controller: 'singleTariffController',
-				dialogClass: 'modalClass' ,
+				dialogClass: 'modalClass',
 				resolve: {
 					oBooking : function(){
 						// send readyToSave booking details
@@ -350,7 +350,8 @@ angular.module('sigmaCabsApp')
 							landmark1 : scope.bookingDetails.landmark1, 
 							landmark2 : scope.bookingDetails.landmark2, 
 							vehicleName : scope.bookingDetails.vehicleName, 
-							vehicleType : scope.bookingDetails.vehicleType, 
+							//Nortan - Changed to fix the issue pointed out by Aswin
+							vehicleType : scope.tmpDetails.tmpVehicleType, // scope.bookingDetails.vehicleType, 
 							subJourneyType : scope.bookingDetails.subJourneyType, 
 							bookingStatus : null,	// reset the booking status in disposition.
 							customerId : scope.waCustomerDetails.id

@@ -15,15 +15,15 @@ angular.module('sigmaCabsApp')
 
 		scope.vehicleDetails = oVehicleData;
 		scope.breakStart = {};
-		scope.breakStart.newLocation = scope.vehicleDetails.vehicleMainDetials.location;
+		scope.breakStart.newLocation = scope.vehicleDetails.vehicleMainDetails.location;
 
 		scope.close = function() {
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
-			var driverId = scope.vehicleDetails.vehicleMainDetials.selectedDriver || '',
+			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
 				oData = {
-					"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
+					"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
 					"driverId": driverId,
 					"reasonId": scope.breakStart.reasonId || '',
 					"location": scope.breakStart.newLocation,

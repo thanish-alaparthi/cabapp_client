@@ -16,7 +16,7 @@ angular.module('sigmaCabsApp')
 
 		scope.vehicleDetails = oVehicleData;
 		scope.statusComments = '';
-		previousStatusId = scope.vehicleDetails.vehicleMainDetials.paymentStatus;
+		previousStatusId = scope.vehicleDetails.vehicleMainDetails.paymentStatus;
 		scope.stateFrom = previousStatusId;
 		scope.stateTo = previousStatusId;
 
@@ -25,8 +25,8 @@ angular.module('sigmaCabsApp')
 		}
 		scope.fnSaveAndClose = function() {
 			scope.oData = {
-				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
 				"stateFrom": scope.stateFrom,
 				"stateTo": scope.stateTo,
 				"comment": scope.statusComments

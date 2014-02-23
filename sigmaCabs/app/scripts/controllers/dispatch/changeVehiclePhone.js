@@ -28,8 +28,8 @@ angular.module('sigmaCabsApp')
 			}
 
 			scope.oData = {
-				"vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-				"driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
+				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
 				"mobile": newMobile,
 				"comments": scope.phoneChangeComments
 			};

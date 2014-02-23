@@ -53,7 +53,7 @@ angular.module('sigmaCabsApp')
             scope.callerInfo = "";
             console.log(scope.callerPhone);
 
-            scope.vehicleMainDetials = {};
+            scope.vehicleMainDetails = {};
             scope.tmpDetails = {};
             scope.searchDetails = {};
             scope.vehicleDetails = {};
@@ -82,6 +82,7 @@ angular.module('sigmaCabsApp')
             }
 
             scope.fnVehicleSearch = function(mobileNo) {
+                mobileNo = mobileNo || scope.callerPhone;
                 DispatchService.fnFindVehicleByMobile({
                     mobile: mobileNo
                 })
@@ -267,58 +268,58 @@ angular.module('sigmaCabsApp')
             scope.fnSetVehicleDetails = function(oData) {
                 console.log('in fnSetVehicleDetails ');
                 console.log(oData.result);
-                scope.vehicleMainDetials = oData.result;
+                scope.vehicleMainDetails = oData.result;
                 scope.vLoginView = false;
                 scope.vVacantView = false;
                 scope.vAllotView = false;
                 scope.vDefaultView = false;
 
                 // select first driver by default
-                if (scope.vehicleMainDetials.driver.length) {
-                    scope.vehicleMainDetials.selectedDriver = scope.vehicleMainDetials.driver[0].id;
+                if (scope.vehicleMainDetails.driver.length) {
+                    scope.vehicleMainDetails.selectedDriver = scope.vehicleMainDetails.driver[0].id;
                 }
 
-                switch (scope.vehicleMainDetials.vehicleState) {
+                switch (scope.vehicleMainDetails.vehicleState) {
                     case "1": // Not Logged In
-                        scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.vehicleName).vehicleName;
-                        scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetials.vehicleType).vehicleType;
-                        scope.vehicleDetails.loginLocation = scope.vehicleMainDetials.location;
-                        scope.vehicleDetails.loginVehModel = scope.vehicleMainDetials.details.mfgMonth + ' - ' + scope.vehicleMainDetials.details.mfgYear;
-                        //scope.vehicleDetails.loginPaymentStatus = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetials.paymentStatus);
-                        scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetials.details.condition);
-                        scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetials.paymentStatus);
+                        scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
+                        scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
+                        scope.vehicleDetails.loginLocation = scope.vehicleMainDetails.location;
+                        scope.vehicleDetails.loginVehModel = scope.vehicleMainDetails.details.mfgMonth + ' - ' + scope.vehicleMainDetails.details.mfgYear;
+                        //scope.vehicleDetails.loginPaymentStatus = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetails.paymentStatus);
+                        scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetails.details.condition);
+                        scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetails.paymentStatus);
 
                         scope.vStateHeading = '';
                         scope.vLoginView = true;
                         break;
                     case "2": // Vacant
                     case "3": // In Break
-                        scope.vStateHeading = (scope.vehicleMainDetials.vehicleState == "3") ? ' - In Break' : '';
-                        scope.vNextBookingState = (scope.vehicleMainDetials.details.nextBooking == "1") ? 'Yes' : 'No';
+                        scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
+                        scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot
                     case "5": // Attach
                     case "6": // While Driving
-                        var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.vehicleMainDetials.details.subJourneyType);
+                        var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.vehicleMainDetails.details.subJourneyType);
                         scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
-                        scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetials.vehicleName).vehicleName;
-                        scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetials.vehicleType).vehicleType;
-                        if (scope.vehicleMainDetials.vehicleState == "4") {
+                        scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
+                        scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
+                        if (scope.vehicleMainDetails.vehicleState == "4") {
                             scope.vStateHeading = ' - Allot';
-                        } else if (scope.vehicleMainDetials.vehicleState == "5") {
+                        } else if (scope.vehicleMainDetails.vehicleState == "5") {
                             scope.vStateHeading = ' - Attached';
-                        } else if (scope.vehicleMainDetials.vehicleState == "6") {
+                        } else if (scope.vehicleMainDetails.vehicleState == "6") {
                             scope.vStateHeading = ' - In Driving';
                         }
                         // storing journey type to use in popup's
-                        scope.vehicleMainDetials.tempSelectedJourneyTypeId = oTmpJt.parentId;
-                        scope.vehicleMainDetials.details.displayPickupDate = PrerequisiteService.fnFormatDate(scope.vehicleMainDetials.details.pickupDate);
+                        scope.vehicleMainDetails.tempSelectedJourneyTypeId = oTmpJt.parentId;
+                        scope.vehicleMainDetails.details.displayPickupDate = PrerequisiteService.fnFormatDate(scope.vehicleMainDetails.details.pickupDate);
                         scope.vAllotView = true;
                         break;
                     case "7": // Inactive
                     case "8": // Not in use
-                        scope.vehicleErrorMessage = scope.vehicleMainDetials.details.message;
+                        scope.vehicleErrorMessage = scope.vehicleMainDetails.details.message;
                         scope.vDefaultView = true;
                         break;
                     case "9": // Vehicle Breakdown
@@ -330,16 +331,16 @@ angular.module('sigmaCabsApp')
                         break;
                 }
 
-                /*if (scope.vehicleMainDetials.details.vehicleType) {
-                    scope.tmpDetails.tmpVehicleType = scope.vehicleMainDetials.details.vehicleType;
+                /*if (scope.vehicleMainDetails.details.vehicleType) {
+                    scope.tmpDetails.tmpVehicleType = scope.vehicleMainDetails.details.vehicleType;
                 }
-                if (scope.vehicleMainDetials.details.vehicleName) {
-                    scope.tmpDetails.tmpVehicleName = scope.vehicleMainDetials.details.vehicleName;
+                if (scope.vehicleMainDetails.details.vehicleName) {
+                    scope.tmpDetails.tmpVehicleName = scope.vehicleMainDetails.details.vehicleName;
                 }*/
 
                 // load current Day data
-                if (scope.vehicleMainDetials.id) {
-                    scope.fnCurrentDayData(scope.vehicleMainDetials.id);
+                if (scope.vehicleMainDetails.id) {
+                    scope.fnCurrentDayData(scope.vehicleMainDetails.id);
                 }
             };
             scope.fnSearchVehicle = function(sSearch) {
@@ -391,10 +392,10 @@ angular.module('sigmaCabsApp')
 
         // function to change sub-Journey Types
         scope.fnPopSubJourneyTypes = function() {
-            scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.vehicleMainDetials.journeyType);
+            scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.vehicleMainDetails.journeyType);
             for (var i = 0; i < scope.subJourneyTypes.length; i++) {
-                if (scope.subJourneyTypes[i].parentId == scope.vehicleMainDetials.journeyType) {
-                    scope.vehicleMainDetials.subJourneyType = scope.subJourneyTypes[i].id;
+                if (scope.subJourneyTypes[i].parentId == scope.vehicleMainDetails.journeyType) {
+                    scope.vehicleMainDetails.subJourneyType = scope.subJourneyTypes[i].id;
                     break;
                 }
             }
@@ -403,7 +404,7 @@ angular.module('sigmaCabsApp')
         scope.fnPopVehicleNames = function() {
             scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpDetails.tmpVehicleType);
             scope.tmpDetails.tmpVehicleName = "";
-            scope.vehicleMainDetials.vehicleType = scope.tmpSelectedVehicleType.id;
+            scope.vehicleMainDetails.vehicleType = scope.tmpSelectedVehicleType.id;
             if (scope.vehicleNames) {
                 for (var i = 0; i < scope.vehicleNames.length; i++) {
                     if (scope.vehicleNames[i].id == "") {
@@ -423,13 +424,13 @@ angular.module('sigmaCabsApp')
         scope.fnPopVehicleTypes = function() {
             if (scope.tmpDetails.tmpVehicleName == "") {
                 scope.tmpDetails.tmpVehicleType = '1';
-                scope.vehicleMainDetials.vehicleName = "";
+                scope.vehicleMainDetails.vehicleName = "";
                 return;
             }
             scope.tmpSelectedVehicleName = PrerequisiteService.fnGetVehicleNameById(scope.tmpDetails.tmpVehicleName);
             scope.tmpDetails.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
 
-            scope.vehicleMainDetials.vehicleName = scope.tmpSelectedVehicleName.id;
+            scope.vehicleMainDetails.vehicleName = scope.tmpSelectedVehicleName.id;
         };
 
         scope.fnLoadDispactherView = function() {
@@ -441,7 +442,7 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnChangeVehiclePhone = function() {
-            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('changeVehiclePhone'),
                     controller: 'changeVehiclePhone',
@@ -455,7 +456,7 @@ angular.module('sigmaCabsApp')
                         ],
                         oVehicleData: function() {
                             var oData = {
-                                vehicleMainDetials: scope.vehicleMainDetials
+                                vehicleMainDetails: scope.vehicleMainDetails
                             };
                             return oData;
                         }
@@ -467,7 +468,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnChangeVehicleStatus = function() {
-            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('changeVehicleStatus'),
                     controller: 'changeVehicleStatus',
@@ -482,7 +483,7 @@ angular.module('sigmaCabsApp')
                         oVehicleData: function() {
                             var oData = {
                                 vehicleStatusTypes: scope.vehicleStatusTypes,
-                                vehicleMainDetials: scope.vehicleMainDetials
+                                vehicleMainDetails: scope.vehicleMainDetails
                             };
                             return oData;
                         }
@@ -494,7 +495,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnVehicleChangeLocation = function() {
-            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('changeVehicleLocation'),
                     controller: 'changeVehicleLocation',
@@ -508,7 +509,7 @@ angular.module('sigmaCabsApp')
                         ],
                         oVehicleData: function() {
                             var oData = {
-                                vehicleMainDetials: scope.vehicleMainDetials
+                                vehicleMainDetails: scope.vehicleMainDetails
                             };
                             return oData;
                         }
@@ -520,7 +521,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnVehicleBreakStart = function() {
-            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('vehicleBreakStart'),
                     controller: 'vehicleBreakStart',
@@ -534,7 +535,7 @@ angular.module('sigmaCabsApp')
                         ],
                         oVehicleData: function() {
                             var oData = {
-                                vehicleMainDetials: scope.vehicleMainDetials
+                                vehicleMainDetails: scope.vehicleMainDetails
                             };
                             return oData;
                         }
@@ -546,7 +547,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnVehicleBreakStop = function() {
-            if (scope.vehicleMainDetials.selectedDriver && scope.vehicleMainDetials.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('vehicleBreakStop'),
                     controller: 'vehicleBreakStop',
@@ -560,7 +561,7 @@ angular.module('sigmaCabsApp')
                         ],
                         oVehicleData: function() {
                             var oData = {
-                                vehicleMainDetials: scope.vehicleMainDetials
+                                vehicleMainDetails: scope.vehicleMainDetails
                             };
                             return oData;
                         }
@@ -585,7 +586,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -607,7 +608,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -630,7 +631,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -653,7 +654,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -664,7 +665,7 @@ angular.module('sigmaCabsApp')
 
         scope.fnVehicleBookingTariff = function() {
             var oData = {
-                "customerId": scope.vehicleMainDetials.details.customerId || ''
+                "customerId": scope.vehicleMainDetails.details.customerId || ''
             };
 
             if (oData.customerId === '') {
@@ -688,7 +689,7 @@ angular.module('sigmaCabsApp')
                             ],
                             oVehicleData: function() {
                                 var obj = {
-                                    vehicleMainDetials: scope.vehicleMainDetials
+                                    vehicleMainDetails: scope.vehicleMainDetails
                                 };
                                 return obj;
                             },
@@ -718,7 +719,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -741,7 +742,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -764,7 +765,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -787,7 +788,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -797,7 +798,7 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnVehicleRejectBooking = function() {
-            var bookingId = scope.vehicleMainDetials.details.bookingId || '';
+            var bookingId = scope.vehicleMainDetails.details.bookingId || '';
             if (bookingId === '') {
                 alert('Please enter Booking Id');
                 return;
@@ -815,7 +816,7 @@ angular.module('sigmaCabsApp')
                     ],
                     oVehicleData: function() {
                         var oData = {
-                            vehicleMainDetials: scope.vehicleMainDetials
+                            vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
                     }
@@ -826,7 +827,7 @@ angular.module('sigmaCabsApp')
 
         scope.fnOpenDisposition = function() {
             var oData = {
-                "customerId": scope.vehicleMainDetials.details.customerId || ''
+                "customerId": scope.vehicleMainDetails.details.customerId || ''
             };
 
             if (oData.customerId === '') {
@@ -849,7 +850,7 @@ angular.module('sigmaCabsApp')
                                 }
                             ],
                             oBooking: function() {
-                                var oDetails = scope.vehicleMainDetials.details;
+                                var oDetails = scope.vehicleMainDetails.details;
                                 // send readyToSave booking details
                                 return {
                                     bookingStatus: null,
@@ -867,7 +868,7 @@ angular.module('sigmaCabsApp')
                                     primaryPassanger: "",
                                     subJourneyType: oDetails.subJourneyType,
                                     vehicleName: null,
-                                    vehicleType: scope.vehicleMainDetials.vehicleType
+                                    vehicleType: scope.vehicleMainDetails.vehicleType
                                 }
                             },
                             oCustomer: function() {
@@ -882,7 +883,7 @@ angular.module('sigmaCabsApp')
         // handling custom events
         var oEventGetVehicleStatus = $rootScope.$on('eventGetVehicleStatus', function(oEvent, oData) {
             console.log('>>>>>scope.eventGetVehicleStatus changed', arguments);
-            scope.fnVehicleSearch(scope.vehicleMainDetials.mobileNo);
+            scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNo);
         });
 
 

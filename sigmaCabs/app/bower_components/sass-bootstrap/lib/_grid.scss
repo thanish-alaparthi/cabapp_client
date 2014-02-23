@@ -40,9 +40,9 @@
 // it's full-width.
 
 @media (min-width: $screen-sm-min) {
-  .container {
+  /*.container {
     width: $container-sm;
-  }
+  }*/
 
   @include make-grid-columns-float(sm);
   @include make-grid($grid-columns, sm, width);
@@ -60,9 +60,9 @@
 // it's full-width.
 
 @media (min-width: $screen-md-min) {
-  .container {
+  /*.container {
     width: $container-md;
-  }
+  }*/
 
   @include make-grid-columns-float(md);
   @include make-grid($grid-columns, md, width);
@@ -80,9 +80,9 @@
 // it's full-width.
 
 @media (min-width: $screen-lg-min) {
-  .container {
+  /*.container {
     width: $container-lg;
-  }
+  }*/
 
   @include make-grid-columns-float(lg);
   @include make-grid($grid-columns, lg, width);

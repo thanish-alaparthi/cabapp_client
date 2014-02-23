@@ -15,7 +15,7 @@
         </div> -->
         <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">V.Owner Name </label>
-            <input type="text" ng-model="vehicleMainDetials.owner.name" class="left validate[required,maxSize[128]] textFieldCompact"  />
+            <input type="text" ng-model="vehicleMainDetails.owner.name" class="left validate[required,maxSize[128]] textFieldCompact"  />
             <span class="smsText">SMS</span>
         </div>
         <div class="fieldContainer relative clearBoth">
@@ -25,16 +25,16 @@
         </div>
         <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Owner No.</label>
-            <input type="text" ng-model="vehicleMainDetials.owner.mobile" class="left validate[required,maxSize[10]] textFieldCompact" phone/>
+            <input type="text" ng-model="vehicleMainDetails.owner.mobile" class="left validate[required,maxSize[10]] textFieldCompact" phone/>
             <input name="" class="left smsCheckbox" type="checkbox" value="" >
         </div>
         <div class="fieldContainer clearBoth relative">
             <label class="labelCompact">Current Place</label>
-            <input type="text" ng-model="vehicleMainDetials.location" class="left validate[required,maxSize[128]] textFieldCompact" />
+            <input type="text" ng-model="vehicleMainDetails.location" class="left validate[required,maxSize[128]] textFieldCompact" />
         </div>
         <div class="fieldContainer clearBoth relative" >
             <label class="labelCompact">Driver Name</label>
-            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetials.selectedDriver" data-ng-options="obj.id as obj.name for obj in vehicleMainDetials.driver">
+            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetails.selectedDriver" data-ng-options="obj.id as obj.name for obj in vehicleMainDetails.driver">
             </select>
         </div>
         <hr class="buttonSpliter" />
@@ -44,7 +44,7 @@
                 <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown">
                 Add Request <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu" ng-switch on="vehicleMainDetials.vehicleState">
+                <ul class="dropdown-menu" role="menu" ng-switch on="vehicleMainDetails.vehicleState">
                     <li><a href="javascript:void(0);" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:void(0);" data-ng-click="fnChangeVehiclePhone()">Change Primary No.</a></li>
@@ -55,7 +55,7 @@
                     <li class="divider"></li>
                     <li><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()" ng-switch-when="2">Break Start</a></li>
                     <li><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStop()" ng-switch-when="3">Break Stop</a></li>
-                    <li><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li>
+                    <li ng-if="vehicleMainDetails.vehicleState != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li>
                     <li class="divider"></li>
                     <li><a href="javascript:void(0);" data-ng-click="">Road Side Booking</a></li>
                     <li class="divider"></li>

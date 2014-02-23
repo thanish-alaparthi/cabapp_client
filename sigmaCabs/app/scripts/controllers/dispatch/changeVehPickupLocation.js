@@ -21,9 +21,9 @@ angular.module('sigmaCabsApp')
         }
         scope.fnSaveAndClose = function() {
             var oData = {
-                "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-                "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
-                "bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
+                "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
                 "currentLocation": "Ameerpet",
                 "newLocation": scope.changePickup.newLocation,
                 "latitude": "1745.852",

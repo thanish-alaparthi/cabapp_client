@@ -35,7 +35,7 @@ angular.module('sigmaCabsApp')
                 dialogClass: 'modalClass',
                 resolve: {
                     oBooking: function() {
-                        var oDetails = scope.vehicleDetails.vehicleMainDetials.details;
+                        var oDetails = scope.vehicleDetails.vehicleMainDetails.details;
                         // send readyToSave booking details
                         return {
                             bookingStatus: null,
@@ -53,7 +53,7 @@ angular.module('sigmaCabsApp')
                             primaryPassanger: "",
                             subJourneyType: oDetails.subJourneyType,
                             vehicleName: null,
-                            vehicleType: scope.vehicleDetails.vehicleMainDetials.vehicleType
+                            vehicleType: scope.vehicleDetails.vehicleMainDetails.vehicleType
                         }
                     },
                     oCustomer: function() {
@@ -75,8 +75,8 @@ angular.module('sigmaCabsApp')
 
         scope.fnSaveAndClose = function() {
             var oData = {
-                "bookingId": scope.vehicleDetails.vehicleMainDetials.bookingId || '',
-                "optedTariffId": scope.vehicleDetails.vehicleMainDetials.details.tariffId,
+                "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
+                "optedTariffId": scope.vehicleDetails.vehicleMainDetails.details.tariffId,
                 "changedTariffId": scope.vChangeTariff.newTariffId || '',
                 "changedBy": scope.vChangeTariff.categoryId || '',
                 "reasonId": scope.vChangeTariff.reasonId || '',

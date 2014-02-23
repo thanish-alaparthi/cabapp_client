@@ -22,8 +22,8 @@ angular.module('sigmaCabsApp')
             scope.oData = {
                 "id": "", // need to check with lala about id
                 "requester": "1",
-                "vehicleId": scope.vehicleDetails.vehicleMainDetials.id,
-                "driverId": scope.vehicleDetails.vehicleMainDetials.selectedDriver,
+                "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
                 "bookingId": "13",
                 "reasonId": "2",
                 "priority": "1",

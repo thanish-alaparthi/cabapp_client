@@ -3,33 +3,33 @@
 
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Login Time</label>
-        <span>{{vehicleMainDetials.details.loginTime}}</span>
+        <span>{{vehicleMainDetails.details.loginTime}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Vacant Time</label>
-        <span>{{vehicleMainDetials.details.vacantTime}}</span>
+        <span>{{vehicleMainDetails.details.vacantTime}}</span>
     </div>
     <p class="clear" />
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">No.of Breaks</label>
-        <span>{{vehicleMainDetials.details.breakCount}}</span>
+        <span>{{vehicleMainDetails.details.breakCount}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact" title="Overall Break Time">Overall BT</label>
-        <span>{{vehicleMainDetials.details.breakTime}}</span>
+        <span>{{vehicleMainDetails.details.breakTime}}</span>
     </div>
     <p class="clear" />
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">No.of Bkings</label>
-        <span>{{vehicleMainDetials.details.bookingCount}}</span>
+        <span>{{vehicleMainDetails.details.bookingCount}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Day Collection</label>
-        <span>{{vehicleMainDetials.details.dayCollection}}</span>
+        <span>{{vehicleMainDetails.details.dayCollection}}</span>
     </div>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Home Loc.</label>
-        <span>{{vehicleMainDetials.details.homeLocation}}</span>
+        <span>{{vehicleMainDetails.details.homeLocation}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Next Booking</label>
@@ -38,16 +38,16 @@
     <p class="clear" />
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Current Loc</label>
-        <span>{{vehicleMainDetials.location}}</span>
+        <span>{{vehicleMainDetails.location}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Booking Id</label>
-        <input type="text" ng-model="vehicleMainDetials.details.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id"/>
+        <input type="text" ng-model="vehicleMainDetails.details.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id"/>
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />
     <div class="mainButtonContainer">
-        <div ng-switch on="vehicleMainDetials.vehicleState">
+        <div ng-switch on="vehicleMainDetails.vehicleState">
             <button class="btnCompact btn-success" ng-switch-when="2" data-ng-click="fnVehicleAccepBooking()">Accepted</button>
             <button class="btnCompact btn-danger" ng-switch-when="2" data-ng-click="fnVehicleRejectBooking()">Rejected</button>
         </div>
