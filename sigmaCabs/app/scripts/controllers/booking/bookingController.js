@@ -439,7 +439,7 @@ angular.module('sigmaCabsApp')
                 vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
             });
 
-            //  scope.headBookingType = scope.bookingDetails.bookingStatusName;
+            scope.headBookingType = scope.bookingDetails.bookingStatusName;
             scope.headBookingCode = scope.bookingDetails.bookingCode;
             scope.safeApply();
 

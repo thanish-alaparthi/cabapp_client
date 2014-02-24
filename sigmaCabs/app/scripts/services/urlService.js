@@ -197,6 +197,7 @@ angular.module('sigmaCabsApp')
             },
             page: function(pageName) {
                 return _oPages[pageName];
-            }
+            },
+            serviceRoot: _serviceRoot
         };
     });

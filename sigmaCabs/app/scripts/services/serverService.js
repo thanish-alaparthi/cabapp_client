@@ -1,7 +1,7 @@
 //Data model to communicate with server
 angular.module('sigmaCabsApp')
-.factory('serverService', function($rootScope, $http, stubService){
-	var baseUrl = "http://localhost/proxy.php";
+.factory('serverService', function($rootScope, $http, stubService, URLService){
+	var baseUrl = URLService.serviceRoot;
 	var serverService = function(data){
 		angular.extend(this, data);
 	}
