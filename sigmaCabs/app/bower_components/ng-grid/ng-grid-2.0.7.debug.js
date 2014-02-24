@@ -3490,7 +3490,7 @@ angular.module("ngGrid").run(["$templateCache", function($templateCache) {
   );
 
   $templateCache.put("cellTemplate.html",
-    "<div class=\"ngCellText\" ng-class=\"col.colIndex()\"><span ng-cell-text>{{COL_FIELD CUSTOM_FILTERS}}</span></div>"
+    "<div class=\"ngCellText\" ng-class=\"col.colIndex()\"><span ng-cell-text title='{{COL_FIELD}}'>{{COL_FIELD CUSTOM_FILTERS}}</span></div>"
   );
 
   $templateCache.put("checkboxCellTemplate.html",

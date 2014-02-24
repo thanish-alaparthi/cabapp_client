@@ -8,20 +8,24 @@ angular.module('sigmaCabsApp')
 	serverService.sendData = function(method, url, data, sucessCallback, errorCallback){
 		var methods = {'P':'POST','G':'GET'};
 		$http({
-				method: methods[method] || 'POST', 
-				url: baseUrl, 
-				data: {'url':url,'data':data},
-				headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+				'method': methods[method] || 'POST', 
+				'url': baseUrl, 
+				'data': {
+						'url':url,
+						'data':JSON.stringify(data)
+					},
+				'headers' : {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.success(function(data, status, headers, config) {
 				if(status == 200){
 					//check for the valid format of the data, else through into the error callback
-					/*var isValidData = (data && data.response && data.response.stat) || false;
-						if((isValidData) && (data.response.stat == 'SUCCESS')  ){*/
+					var isValidData = (data && data.status) || false;
+						if((isValidData) && (data.status == 200)  ){
+							var data = data.result;
 							sucessCallback(data);
-						/*} else{
+						} else{
 							errorCallback(data);
-						}*/
+						}
 				}else{
 					errorCallback(data);
 				}

@@ -23,6 +23,9 @@ angular.module('sigmaCabsApp')
         var scope = $scope, 
             _controller = 'controlViewController';
 
+        // Get the preRequisiteData
+        PrerequisiteService.fnGetPrerequisites();
+
         /*START: setting heights for the elements*/
         scope.containerHeight = 30;
         scope.bookingGridBorder = 96;
@@ -37,6 +40,7 @@ angular.module('sigmaCabsApp')
         scope.bookingSelected = false;
         scope.showingBookingsGrid = true;
         scope.bookingVehicleSelected = false;
+        scope.whileDrivingVehicleSelected = false;
         /*END: setting initial views to display*/
 
         /*START: setting initial data*/
@@ -57,6 +61,9 @@ angular.module('sigmaCabsApp')
         scope.selectedBookingItems = [];
         scope.selectedVacantVehicleRecords = [];
         scope.selectedBookingVehicleRecords = [];
+        scope.selectedWhileDrivingVehicleRecords = [];
+
+        scope.mainGridView = 'bMgmt';
         /*END: setting initial data*/
 
         /*START: resize methods for grids */
@@ -88,7 +95,45 @@ angular.module('sigmaCabsApp')
 
         /*END: resize methods for grids*/
 
-    /*START: Loading methods for the grids data*/
+    /*START: Formatting and Loading methods for the grids data */
+        /*START: Formatter methods*/
+        scope.FormatNloadBookingMgmtGridData = function(data){
+          var data = data, 
+              dataLen = data.length,
+              namesService = PrerequisiteService;
+          while(dataLen--){
+            var datum = data[dataLen];            
+            datum.bookingStatus = namesService.fnGetBookingStatusName(datum.bookingStatus);
+            var sJourneyTypeId = datum.subJourneyType;
+            datum.subJourneyType = namesService.fnGetJourneyTypeName(datum.subJourneyType);
+            //console.log(namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId));
+            datum.journeyType = namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType;
+          }
+          scope.loadBookingMgmtGridData(data);
+        }
+        scope.FormatNloadVacantVehiclesGridData = function(data){
+          var data = data, 
+              dataLen = data.length,          
+              namesService = PrerequisiteService;
+          while(dataLen--){
+            var datum = data[dataLen];
+            datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+          }
+          scope.loadVacantVehiclesGridData(data);
+        }
+        scope.FormatNloadBookingVehiclesGridData = function(data){
+         var data = data, 
+              dataLen = data.length,          
+              namesService = PrerequisiteService;
+          while(dataLen--){
+            var datum = data[dataLen];
+            datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+          }
+          scope.loadBookingVehiclesGridData(data);
+        }
+        /*END: Formatter methods*/
+
+        /*START: Loader methods*/
         scope.loadBookingMgmtGridData = function(data){
           var data = data;
           scope.bookingData = data;
@@ -118,6 +163,13 @@ angular.module('sigmaCabsApp')
           scope.bookingInfoDataObjs = JSON.parse(JSON.stringify(data));
           scope.bookingInfoDataLength = data.length;
         }
+        scope.loadVehicleDetailsData = function(data){          
+          scope.vehicleDetailsData = data;
+        }
+        scope.loadBookingDetailsData = function(data){          
+          scope.bookingDetailsData = data;
+        }
+        /*END: Loader methods*/
     /*END: Loading methods for the grids*/
 
     /*START: Loading initial grids*/
@@ -126,13 +178,12 @@ angular.module('sigmaCabsApp')
           if(doEmptyGrid && doEmptyGrid == true)
             scope.loadBookingMgmtGridData([]);
           else{
-            //Need to trigger the server call from here
-            serverService.sendData('G','dispatcher/getAllBookings', {"bookingStatus" : "2"}, scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
+            serverService.sendData('P','dispatcher/getAllBookings', {"bookingStatus" : [4]}, scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
             //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
           }
         }        
         scope.setBookingMgmtGrid_Success = function(data){
-          scope.loadBookingMgmtGridData(data);
+          scope.FormatNloadBookingMgmtGridData(data);
         }
         scope.setBookingMgmtGrid_Error = function(xhr, data){
           //do some error processing..
@@ -144,13 +195,12 @@ angular.module('sigmaCabsApp')
           if(doEmptyGrid && doEmptyGrid == true)
             scope.loadVacantVehiclesGridData([]);
           else{
-            //Need to trigger the server call from here
-            //serverService.sendData('G','url',scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
-            serverService.stubData({'controller': _controller,'url':'vacantVehiclesData'},scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
+            serverService.sendData('P','dispatcher/getAllVehicles',{"vehicleStatus":[2,3]}, scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
+            //serverService.stubData({'controller': _controller,'url':'vacantVehiclesData'},scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
           }
-        }        
+        }
         scope.setVacantVehiclesGrid_Success = function(data){
-          scope.loadVacantVehiclesGridData(data);
+          scope.FormatNloadVacantVehiclesGridData(data);
         }
         scope.setVacantVehiclesGrid_Error = function(xhr, data){
           //do some error processing..
@@ -176,22 +226,23 @@ angular.module('sigmaCabsApp')
         /*END: setting the while-driving vehicles grid*/
 
         /*START: setting the vehicles for booking grid*/
-        scope.setVehiclesForBookingGrid = function(doEmptyGrid){
+        scope.setVehiclesForBookingGrid = function(doEmptyGrid, data){
           if(doEmptyGrid && doEmptyGrid == true)
             scope.loadBookingVehiclesGridData([]);
           else{
-            //Need to trigger the server call from here
-            //serverService.sendData('G','url',scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
-            serverService.stubData({'controller': _controller,'url':'vehiclesForBookingData'},scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
+            var bookingObj = {'bookingId': data}
+            serverService.sendData('P','dispatcher/getAllVehiclesForBooking', bookingObj, scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
+            //serverService.stubData({'controller': _controller,'url':'vehiclesForBookingData'},scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
           }
-        }        
+        }
         scope.setVehiclesForBooking_Success = function(data){
-          scope.loadBookingVehiclesGridData(data);
+          scope.FormatNloadBookingVehiclesGridData(data);
         }
         scope.setVehiclesForBooking_Error = function(xhr, data){
           //do some error processing..
         }
         /*END: setting the vehicles for booking grid*/
+
         /*START: setting the booking info grid*/
         scope.setBookingInfoGrid = function(doEmptyGrid){
           if(doEmptyGrid && doEmptyGrid == true)
@@ -209,10 +260,58 @@ angular.module('sigmaCabsApp')
           //do some error processing..
         }
         /*END: setting the booking info grid*/
+        
 
-        scope.setBookingMgmtGrid();
-        scope.setVacantVehiclesGrid();
+        /********** Start of Details loaders ***********/
+        /*START: setting the vehicle details for selected Vehicle*/
+        scope.setVehicleDetails = function(clearDetails, data){
+          if(clearDetails && clearDetails == true)
+            scope.loadVehicleDetailsData({});
+          else{
+            //Need to trigger the server call from here
+            //serverService.sendData('G','url',scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
+            serverService.stubData({'controller': _controller,'url':'vehicleDetails'},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
+          }
+        }        
+        scope.setVehicleDetails_Success = function(data){
+          scope.loadVehicleDetailsData(data);          
+        }
+        scope.setVehicleDetails_Error = function(xhr, data){
+          //do some error processing..
+        }
+        /*END: setting the vehicle details for selected Vehicle */
 
+        /*START: setting the booking details for selected booking record*/
+        scope.setBookingDetails = function(clearDetails, data){
+          if(clearDetails && clearDetails == true)
+            scope.loadBookingDetailsData({});
+          else{
+            //Need to trigger the server call from here
+            //serverService.sendData('G','url',scope.setBookingDetails_Success, scope.setBookingDetails_Error);
+            serverService.stubData({'controller': _controller,'url':'bookingDetails'},scope.setBookingDetails_Success, scope.setBookingDetails_Error);
+          }
+        }        
+        scope.setBookingDetails_Success = function(data){
+          scope.loadBookingDetailsData(data);
+        }
+        scope.setBookingDetails_Error = function(xhr, data){
+          //do some error processing..
+        }
+        /*END: setting the booking details for selected booking record*/
+        /********** End of Details loaders ***********/
+
+        /******************************************************
+        START: Init method, starting point of this controller*/
+        scope.fnInit = function(){
+          scope.setBookingMgmtGrid();
+          scope.setVacantVehiclesGrid();          
+        }
+        /*END: Init method, starting point of this controller
+        ******************************************************/
+
+        $rootScope.$on('eventPrerequisitsLoaded', function() {
+            scope.fnInit();
+        });
     /*END: Loading initial grids*/
         
 
@@ -238,6 +337,27 @@ angular.module('sigmaCabsApp')
           }
         ];
 
+        scope.tabs_whileDriving=[
+          {
+              "label": 'Booking Details'
+            , "tooltip": 'Detailed booking info'
+            , "id": 0
+            , "splitTabId": "splitBookingInfo"
+            , "selected": false
+            , "template": "views/dispatches/bookingDetailedInfoSplitView.html"
+            , "callback": 'bookingTabClicked'
+          },
+          {
+             "label": 'Vehicle Details'
+            , "tooltip": 'Selected Vehicle\'s details'
+            , "id": 1
+            , "splitTabId": "splitVehicleDetails"
+            , "selected": false
+            , "template": "views/dispatches/vehicleDetailedInfoSplitView.html"
+            , "callback": 'vehicleDetailsTabClicked'
+          }
+        ];
+
         scope.previousSelectedTab = null;        
         scope.currentlyClickedTab = null;
 
@@ -246,30 +366,40 @@ angular.module('sigmaCabsApp')
           scope.splitCurrentTab = scope.tabs[0].template;
           scope.currentSelectedTab = scope.tabs[0].id;
         }
+        var selectionFirstTab_WhileDriving = function(){
+          scope.tabs_whileDriving[1].selected = true;
+          scope.splitCurrentTab = scope.tabs_whileDriving[1].template;
+          scope.currentSelectedTab = scope.tabs_whileDriving[1].id;
+        }
 
         /*
           Method description: Handle tab click
           PARAMS: steps array
         */
-        scope.handleTabClick = function(clickedid){
+        scope.handleTabClick = function(clickedid, tabs){
+          console.log(tabs);
           if(scope.currentSelectedTab == clickedid)
             return;          
-          scope.tabs[scope.currentSelectedTab].selected = false;
-          scope.tabs[clickedid].selected = true;
+          tabs[scope.currentSelectedTab].selected = false;
+          tabs[clickedid].selected = true;
           scope.previousSelectedTab = scope.currentSelectedTab;
           scope.currentSelectedTab = clickedid;
           whichTab = clickedid;
-          scope.splitCurrentTab = scope.tabs[whichTab].template;
-          if(scope.tabs[whichTab].callback)
-            scope[scope.tabs[whichTab].callback].call();
+          scope.splitCurrentTab = tabs[whichTab].template;
+          if(tabs[whichTab].callback)
+            scope[tabs[whichTab].callback].call();
         };
 
-        scope.vehicleTabClicked = function(){ 
+        scope.vehicleTabClicked = function(){
+
+        }
+        scope.bookingTabClicked = function(){
           
         }
-        scope.bookingTabClicked = function(){ 
+        scope.vehicleDetailsTabClicked = function(){
           
         }
+        
         /*END: Tabs functionality*/
 
     /*START: Grid related functionality*/
@@ -307,7 +437,7 @@ angular.module('sigmaCabsApp')
           }
         };
         
-        scope.bookingGridColDefs = [            
+        scope.bookingGridColDefs = [
           {field:'bookingCode', displayName:'BID', width: '*'},
           {field:'vehicleName', displayName:'Vehicle', width: '*'},
           {field:'vehicleType', displayName:'V.Type', width: '*'},
@@ -316,7 +446,7 @@ angular.module('sigmaCabsApp')
           {field:'journeyType', displayName:'Journey', width: '*'},
           {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'bookingOrigin', displayName:'Origin', width: '*'},
-          {field:'status', displayName:'Status', width: '*'},
+          {field:'bookingStatus', displayName:'Status', width: '*'},
           {field:'vehicleCode', displayName:'VID', width: '*'}
         ];
 
@@ -328,10 +458,11 @@ angular.module('sigmaCabsApp')
 
         scope.bookingSelectedFn = function(booking){
           scope.bookingSelected = true;
+          var bookingId = booking.bookingId;
           if(!scope.vehicleViewDisplay)
             scope.vehiclePanelToggle(true);          
           scope.setVacantVehiclesGrid(true);
-          scope.setVehiclesForBookingGrid();
+          scope.setVehiclesForBookingGrid(false, bookingId);
           scope.vacantVehicleSelected = false;
           selectionFirstTab();
         }
@@ -372,13 +503,17 @@ angular.module('sigmaCabsApp')
           }
         };
 
-        /*END: Bookings Management Grid*/
+        scope.unselectBookingFn = function(){
+          scope.gridBookingsData.selectAll(false)
+        }
 
+        /*END: Bookings Management Grid*/
         /*START: Vehicles for Booking Grid*/
         scope.vehiclesForBookingColDefs = [
-          {field:'vehicle', displayName:'Vehicle', width: '*'},
-          {field:'pNum', displayName:'Phone No', width: '*'},
-          {field:'currLoc', displayName:'Location', width: '*'}
+          {field:'vehicleCode', displayName:'VID', width: '*'},
+          {field:'vehicleName', displayName:'Vehicle', width: '*'},
+          {field:'mobileNumber', displayName:'Mobile', width: '*'},
+          {field:'location', displayName:'Location', width: '*'}
         ];
 
         scope.bookingVehicleSelectedFn = function(data){
@@ -409,6 +544,7 @@ angular.module('sigmaCabsApp')
         };
         scope.bookingVehicleDetailsPageCloseFn = function(){
           scope.bookingVehicleSelected = false;
+          scope.gridForVehicleBookingsData.selectAll(false);
           scope.resize_BookingVehiclesGrid();
         }
         /*END: Vehicles for Booking Grid*/
@@ -428,7 +564,14 @@ angular.module('sigmaCabsApp')
         };
 
         scope.whileDrivingVehicleSelectedFn = function(selected){
+          var vehicleId = selected.vehicleId
+            , bookingId = selected.bookingId;
           scope.whileDrivingVehicleSelected = true;
+          if(!scope.vehicleViewDisplay)
+            scope.vehiclePanelToggle(true);
+          scope.setVacantVehiclesGrid(true);
+          selectionFirstTab_WhileDriving();
+          //scope.setWhileDrivingVehicleDetails(vehicleId);
           scope.resize_WhileDrivingVehiclesGrid();
         }
         scope.whileDrivingVehicleUnSelectedFn = function(){
@@ -437,14 +580,14 @@ angular.module('sigmaCabsApp')
         }
 
         scope.vehiclesForWhileDrivingColDefs = [
-          {field:'bId', displayName:'BID', width: '*'},
-          {field:'vId', displayName:'VID', width: '*'},
+          {field:'bookingId', displayName:'BID', width: '*'},
+          {field:'vehicleCode', displayName:'VID', width: '*'},
           {field:'vehicle', displayName:'Vehicle', width: '*'},
-          {field:'pTime', displayName:'Pickup Time', width: '*'},
-          {field:'pPlace', displayName:'Pickup Place', width: '*'},
-          {field:'sJourneyType', displayName:'Package', width: '*'},
+          {field:'pickupTime', displayName:'Pickup Time', width: '*'},
+          {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
+          {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'expectVacntTime', displayName:'Expected Vacant time', width: '*'},
-          {field:'collection', displayName:'Collection', width: '*'},
+          {field:'dayCollection', displayName:'Collection', width: '*'},
           {field:'nxtBookng', displayName:'Next Booking', width: '*'}
         ];
 
@@ -459,12 +602,13 @@ angular.module('sigmaCabsApp')
           enableColumnReordering: true,
           columnDefs: 'vehiclesForWhileDrivingColDefs',
           multiSelect: false,
-          enableRowSelection: false,
+          enableRowSelection: true,
           keepLastSelected: false,
           showColumnMenu: true,
-          afterSelectionChange: function () {            
-            if(scope.selectedVacantVehicleRecords.length)
-              scope.whileDrivingVehicleSelectedFn(scope.selectedVacantVehicleRecords[0]);
+          selectedItems: scope.selectedWhileDrivingVehicleRecords,
+          afterSelectionChange: function () {
+            if(scope.selectedWhileDrivingVehicleRecords.length)
+              scope.whileDrivingVehicleSelectedFn(scope.selectedWhileDrivingVehicleRecords[0]);
             else
               scope.whileDrivingVehicleUnSelectedFn();
           }
@@ -512,12 +656,12 @@ angular.module('sigmaCabsApp')
 
         /*START: Vacant vehicles Grid*/
         scope.vacantVehiclesColDefs = [
-          {field:'vId', displayName:'Vehicle ID', width: '*'},            
-          {field:'vName', displayName:'Vehicle', width: '*'},
-          {field:'lgnHrs', displayName:'Login Hours', width: '*'},
-          {field:'currLoc', displayName:'Location', width: '*'},
-          {field:'isBreak', displayName:'Break', width: '*'},
-          {field:'collection', displayName:'Collection', width: '*'}
+          {field:'vehicleCode', displayName:'VID', width: '*'},            
+          {field:'vehicleName', displayName:'V.Name', width: '*'},
+          {field:'loginTime', displayName:'L.Hrs', width: '*'},
+          {field:'location', displayName:'Location', width: '*'},
+          {field:'inBreak', displayName:'Break?', width: '*'},
+          {field:'dayCollection', displayName:'Collection', width: '*'}
         ];
 
         scope.vacantVehicleSelectedFn = function(selected){
@@ -581,6 +725,7 @@ angular.module('sigmaCabsApp')
         });
         /*START: Handle While-driving and bookings hide-show*/
         scope.handleShortPanelClick = function(opt){
+          scope.mainGridView = opt;
           hide_reset_AllMainGridViews();
           if(opt == 'bMgmt'){
             scope.showBookingsList();

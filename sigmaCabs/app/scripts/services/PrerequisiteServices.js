@@ -340,7 +340,7 @@ angular.module('sigmaCabsApp')
 
                 return null;
             },
-            fnGetMainJourneyTypeObjectBySubJourneyTypeId : function(sSubJourneyTypeId){    //function to find out MainJourneyType based on SubJourneyTypeId
+            fnGetMainJourneyTypeObjectBySubJourneyTypeId : function(sSubJourneyTypeId, key){    //function to find out MainJourneyType based on SubJourneyTypeId
                 var oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length,
                     sSelId = null;
@@ -351,8 +351,8 @@ angular.module('sigmaCabsApp')
                         break;
                     }
                 }
-                if(sSelId){
-                    return this.fnGetJourneyObjectById(sSelId);
+                if(sSelId){                    
+                    return (key) ? this.fnGetJourneyObjectById(sSelId).key : this.fnGetJourneyObjectById(sSelId);
                 }
 
                 return null;

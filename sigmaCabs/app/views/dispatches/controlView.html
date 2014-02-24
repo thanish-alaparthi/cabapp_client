@@ -85,30 +85,38 @@
 		  <span class="clearfix"></span>
 		</div>
 		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder" ng-class="{paddTop0:bookingSelected}">
-		  <div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected" ng-class="{vehicleHalfView:vacantVehicleSelected}"> </div>
-		  <!-- <div class="vehicle-info-holder" ng-show='vacantVehicleSelected'>
-				<div class="panel panel-info">
-					<div class="panel-heading short-panel-heading">
-					  <span class="panel-title">Vehicle details</span>
-					  <i class="glyphicon glyphicon-remove" ng-click="vehicleDetailsPageCloseFn()"></i>
-					  <span class="clearfix"></span>
-					</div>
-					<div class="panel-body padding-5-panel-body">
-					  The content is straight forward
-					</div>
-				</div>
-			</div> -->
-			<div ng-show="bookingSelected">
-				<div class="tabs">
-					<div class="tabHeader clearfix">
-				  	<div ng-repeat="tab in tabs" class="tabContainer left">
-				    	<div id="{{tab.splitTabId}}" ng-click="handleTabClick(tab.id)" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}">
-				    		<span class="tabLabel" data-ng-bind="tab.label"></span>
-				  		</div>
+			<div ng-switch="mainGridView">
+				<div ng-switch-when="vInfo">
+						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!whileDrivingVehicleSelected"> </div>
+						<div ng-show="whileDrivingVehicleSelected">
+							<div class="tabs">
+								<div class="tabHeader clearfix">
+							  	<div ng-repeat="tab in tabs_whileDriving" class="tabContainer left">
+							    	<div id="{{tab.splitTabId}}" ng-click="handleTabClick(tab.id, tabs_whileDriving)" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}">
+							    		<span class="tabLabel" data-ng-bind="tab.label"></span>
+							  		</div>
+									</div>
+								</div>
+							</div>
+							<div ng-include src ="splitCurrentTab"> 
+							</div>
 						</div>
-					</div>
 				</div>
-				<div ng-include src ="splitCurrentTab"> 
+				<div ng-switch-default>
+						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected"`> </div>
+						<div ng-show="bookingSelected">
+							<div class="tabs">
+								<div class="tabHeader clearfix">
+							  	<div ng-repeat="tab in tabs" class="tabContainer left">
+							    	<div id="{{tab.splitTabId}}" ng-click="handleTabClick(tab.id, tabs)" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}">
+							    		<span class="tabLabel" data-ng-bind="tab.label"></span>
+							  		</div>
+									</div>
+								</div>
+							</div>
+							<div ng-include src ="splitCurrentTab"> 
+							</div>
+						</div>
 				</div>
 			</div>
 		</div>		
