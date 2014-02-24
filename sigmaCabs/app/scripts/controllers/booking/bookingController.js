@@ -429,10 +429,11 @@ angular.module('sigmaCabsApp')
                 comments: oT.comments,
                 distance: oT.distance,
                 duration: (oT.duration / 60),
-                extraCharges: '',
-                extraHour: oT.extraHrPrice,
+                extraCharges: oT.extraCharges,
+                //Nortan -  Extra hour should be displayed only in specific scenario's, so as of now keeping 0
+                extraHour: 0, // oT.extraHrPrice
                 extraKm: oT.extraKmPrice,
-                graceTime: '',
+                graceTime: oT.grace,
                 id: oT.id,
                 vehicleName: scope.bookingDetails.vehicleName ? PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName).vehicleName : 'Any-Vehicle',
                 vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
