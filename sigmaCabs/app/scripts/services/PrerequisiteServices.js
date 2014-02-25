@@ -545,8 +545,9 @@ angular.module('sigmaCabsApp')
             },
             fnGetVehicleNameById : function(sId){
                 var oThis = this,
-                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'];
-                for(var i=0;i<oVn.length;i++){
+                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'],
+                    oVnLength = oVn.length;
+                for(var i=0;i<oVnLength;i++){
                     if(oVn[i].id == sId){
                         return oVn[i];
                     }
@@ -555,8 +556,9 @@ angular.module('sigmaCabsApp')
             },
             fnGetVehicleDisplayNameById: function(sId) {
                 var oThis = this,
-                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'];
-                for (var i = 0; i < oVn.length; i++) {
+                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'],
+                    oVnLength = oVn.length;
+                for(var i=0;i<oVnLength;i++){
                     if (oVn[i].id == sId) {
                         return oVn[i].vehicleName;
                     }

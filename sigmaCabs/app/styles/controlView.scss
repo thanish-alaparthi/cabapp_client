@@ -185,7 +185,12 @@
   font-size: 12px;
   .ellipsisText {
     display: inline-flex;
-    width: 115px;
+    width: 108px;
+  }
+  .facilities {
+    display: inline-table;
+    list-style: none;
+    padding-left: 10px;
   }
   h4 {
     border-bottom: 1px solid #ccc;
@@ -210,4 +215,8 @@
       padding: 0 5px !important;
     }
   }
+}
+.mainGridView {
+  height: 100%;
+  overflow: auto;
 }

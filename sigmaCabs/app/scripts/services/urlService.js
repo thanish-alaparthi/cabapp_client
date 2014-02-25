@@ -139,6 +139,7 @@ angular.module('sigmaCabsApp')
                 'vehicleLogin': 'views/dispatches/vehicleLogin.html',
                 'breakDetails': 'views/dispatches/breakDetails.html',
                 'reportDetails': 'views/dispatches/reportDetails.html',
+                'vehicleDetailedInfoSplitView': 'views/dispatches/vehicleDetailedInfoSplitView.html',
 
 
                 'chatForm': 'views/chat/chatForm.html',

@@ -808,3 +808,19 @@ textFieldCompact[disabled] .textFieldCompact {
   margin: 70px auto 0;
   text-align: center;
 }
+.call-icon {
+  &:hover {
+    color: lime !important;
+  }
+  color: #333;
+  cursor: pointer;
+  margin-left: 3px;
+  transform: rotate(260deg);
+}
+/*.chatFormDiv {
+  float: left;
+  fieldset {
+    min-height: 212px;
+    min-width: 294px;
+  }
+}*/

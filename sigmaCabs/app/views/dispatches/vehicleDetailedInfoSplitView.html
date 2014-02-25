@@ -2,16 +2,16 @@
 	<h4>Vehicle and Driver Details</h4>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Driver Id">Dr. Id</label> 123456
+			<label title="Driver Id">Dr. Id</label> {{vehicleDetailsData.driver.driverCode}}
 		</div>
 		<div class="col-xs-6">
 			<label title="Driver Name">D.Name</label>
-			<span class="ellipsisText" title="Xyxll">Xyxll</span>
+			<span class="ellipsisText" title="Xyxll">{{vehicleDetailsData.driver.name}}</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Vehicle Id">Veh.Id</label> 55566
+			<label title="Vehicle Id">Veh.Id</label> {{vehicleDetailsData.vehicle.vehicleCode}}
 		</div>
 		<div class="col-xs-6">
 			<label title="Driver No">D.No.</label>
@@ -19,37 +19,36 @@
 				<option value="">999999999</option>
 				<option value="">777777777</option>
 			</select>
-			<!-- Call Icon comes here -->
-			<a href="javascript:void(0);">Call</a>
+			<span class="glyphicon glyphicon-earphone call-icon" title="Call"></span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Total Days">T.Days</label> 30
+			<label title="Total Days">T.Days</label> {{vehicleDetailsData.vehicle.totalDays}}
 		</div>
 		<div class="col-xs-6">
-			<label title="Total Working Days">TW.Days</label> 25
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Projected Login Time">PL Time</label> 600
-		</div>
-		<div class="col-xs-6">
-			<label title="Present Average Login Time">PAL. Time</label> 30
+			<label title="Total Working Days">TW.Days</label> {{vehicleDetailsData.vehicle.totalWorkingDays}}
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Projected Collection">P.Coll</label> 30000
+			<label title="Projected Login Time">PL Time</label> {{vehicleDetailsData.vehicle.projectedLoginTime}}
 		</div>
 		<div class="col-xs-6">
-			<label title="Present Average Collection">PA.Coll</label> 26000
+			<label title="Present Average Login Time">PAL. Time</label> {{vehicleDetailsData.vehicle.presentAvgLoginTime}}
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Driver Rating">DR</label>
+			<label title="Projected Collection">P.Coll</label> {{vehicleDetailsData.vehicle.projectedCollection}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Present Average Collection">PA.Coll</label> {{vehicleDetailsData.vehicle.presentAvgCollection}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Driver Rating">DR {{vehicleDetailsData.driver.rating}}</label>
 			<span class="glyphicon glyphicon-star"></span>
 			<span class="glyphicon glyphicon-star"></span>
 			<span class="glyphicon glyphicon-star"></span>
@@ -57,12 +56,22 @@
 			<span class="glyphicon glyphicon-star-empty"></span>
 		</div>
 		<div class="col-xs-6">
-			<label title="Vehicle Rating">VR</label>
+			<label title="Vehicle Rating">VR {{vehicleDetailsData.vehicle.rating}}</label>
 			<span class="glyphicon glyphicon-star"></span>
 			<span class="glyphicon glyphicon-star"></span>
 			<span class="glyphicon glyphicon-star"></span>
 			<span class="glyphicon glyphicon-star"></span>
 			<span class="glyphicon glyphicon-star-empty"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<label title="Available Facilities">Facilities</label>
+			<ul class="facilities">
+				<li ng-repeat="i in vehicleDetailsData.vehicle.facilities">
+					<span class="glyphicon glyphicon-check"></span> {{i}}
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>

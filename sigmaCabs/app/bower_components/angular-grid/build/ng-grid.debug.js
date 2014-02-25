@@ -3515,10 +3515,10 @@ angular.module("ngGrid").run(["$templateCache", function($templateCache) {
     "            <span class=\"ngLabel\">{{i18n.ngSelectedItemsLabel}} {{selectedItems.length}}</span>" +
     "        </div>" +
     "    </div>" +
-    "    <div class=\"ngPagerContainer\" style=\"float: right; margin-top: 10px;\" ng-show=\"enablePaging\" ng-class=\"{'ngNoMultiSelect': !multiSelect}\">" +
+    "    <div class=\"ngPagerContainer\" style=\"float: right; margin-top: 3px;\" ng-show=\"enablePaging\" ng-class=\"{'ngNoMultiSelect': !multiSelect}\">" +
     "        <div style=\"float:left; margin-right: 10px;\" class=\"ngRowCountPicker\">" +
     "            <span style=\"float: left; margin-top: 3px;\" class=\"ngLabel\">{{i18n.ngPageSizeLabel}}</span>" +
-    "            <select style=\"float: left;height: 27px; width: 100px\" ng-model=\"pagingOptions.pageSize\" >" +
+    "            <select style=\"float: left;height: 27px; margin-left: 5px; width: 50px\" ng-model=\"pagingOptions.pageSize\" >" +
     "                <option ng-repeat=\"size in pagingOptions.pageSizes\">{{size}}</option>" +
     "            </select>" +
     "        </div>" +

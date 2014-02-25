@@ -67,9 +67,13 @@
 			</div>
 			<div ng-show="showingBookingsInfoGrid">
 			  <span class="panel-title">Booking Info</span>
-			  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder ="Search bookings" ng-change="bookingInfoSearch()"/>
+			  <div class="pull-right">
+				  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput" placeholder ="Search bookings" ng-change="bookingInfoSearch()"/>
+			  	  <i class="glyphicon glyphicon-chevron-left" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>
+			  	  <span class="clearfix"></span>
+		  	  </div>
+		  	  <span class="clearfix"></span>
 			</div>
-		  <i class="glyphicon glyphicon-chevron-left pull-right" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>		  
 		  <span class="clearfix"></span>
 		</div>
 		<div class="panel-body custom-panel-body">
@@ -85,7 +89,7 @@
 		  <span class="clearfix"></span>
 		</div>
 		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder" ng-class="{paddTop0:bookingSelected}">
-			<div ng-switch="mainGridView">
+			<div ng-switch="mainGridView" class="mainGridView">
 				<div ng-switch-when="vInfo">
 						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!whileDrivingVehicleSelected"> </div>
 						<div ng-show="whileDrivingVehicleSelected">

@@ -63,6 +63,8 @@ angular.module('sigmaCabsApp')
         scope.selectedBookingVehicleRecords = [];
         scope.selectedWhileDrivingVehicleRecords = [];
 
+        scope.vehicleDetailedInfoSplitView = URLService.view('vehicleDetailedInfoSplitView');
+
         scope.mainGridView = 'bMgmt';
         /*END: setting initial data*/
 
@@ -130,6 +132,62 @@ angular.module('sigmaCabsApp')
             datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
           }
           scope.loadBookingVehiclesGridData(data);
+        }
+        scope.FormatNloadVehicleDetailsData = function(data){
+          var data = data, 
+              dataLen = data.length,          
+              namesService = PrerequisiteService,
+              oData = {};
+          // vehicle details
+          if(data.vehicle) {
+            oData.vehicle = {
+              "id": "12",
+              "vehicleCode": data.vehicle.vehicleCode || '',
+              "registrationNumber": data.vehicle.registrationNumber || '',
+              "vehicleNameId": data.vehicle.vehicleName || '',
+              "vehicleName": PrerequisiteService.fnGetVehicleDisplayNameById(data.vehicle.vehicleName) || '',
+              "vehicleTypeId": data.vehicle.vehicleType || '',
+              "vehicleType": PrerequisiteService.fnGetVehicleDisplayTypeById(data.vehicle.vehicleType) || '',
+              "registeredMobile": data.vehicle.registrationNumber || '', // should be changed to array
+              "previousLocation": data.vehicle.previousLocation || '',
+              "totalDays": data.vehicle.totalDays || 0,
+              "totalWorkingDays": data.vehicle.totalWorkingDays || 0,
+              "projectedLoginTime": PrerequisiteService.fnFormatMinutes(data.vehicle.projectedLoginTime) || 0,
+              "presentAvgLoginTime": PrerequisiteService.fnFormatMinutes(data.vehicle.presentAvgLoginTime) || 0,
+              "projectedCollection": data.vehicle.projectedCollection || 0,
+              "presentAvgCollection": data.vehicle.presentAvgCollection || 0,
+              // converting to 5 scale assuming it is 10 point scale
+              "rating": Math.round(parseFloat(data.vehicle.rating) / 2) || 0,
+              "facilities": data.vehicle.facilities || []
+            };
+          } else {
+            oData.vehicle = {};
+          }
+          // driver details
+          if(data.driver) {
+            oData.driver = {
+                  "id": "12",
+                  "driverCode": data.driver.driverCode || '',
+                  "name": data.driver.name || '',
+                  "mobile": data.driver.mobile || '',
+                  // converting to 5 scale assuming it is 10 point scale
+                  "rating": Math.round(parseFloat(data.driver.rating) / 2) || 0
+              };
+          } else {
+            oData.driver = {};
+          }
+
+          scope.loadVehicleDetailsData(oData);
+        }
+        scope.FormatNloadBookingDetailsData = function(data){
+         var data = data, 
+              dataLen = data.length,          
+              namesService = PrerequisiteService;
+          /*while(dataLen--){
+            var datum = data[dataLen];
+            datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+          }
+*/          scope.loadBookingDetailsData(data);
         }
         /*END: Formatter methods*/
 
@@ -269,12 +327,12 @@ angular.module('sigmaCabsApp')
             scope.loadVehicleDetailsData({});
           else{
             //Need to trigger the server call from here
-            //serverService.sendData('G','url',scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
-            serverService.stubData({'controller': _controller,'url':'vehicleDetails'},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
+            serverService.sendData('P','dispatcher/getVehicleQuickInfo',{'vehicleId':data},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
+            // serverService.stubData({'controller': _controller,'url':'vehicleDetails'},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
           }
         }        
         scope.setVehicleDetails_Success = function(data){
-          scope.loadVehicleDetailsData(data);          
+          scope.FormatNloadVehicleDetailsData(data);          
         }
         scope.setVehicleDetails_Error = function(xhr, data){
           //do some error processing..
@@ -287,12 +345,12 @@ angular.module('sigmaCabsApp')
             scope.loadBookingDetailsData({});
           else{
             //Need to trigger the server call from here
-            //serverService.sendData('G','url',scope.setBookingDetails_Success, scope.setBookingDetails_Error);
-            serverService.stubData({'controller': _controller,'url':'bookingDetails'},scope.setBookingDetails_Success, scope.setBookingDetails_Error);
+            serverService.sendData('P','dispatcher/getBookingQuickInfo',{'bookingId':data},scope.setBookingDetails_Success, scope.setBookingDetails_Error);
+            // serverService.stubData({'controller': _controller,'url':'bookingDetails'},scope.setBookingDetails_Success, scope.setBookingDetails_Error);
           }
         }        
         scope.setBookingDetails_Success = function(data){
-          scope.loadBookingDetailsData(data);
+          scope.FormatNloadBookingDetailsData(data);
         }
         scope.setBookingDetails_Error = function(xhr, data){
           //do some error processing..
@@ -394,7 +452,7 @@ angular.module('sigmaCabsApp')
 
         }
         scope.bookingTabClicked = function(){
-          
+          scope.setBookingDetails(false, scope.selectedBookingId);
         }
         scope.vehicleDetailsTabClicked = function(){
           
@@ -459,6 +517,7 @@ angular.module('sigmaCabsApp')
         scope.bookingSelectedFn = function(booking){
           scope.bookingSelected = true;
           var bookingId = booking.bookingId;
+          scope.selectedBookingId = bookingId;
           if(!scope.vehicleViewDisplay)
             scope.vehiclePanelToggle(true);          
           scope.setVacantVehiclesGrid(true);
@@ -518,6 +577,7 @@ angular.module('sigmaCabsApp')
 
         scope.bookingVehicleSelectedFn = function(data){
           scope.bookingVehicleSelected = true;
+          scope.setVehicleDetails(false, data.vehicleId);
           scope.resize_BookingVehiclesGrid();
         }
         scope.bookingVehicleUnSelectedFn = function(){
@@ -566,6 +626,7 @@ angular.module('sigmaCabsApp')
         scope.whileDrivingVehicleSelectedFn = function(selected){
           var vehicleId = selected.vehicleId
             , bookingId = selected.bookingId;
+          scope.selectedBookingId = bookingId;
           scope.whileDrivingVehicleSelected = true;
           if(!scope.vehicleViewDisplay)
             scope.vehiclePanelToggle(true);
