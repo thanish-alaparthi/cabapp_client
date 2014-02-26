@@ -44,6 +44,7 @@ angular.module('sigmaCabsApp')
         /*END: setting initial views to display*/
 
         /*START: setting initial data*/
+        var POLLING_INTERVAL = 10000;
         scope.bookingData = [];
         scope.bookingDataObjs = []
         scope.bookingDataLength = 0;
@@ -95,6 +96,18 @@ angular.module('sigmaCabsApp')
           }, 0);
         }
 
+      /********** Start of Polling Functionality ***********/
+        var pollForBookings = function(){
+          $timeout(scope.setBookingMgmtGrid, POLLING_INTERVAL);
+        }
+        var pollForVacantVehicles = function(){
+          $timeout(scope.setVacantVehiclesGrid, POLLING_INTERVAL);
+        }
+        var pollForWhileDrivingVehicles = function(){
+          $timeout(scope.setWhileDrivingVehiclesGrid, POLLING_INTERVAL);
+        }
+      /********** End of Polling Functionality ***********/
+
         /*END: resize methods for grids*/
 
     /*START: Formatting and Loading methods for the grids data */
@@ -104,14 +117,31 @@ angular.module('sigmaCabsApp')
               dataLen = data.length,
               namesService = PrerequisiteService;
           while(dataLen--){
-            var datum = data[dataLen];            
+            var datum = data[dataLen];
+            datum.bookingId = 'BID'+datum.bookingId;
+            datum.vehicleName = namesService.fnGetVehicleDisplayNameById(datum.vehicleName);
+            datum.vehicleType = namesService.fnGetVehicleDisplayTypeById(datum.vehicleType);
             datum.bookingStatus = namesService.fnGetBookingStatusName(datum.bookingStatus);
             var sJourneyTypeId = datum.subJourneyType;
-            datum.subJourneyType = namesService.fnGetJourneyTypeName(datum.subJourneyType);
-            //console.log(namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId));
+            datum.subJourneyType = namesService.fnGetJourneyTypeName(datum.subJourneyType);            
             datum.journeyType = namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType;
           }
           scope.loadBookingMgmtGridData(data);
+        }
+        scope.FormatNloadWhileDrivingVehiclesGridData = function(data){
+          var data = data, 
+              dataLen = data.length,
+              formatSource = PrerequisiteService;
+          while(dataLen--){
+            var datum = data[dataLen];
+            datum.bookingId = 'BID'+datum.bookingId;
+            datum.vehicleName = formatSource.fnGetVehicleDisplayNameById(datum.vehicleName);
+            datum.vehicleType = formatSource.fnGetVehicleDisplayTypeById(datum.vehicleType);
+            var sJourneyTypeId = datum.subJourneyType;
+            datum.subJourneyType = formatSource.fnGetJourneyTypeName(datum.subJourneyType);            
+            datum.journeyType = formatSource.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType;
+          }
+          scope.loadWhileDrivingVehiclesGridData(data);
         }
         scope.FormatNloadVacantVehiclesGridData = function(data){
           var data = data, 
@@ -119,7 +149,7 @@ angular.module('sigmaCabsApp')
               namesService = PrerequisiteService;
           while(dataLen--){
             var datum = data[dataLen];
-            datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+            datum.vehicleName = namesService.fnGetVehicleDisplayNameById(datum.vehicleName);
           }
           scope.loadVacantVehiclesGridData(data);
         }
@@ -242,6 +272,7 @@ angular.module('sigmaCabsApp')
         }        
         scope.setBookingMgmtGrid_Success = function(data){
           scope.FormatNloadBookingMgmtGridData(data);
+          //pollForBookings();
         }
         scope.setBookingMgmtGrid_Error = function(xhr, data){
           //do some error processing..
@@ -259,6 +290,7 @@ angular.module('sigmaCabsApp')
         }
         scope.setVacantVehiclesGrid_Success = function(data){
           scope.FormatNloadVacantVehiclesGridData(data);
+          //pollForVacantVehicles();
         }
         scope.setVacantVehiclesGrid_Error = function(xhr, data){
           //do some error processing..
@@ -271,12 +303,13 @@ angular.module('sigmaCabsApp')
             scope.loadWhileDrivingVehiclesGridData([]);
           else{
             //Need to trigger the server call from here
-            //serverService.sendData('G','url',scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
-            serverService.stubData({'controller': _controller,'url':'whileDrivingData'},scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
+            serverService.sendData('P','dispatcher/getWhileDrivingVehicles', {}, scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
+            //serverService.stubData({'controller': _controller,'url':'whileDrivingData'},scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
           }
         }        
         scope.setWhileDrivingVehiclesGrid_Success = function(data){
-          scope.loadWhileDrivingVehiclesGridData(data);
+          scope.FormatNloadWhileDrivingVehiclesGridData(data);
+          //pollForWhileDrivingVehicles();
         }
         scope.setWhileDrivingVehiclesGrid_Error = function(xhr, data){
           //do some error processing..
@@ -330,7 +363,7 @@ angular.module('sigmaCabsApp')
             serverService.sendData('P','dispatcher/getVehicleQuickInfo',{'vehicleId':data},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
             // serverService.stubData({'controller': _controller,'url':'vehicleDetails'},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
           }
-        }        
+        }
         scope.setVehicleDetails_Success = function(data){
           scope.FormatNloadVehicleDetailsData(data);          
         }
@@ -643,13 +676,15 @@ angular.module('sigmaCabsApp')
         scope.vehiclesForWhileDrivingColDefs = [
           {field:'bookingId', displayName:'BID', width: '*'},
           {field:'vehicleCode', displayName:'VID', width: '*'},
-          {field:'vehicle', displayName:'Vehicle', width: '*'},
-          {field:'pickupTime', displayName:'Pickup Time', width: '*'},
-          {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
+          {field:'vehicleName', displayName:'Vehicle', width: '*'},
+          {field:'vehicleType', displayName:'V.Type', width: '*'},
+          {field:'pickupTime', displayName:'P.Time', width: '*'},
+          {field:'pickupPlace', displayName:'P.Place', width: '*'},
+          {field:'journeyType', displayName:'J.Type', width: '*'},
           {field:'subJourneyType', displayName:'Package', width: '*'},
-          {field:'expectVacntTime', displayName:'Expected Vacant time', width: '*'},
+          {field:'expectedDropTime', displayName:'Vacant', width: '*'},
           {field:'dayCollection', displayName:'Collection', width: '*'},
-          {field:'nxtBookng', displayName:'Next Booking', width: '*'}
+          {field:'nextBooking', displayName:'Nxt Booking', width: '*'}
         ];
 
         scope.gridForWhileDrivingVehiclesData = {
