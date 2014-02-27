@@ -168,6 +168,7 @@ angular.module('sigmaCabsApp')
               dataLen = data.length,          
               namesService = PrerequisiteService,
               oData = {};
+
           // vehicle details
           if(data.vehicle) {
             oData.vehicle = {
@@ -181,6 +182,7 @@ angular.module('sigmaCabsApp')
               "registeredMobile": data.vehicle.registrationNumber || '', // should be changed to array
               "previousLocation": data.vehicle.previousLocation || '',
               "totalDays": data.vehicle.totalDays || 0,
+              "vehicleStatus": data.vehicle.vehicleStatus || 0,
               "totalWorkingDays": data.vehicle.totalWorkingDays || 0,
               "projectedLoginTime": PrerequisiteService.fnFormatMinutes(data.vehicle.projectedLoginTime) || 0,
               "presentAvgLoginTime": PrerequisiteService.fnFormatMinutes(data.vehicle.presentAvgLoginTime) || 0,
@@ -210,14 +212,83 @@ angular.module('sigmaCabsApp')
           scope.loadVehicleDetailsData(oData);
         }
         scope.FormatNloadBookingDetailsData = function(data){
-         var data = data, 
-              dataLen = data.length,          
-              namesService = PrerequisiteService;
-          /*while(dataLen--){
-            var datum = data[dataLen];
-            datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+          var data = data,
+            dataLen = data.length,
+            namesService = PrerequisiteService,
+            oData = {};
+          // customer details
+          if (data.customer) {
+            oData.customer = {
+              "customerCode": data.customer.customerCode || '',
+              "tripCount": data.customer.tripCount || 0,
+              "name": data.customer.name || '',
+              "mobile": data.customer.mobile || [],
+              "grade": data.customer.grade || '',
+              "category": data.customer.category || ''
+            };
+          } else {
+            oData.customer = {};
           }
-*/          scope.loadBookingDetailsData(data);
+          // booking details
+          if (data.booking) {
+            oData.booking = {
+              "bookingCode": data.booking.bookingCode || '',
+              "pickupDate": data.booking.pickupDate || '',
+              "pickupTime": data.booking.pickupTime || '',
+              "pickupPlace": data.booking.pickupPlace || '',
+              "dropPlace": data.booking.dropPlace || '',
+              "journeyType": data.booking.journeyType || 0,
+              "journeyTypeText": PrerequisiteService.fnGetJourneyObjectById(data.booking.journeyType).journeyType || '',
+              "subJourneyType": data.booking.subJourneyType || 0,
+              "subJourneyTypeText": PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(data.booking.subJourneyType).journeyType || 0,
+              "landmark1": data.booking.landmark1 || '',
+              "landmark2": data.booking.landmark2 || '',
+              "tariffId": data.booking.tariffId || 0,
+              "tariffText": PrerequisiteService.fnGetTariffById(data.booking.tariffId).text || ''
+            };
+          } else {
+            oData.booking = {};
+          }
+          // vehicle details
+          if (data.vehicle) {
+            oData.vehicle = {
+              "vehicleCode": data.vehicle.vehicleCode || '',
+              "registrationNumber": data.vehicle.registrationNumber || '',
+              "vehicleNameId": data.vehicle.vehicleName || '',
+              "vehicleName": PrerequisiteService.fnGetVehicleDisplayNameById(data.vehicle.vehicleName) || '',
+              "vehicleTypeId": data.vehicle.vehicleType || '',
+              "vehicleType": PrerequisiteService.fnGetVehicleDisplayTypeById(data.vehicle.vehicleType) || '',
+              "registeredMobile": data.vehicle.registeredMobile || '',
+              "previousLocation": data.vehicle.previousLocation || ''
+            };
+          } else {
+            oData.vehicle = {};
+          }
+          // driver details
+          if (data.driver) {
+            oData.driver = {
+              "driverCode": data.driver.driverCode || '',
+              "name": data.driver.name || '',
+              "mobile": data.driver.mobile || ''
+            };
+          } else {
+            oData.driver = {};
+          }
+          // employee details
+          if (data.employee) {
+            oData.employee = {
+              "callTakenBy": data.employee.callTakenBy || '',
+              "callDispatchedBy": data.employee.callDispatchedBy || '',
+              "startReportTakenBy": data.employee.startReportTakenBy || '',
+              "closeReportTakenBy": data.employee.closeReportTakenBy || '',
+              "modifiedBy": data.employee.modifiedBy || '',
+              "cancelledBy": data.employee.cancelledBy || ''
+            };
+          } else {
+            oData.employee = {};
+          }
+
+          scope.loadBookingDetailsData(oData);
         }
         /*END: Formatter methods*/
 

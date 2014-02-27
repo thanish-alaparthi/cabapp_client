@@ -764,8 +764,6 @@ angular.module('sigmaCabsApp')
             },
 
 
-
-
             /* Old settings. will be deleted later */
             isPrimaryTraveller: {
                 '0': 'No',

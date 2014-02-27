@@ -3,9 +3,18 @@
 	<div class="booking-vehicle-info-holder" ng-show='bookingVehicleSelected'>
 		<div class="panel panel-info">
 			<div class="panel-heading short-panel-heading">
-			  <span class="panel-title">Vehicle details</span>
-			  <i class="glyphicon glyphicon-remove" ng-click="bookingVehicleDetailsPageCloseFn()"></i>
-			  <span class="clearfix"></span>
+			    <span class="panel-title left">Vehicle details</span>
+				<span ng-switch on="vehicleDetailsData.vehicle.vehicleStatus" class="right">
+					<button class="btnCompact btn-success left" ng-switch-when="2" data-ng-click="">Accepted</button> <!-- fnVehicleAccepBooking() -->
+            		<button class="btnCompact btn-danger left" ng-switch-when="2" data-ng-click="">Rejected</button> <!-- fnVehicleRejectBooking() -->
+
+					<button ng-switch-when="4" class="btnCompact btn-success left" data-ng-click="">Confirm</button> <!-- fnVehicleConfirm() -->
+					<button ng-switch-when="4" class="btnCompact btn-danger left" data-ng-click="">Rejected</button>
+					<!-- fnVehicleRejectBooking() -->
+					<i class="glyphicon glyphicon-remove" ng-click="bookingVehicleDetailsPageCloseFn()"></i>
+					<span class="clearfix"></span>
+				</span>
+				<span class="clearfix"></span>
 			</div>
 			<div class="panel-body padding-5-panel-body">
 			  <div class="vehicle-details-holder">

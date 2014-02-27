@@ -49,7 +49,8 @@
 				  <span class="clearfix"></span>
 				</div>
 				<div class="panel-body padding-5-panel-body hide">
-				  The content is straight forward
+				  <input type="text" datepicker ng-model="bookingDate" class="" placeholder="" data-ng-change="" />
+				  <button class="btnCompact btn-success" data-ng-click="" title="Update Booking Details">Update</button>
 				</div>
 			</div>
 		</div>
@@ -59,20 +60,25 @@
 			<i class="glyphicon glyphicon-chevron-right" ng-click="infoPanelToggle()" ng-show="!informationViewDisplay" title="Open Information view"></i>
 			<div ng-show="showingBookingsGrid">
 			  <span class="panel-title">Bookings</span>
-			  <input id="booking_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder ="Search Bookings" ng-change="bookingSearch()"/>
-			</div>
-			<div ng-show="showingWhilDrivingGrid">
-			  <span class="panel-title">While Driving Vehicles</span>
-			  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder ="Search Vehicles" ng-change="whileDrivingSearch()"/>
-			</div>
-			<div ng-show="showingBookingsInfoGrid">
-			  <span class="panel-title">Booking Info</span>
 			  <div class="pull-right">
-				  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput" placeholder ="Search bookings" ng-change="bookingInfoSearch()"/>
+				  <input id="booking_search" type="text" ng-model="filterText" class="searchInput" placeholder ="Search Bookings" ng-change="bookingSearch()"/>
 			  	  <i class="glyphicon glyphicon-chevron-left" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>
 			  	  <span class="clearfix"></span>
 		  	  </div>
 		  	  <span class="clearfix"></span>
+			</div>
+			<div ng-show="showingWhilDrivingGrid">
+			  <span class="panel-title">While Driving Vehicles</span>
+			  <div class="pull-right">
+				  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput" placeholder ="Search Vehicles" ng-change="whileDrivingSearch()"/>
+			  	  <i class="glyphicon glyphicon-chevron-left" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>
+			  	  <span class="clearfix"></span>
+		  	  </div>
+		  	  <span class="clearfix"></span>
+			</div>
+			<div ng-show="showingBookingsInfoGrid">
+			  <span class="panel-title">Booking Info</span>
+			  <input id="while_info_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder="Search Bookings" ng-change="bookingInfoSearch()"/>
 			</div>
 		  <span class="clearfix"></span>
 		</div>
