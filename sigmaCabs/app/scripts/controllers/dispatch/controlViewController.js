@@ -163,6 +163,19 @@ angular.module('sigmaCabsApp')
           }
           scope.loadBookingVehiclesGridData(data);
         }
+        scope.FormatRatingAndReturnClassArray = function(rating) {
+          var ratingArray = [];
+          rating = (isNaN(rating)) ? 0 : Math.round(rating); // check for number
+          rating =  (rating > 5) ? 5 : rating; // restricting for 5 point scale
+
+          for(var i = 0; i < 5; i++) {
+            var cls = ((rating <= i) ? 'glyphicon-star-empty' : 'glyphicon-star');
+            ratingArray.push({'cls' : cls});
+          }
+          
+          //console.log(ratingArray);
+          return ratingArray; // creating array for ng-repeat
+        };
         scope.FormatNloadVehicleDetailsData = function(data){
           var data = data, 
               dataLen = data.length,          
@@ -184,12 +197,13 @@ angular.module('sigmaCabsApp')
               "totalDays": data.vehicle.totalDays || 0,
               "vehicleStatus": data.vehicle.vehicleStatus || 0,
               "totalWorkingDays": data.vehicle.totalWorkingDays || 0,
-              "projectedLoginTime": PrerequisiteService.fnFormatMinutes(data.vehicle.projectedLoginTime) || 0,
-              "presentAvgLoginTime": PrerequisiteService.fnFormatMinutes(data.vehicle.presentAvgLoginTime) || 0,
+              "projectedLoginTime": PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.vehicle.projectedLoginTime) || 0,
+              "presentAvgLoginTime": PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.vehicle.presentAvgLoginTime) || 0,
               "projectedCollection": data.vehicle.projectedCollection || 0,
               "presentAvgCollection": data.vehicle.presentAvgCollection || 0,
-              // converting to 5 scale assuming it is 10 point scale
-              "rating": Math.round(parseFloat(data.vehicle.rating) / 2) || 0,
+              // on a rating scale of 5
+              "rating": data.vehicle.rating || 0,
+              "aRating": scope.FormatRatingAndReturnClassArray(data.vehicle.rating),
               "facilities": data.vehicle.facilities || []
             };
           } else {
@@ -203,7 +217,8 @@ angular.module('sigmaCabsApp')
                   "name": data.driver.name || '',
                   "mobile": data.driver.mobile || '',
                   // converting to 5 scale assuming it is 10 point scale
-                  "rating": Math.round(parseFloat(data.driver.rating) / 2) || 0
+                  "aRating": scope.FormatRatingAndReturnClassArray(data.driver.rating),
+                  "rating": Math.round(parseFloat(data.driver.rating)) || 0
               };
           } else {
             oData.driver = {};

@@ -48,7 +48,6 @@ angular.module('sigmaCabsApp')
                 actualPackage = oPackageData;
                 break;
             }
-            // change package logic goes here
         }
 
         // if no package is set then select the actual package
@@ -73,6 +72,7 @@ angular.module('sigmaCabsApp')
                 actualKms = currentKms - startKms;
                 scope.bookingClose.actualKms = (actualKms < 0) ? 0 : actualKms;
                 console.log('actualKms: ' + actualKms + ' packageKmLimit: ' + packageKmLimit);
+                // change package
                 if (actualKms > packageKmLimit) {
                     totalKmsCharge = actualKms * packageExtraKmCharge;
                 }

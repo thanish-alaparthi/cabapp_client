@@ -472,6 +472,18 @@ angular.module('sigmaCabsApp')
                 var aD = sTime.split(':');
                 return aD[1];
             },
+
+            fnFormatMinutesToHoursAndMinutes: function(sMinutes) {
+                var hours = Math.floor(((sMinutes * 60) % 86400) / 3600),
+                    minutes = Math.floor((((sMinutes * 60) % 86400) % 3600) / 60);
+
+                // prefix 0 if less than 10
+                hours = (hours < 10) ? '0' + hours : hours;
+                minutes = (minutes < 10) ? '0' + minutes : minutes;
+
+                return hours + " : " + minutes;
+            },
+
             fnGetBookingStatusName : function(sBookingStatusId){
                 var aBs = this.oLs[this.currentDate]['bookingStates'],
                     iCount = aBs.length;
