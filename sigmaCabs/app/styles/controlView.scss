@@ -220,3 +220,11 @@
   height: 100%;
   overflow: auto;
 }
+.glyphicon-refresh {
+  &:hover {
+    color: lime;
+  }
+  color: #333333;
+  cursor: pointer;
+  margin: 10px 0;
+}

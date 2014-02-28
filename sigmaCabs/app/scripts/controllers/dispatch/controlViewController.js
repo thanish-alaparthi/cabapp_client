@@ -41,6 +41,7 @@ angular.module('sigmaCabsApp')
         scope.showingBookingsGrid = true;
         scope.bookingVehicleSelected = false;
         scope.whileDrivingVehicleSelected = false;
+        scope.bookingInfoRecordSelected = false;
         /*END: setting initial views to display*/
 
         /*START: setting initial data*/
@@ -50,6 +51,8 @@ angular.module('sigmaCabsApp')
         scope.bookingDataLength = 0;
 
         scope.bookingInfoData = [];
+        // setting to current Date
+        scope.bookingInfoDate = PrerequisiteService.fnFormatDate();
         scope.bookingInfoDataObjs = [];
         scope.bookingInfoDataLength = 0;
 
@@ -63,6 +66,7 @@ angular.module('sigmaCabsApp')
         scope.selectedVacantVehicleRecords = [];
         scope.selectedBookingVehicleRecords = [];
         scope.selectedWhileDrivingVehicleRecords = [];
+        scope.selectedBookingInfoRecords = [];
 
         scope.vehicleDetailedInfoSplitView = URLService.view('vehicleDetailedInfoSplitView');
 
@@ -426,15 +430,16 @@ angular.module('sigmaCabsApp')
             scope.loadBookingInfoGridData([]);
           else{
             //Need to trigger the server call from here
-            //serverService.sendData('G','url',scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
-            serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
+            serverService.sendData('P','dispatcher/getAllBookings', {'pickupDate': scope.bookingInfoDate}, scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
+            //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
           }
         }        
         scope.setBookingInfoGrid_Success = function(data){
           scope.loadBookingInfoGridData(data);
         }
         scope.setBookingInfoGrid_Error = function(xhr, data){
-          //do some error processing..
+          console.error('in setBookingInfoGrid_Error :: api error');
+          scope.loadBookingInfoGridData([]);
         }
         /*END: setting the booking info grid*/
         
@@ -614,6 +619,12 @@ angular.module('sigmaCabsApp')
           }
         };
         
+        scope.bookingGridPgOptions = {
+          pageSizes: [20, 25, 30],
+          pageSize: 20,
+          currentPage: 1
+        }
+
         scope.bookingGridColDefs = [
           {field:'bookingCode', displayName:'BID', width: '*'},
           {field:'vehicleName', displayName:'Vehicle', width: '*'},
@@ -626,12 +637,6 @@ angular.module('sigmaCabsApp')
           {field:'bookingStatus', displayName:'Status', width: '*'},
           {field:'vehicleCode', displayName:'VID', width: '*'}
         ];
-
-        scope.bookingGridPgOptions = {
-          pageSizes: [20, 25, 30],
-          pageSize: 20,
-          currentPage: 1
-        }
 
         scope.bookingSelectedFn = function(booking){
           scope.bookingSelected = true;
@@ -799,29 +804,71 @@ angular.module('sigmaCabsApp')
 
 
         /*START: Booking info Grid*/        
-        scope.bookingInfoSearch = function (searchText) {
+        scope.bookingSearch = function(){          
+          $scope.getBookingInfoDataAsync(scope.bookingInfoGridPgOptions.pageSize,scope.bookingInfoGridPgOptions.currentPage, scope.filterText);
+        }
+        
+        scope.$watch('bookingInfoGridPgOptions', function () {
+          $scope.getBookingInfoDataAsync($scope.bookingInfoGridPgOptions.pageSize,$scope.bookingInfoGridPgOptions.currentPage, $scope.filterText);
+        }, true);
+
+        scope.getBookingInfoDataAsync = function (pageSize, page, searchText) {
           var data, resultLabel;
-          if (searchText&& searchText.length >=3) {
+          if (searchText && searchText.length >=3) {
             var ft = searchText.toLowerCase();
             data = scope.bookingInfoData.filter(function(item) {
               return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
             });
-            scope.bookingInfoData = data;
+            $scope.setPagingDataForBookingInfoGrid(data,page,pageSize, true);
           }else{
-            scope.bookingInfoData = scope.bookingInfoDataObjs;
+            $scope.setPagingDataForBookingInfoGrid(scope.bookingInfoDataObjs,page,pageSize);
           }  
         };
 
+        scope.setPagingDataForBookingInfoGrid = function(data, page, pageSize, setToFirstPage){
+          if(data){
+            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+            scope.bookingInfoData = pagedData;
+            if(setToFirstPage)
+              $scope.bookingInfoGridPgOptions.currentPage = 1;
+          }
+        };
+        
+        scope.bookingInfoGridPgOptions = {
+          pageSizes: [20, 25, 30],
+          pageSize: 20,
+          currentPage: 1
+        }
+
+        scope.bookingInfoRecordSelectedFn = function(selected){
+          var vehicleId = selected.vehicleId
+            , bookingId = selected.bookingId;
+          scope.selectedBookingId = bookingId;
+          scope.bookingInfoRecordSelected = true;
+          if(!scope.vehicleViewDisplay)
+            scope.vehiclePanelToggle(true);
+          scope.setVacantVehiclesGrid(true);
+          selectionFirstTab_WhileDriving();
+          //scope.setWhileDrivingVehicleDetails(vehicleId);
+          scope.setVehicleDetails(false, vehicleId);
+          scope.resize_BookingInfoGrid();
+        }
+        scope.bookingInfoRecordUnSelectedFn = function(){
+          scope.bookingInfoRecordSelected = false;
+          scope.vehiclePanelToggle(false);
+          scope.resize_BookingInfoGrid();
+        }
+
         scope.bookingInfoGridColDefs = [
-          {field:'bno', displayName:'Booking ID', width: '*'},
-          {field:'vehicle', displayName:'Vehicle', width: '*'},
-          {field:'pTime', displayName:'Pickup Time', width: '*'},
-          {field:'pPlace', displayName:'Pickup Place', width: '*'},
-          {field:'custGrade', displayName:'Customer Grade', width: '*'},
-          {field:'sJourneyType', displayName:'Journey Package', width: '*'},
-          {field:'bookFrom', displayName:'booked from', width: '*'},
-          {field:'status', displayName:'Status', width: '*'},
-          {field:'vId', displayName:'VID', width: '*'}
+          {field:'bookingId', displayName:'Booking ID', width: '*'},
+          {field:'vehicleName', displayName:'Vehicle', width: '*'},
+          {field:'pickupTime', displayName:'Pickup Time', width: '*'},
+          {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
+          {field:'journeyType', displayName:'Journey', width: '*'},
+          {field:'subJourneyType', displayName:'Package', width: '*'},
+          {field:'bookingOrigin', displayName:'booked from', width: '*'},
+          {field:'bookingStatus', displayName:'Status', width: '*'},
+          {field:'vehicleCode', displayName:'VID', width: '*'}
         ];
 
         scope.gridBookingsInfoData = {
@@ -832,7 +879,24 @@ angular.module('sigmaCabsApp')
             useExternalFilter: true
           },
           enableSorting: false,
-          columnDefs: 'bookingInfoGridColDefs'
+          enableColumnResize: true,
+          enableColumnReordering: true,
+          enableRowSelection: true,
+          keepLastSelected: false,
+          enablePaging: true,
+          totalServerItems: 'bookingInfoDataLength',
+          pagingOptions: scope.bookingInfoGridPgOptions,
+          rowHeight: 24,
+          footerRowHeight: 35,
+          showFooter: true,
+          selectedItems: scope.selectedBookingInfoRecords,
+          columnDefs: 'bookingInfoGridColDefs',
+          afterSelectionChange: function () {
+            if(scope.selectedBookingInfoRecords.length)
+              scope.bookingInfoRecordSelectedFn(scope.selectedBookingInfoRecords[0]);
+            else
+              scope.bookingInfoRecordUnSelectedFn();
+          }
         };
         /*END: Booking info Grid*/
 

@@ -49,8 +49,8 @@
 				  <span class="clearfix"></span>
 				</div>
 				<div class="panel-body padding-5-panel-body hide">
-				  <input type="text" datepicker ng-model="bookingDate" class="" placeholder="" data-ng-change="" />
-				  <button class="btnCompact btn-success" data-ng-click="" title="Update Booking Details">Update</button>
+				  <input type="text" datepicker ng-model="bookingInfoDate" class="" placeholder="" />
+				  <button class="btnCompact btn-success" data-ng-click="setBookingInfoGrid(false)" title="Update Booking Details">Update</button>
 				</div>
 			</div>
 		</div>
@@ -78,6 +78,7 @@
 			</div>
 			<div ng-show="showingBookingsInfoGrid">
 			  <span class="panel-title">Booking Info</span>
+			  <span class="glyphicon glyphicon-refresh" title="Refresh Booking Info" data-ng-click="setBookingInfoGrid(false)"></span>
 			  <input id="while_info_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder="Search Bookings" ng-change="bookingInfoSearch()"/>
 			</div>
 		  <span class="clearfix"></span>
@@ -109,6 +110,21 @@
 								</div>
 							</div>
 							<div ng-include src ="splitCurrentTab"> 
+							</div>
+						</div>
+				</div>
+				<div ng-switch-when="bInfo">						
+						<div ng-show="bookingInfoRecordSelected">
+							<div class="tabs">
+								<div class="tabHeader clearfix">
+							  	<div ng-repeat="tab in tabs_whileDriving" class="tabContainer left">
+							    	<div id="{{tab.splitTabId}}" ng-click="handleTabClick(tab.id, tabs_whileDriving)" class="tab" ng-class="{selected: tab.selected}" title="{{tab.tooltip}}">
+							    		<span class="tabLabel" data-ng-bind="tab.label"></span>
+							  		</div>
+									</div>
+								</div>
+							</div>
+							<div ng-include src ="splitCurrentTab" class="fixed-view"> 
 							</div>
 						</div>
 				</div>
