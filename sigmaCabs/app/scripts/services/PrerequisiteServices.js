@@ -440,7 +440,6 @@ angular.module('sigmaCabsApp')
                 return aD[2] + '-' + aD[1] + '-' + aD[0];
             },
 
-
             fnFormatHours : function(sTime){
                 if(!sTime || sTime.length < 8){
                     var oD = new Date();

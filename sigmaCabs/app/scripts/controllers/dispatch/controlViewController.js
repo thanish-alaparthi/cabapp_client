@@ -34,6 +34,7 @@ angular.module('sigmaCabsApp')
         /*END: setting heights for the elements*/
 
         /*START: setting initial views to display*/
+        scope.showControlViewDetails = true;
         scope.informationViewDisplay = true;
         scope.vehicleViewDisplay = true;
         scope.infoVehicleCombiDisplay = false;
@@ -196,7 +197,7 @@ angular.module('sigmaCabsApp')
               "vehicleName": PrerequisiteService.fnGetVehicleDisplayNameById(data.vehicle.vehicleName) || '',
               "vehicleTypeId": data.vehicle.vehicleType || '',
               "vehicleType": PrerequisiteService.fnGetVehicleDisplayTypeById(data.vehicle.vehicleType) || '',
-              "registeredMobile": data.vehicle.registrationNumber || '', // should be changed to array
+              "registeredMobile": data.vehicle.registeredMobile || '', // should be changed to array
               "previousLocation": data.vehicle.previousLocation || '',
               "totalDays": data.vehicle.totalDays || 0,
               "vehicleStatus": data.vehicle.vehicleStatus || 0,
@@ -353,10 +354,16 @@ angular.module('sigmaCabsApp')
     /*START: Loading initial grids*/
         /*START: setting the booking management grid*/
         scope.setBookingMgmtGrid = function(doEmptyGrid){
+          var oData = {};
           if(doEmptyGrid && doEmptyGrid == true)
             scope.loadBookingMgmtGridData([]);
           else{
-            serverService.sendData('P','dispatcher/getAllBookings', {"bookingStatus" : [4]}, scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
+            oData = {
+              "bookingStatus" : ["4"]/*,
+              "pickupDate" : PrerequisiteService.fnFormatDate()*/ // Not working if un commented
+            };
+
+            serverService.sendData('P','dispatcher/getAllBookings', oData, scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
             //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
           }
         }        
@@ -426,11 +433,16 @@ angular.module('sigmaCabsApp')
 
         /*START: setting the booking info grid*/
         scope.setBookingInfoGrid = function(doEmptyGrid){
+          var oData = {};
           if(doEmptyGrid && doEmptyGrid == true)
             scope.loadBookingInfoGridData([]);
           else{
+            oData = {
+              "bookingStatus" : ["2", "4"],
+              "pickupDate" : scope.bookingInfoDate
+            };
             //Need to trigger the server call from here
-            serverService.sendData('P','dispatcher/getAllBookings', {'pickupDate': scope.bookingInfoDate}, scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
+            serverService.sendData('P','dispatcher/getAllBookings', oData, scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
             //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
           }
         }        
@@ -647,6 +659,7 @@ angular.module('sigmaCabsApp')
           scope.setVacantVehiclesGrid(true);
           scope.setVehiclesForBookingGrid(false, bookingId);
           scope.vacantVehicleSelected = false;
+          scope.bookingVehicleSelected = false;
           selectionFirstTab();
         }
 
@@ -1024,4 +1037,70 @@ angular.module('sigmaCabsApp')
         scope.oneAtATime = true;
         /*END: Accordion related functionality*/
         
-    });    
+        /*START: Accept / Confirm / Reject functionality */
+        // In vehicle state = 2
+        scope.fnControlViewVehicleAccepBooking = function() {
+          var oData = {
+            "vehicleId": scope.vehicleDetailsData.vehicle.id,
+            "bookingId": scope.selectedBookingItems[0].bookingId
+          };
+          serverService.sendData('P',
+            'dispatcher/resVehicleToBooking',
+            oData,
+            scope.vehicleStateChange_Success,
+            scope.vehicleStateChange_Error);
+        }
+        // In vehicle state = 4
+        scope.fnControlViewVehicleConfirm = function() {
+          var oData = {
+            "vehicleId": scope.vehicleDetailsData.vehicle.id,
+            "driverId": scope.vehicleDetailsData.driver.id,
+            "bookingId": scope.selectedBookingItems[0].bookingId
+          };
+          serverService.sendData('P',
+            'dispatcher/confirmVehicleToBooking',
+            oData,
+            scope.vehicleStateChange_Success,
+            scope.vehicleStateChange_Error);
+        }
+        // In vehicle state = 2 / 4
+        scope.fnControlViewVehicleRejectBooking = function() {
+          var oData = {
+            "vehicleId": scope.vehicleDetailsData.vehicle.id,
+            "bookingId": scope.selectedBookingItems[0].bookingId
+          };
+          serverService.sendData('P',
+            'dispatcher/cancelVehicleToBooking',
+            oData,
+            scope.vehicleStateChange_Success,
+            scope.vehicleStateChange_Error);
+        }
+        scope.vehicleStateChange_Success = function(data){
+          alert(data[0].message);
+        }
+        scope.vehicleStateChange_Error = function(xhr, data){
+          console.error('in vehicleStateChange_Error :: api error');
+          alert('Error in processing your request');
+        }
+        /*END: Accept / Confirm / Reject functionality */
+
+        // Tab Navigation
+        scope.showControlViewTab = function(){
+            /*scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  false;
+            scope.showControlViewDetails =  true;*/
+            window.location.hash = "#/controlView";
+
+            //scope.fnResizeWindowHack();
+        };
+        scope.showBookingDetailsTab = function(){
+            /*scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  false;
+            scope.showControlViewDetails =  true;*/
+            window.location.hash = "#/";
+
+            //scope.fnResizeWindowHack();
+        };
+    });

@@ -1,6 +1,7 @@
 <div id="controlViewWrapper" fit-height-layout ng-model ="containerHeight">
 	<div id = "bookingNav" class= "bookingNav historyBarContainer">
 		<ul class="bookingNav_ul clearfix">
+			<li  ng-class = "(showControlViewDetails) ? 'tabSelcted' : ''" ng-click = "showControlViewTab()">Control View</li>
 			<li  ng-class = "(showBookingDetails) ? 'tabSelcted' : ''" ng-click = "showBookingDetailsTab()">Booking</li>
 			<li  ng-class = "(showMyCallBacks) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">My Callbacks</li>
 			<li  ng-class = "(showMycallHistory) ? 'tabSelcted' : ''" ng-click = "showMycallHistoryTab()">My Call History</li>
@@ -57,7 +58,7 @@
 	</div>
 	<div class="panel panel-info custom-panel-overrides pull-left booking-view booking-normal-view no-border-bottom" ng-class="{bookingNoVehicleView:!vehicleViewDisplay,bookingNoInformationalView:!informationViewDisplay,bookingFullView:!infoVehicleCombiDisplay}">
 		<div class="panel-heading custom-panel-header-overrides">
-			<i class="glyphicon glyphicon-chevron-right" ng-click="infoPanelToggle()" ng-show="!informationViewDisplay" title="Open Information view"></i>
+			<i class="glyphicon glyphicon-chevron-right chevron-right" ng-click="infoPanelToggle()" ng-show="!informationViewDisplay" title="Open Information view"></i>
 			<div ng-show="showingBookingsGrid">
 			  <span class="panel-title">Bookings</span>
 			  <div class="pull-right">

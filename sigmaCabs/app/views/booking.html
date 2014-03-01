@@ -1,6 +1,7 @@
 <div>
 	<div id = "bookingNav" class= "bookingNav historyBarContainer">
 		<ul class="bookingNav_ul clearfix">
+			<li  ng-class = "(showControlViewDetails) ? 'tabSelcted' : ''" ng-click = "showControlViewTab()">Control View</li>
 			<li  ng-class = "(showBookingDetails) ? 'tabSelcted' : ''" ng-click = "showBookingDetailsTab()">Booking</li>
 			<li  ng-class = "(showMyCallBacks) ? 'tabSelcted' : ''" ng-click = "showComplaintsTab()">My Callbacks</li>
 			<li  ng-class = "(showMycallHistory) ? 'tabSelcted' : ''" ng-click = "showMycallHistoryTab()">My Call History</li>

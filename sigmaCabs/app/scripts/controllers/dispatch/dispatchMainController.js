@@ -20,11 +20,9 @@ angular.module('sigmaCabsApp')
                 return;
                 if (oData.status != 200) {
                     $window.location = URLService.page('logout');
-
                 } else {
                     // trigger the event to show all the userName
                     $rootScope.$broadcast('userInfoFromSession', oData.result.userInfo);
-
                 }
             })
     })
@@ -58,6 +56,7 @@ angular.module('sigmaCabsApp')
             scope.searchDetails = {};
             scope.vehicleDetails = {};
 
+            scope.showDispatchView = true;
             scope.vLoginView = false;
             scope.vVacantView = false;
             scope.vAllotView = false;
@@ -105,15 +104,12 @@ angular.module('sigmaCabsApp')
                         } else if (data.status == 200 && data.result) {
                             scope.fnSetVehicleDetails(data);
                         } else { // error in data.result object.
-                            console.log('Erro in result: fnFindVehicleByMobile', data);
+                            console.log('Error in result: fnFindVehicleByMobile', data);
                         }
-
-                        // scope.fnLoadDispactherView();
                     })
                     .error(function(data, status, headers, config) {
-                        console.log('error fnFindVehicleByMobile: ', data);
+                        console.log('Error fnFindVehicleByMobile: ', data);
                         alert('There was some error while getting vehicle details. ');
-                        // scope.fnLoadDispactherView();
                     });
             };
 
@@ -122,7 +118,8 @@ angular.module('sigmaCabsApp')
                 // make a call to server to get the user details...
                 scope.fnVehicleSearch(scope.callerPhone);
             } else {
-                // scope.fnLoadDispactherView();
+                scope.showDispatchView = true;
+                scope.vDefaultView = true;
             }
 
             scope.currentMonthGridDetails = [{
@@ -198,12 +195,6 @@ angular.module('sigmaCabsApp')
                 }]
             };
 
-            /*var headerCellTemplateWithTitle = '<div ng-click="col.sort()" ng-class="{ ngSorted: !noSortVisible }">'+
-                               '<span class="ngHeaderText" title="{{col.headerTitle}}">{{col.displayName}}</span>'+
-                               '<div class="ngSortButtonDown" ng-show="col.showSortButtonDown()"></div>'+
-                               '<div class="ngSortButtonUp" ng-show="col.showSortButtonUp()"></div>'+
-                             '</div>'+
-                             '<div ng-show="col.allowResize" class="ngHeaderGrip" ng-click="col.gripClick($event)" ng-mousedown="col.gripOnMouseDown($event)"></div>';*/
             scope.gridCurrentMonthData = {
                 data: 'currentMonthGridDetails',
                 rowHeight: 25,
@@ -219,7 +210,6 @@ angular.module('sigmaCabsApp')
                     field: 'deadMileage',
                     displayName: 'D.ML',
                     headerTitle: 'Dead Mileage'
-                    /* headerCellTemplate: headerCellTemplateWithTitle */
                 }, {
                     field: 'startTime',
                     displayName: 'S.T',
@@ -891,4 +881,24 @@ angular.module('sigmaCabsApp')
             console.log('destroying oEventGetVehicleStatus');
             oEventGetVehicleStatus();
         });
+
+        // tabs click
+        scope.showControlViewTab = function(){
+            /*scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  false;
+            scope.showControlViewDetails =  true;*/
+            window.location.hash = "#/controlView";
+
+            //scope.fnResizeWindowHack();
+        };
+        scope.showBookingDetailsTab = function(){
+            /*scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  false;
+            scope.showControlViewDetails =  true;*/
+            window.location.hash = "#/";
+
+            //scope.fnResizeWindowHack();
+        };
     });

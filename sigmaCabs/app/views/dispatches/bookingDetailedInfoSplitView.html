@@ -4,8 +4,8 @@
 		<div class="col-xs-6"><label title="Customer Id">C.Id</label>{{bookingDetailsData.customer.customerCode}}</div>
 		<div class="col-xs-6">
 			<select title="Customer No">
-				<option value="">999999999</option>
-				<option value="">777777777</option>
+				<option ng-if="bookingDetailsData.customer.mobile" value="{{bookingDetailsData.customer.mobile}}" title="Primary No.">Pri.No</option>
+				<option ng-if="bookingDetailsData.customer.altMobile" value="{{bookingDetailsData.customer.altMobile}}" title="Alternate No.">Alt.No</option>
 			</select>
 			<span class="glyphicon glyphicon-earphone call-icon" title="Call"></span>
 		</div>
@@ -27,7 +27,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<label title="Date & Time">D&amp;T</label> <strong>{{bookingDetailsData.booking.pickupDate}} {{bookingDetailsData.booking.pickupTime}}</strong>
+			<label title="Date &amp; Time">D&amp;T</label> <strong>{{bookingDetailsData.booking.pickupDate}} {{bookingDetailsData.booking.pickupTime}}</strong>
 		</div>
 	</div>
 	<div class="row">
@@ -110,8 +110,8 @@
 		</div>
 		<div class="col-xs-6">
 			<select title="Driver No">
-				<option value="">999999999</option>
-				<option value="">777777777</option>
+				<option ng-if="bookingDetailsData.driver.mobile" value="{{bookingDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
+				<option ng-if="bookingDetailsData.vehicle.registeredMobile" value="{{bookingDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
 			</select>
 			<span class="glyphicon glyphicon-earphone call-icon" title="Call"></span>
 		</div>

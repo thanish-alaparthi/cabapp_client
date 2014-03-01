@@ -11,12 +11,12 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Vehicle Id">Veh.Id</label> {{vehicleDetailsData.vehicle.vehicleCode}}
+			<label title="Vehicle Id">Veh.Id</label>
 		</div>
 		<div class="col-xs-6">
 			<select title="Driver No">
-				<option value="">999999999</option>
-				<option value="">777777777</option>
+				<option ng-if="vehicleDetailsData.driver.mobile" value="{{vehicleDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
+				<option ng-if="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
 			</select>
 			<span class="glyphicon glyphicon-earphone call-icon" title="Call"></span>
 		</div>
