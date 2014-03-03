@@ -77,7 +77,8 @@ ul.bookingNav_ul{
   table-layout: fixed;
 }
 
-ul.bookingNav_ul > li{
+ul.bookingNav_ul > li {
+  cursor: pointer;
   float:left;
   text-align: center;
   line-height:24px;
@@ -85,7 +86,6 @@ ul.bookingNav_ul > li{
   color: #15428B;
   display: table-cell;
   margin: 0px 25px 0px 0px;
-
 }
 
 ul.bookingNav_ul li:last-child {

@@ -98,8 +98,19 @@ angular.module('sigmaCabsApp')
             scope.showTariffDetails =  false;
             scope.showBookingHistoryDetails =  false;
             scope.showBookingDetails =  false;
+            scope.showDispatchView =  false;
             scope.showControlViewDetails =  true;
             window.location.hash = "#/controlView";
+
+            scope.fnResizeWindowHack();
+        };
+        scope.showDispatchViewTab = function(){
+            scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  false;
+            scope.showControlViewDetails =  false;
+            scope.showDispatchView =  true;
+            window.location.hash = "#/dispatch";
 
             scope.fnResizeWindowHack();
         };

@@ -11,8 +11,8 @@
     </div>
       <form class="form-signin" data-ng-submit="fnLogin()">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
+        <input type="text" class="form-control" placeholder="Username" ng-model="loginUserName" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" ng-model="loginPassword" required>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>

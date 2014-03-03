@@ -188,6 +188,9 @@
     width: 108px;
   }
   .facilities {
+    .glyphicon-check {
+      color: #ee7d29;
+    }
     display: inline-table;
     list-style: none;
     padding-left: 10px;
@@ -231,4 +234,7 @@
 .chevron-right {
   float: left;
   margin-right: 10px;
+}
+.glyphicon-star {
+  color: #ee7d29;
 }

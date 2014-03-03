@@ -122,7 +122,9 @@ angular.module('sigmaCabsApp')
                 scope.vDefaultView = true;
             }
 
-            scope.currentMonthGridDetails = [{
+            scope.currentMonthGridDetails = [];
+			/*
+				[{
                 'bookingId': '1',
                 'bookingNo': '1',
                 'vacantTime': '20',
@@ -131,53 +133,8 @@ angular.module('sigmaCabsApp')
                 'totalKms': '1120',
                 'amount': '1500',
                 'deadMileage': '5'
-            }, {
-                'bookingId': '1',
-                'bookingNo': '1',
-                'vacantTime': '20',
-                'startTime': '11:20 PM',
-                'dropTime': '12:20 PM',
-                'totalKms': '1120',
-                'amount': '1500',
-                'deadMileage': '5'
-            }, {
-                'bookingId': '1',
-                'bookingNo': '1',
-                'vacantTime': '20',
-                'startTime': '11:20 PM',
-                'dropTime': '12:20 PM',
-                'totalKms': '1120',
-                'amount': '1500',
-                'deadMileage': '5'
-            }, {
-                'bookingId': '1',
-                'bookingNo': '1',
-                'vacantTime': '20',
-                'startTime': '11:20 PM',
-                'dropTime': '12:20 PM',
-                'totalKms': '1120',
-                'amount': '1500',
-                'deadMileage': '5'
-            }, {
-                'bookingId': '1',
-                'bookingNo': '1',
-                'vacantTime': '20',
-                'startTime': '11:20 PM',
-                'dropTime': '12:20 PM',
-                'totalKms': '1120',
-                'amount': '1500',
-                'deadMileage': '5'
-            }, {
-                'bookingId': '1',
-                'bookingNo': '1',
-                'vacantTime': '20',
-                'startTime': '11:20 PM',
-                'dropTime': '12:20 PM',
-                'totalKms': '1120',
-                'amount': '1500',
-                'deadMileage': '5'
-            }];
-
+            }]
+			*/
             scope.assetStateChartData = {
                 "title": {
                     "text": ''
@@ -199,7 +156,7 @@ angular.module('sigmaCabsApp')
                 data: 'currentMonthGridDetails',
                 rowHeight: 25,
                 columnDefs: [{
-                    field: 'bookingNo',
+                    field: 'bookingCode',
                     displayName: 'B.No',
                     headerTitle: 'Booking No.'
                 }, {
@@ -245,8 +202,9 @@ angular.module('sigmaCabsApp')
                     .success(function(data, status, headers, config) {
                         console.log('Success: ', data);
 
-                        if (data.status === 200) {
-                            scope.currentMonthGridDetails = data.result;
+                        if (data.status === 200 && data.result) {
+                            scope.currentDayStatistics = data.result.statistcs;
+                            scope.currentMonthGridDetails = ((data.result.bookings) ? data.result.bookings : []);
                         }
 
                     })
@@ -298,7 +256,7 @@ angular.module('sigmaCabsApp')
                         if (scope.vehicleMainDetails.vehicleState == "4") {
                             scope.vStateHeading = ' - Allot';
                         } else if (scope.vehicleMainDetails.vehicleState == "5") {
-                            scope.vStateHeading = ' - Attached';
+                            scope.vStateHeading = ' - Confirmed';
                         } else if (scope.vehicleMainDetails.vehicleState == "6") {
                             scope.vStateHeading = ' - In Driving';
                         }
@@ -884,19 +842,31 @@ angular.module('sigmaCabsApp')
 
         // tabs click
         scope.showControlViewTab = function(){
-            /*scope.showTariffDetails =  false;
+            scope.showTariffDetails =  false;
             scope.showBookingHistoryDetails =  false;
             scope.showBookingDetails =  false;
-            scope.showControlViewDetails =  true;*/
+            scope.showDispatchView =  false;
+            scope.showControlViewDetails =  true;
             window.location.hash = "#/controlView";
 
             //scope.fnResizeWindowHack();
         };
-        scope.showBookingDetailsTab = function(){
-            /*scope.showTariffDetails =  false;
+        scope.showDispatchViewTab = function(){
+            scope.showTariffDetails =  false;
             scope.showBookingHistoryDetails =  false;
             scope.showBookingDetails =  false;
-            scope.showControlViewDetails =  true;*/
+            scope.showControlViewDetails =  false;
+            scope.showDispatchView =  true;
+            window.location.hash = "#/dispatch";
+
+            //scope.fnResizeWindowHack();
+        };
+        scope.showBookingDetailsTab = function(){
+            scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  true;
+            scope.showDispatchView =  false;
+            scope.showControlViewDetails =  false;
             window.location.hash = "#/";
 
             //scope.fnResizeWindowHack();

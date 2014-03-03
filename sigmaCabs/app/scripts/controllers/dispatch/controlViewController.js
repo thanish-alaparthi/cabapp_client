@@ -74,6 +74,10 @@ angular.module('sigmaCabsApp')
         scope.mainGridView = 'bMgmt';
         /*END: setting initial data*/
 
+        /* date picker min and max */
+        scope.dpMinDate = '01/02/2014';
+        scope.dpMaxDate = '10/03/2014';
+
         /*START: resize methods for grids */
         scope.resize_BookingMgmtGrid = function(){
           $timeout(function(){
@@ -124,12 +128,12 @@ angular.module('sigmaCabsApp')
           while(dataLen--){
             var datum = data[dataLen];
             datum.bookingId = 'BID'+datum.bookingId;
-            datum.vehicleName = namesService.fnGetVehicleDisplayNameById(datum.vehicleName);
-            datum.vehicleType = namesService.fnGetVehicleDisplayTypeById(datum.vehicleType);
+            datum.vehicleName = (datum.vehicleName) ? namesService.fnGetVehicleDisplayNameById(datum.vehicleName) : '';
+            datum.vehicleType = (datum.vehicleType) ? namesService.fnGetVehicleDisplayTypeById(datum.vehicleType) : '';
             datum.bookingStatus = namesService.fnGetBookingStatusName(datum.bookingStatus);
             var sJourneyTypeId = datum.subJourneyType;
-            datum.subJourneyType = namesService.fnGetJourneyTypeName(datum.subJourneyType);            
-            datum.journeyType = namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType;
+            datum.subJourneyType = (datum.subJourneyType) ? namesService.fnGetJourneyTypeName(datum.subJourneyType) : '';
+            datum.journeyType = (datum.subJourneyType) ? namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType : '';
           }
           scope.loadBookingMgmtGridData(data);
         }
@@ -164,7 +168,7 @@ angular.module('sigmaCabsApp')
               namesService = PrerequisiteService;
           while(dataLen--){
             var datum = data[dataLen];
-            datum.vehicleName = namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+            datum.vehicleName = (datum.vehicleName) ? namesService.fnGetVehicleNameById(datum.vehicleName).vehicleName : '';
           }
           scope.loadBookingVehiclesGridData(data);
         }
@@ -1064,7 +1068,7 @@ angular.module('sigmaCabsApp')
             scope.vehicleStateChange_Error);
         }
         // In vehicle state = 2 / 4
-        scope.fnControlViewVehicleRejectBooking = function() {
+        /*scope.fnControlViewVehicleRejectBooking = function() {
           var oData = {
             "vehicleId": scope.vehicleDetailsData.vehicle.id,
             "bookingId": scope.selectedBookingItems[0].bookingId
@@ -1074,33 +1078,97 @@ angular.module('sigmaCabsApp')
             oData,
             scope.vehicleStateChange_Success,
             scope.vehicleStateChange_Error);
-        }
+        }*/
         scope.vehicleStateChange_Success = function(data){
           alert(data[0].message);
+          scope.setBookingMgmtGrid(false);
+          scope.bookingVehicleUnSelectedFn();
+          scope.vacantVehicleUnSelectedFn();
         }
         scope.vehicleStateChange_Error = function(xhr, data){
           console.error('in vehicleStateChange_Error :: api error');
           alert('Error in processing your request');
         }
+
+        scope.fnControlViewVehicleRejectBooking = function() {
+            var bookingId = scope.selectedBookingItems[0].bookingId || '';
+            if (bookingId === '') {
+                alert('Booking Id required');
+                return;
+            }
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingRejected'),
+                controller: 'vehicleBookingRejected',
+                dialogClass: 'modalClass add-request',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetails: {
+                              "vehicleId": scope.vehicleDetailsData.vehicle.id,
+                              "bookingId": bookingId,
+                              "selectedDriver": scope.vehicleDetailsData.driver.id || ''
+                            }
+                        };
+                        return oData;
+                    },
+                    isControlView: function() {
+                      return true;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
         /*END: Accept / Confirm / Reject functionality */
 
         // Tab Navigation
         scope.showControlViewTab = function(){
-            /*scope.showTariffDetails =  false;
+            scope.showTariffDetails =  false;
             scope.showBookingHistoryDetails =  false;
             scope.showBookingDetails =  false;
-            scope.showControlViewDetails =  true;*/
+            scope.showDispatchView =  false;
+            scope.showControlViewDetails =  true;
             window.location.hash = "#/controlView";
 
             //scope.fnResizeWindowHack();
         };
-        scope.showBookingDetailsTab = function(){
-            /*scope.showTariffDetails =  false;
+        scope.showDispatchViewTab = function(){
+            scope.showTariffDetails =  false;
             scope.showBookingHistoryDetails =  false;
             scope.showBookingDetails =  false;
-            scope.showControlViewDetails =  true;*/
+            scope.showControlViewDetails =  false;
+            scope.showDispatchView =  true;
+            window.location.hash = "#/dispatch";
+
+            //scope.fnResizeWindowHack();
+        };
+        scope.showBookingDetailsTab = function(){
+            scope.showTariffDetails =  false;
+            scope.showBookingHistoryDetails =  false;
+            scope.showBookingDetails =  true;
+            scope.showDispatchView =  false;
+            scope.showControlViewDetails =  false;
             window.location.hash = "#/";
 
             //scope.fnResizeWindowHack();
         };
+
+        // handling custom events
+        var oEventUpdateBookingMgmtGrid = $rootScope.$on('eventUpdateBookingMgmtGrid', function(oEvent, oData) {
+            console.log('>>>>>scope.eventUpdateBookingMgmtGrid changed', arguments);
+            scope.setBookingMgmtGrid(false);
+            scope.bookingVehicleUnSelectedFn();
+            scope.vacantVehicleUnSelectedFn();
+        });
+
+
+        scope.$on('$destroy', function() {
+            console.log('destroying eventUpdateBookingMgmtGrid');
+            oEventUpdateBookingMgmtGrid();
+        });
     });

@@ -332,7 +332,7 @@ angular.module('sigmaCabsApp')
                     method: 'POST',
                     url: URLService.service('RestApiDefaultEmpty'),
                     data: {
-                        url: "vehicle/getAssociatedBookings",
+                        url: "vehicle/getCurrentStatistics",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {

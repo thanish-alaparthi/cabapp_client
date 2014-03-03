@@ -2,25 +2,28 @@
     <legend class="searchbox-border">Current Day Bookings</legend>
     <div style="margin-bottom:5px;">
         <span title="Login Time"><strong>LT:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>10:30</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.loginTime}}</strong></span>
 
         <span title="Previous Location"><strong>PL:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>ABC</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.prevousLocation}}</strong></span>
 
         <span title="Current Location"><strong>CL:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>XYZ</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.currentLocation}}</strong></span>
         
         <span><strong>Status:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>Driving</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.status}}</strong></span>
 
         <span title="Total Booking"><strong>TB:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>4</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.totalBookings}}</strong></span>
+
+        <span title="Successful Booking"><strong>SB:&nbsp;</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.completedBookings}}</strong></span>
 
         <span title="Rejected Booking"><strong>RB:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>1</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.rejectedBookings}}</strong></span>
 
         <span title="Cancelled Booking"><strong>CB:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>1</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.closedBookings}}</strong></span>
     </div>
     <div style="height:180px;margin-right: 20px;width:72%;" id="customerBookingGridID" class="bookingHistoryGrid left">
     	
@@ -28,24 +31,24 @@
     </div>
     <div style="width:24%;margin-top: 20px;" class="left">
     	<div class="fieldContainer relative clearBoth">
-            <label class="labelCompact">Day Collection</label>
-            <span>1500 rs</span>
+            <label class="labelCompact" title="Day Collection">D.Col</label>
+            <span>{{currentDayStatistics.dayCollection}}</span>
         </div>
         <div class="fieldContainer relative clearBoth">
             <label class="labelCompact" title="Total Login Hours">TLH</label>
-            <span>10 Hours</span>
+            <span>{{currentDayStatistics.totalLoginTime}}</span>
         </div>
         <div class="fieldContainer relative clearBoth">
             <label class="labelCompact" title="Total Break Time">TBT</label>
-            <span>2 Hours</span>
+            <span>{{currentDayStatistics.totalBreakTime}}</span>
         </div>
         <div class="fieldContainer relative clearBoth">
             <label class="labelCompact" title="Working Hours">WH</label>
-            <span>8 Hours</span>
+            <span>{{currentDayStatistics.totalWorkingTime}}</span>
         </div>
         <div class="fieldContainer relative clearBoth">
-            <label class="labelCompact">Performance</label>
-            <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:red;"></span>
+            <label class="labelCompact" title="Performance">Perf..</label>
+            <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{currentDayStatistics.performance}};"></span>
         </div>
     </div>
     <p class="clear" />

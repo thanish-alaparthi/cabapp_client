@@ -243,7 +243,8 @@ module.exports = function (grunt) {
                 'views/chat/*.html', 
                 'views/vehicles/*.html', 
                 'views/dispatches/*.html', 
-                'views/bookings/*.html'],
+                'views/bookings/*.html',
+                'views/bookings/statistics/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
