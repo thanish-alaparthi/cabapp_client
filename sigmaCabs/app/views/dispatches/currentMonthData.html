@@ -1,4 +1,4 @@
-<fieldset class="left" style="width:53.1%;margin-right: 7px;height: 220px;">
+<fieldset class="currentMonthData">
     <legend class="searchbox-border">Current Day Bookings</legend>
     <div style="margin-bottom:5px;">
         <span title="Login Time"><strong>LT:&nbsp;</strong></span>
@@ -23,10 +23,9 @@
         <span class="margin-right10"><strong>{{currentDayStatistics.rejectedBookings}}</strong></span>
 
         <span title="Cancelled Booking"><strong>CB:&nbsp;</strong></span>
-        <span class="margin-right10"><strong>{{currentDayStatistics.closedBookings}}</strong></span>
+        <span class="margin-right10"><strong>{{currentDayStatistics.canceledBookings}}</strong></span>
     </div>
     <div style="height:180px;margin-right: 20px;width:72%;" id="customerBookingGridID" class="bookingHistoryGrid left">
-    	
     	<div class="gridStyle" ng-grid="gridCurrentMonthData" style="min-height:160px;"></div>
     </div>
     <div style="width:24%;margin-top: 20px;" class="left">

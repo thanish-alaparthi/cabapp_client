@@ -25,6 +25,9 @@ angular.module('sigmaCabsApp')
 
 		console.log('bookingFormController: ', scope.bookingDetails);
 
+		// set current Date for pickup date
+		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
+
 		if(scope.bookingDetails.vehicleType){
 			scope.tmpDetails.tmpVehicleType = scope.bookingDetails.vehicleType;
 		}

@@ -38,7 +38,7 @@
                     <div class="tab-body cust-request" data-ng-show="tab==1">
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Customized Date</label>
-                            <input datepicker multidate="true" multidate-model="dateDetails.multiDates" data-ng-model="tmpMultiDates" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                            <input datepicker multidate="true" multidate-model="dateDetails.multiDates" data-ng-model="tmpMultiDates" type="text"class="left validate[required,maxSize[128]] textFieldCompact" dpMinDate="dpCurrentDate" />
                         </div>
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Time</label>

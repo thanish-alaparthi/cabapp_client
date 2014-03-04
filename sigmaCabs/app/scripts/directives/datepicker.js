@@ -45,14 +45,16 @@ angular.module('sigmaCabsApp')
         };
 
 
-        var isMultiDate = element.attr('multidate'); 
+        var isMultiDate = element.attr('multidate');
 
         element
           .datePicker({
             createButton: false,
             displayClose: true,
             closeOnSelect: (!isMultiDate ? true : false),
-            selectMultiple: (isMultiDate ? true : false)
+            selectMultiple: (isMultiDate ? true : false),
+            startDate: scope[element.attr('dpMinDate')] || '01/01/2001',
+            endDate: scope[element.attr('dpMaxDate')] || '10/03/2022'
           }).bind(
             'click',
             function() {

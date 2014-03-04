@@ -72,7 +72,7 @@ angular.module('sigmaCabsApp')
             scope.vehicleConditionTypes = PrerequisiteService.fnGetVehicleConditionTypes();
             scope.vehicleStatusTypes = PrerequisiteService.fnGetStatusTypes();
 
-            // show rush or normal hours in statistcs
+            // show rush or normal hours in statistics
             var oDt = new Date();
             if ((oDt.getHours() >= 6 && oDt.getHours() <= 11) || (oDt.getHours() >= 16 && oDt.getHours() <= 22)) {
                 scope.sHourType = "Rush Hours";
@@ -123,7 +123,7 @@ angular.module('sigmaCabsApp')
             }
 
             scope.currentMonthGridDetails = [];
-			/*
+            /*
 				[{
                 'bookingId': '1',
                 'bookingNo': '1',
@@ -203,7 +203,11 @@ angular.module('sigmaCabsApp')
                         console.log('Success: ', data);
 
                         if (data.status === 200 && data.result) {
-                            scope.currentDayStatistics = data.result.statistcs;
+                            var oStatistics = data.result.statistics;
+                            scope.currentDayStatistics = oStatistics;
+                            // update the vehicle state
+                            scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? PrerequisiteService.fnFormatDate(oStatistics.loginTime.split(' ')[0]) + ' ' + oStatistics.loginTime.split(' ')[1] : '';
+                            scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetBookingStatusName(oStatistics.status) : '';
                             scope.currentMonthGridDetails = ((data.result.bookings) ? data.result.bookings : []);
                         }
 
@@ -841,32 +845,32 @@ angular.module('sigmaCabsApp')
         });
 
         // tabs click
-        scope.showControlViewTab = function(){
-            scope.showTariffDetails =  false;
-            scope.showBookingHistoryDetails =  false;
-            scope.showBookingDetails =  false;
-            scope.showDispatchView =  false;
-            scope.showControlViewDetails =  true;
+        scope.showControlViewTab = function() {
+            scope.showTariffDetails = false;
+            scope.showBookingHistoryDetails = false;
+            scope.showBookingDetails = false;
+            scope.showDispatchView = false;
+            scope.showControlViewDetails = true;
             window.location.hash = "#/controlView";
 
             //scope.fnResizeWindowHack();
         };
-        scope.showDispatchViewTab = function(){
-            scope.showTariffDetails =  false;
-            scope.showBookingHistoryDetails =  false;
-            scope.showBookingDetails =  false;
-            scope.showControlViewDetails =  false;
-            scope.showDispatchView =  true;
+        scope.showDispatchViewTab = function() {
+            scope.showTariffDetails = false;
+            scope.showBookingHistoryDetails = false;
+            scope.showBookingDetails = false;
+            scope.showControlViewDetails = false;
+            scope.showDispatchView = true;
             window.location.hash = "#/dispatch";
 
             //scope.fnResizeWindowHack();
         };
-        scope.showBookingDetailsTab = function(){
-            scope.showTariffDetails =  false;
-            scope.showBookingHistoryDetails =  false;
-            scope.showBookingDetails =  true;
-            scope.showDispatchView =  false;
-            scope.showControlViewDetails =  false;
+        scope.showBookingDetailsTab = function() {
+            scope.showTariffDetails = false;
+            scope.showBookingHistoryDetails = false;
+            scope.showBookingDetails = true;
+            scope.showDispatchView = false;
+            scope.showControlViewDetails = false;
             window.location.hash = "#/";
 
             //scope.fnResizeWindowHack();

@@ -15,7 +15,8 @@ angular.module('sigmaCabsApp')
 
 		scope.saveText = 'Save Regular Booking';	//default text for save button.
 
-		
+		// set current Date for pickup date
+		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
 		scope.hours = PrerequisiteService.hours;
 		scope.minutes = PrerequisiteService.minutes;
 
