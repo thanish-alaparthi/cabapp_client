@@ -180,7 +180,10 @@ angular.module('sigmaCabsApp')
                 'vehicleBookingCancel': 'views/dispatches/vehicleBookingCancel.html',
                 'changeVehPickupLocation': 'views/dispatches/changeVehPickupLocation.html',
                 'vehicleBookingComplaint': 'views/dispatches/vehicleBookingComplaint.html',
-                'vehicleLogout': 'views/dispatches/vehicleLogout.html'
+                'vehicleLogout': 'views/dispatches/vehicleLogout.html',
+
+                // Reports
+                'callTakerSalaryReport': 'views/reports/CallTakerSalaryReport.html'
             },
 
 

@@ -48,8 +48,8 @@ angular.module('sigmaCabsApp')
         scope.roData.comments = '';
         
         scope.roData.discount = oCustomer.discount || 0;        
-        scope.roData.customerGrade = PrerequisiteService.fnGetGradeById(oCustomer.grade)['grade'];;
-        scope.roData.customerCategory = PrerequisiteService.fnGetCustomerCategoryById(oCustomer.category)['categoryName'];
+        scope.roData.customerGrade = oCustomer.grade ?  PrerequisiteService.fnGetGradeById(oCustomer.grade)['grade'] : "" ;
+        scope.roData.customerCategory = oCustomer.category ? PrerequisiteService.fnGetCustomerCategoryById(oCustomer.category)['categoryName'] : "";
 
         scope.close = function() {
 			dialog.close();

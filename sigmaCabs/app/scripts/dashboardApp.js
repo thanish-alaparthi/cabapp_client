@@ -28,7 +28,7 @@ angular.module('sigmaCabsApp', [
       }) 
       .when('/reports', {  
         templateUrl: 'views/reports.html',
-        controller: 'dashboardController'
+        controller: 'ReportsMainController'
       })
       .when('/dispatch', {  
         templateUrl: 'views/dispatch.html',
