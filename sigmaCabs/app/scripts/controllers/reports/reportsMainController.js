@@ -37,5 +37,11 @@ angular.module('sigmaCabsApp')
 
 		scope.fnShowCallTakerSalaryReport = function(){
 			scope.reportContainer = URLService.view('callTakerSalaryReport');
-		}
+		};
+
+		scope.fnGenerateCallTakerSalaryReport = function() {
+			console.log('fnGenerateCallTakerSalaryReport');
+			scope.oEmployeeDetails = {};
+			scope.oEmployeeDetails.employeeName = "Test";
+		};
 	});
