@@ -15,7 +15,7 @@ angular.module('sigmaCabsApp')
         }
         var stateObj = $('#stateChart');
         var statusObj = $('#statusChart');
-        var windowWidth = $(window).width() / 3 - 1 - 60;
+        var windowWidth = $(window).width() / 4;
         var chartsDefaults = {
           chart: {
             renderTo: element[0],

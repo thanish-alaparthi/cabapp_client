@@ -61,6 +61,8 @@ angular.module('sigmaCabsApp')
                 }
 
                 if(!oThis.oLs.hasOwnProperty(currentDate)){
+                    // To remove previous day data
+                    oThis.oLs = {};
                     oThis.oLs[currentDate] = {};
                 }
                 oThis.oLs[currentDate][sType] = oResult;

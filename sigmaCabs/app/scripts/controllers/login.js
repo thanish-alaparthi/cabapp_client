@@ -19,7 +19,7 @@ angular.module('sigmaCabsApp')
 				}
 			});
 	})
-	.controller('LoginController', function($scope, $rootScope, $window, $http, URLService) { //, serverService
+	.controller('LoginController', function($scope, $rootScope, $window, $http, URLService, serverService) {
 		console.log('login controller');
 		var scope = $scope;
 
@@ -29,6 +29,12 @@ angular.module('sigmaCabsApp')
 		name : fnLogin
 		descriptoin: redirects to dashboard.html after validation.
 		*/
+		/*
+			Temporary - till the time we get registration and logout of new users
+		*/
+		scope.loginUserName = 'lajpathrai';
+		scope.loginPassword = 'test@123';
+
 		scope.fnLogin = function() {
 			console.log(scope.loginUserName);
 			console.log(scope.loginPassword);
@@ -40,40 +46,7 @@ angular.module('sigmaCabsApp')
 				'userName': scope.loginUserName,//'lajpathrai',
 				'password': scope.loginPassword //'test@123'
 			}
-			//serverService.sendData('P','user/login', oData, scope.loginSucess, scope.loginFailure);
-			$http({
-				'method': 'POST',
-				'url': URLService.serviceRoot,
-				'data': {
-					'url': 'user/login',
-					'data': JSON.stringify(oData)
-				},
-				'headers': {
-					'Content-Type': 'application/x-www-form-urlencoded'
-				}
-			})
-				.success(function(data, status, headers, config) {
-					if (status == 200) {
-						//check for the valid format of the data, else through into the error callback
-						var isValidData = (data && data.status) || false;
-						if ((isValidData) && (data.status == 200)) {
-							var data = data.result;
-							scope.loginSucess(data);
-						} else {
-							scope.loginFailure(data);
-						}
-					} else {
-						scope.loginFailure(data);
-					}
-				})
-				.error(function(data, status, headers, config) {
-					/* May be we need to ask for header 401 from server, if login session expires.
-		  				So that we can force logout the client. */
-					if (status == 401) {
-						$rootScope.$broadcast('forceLogout');
-					}
-					scope.loginFailure(data);
-				})
+			serverService.sendData('P','user/login', oData, scope.loginSucess, scope.loginFailure);
 		};
 
 		scope.loginSucess = function(data) {

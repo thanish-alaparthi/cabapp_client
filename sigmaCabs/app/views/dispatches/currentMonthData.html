@@ -52,9 +52,5 @@
     </div>
     <p class="clear" />
 </fieldset>
-<fieldset class="left" style="width:46.3%">
-    <legend class="searchbox-border">Current Month History</legend>
-    <div style="min-height: 200px;">
-    	<chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
-    </div>
-</fieldset>
+<div class="left" data-ng-include="vehiclePerformance" style="width:49.5%;"></div>
+<p class="clear" />
