@@ -433,6 +433,24 @@ angular.module('sigmaCabsApp')
                 var aD = sDate.split('-');
                 return aD[2] + '/' + aD[1] + '/' + aD[0];
             },
+            fnGetAdvancedDate : function(iCount){
+                var oThis = this;
+                if(!iCount || isNaN(iCount)) {
+                    return oThis.fnFormatDate();
+                }
+
+                var oDt = new Date(),
+                    oDt2 = new Date();
+
+                oDt.setDate(oDt2.getDate()+iCount);
+
+                var yyyy = oDt.getFullYear().toString(),
+                    mm = (oDt.getMonth() + 1).toString(),
+                    dd = oDt.getDate().toString();
+
+                    return oThis.fnFormatDate(yyyy + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]));
+
+            },
             formatToServerDate : function(sDate){
                 if(sDate.length < 10){
                     return this.currentDate;
@@ -508,6 +526,24 @@ angular.module('sigmaCabsApp')
             fnGetVehicleNames : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
+            },
+            fnGetDefaultVehicleName : function(sVt) {
+                if(!sVt) {
+                    return "";
+                }
+
+                var oThis = this,
+                    aVNs = oThis.fnGetVehicleNames(),
+                    iLen = aVNs.length;
+
+                    for(var i=0;i<iLen;i++){
+                        if(aVNs[i].vehicleType == sVt) {
+                            return aVNs[i]; 
+                        }
+                    }
+
+                return "";
+
             },
             fnGetCustomerCategories : function(){
                 var oThis = this;
@@ -644,7 +680,7 @@ angular.module('sigmaCabsApp')
                     oBh.primaryPassanger = oCustomer ? oCustomer.name : '-'
                     oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
                     oBh.vehicleDisplayType = oThis.fnGetVehicleDisplayTypeById(oBh.vehicleType);
-                    oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName) || 'Any-Vehicle';
+                    oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName) || '';
                     oRtn.push(oBh);
                 }
                 return oRtn;

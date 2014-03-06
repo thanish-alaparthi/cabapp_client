@@ -13,6 +13,8 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 		console.log('inside blockCustomer', oCustomer);
 
+		scope.comments = "";
+
 		scope.customerName = oCustomer.name;
 		scope.customerPhone = oCustomer.mobile;
 
@@ -25,6 +27,17 @@ angular.module('sigmaCabsApp')
 			dialog.close();
 		}
 		scope.fnSaveAndCloseBlockCaller = function() {
+			
+			if(!oCustomer.id 
+				|| !scope.reasonId
+				|| !scope.priorityId
+				|| scope.comments.replace(/ /g, "") == "") {
+
+				alert('All fields are mandatory.');
+				return false;
+			}
+
+
 			CustomerService.fnBlockCustomer({
 				customerId : oCustomer.id,
 				reasonId : scope.reasonId,

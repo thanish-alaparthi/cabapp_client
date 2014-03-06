@@ -3,7 +3,7 @@
 
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup Date</label>
-        <input type="text" datepicker ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-change="fnChangeTimePerDate()" dpMinDate="dpCurrentDate"  />
+        <input type="text" datepicker ng-model="bookingDetails.pickupDate" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-change="fnChangeTimePerDate()" dpMinDate="dpCurrentDate" dpMaxDate="dpCurrentPlusSevenDate"  />
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact">Pickup Time</label>
@@ -27,13 +27,6 @@
         <button class="left btnCompact btn-grey" style="border-radius: 5px;" ng-click = "checkMultiVehicle()">Multi Vehicle</button>
     </div>
     <div class="fieldContainer  relative left">
-        <label class="labelCompact">Drop</label>
-        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
-    </div>    
-    <div class="fieldContainer  relative right" style="width: 40%;">
-        <button class="left btnCompact btn-success" style="border-radius: 5px;" ng-click = "checkTariff()">Tariff</button>
-    </div>
-    <div class="fieldContainer  relative left">
         <label class="labelCompact">Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
     </div>
@@ -42,12 +35,19 @@
         <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div>
     <div class="fieldContainer  relative left">
+        <label class="labelCompact">Drop</label>
+        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
+    </div>    
+    <div class="fieldContainer  relative right" style="width: 40%;">
+        <button class="left btnCompact btn-success" style="border-radius: 5px;" ng-click = "checkTariff()">Tariff</button>
+    </div>
+    <div class="fieldContainer  relative left">
         <label class="labelCompact">Landmark1</label>
-        <input type="text" dropFocused ng-model="bookingDetails.landmark1" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <input type="text"  data-ng-class="{fieldExpand: land1Focused}" data-ng-blur="land1Focused = false" data-ng-focus="land1Focused = true"  ng-model="bookingDetails.landmark1" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
     </div>
     <div class="fieldContainer  relative right">
-        <label class="labelCompact">Landmark2</label>
-        <input type="text" ng-model="bookingDetails.landmark2" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
+        <label class="labelCompact" style="z-index: 0;">Landmark2</label>
+        <input type="text" data-ng-class="{fieldExpandLeft: land2Focused}" data-ng-blur="land2Focused = false" data-ng-focus="land2Focused = true"  ng-model="bookingDetails.landmark2" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" />
     </div>
 
         <p class="clear"/>

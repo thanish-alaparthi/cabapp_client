@@ -458,7 +458,7 @@ angular.module('sigmaCabsApp')
                 extraKm: oT.extraKmPrice,
                 graceTime: oT.grace,
                 id: oT.id,
-                vehicleName: scope.bookingDetails.vehicleName ? PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName).vehicleName : 'Any-Vehicle',
+                vehicleName: scope.bookingDetails.vehicleName ? PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName).vehicleName : '',
                 vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
             });
 
@@ -469,13 +469,18 @@ angular.module('sigmaCabsApp')
         });
 
         scope.$on('eventHeadBookingType',function(event, oData){
-            scope.headBookingType = oData.type
+            console.log('on eventHeadBookingType', oData);
+            scope.headBookingType = oData.type;
         });
 
         scope.$on('$destroy', function () {
             console.log('NNNNNNNNNNNNNNNNNNNNNNNNNNNN');
             oEventSelBokgFrmHist();
             oRootEventPrereqLoaded();
+        });
+
+        scope.$watch('headBookingType', function(newVal, oldVal){
+            console.log('watch headBookingType');
         });
     
     });

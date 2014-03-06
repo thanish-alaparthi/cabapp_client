@@ -30,7 +30,7 @@ angular.module('sigmaCabsApp')
         scope.roData = {};
 
         scope.roData.vehicleType = scope.selectedVehicleType.vehicleType;
-        scope.roData.vehicleName = scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : 'Any-Vehicle';
+        scope.roData.vehicleName = scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : '';
         scope.roData.journeyTypeName = scope.selectedJourneyType.journeyType;
         scope.roData.subJourneyTypeName = scope.selectedSubJourneyType.journeyType;
         scope.roData.pickupPlace = oBooking.pickupPlace;
@@ -82,8 +82,8 @@ angular.module('sigmaCabsApp')
 	        scope.roData.km = tariffObj.kms || 0;
 	        scope.roData.amount = tariffObj.price || 0;
 	        scope.roData.extraKmCharge = tariffObj.extraKmPrice || 0;
-	        scope.roData.graceTime = tariffObj.graceTime || 0;
-	        scope.roData.extraCharges = tariffObj.extraCharge || 0;
+	        scope.roData.graceTime = tariffObj.grace || 0;
+	        scope.roData.extraCharges = tariffObj.extraCharges || 0;
 	        scope.roData.extraHourCharge = tariffObj.extraHrPrice || 0;
 	        scope.roData.comments = tariffObj.comments || '-';
 	    };
@@ -137,12 +137,12 @@ angular.module('sigmaCabsApp')
 	    scope.fnConfirmTariffAndExit = function(){
 	    	var oT = {
     			vehicleType : scope.selectedVehicleType.vehicleType,
-    			vehicleName : scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : 'Any-Vehicle',
+    			vehicleName : scope.selectedVehicleName ? scope.selectedVehicleName.vehicleName : '',
     			duration : (scope.selctedTariffType.duration / 60),
     			distance : scope.selctedTariffType.kms,
     			amount : scope.selctedTariffType.price,
     			extraKm : scope.selctedTariffType.extraKmPrice,
-    			graceTime : scope.selctedTariffType.graceTime,
+    			graceTime : scope.selctedTariffType.grace,
     			extraHour : scope.selctedTariffType.extraHrPrice,
     			extraCharges : scope.selctedTariffType.extraCharges,
     			comments : scope.selctedTariffType.comments,

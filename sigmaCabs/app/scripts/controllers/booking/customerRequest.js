@@ -21,7 +21,7 @@ angular.module('sigmaCabsApp')
 		scope.minutes = PrerequisiteService.minutes;
 
 		scope.customerName = oCustomer.name;
-		scope.customerMobile = oCustomer.mobile1;
+		scope.customerMobile = oCustomer.mobile || oCustomer.mobile2 ;
 
 		// set default values for request form
 		scope.regularRequestDetails = {};

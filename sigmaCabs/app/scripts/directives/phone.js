@@ -7,6 +7,19 @@ angular.module('sigmaCabsApp')
           'maxlength' : '10'
         });
         $(element).numeric({negative : false});
+
+        $(element).bind('keypress',function(e) {
+          if(this.value.indexOf("0") == 0)
+          {
+            return false;
+          }
+        });
+        $(element).bind('keyup',function(e) {
+          if(this.value.indexOf("0") == 0)
+          {
+            this.value = "";
+          }
+        });
       }
     };
   });

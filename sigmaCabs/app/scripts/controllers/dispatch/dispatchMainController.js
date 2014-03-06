@@ -363,12 +363,12 @@ angular.module('sigmaCabsApp')
                         scope.vehicleNames.splice(i, 1);
                     }
                 }
-                scope.vehicleNames.push({
-                    vehicleType: '1', // any-vehicle default to small
-                    id: '',
-                    vehicleName: 'Any-Vehicle',
-                    status: '1'
-                });
+                // scope.vehicleNames.push({
+                //     vehicleType: '1', // any-vehicle default to small
+                //     id: '',
+                //     vehicleName: 'Any-Vehicle',
+                //     status: '1'
+                // });
             }
 
         };

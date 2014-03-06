@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('bookingFormController', function($scope, $rootScope, URLService,PrerequisiteService, BookingService, VehiclesService, $dialog, modalWindow, PreConfigService) {
+	.controller('bookingFormController', function($scope, $rootScope, URLService,PrerequisiteService, BookingService, VehiclesService, $dialog, modalWindow, PreConfigService, $timeout) {
 		var scope = $scope;
 
 		//attach safeApply
@@ -27,6 +27,7 @@ angular.module('sigmaCabsApp')
 
 		// set current Date for pickup date
 		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
+		scope.dpCurrentPlusSevenDate = PrerequisiteService.fnGetAdvancedDate(7);	// set date restriction.
 
 		if(scope.bookingDetails.vehicleType){
 			scope.tmpDetails.tmpVehicleType = scope.bookingDetails.vehicleType;
@@ -61,6 +62,8 @@ angular.module('sigmaCabsApp')
 					scope.$apply();
 				}
 			}
+
+			scope.fnValidatePickupTime();
 		};
 
 		// function to change sub-Journey Types
@@ -82,23 +85,24 @@ angular.module('sigmaCabsApp')
 			scope.$emit('eventVehicleTypeChanged');
 
 			scope.tmpSelectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(scope.tmpDetails.tmpVehicleType);
-			scope.tmpDetails.tmpVehicleName = "";
+			var oVn = PrerequisiteService.fnGetDefaultVehicleName(scope.tmpSelectedVehicleType.id);
 			scope.bookingDetails.vehicleType = scope.tmpSelectedVehicleType.id;
-			scope.bookingDetails.vehicleName = "";
+			scope.bookingDetails.vehicleName = oVn.id;
+			scope.tmpDetails.tmpVehicleName = oVn.id;
 
-			if(scope.vehicleNames){
-				for(var i=0;i<scope.vehicleNames.length;i++){
-					if(scope.vehicleNames[i].id == ""){
-						scope.vehicleNames.splice(i,1);
-					}
-				}
-				scope.vehicleNames.push({
-	                vehicleType : '1',	// any-vehicle default to small
-	                id: '',
-	                vehicleName : 'Any-Vehicle',
-	                status : '1'
-	            });
-			}
+			// if(scope.vehicleNames){
+			// 	for(var i=0;i<scope.vehicleNames.length;i++){
+			// 		if(scope.vehicleNames[i].id == ""){
+			// 			scope.vehicleNames.splice(i,1);
+			// 		}
+			// 	}
+			// 	scope.vehicleNames.push({
+	  //               vehicleType : '1',	// any-vehicle default to small
+	  //               id: '',
+	  //               vehicleName : 'Any-Vehicle',
+	  //               status : '1'
+	  //           });
+			// }
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleTypes = function() {
@@ -412,7 +416,6 @@ angular.module('sigmaCabsApp')
 					sHeadBookingType = "Advance";
 				}
 
-				console.clear()
 				console.log('TmDif',sTmDif/ (60 * 1000), sHeadBookingType);
 				scope.$emit('eventHeadBookingType',{
 					type : sHeadBookingType
@@ -433,14 +436,22 @@ angular.module('sigmaCabsApp')
 					console.log('pickupDate is currentDate');
 					var oDt = new Date(),
 						oPkDt = new Date(PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate) + ' ' + scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00'),
-						sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours();
-					if(oPkDt.getTime() < oDt.getTime()){
+						sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours(),
+						isPkDtLessThan30Minutes = false;
+
+					if(((oDt.getTime() + (30 * 60 * 1000)) >= oPkDt.getTime() )){
+						isPkDtLessThan30Minutes = true;
+					}
+
+					if(		oPkDt.getTime() < oDt.getTime()  // pickup time should not be lessThan current time
+						|| isPkDtLessThan30Minutes ){
 						var oDtNw = new Date();
-						oDtNw.setMinutes(oDtNw.getMinutes() + 20);
+						oDtNw.setMinutes(oDtNw.getMinutes() + 30);
 
 						var	sHr = oDtNw.getHours() <=9 ? '0' + oDtNw.getHours() : oDtNw.getHours();
 
-						alert('Pickup time should be future time.');
+						alert('Pickup time should be atleast 30 minutes ahead of the current time.');
+
 						var sMn = (oDtNw.getMinutes() + (10 - (oDtNw.getMinutes()%10)));
 						sMn = sMn <=9 ? '0'+sMn : sMn;
 						if(parseInt(sMn) >= 60){
@@ -458,7 +469,7 @@ angular.module('sigmaCabsApp')
 				}
 			}
 
-			scope.fnSetBookingTypeInHeader();
+			$timeout(scope.fnSetBookingTypeInHeader, 0);
 
 		};
 
