@@ -1,191 +1,103 @@
-<fieldset class="left" style="width:49.9%">
-    <legend class="searchbox-border">Current Month History</legend>
-    <h4> Vehicle and Driver Details</h4>
-    <div style="width: 100%;">
-        <div class="left" style="width:45%;">
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Day Average">Day Avg.</label>
-                <span>1500</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Till now Reached">Reached</label>
-                <span>1400</span>
-                <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:green;"></span>
-            </div>
-            <p class="clear"/>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Total Days">T.Days</label>
-                <span>20</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Working Days">W.Days</label>
-                <span>18</span>
-            </div>
-            <p class="clear"/>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Average Login Hours">Avg.Login</label>
-                <span>32</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Complaints Count">Comp.</label>
-                <span>1</span>
-            </div>
-            <p class="clear"/>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Performance">Perf..</label>
-                <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:orange;"></span>
-            </div>
-        </div>
-        <div class="left" style="min-height: 200px;width:50%;">
-            <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
-        </div>
-        <p class="clear"/>
-    </div>
-    <h4>Booking Details</h4>
-    <div style="width: 100%;">
-        <div class="left" style="width:45%;">
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Total Bookings">T.Bkngs</label>
-                <span>150</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Successful Bookings">SB</label>
-                <span>140</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Roadside Bookings">Ro.B</label>
-                <span>7</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Cancelled Bookings">Ca.B</label>
-                <span>1</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Rejected Bookings">R.B</label>
-                <span>2</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Vehicle Rating">V.Rating</label>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
-                    <span class="glyphicon {{j.cls}}"></span>
-                </span> -->
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Driver Rating">D.Rating</label>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
-                    <span class="glyphicon {{j.cls}}"></span>
-                </span> -->
-            </div>
-        </div>
-        <div class="left" style="min-height: 200px;width:50%;">
-            <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
-        </div>
-        <p class="clear"/>
-    </div>
-</fieldset>
-<fieldset class="left" style="width:49.5%;margin-left: 7px;">
+<fieldset class="left" style="width:50%;margin-right: 7px;">
     <legend class="searchbox-border">Last Month History</legend>
-    <h4> Vehicle and Driver Details</h4>
+
     <div style="width: 100%;">
-        <div class="left" style="width:45%;">
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Day Average">Day Avg.</label>
-                <span>1500</span>
+        <div class="left" style="width:69%;padding: 0 5px 0 0;border-right: 1px solid #ccc;margin-bottom: 5px;">
+            <div style="width:100%;border-bottom: 1px solid #ccc;padding-bottom: 5px;">
+                <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Vehicle and Driver Details</h4>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Day Average">Day Avg.</label>
+                    <span>1500</span>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Till now Reached">Reached</label>
+                    <span class="left margin-right10">1400</span>
+                    <span class="left" style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:green;"></span>
+                    <p class="clear"/>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Vehicle Performance">Perf..</label>
+                    <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:orange;"></span>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Vehicle Complaints Count">V.Comp.</label>
+                    <span>1</span>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Total Days">T.Days</label>
+                    <span>20</span>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Working Days">W.Days</label>
+                    <span>18</span>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Average Login Hours">Avg.Login</label>
+                    <span>32</span>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Driver Complaints Count">D.Comp.</label>
+                    <span>1</span>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative left" style="width:180px">
+                    <label class="labelCompact" title="Vehicle Rating">V.Rating</label>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
+                        <span class="glyphicon {{j.cls}}"></span>
+                    </span> -->
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Driver Rating">D.Rating</label>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
+                        <span class="glyphicon {{j.cls}}"></span>
+                    </span> -->
+                </div>
+                <p class="clear"/>
             </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Till now Reached">Reached</label>
-                <span>1400</span>
-                <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:green;"></span>
-            </div>
-            <p class="clear"/>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Total Days">T.Days</label>
-                <span>20</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Working Days">W.Days</label>
-                <span>18</span>
-            </div>
-            <p class="clear"/>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Average Login Hours">Avg.Login</label>
-                <span>32</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Complaints Count">Comp.</label>
-                <span>1</span>
-            </div>
-            <p class="clear"/>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Performance">Perf..</label>
-                <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:orange;"></span>
+            <div style="width:100%;">
+                <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Booking Details</h4>
+                <div class="fieldContainer relative" style="width:180px;">
+                    <label class="labelCompact" title="Total Bookings">T.Bkngs</label>
+                    <span>150</span>
+                </div>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Successful Bookings">SB</label>
+                    <span>145</span>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Rejected Bookings">R.B</label>
+                    <span>2</span>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Roadside Bookings">Ro.B</label>
+                    <span>2</span>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Cancelled Bookings">Ca.B</label>
+                    <span>1</span>
+                </div>
+                <p class="clear"/>
             </div>
         </div>
-        <div class="left" style="min-height: 200px;width:50%;">
-            <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
-        </div>
-        <p class="clear"/>
-    </div>
-    <h4>Booking Details</h4>
-    <div style="width: 100%;">
-        <div class="left" style="width:45%;">
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Total Bookings">T.Bkngs</label>
-                <span>150</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Successful Bookings">SB</label>
-                <span>140</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Roadside Bookings">Ro.B</label>
-                <span>7</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px;">
-                <label class="labelCompact" title="Cancelled Bookings">Ca.B</label>
-                <span>1</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Rejected Bookings">R.B</label>
-                <span>2</span>
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Vehicle Rating">V.Rating</label>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
-                    <span class="glyphicon {{j.cls}}"></span>
-                </span> -->
-            </div>
-            <div class="fieldContainer relative" style="width:180px">
-                <label class="labelCompact" title="Driver Rating">D.Rating</label>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
-                    <span class="glyphicon {{j.cls}}"></span>
-                </span> -->
-            </div>
-        </div>
-        <div class="left" style="min-height: 200px;width:50%;">
-            <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart>
+        <div class="left" style="height: 100%;width:30%; text-align: center;">
+            <!-- <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart> --> Chart Data
         </div>
         <p class="clear"/>
     </div>
 </fieldset>
+<div class="left" data-ng-include="vehiclePerformance" style="width:46.3%;"></div>
 <p class="clear" />

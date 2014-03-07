@@ -828,9 +828,9 @@ textFieldCompact[disabled] .textFieldCompact {
 .currentMonthData {
   float: left;
   font-size: 12px;
-  height: 220px;
+  height: 277px;
   margin-right: 7px;
-  width:49.9%;
+  width:50%;
 }
 /*.chatFormDiv {
   float: left;
@@ -839,3 +839,15 @@ textFieldCompact[disabled] .textFieldCompact {
     min-width: 294px;
   }
 }*/
+.vehicleHistory {
+  height:277px;
+  .fieldContainer {
+    width: 300px;
+    .labelCompact {
+      width: 110px;
+    }
+    .ellipsisText {
+      width: 180px;
+    }
+  }
+}
