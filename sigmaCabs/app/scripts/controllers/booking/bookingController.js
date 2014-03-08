@@ -71,12 +71,12 @@ angular.module('sigmaCabsApp')
                 luggageType : '',
                 comments : '',
                 vehicleType: '1',
-                vehicleName: '',
+                vehicleName: '1',
                 id: '',
                 customerId : ''
             };
             scope.tmpDetails.tmpVehicleType = '1';
-            scope.tmpDetails.tmpVehicleName = '';
+            scope.tmpDetails.tmpVehicleName = '1';
 
             scope.tmpDetails.tmpJourneyType = '1';
             scope.bookingDetails.subJourneyType = '5'; 

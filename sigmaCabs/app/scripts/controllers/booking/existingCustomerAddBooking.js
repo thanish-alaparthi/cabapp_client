@@ -13,6 +13,12 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 
 		console.log('ExistingCustomerAddBooking:', scope.bookingDetails);
+
+		scope.sms = {};
+		scope.sms.smsForCallerPhone1 = true;
+		scope.sms.smsForCallerPhone2 = false;
+		scope.sms.smsForCustPhone1 = false;
+		scope.sms.smsForCustPhone2 = false;
 		
 		// load all the forms in the booking workarea view
 		scope.personalDetailsForm = URLService.view('personalForm');
@@ -203,6 +209,51 @@ angular.module('sigmaCabsApp')
 			return true;
 		};
 
+		scope.fnGetTickedSmsMobiles = function() {
+			var aRtn = [], sms1,sms2,sms3,sms4;
+
+			if(scope.sms.smsForCallerPhone1) {
+				sms1 = scope.callerPhone;
+			}
+			if(scope.sms.smsForCallerPhone2) {
+				sms2 = scope.customerDetails.altMobile;
+			}
+
+			if(scope.sms.smsForCustPhone1) {
+				sms3 = scope.searchDetails.searchString;
+			}
+			if(scope.sms.smsForCustPhone2) {
+				sms4 = scope.searchedCustomerDetails.altMobile;
+			}
+
+			if(sms1 && sms3) {
+				aRtn.push(sms1);
+				aRtn.push(sms3);
+				return aRtn;
+			}
+
+			if(sms1 && sms4){
+				aRtn.push(sms1);
+				aRtn.push(sms4);
+				return aRtn;
+			}
+
+			if(sms2 && sms3){
+				aRtn.push(sms2);
+				aRtn.push(sms3);
+				return aRtn;
+			}
+
+			if(sms3 && sms4){
+				aRtn.push(sms3);
+				aRtn.push(sms4);
+				return aRtn;
+			}
+
+
+
+		};
+
 
 		// fn to save the booking details
 		scope.fnSaveBooking = function() {
@@ -211,6 +262,9 @@ angular.module('sigmaCabsApp')
 			}
 			console.log('&&&&&&&&&&&&&&&&&&saving Booking data', scope.tmpDetails, scope.bookingDetails);
 
+			// get the numbers which are ticked for sms feature.
+			var aSms = scope.fnGetTickedSmsMobiles();
+
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
@@ -218,6 +272,8 @@ angular.module('sigmaCabsApp')
 				pickupPlace : scope.bookingDetails.pickupPlace, 
 				dropPlace : scope.bookingDetails.dropPlace,
 				tariffId : scope.bookingDetails.tariffId,
+				tariffDuration : scope.bookingDetails.tariffDuration,
+				tariffGrace : scope.bookingDetails.tariffGrace,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
@@ -226,7 +282,11 @@ angular.module('sigmaCabsApp')
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
 				customerId : scope.waCustomerDetails.id,
 				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
-				reserveVehicleId : scope.reserveVehicleId
+				resVehicleId : scope.bookingDetails.resVehicleId,
+				passengerName : scope.waCustomerDetails.name,
+				passengerMobile : scope.waCustomerDetails.mobile,
+				sms1 : aSms[0],
+				sms2 : aSms[1]
 			});
 		};
 
@@ -236,6 +296,11 @@ angular.module('sigmaCabsApp')
 			}
 
 			console.log('Saving as new booking...', scope.tmpDetails);
+
+
+			// get the numbers which are ticked for sms feature.
+			var aSms = scope.fnGetTickedSmsMobiles();
+
 			scope.fnApiSaveBooking({
 				id : "", 
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
@@ -243,6 +308,8 @@ angular.module('sigmaCabsApp')
 				pickupPlace : scope.bookingDetails.pickupPlace, 
 				dropPlace : scope.bookingDetails.dropPlace,
 				tariffId : scope.bookingDetails.tariffId,
+				tariffDuration : scope.bookingDetails.tariffDuration,
+				tariffGrace : scope.bookingDetails.tariffGrace,
 				landmark1 : scope.bookingDetails.landmark1, 
 				landmark2 : scope.bookingDetails.landmark2, 
 				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
@@ -251,7 +318,11 @@ angular.module('sigmaCabsApp')
 				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
 				customerId : scope.waCustomerDetails.id,				
 				refCustomerId : scope.customerDetails.id,
-				reserveVehicleId : scope.reserveVehicleId
+				resVehicleId : scope.bookingDetails.resVehicleId,
+				passengerName : scope.waCustomerDetails.name,
+				passengerMobile : scope.waCustomerDetails.mobile,
+				sms1 : aSms[0],
+				sms2 : aSms[1]
 			});
 		};
 
@@ -347,6 +418,35 @@ angular.module('sigmaCabsApp')
             $rootScope.$emit('eventTariffGridDataChanged', tariffDetails);
         };
 
+        scope.$watch('sms', function(newVal, oldVal){
+        	console.log('watching scope.sms');
+        	if(!angular.equals(newVal,oldVal)){
+        		scope.fnValidateSmsTick();
+        	}
+        }, true);
+
+        // fn which validates sms ticks
+        scope.fnValidateSmsTick = function() {
+        	if(scope.sms.smsForCallerPhone1 && !scope.callerPhone) {
+        		alert('SMS phone you ticked is empty.');
+        		scope.sms.smsForCallerPhone1 = false;
+			}
+			if(scope.sms.smsForCallerPhone2 && !scope.customerDetails.altMobile) {
+				alert('SMS phone you ticked is empty.');
+				scope.sms.smsForCallerPhone2 = false;
+			}
+
+			if(scope.sms.smsForCustPhone1 && !scope.searchDetails.searchString) {
+				alert('SMS phone you ticked is empty.');
+				scope.sms.smsForCustPhone1 = false;;
+			}
+			if(scope.sms.smsForCustPhone2 && !scope.searchedCustomerDetails.altMobile) {
+				alert('SMS phone you ticked is empty.');
+				scope.sms.smsForCustPhone2 = false;
+			}
+        };
+
+
         // check whether boookingDetails are saved from cancelBooking or dispostion form
         $rootScope.$on('eventRefreshBookingHistory', function(ev, oData) {
         	console.log('eventRefreshBookingHistory');
@@ -359,6 +459,8 @@ angular.module('sigmaCabsApp')
         	// add the tariffType to booking details
         	console.log('eventSingleTariffSelected triggered', oData);
         	scope.bookingDetails.tariffId = oData.tariffId;
+			scope.bookingDetails.tariffDuration = oData.tariffDetails.duration;
+			scope.bookingDetails.tariffGrace = oData.tariffDetails.graceTime;
         	scope.fnRefreshBookingTariffGrid(oData.tariffDetails);
         });
 
@@ -409,4 +511,10 @@ angular.module('sigmaCabsApp')
      //    scope.$watch('tariffGridData', function(newVal, oldVal){
 	    // 	console.log('######################scope.tariffGridData changed', newVal);
 	    // },true);
+
+		$rootScope.$on('eventVehicleReserved', function(ev, oData) {
+			console.log('on eventVehicleReserved', arguments);
+			scope.bookingDetails.resVehicleId = oData.resVehicleId
+		});
+
 	});

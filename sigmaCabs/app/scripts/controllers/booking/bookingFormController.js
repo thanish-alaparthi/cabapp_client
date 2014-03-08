@@ -470,6 +470,8 @@ angular.module('sigmaCabsApp')
 			}
 
 			$timeout(scope.fnSetBookingTypeInHeader, 0);
+			
+			$rootScope.$emit('eventRefreshStats');
 
 		};
 

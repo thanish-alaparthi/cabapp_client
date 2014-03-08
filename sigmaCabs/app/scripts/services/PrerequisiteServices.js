@@ -433,6 +433,22 @@ angular.module('sigmaCabsApp')
                 var aD = sDate.split('-');
                 return aD[2] + '/' + aD[1] + '/' + aD[0];
             },
+            fnFormatDateOnDateObj : function(oDate){
+                // takes the date object and returns js date
+                var oThis = this;
+
+                if(!oDate){
+                    return oThis.fnFormatDate();
+                }
+                var yyyy = oDate.getFullYear().toString(),
+                mm = (oDate.getMonth() + 1).toString(),
+                dd = oDate.getDate().toString(),
+                hr = oDate.getHours().toString(),
+                mn = oDate.getMinutes().toString();
+
+                return yyyy + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]) + ' ' + hr + ':' + mn + ':00';
+
+            },
             fnGetAdvancedDate : function(iCount){
                 var oThis = this;
                 if(!iCount || isNaN(iCount)) {
@@ -794,7 +810,7 @@ angular.module('sigmaCabsApp')
                 }
                 angular.copy(aReturn,aR);
 
-                return sVehicleType ? {'summary' : aR, 'color': sColor} : aR;
+                return sVehicleType ? {'summary' : aR, 'color': sColor} : {'summary' : aR};
             },
 
             fnGetGenders : function() {

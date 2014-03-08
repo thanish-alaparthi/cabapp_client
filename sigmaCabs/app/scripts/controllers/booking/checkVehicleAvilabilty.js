@@ -11,6 +11,8 @@ angular.module('sigmaCabsApp')
 		scope.bReservation = false;
 		scope.sState = "";
 
+		scope.resVehicleId = null;
+
 		scope.selectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(oBooking.vehicleType);
         scope.selectedVehicleName = PrerequisiteService.fnGetVehicleNameById(oBooking.vehicleName);
         
@@ -31,10 +33,11 @@ angular.module('sigmaCabsApp')
 				var oRow = {};				
 				for(var j=0;j<iVtCount;j++){
 					if(oData[j].info[i]){
-						oRow['vehicleType'+ oData[j].type] = oData[j].info[i].vehicleCode;
-						oRow['vehicleObj'+ oData[j].type] = oData[j].info[i];
+						oRow['vehicleType_'+ oData[j].type] = oData[j].info[i].vehicleCode;
+						oRow['vehicleObj_vehicleType_'+ oData[j].type] = oData[j].info[i];
+						oRow['vehicleType_' + oData[j].type + '_color'] = '#D6D6D6';
 					} else {
-						oRow['vehicleType'+ oData[j].type] = '-'
+						oRow['vehicleType_'+ oData[j].type] = '-'
 					}
 				}
 				aRtn.push(oRow);
@@ -54,6 +57,12 @@ angular.module('sigmaCabsApp')
 		.success(function(data, status,fnHeaders, oXhr, config){
 			console.log('success fnGetAvailableVehicles: ', data);
 			if(data.status == 200){
+				if(!data.result.length && !data.result.summary ){
+					alert('There are no vehicles for this booking timings.');
+					return;
+				}
+
+
 				var oD = PrerequisiteService.fnFormatVehicleAvailabilityData(data.result.summary, oBooking.vehicleType);
 				scope.vehicleAvailabilityData = oD['summary'];
 				scope.sColor = {background: oD['color']};
@@ -96,12 +105,17 @@ angular.module('sigmaCabsApp')
         scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
 
         $scope.fnEditCell = function (row, cell, columnSelected, col, cellId){
-			console.log('@@@@@@@@', cellId, $('#' + cellId));
-			var tariffObj = row['tariffObj_' + columnSelected];
-			console.log('Selected Package: ', tariffObj);
+			console.log('@@@@@@@@', cellId, columnSelected, row);
+			var oV = row['vehicleObj_' + columnSelected];
+			console.log('Selected Package: ', oV);
+
+			if(!oV){
+				alert('Please select a valid vehicle.');
+				return;
+			}
 
 			// check if vehicleType match with tariffDetails and bookingDetails
-			if(tariffObj.vehicleType != oBooking.vehicleType) {
+			if(oV.vehicleType && oV.vehicleType != oBooking.vehicleType) {
 				alert('Vehicle Type mis-match with that of booking details. \n\nPlease select '+ scope.selectedVehicleType.vehicleType + ' vehicle.');
 				return;
 			}
@@ -109,24 +123,15 @@ angular.module('sigmaCabsApp')
 			// need to check for a better way of doing this.
 			$('.myTariffSelected').removeClass('myTariffSelected');
 			$('#' + cellId).addClass('myTariffSelected');
-			
 
-			angular.copy(tariffObj, scope.selctedTariffType);
 
-			//set the readonly Fields
-			scope.roData.duration = tariffObj.duration / 60;
-	        scope.roData.km = tariffObj.kms || 0;
-	        scope.roData.amount = tariffObj.price || 0;
-	        scope.roData.extraKmCharge = tariffObj.extraKmPrice || 0;
-	        scope.roData.graceTime = tariffObj.graceTime || 0;
-	        scope.roData.extraCharges = tariffObj.extraCharge || 0;
-	        scope.roData.extraHourCharge = tariffObj.extraHrPrice || 0;
-	        scope.roData.comments = tariffObj.comments || '-';
+			scope.resVehicleId = oV.vehicleId;
+
 	    };
 
 
         var sCellTemplateHtml = '<div class="ngCellText" style="{{ (row.entity[\'type\'] == \'Color Code\' ? \'background-color:\' + row.getProperty(col.field) : \'\') }}{{ (row.entity[\'type\'] == \'total\' ? \'font-weight: bold;\' : \'\') }}" ng-class="col.colIndex()">{{row.entity[\'type\'] == \'Color Code\' && col.field !=\'type\' ? \'\' :row.getProperty(col.field)}}</div>',
-        	sCellTemplateHtmlForReserve = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,col.field + \'_color\' + col.id + row.getProperty(col.field));">{{row.getProperty(col.field)}}</div>';
+        	sCellTemplateHtmlForReserve = '<div id="{{col.field + \'_color\' + col.id + row.getProperty(col.field)}}"  class="ngCellText" ng-class="col.colIndex()" ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }"  ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,col.field + \'_color\' + col.id + row.getProperty(col.field));">{{row.getProperty(col.field)}}</div>';
 
 
 		// build column heads
@@ -144,7 +149,7 @@ angular.module('sigmaCabsApp')
 	    	});
 
 	    	scope.reserveGridColumnHeads.push({
-	    		field : 'vehicleType' + scope.vehicleTypes[i].id,
+	    		field : 'vehicleType_' + scope.vehicleTypes[i].id,
 	    		displayName : scope.vehicleTypes[i].vehicleType,
 	    		width: '*',
 	    		cellTemplate: sCellTemplateHtmlForReserve
@@ -158,6 +163,7 @@ angular.module('sigmaCabsApp')
 			multiSelect: false,
 	      	enableCellSelection : false,
 	      	enableRowSelection: false,
+	      	enableSorting: false,
 			columnDefs: 'availableVehicleGridColumnHeads'
 		};
 
@@ -170,6 +176,7 @@ angular.module('sigmaCabsApp')
 			enablePaging: false,
 			showFooter: false,
 			multiSelect: false,
+			enableSorting: false,
 	      	enableCellSelection : false,
 	      	enableRowSelection: false,
 			totalServerItems: 'totalServerItems',
@@ -177,4 +184,18 @@ angular.module('sigmaCabsApp')
 				// console.log(oRow.selectionProvider.selectedItems[0]);
 			}
 		};
+
+		scope.fnReserveAndClose = function() {
+			if(!scope.resVehicleId) {
+				alert('Please select a vehicle to reserve for the booking.');
+				return;
+			}
+
+			$rootScope.$emit('eventVehicleReserved', {
+				resVehicleId : scope.resVehicleId
+			});
+
+
+			scope.close();
+		}
 	});

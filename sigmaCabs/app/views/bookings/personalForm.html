@@ -10,19 +10,19 @@
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Caller Ph. </label>
             <input type="text" ng-model="callerPhone" class="left validate[required,maxSize[128]] textFieldCompact" readonly />
-            <input checked class="left smsCheckbox" type="checkbox" value="">
+            <input checked class="left smsCheckbox" type="checkbox" value="" ng-model="sms.smsForCallerPhone1" >
         </div>
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Caller Ph.2</label>
             <input type="text" phone ng-model="customerDetails.altMobile"  ng-blur="fnCustomerDetailsBlured()" class="left validate[required,maxSize[128]] textFieldCompact"/>
-            <input class="left smsCheckbox" type="checkbox" value="">
+            <input class="left smsCheckbox" type="checkbox" value=""  data-ng-model="sms.smsForCallerPhone2" >
         </div>
 
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Search </label>
             <input type="text" phone ng-model="searchDetails.searchString" class="left textFieldCompact" style="background: #FFFDC7" />
             <button class="btnCompact btn-success hide " data-ng-click="fnSearchCustomer();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>            
-            <input class="left smsCheckbox" type="checkbox" value="">
+            <input class="left smsCheckbox" type="checkbox" value=""  data-ng-model="sms.smsForCustPhone1" >
         </div>
 
         <div class="fieldContainer clearBoth relative" >
@@ -32,7 +32,7 @@
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Cust. Ph.2</label>
             <input type="text" phone ng-model="searchedCustomerDetails.altMobile" ng-blur="fnSearchedCustomerDetailsBlured()" class="left validate[required,maxSize[128]] textFieldCompact" />
-            <input class="left smsCheckbox" type="checkbox" value="">
+            <input class="left smsCheckbox" type="checkbox" value=""  data-ng-model="sms.smsForCustPhone2" >
         </div>
 
         <hr class="buttonSpliter" />
