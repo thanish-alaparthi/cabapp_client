@@ -3,9 +3,8 @@
     <div class="relative">
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Search </label>
-            <input type="text" style="width: 70px;" ng-model="searchDetails.searchByVehicleId" class="textFieldCompact"  />
-            <button class="btnCompact btn-success" data-ng-click="fnVehicleSearchButton();" style="width: 30px;margin: 0px 0px 0px 5px;">Go</button>            
-           <input checked class="smsCheckbox" type="checkbox" checked style="margin-left: 4px !important;">
+            <input type="text" ng-model="searchDetails.searchByVehicleId" class="left textFieldCompact" data-ng-enter="fnVehicleSearchButton();"/>
+            <input name="" checked class="left smsCheckbox" type="checkbox" checked>
         </div>
         <!-- <div class="fieldContainer relative clearBoth">
             <label class="labelCompact">Search </label>

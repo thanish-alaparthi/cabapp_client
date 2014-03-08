@@ -817,13 +817,23 @@ textFieldCompact[disabled] .textFieldCompact {
   text-align: center;
 }
 .call-icon {
-  &:hover {
-    color: lime !important;
-  }
-  color: #333;
   cursor: pointer;
-  margin-left: 3px;
-  transform: rotate(260deg);
+  float: left;
+  height: 14px;
+  width: 20px;
+  overflow: hidden;
+  transition: all 0.1s ease-out;
+  &:hover {
+    width: 40px;
+    .glyphicon {
+      color: lime !important;
+    }
+  }
+  .glyphicon {
+    color: #333;
+    margin-left: 3px;
+    transform: rotate(260deg);
+  }
 }
 .currentMonthData {
   float: left;

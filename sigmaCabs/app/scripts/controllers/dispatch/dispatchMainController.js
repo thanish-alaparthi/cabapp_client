@@ -207,7 +207,7 @@ angular.module('sigmaCabsApp')
                             scope.currentDayStatistics = oStatistics;
                             // update the vehicle state
                             scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? PrerequisiteService.fnFormatDate(oStatistics.loginTime.split(' ')[0]) + ' ' + oStatistics.loginTime.split(' ')[1] : '';
-                            scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetBookingStatusName(oStatistics.status) : '';
+                            scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
                             scope.currentMonthGridDetails = ((data.result.bookings) ? data.result.bookings : []);
                         }
 
@@ -298,10 +298,10 @@ angular.module('sigmaCabsApp')
             scope.fnSearchVehicle = function(sSearch) {
                 console.log(sSearch);
                 console.log('Searching by vehicle Id');
-
-                DispatchService.fnFindVehicleByMobile({
-                    vcode: sSearch
-                })
+                // search by vehicle code / vehicle mobile no.
+                var oSearch = (sSearch && sSearch.length === 4 ) ? {vcode: sSearch} : {mobile: sSearch};
+                console.log(oSearch);
+                DispatchService.fnFindVehicleByMobile(oSearch)
                     .success(function(data, status, headers, config) {
                         if (data.status == 500) { // no data found of vehicle
                             console.log('500 fnSearchVehicle', data);
@@ -326,6 +326,10 @@ angular.module('sigmaCabsApp')
             }
             scope.fnMultipurposeSearch = function() {
                 var sSearch = scope.searchDetails.searchByVehicleId;
+                if(sSearch && (sSearch.length !== 4 || sSearch.length !== 10)) {
+                    alert('Please enter valid Vehicle Code or Mobile no.')
+                    return false;
+                }
                 if (!isNaN(sSearch)) { // mobile  && sSearch.length == 10
                     scope.fnSearchVehicle(sSearch);
                 }

@@ -3,11 +3,12 @@
 	<div class="row">
 		<div class="col-xs-6"><label title="Customer Id">C.Id</label>{{bookingDetailsData.customer.customerCode}}</div>
 		<div class="col-xs-6">
-			<select title="Customer No">
+			<select title="Customer No" class="left">
 				<option ng-if="bookingDetailsData.customer.mobile" value="{{bookingDetailsData.customer.mobile}}" title="Primary No.">Pri.No</option>
 				<option ng-if="bookingDetailsData.customer.altMobile" value="{{bookingDetailsData.customer.altMobile}}" title="Alternate No.">Alt.No</option>
 			</select>
-			<span class="glyphicon glyphicon-earphone call-icon" title="Call"></span>
+			<span title="Call" class="call-icon"><span class="glyphicon glyphicon-earphone"></span> Call</span>
+			<p class="clear" />
 		</div>
 	</div>
 	<div class="row">

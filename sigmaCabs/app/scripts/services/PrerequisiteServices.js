@@ -214,6 +214,16 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAllVehicleStates'),
+                    method: 'GET',
+                    myDataToken : 'vehicleStates',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
             },
 
 
@@ -589,6 +599,18 @@ angular.module('sigmaCabsApp')
                 for (var i = 0; i < oVtLength; i++) {
                     if (oVt[i].id == sId) {
                         return oVt[i];
+                    }
+                }
+                return null;
+            },
+            fnGetVehicleStatusById: function(sId) {
+                var oThis = this,
+                    oVt = oThis.oLs[oThis.currentDate]['vehicleStates'],
+                    oVtLength = oVt.length;
+
+                for (var i = 0; i < oVtLength; i++) {
+                    if (oVt[i].id == sId) {
+                        return oVt[i].vehicleStatus;
                     }
                 }
                 return null;
