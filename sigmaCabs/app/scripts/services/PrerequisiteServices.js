@@ -693,7 +693,7 @@ angular.module('sigmaCabsApp')
                     oBh.bookingStatusName = oThis.fnGetBookingStatusName(oBh.bookingStatus);
                     oBh.bookingDisplayDate = oThis.fnFormatDate(oBh.bookingDate) +' '+ oThis.fnFormatHours(oBh.bookingTime)+':'+ oThis.fnFormatMinutes(oBh.bookingTime);
                     oBh.pickupDisplayDateAndTime = oThis.fnFormatDate(oBh.pickupDate) + ' ' + oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
-                    oBh.primaryPassanger = oCustomer ? oCustomer.name : '-'
+                    oBh.primaryPassenger = oCustomer ? oCustomer.name : '-'
                     oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
                     oBh.vehicleDisplayType = oThis.fnGetVehicleDisplayTypeById(oBh.vehicleType);
                     oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName) || '';

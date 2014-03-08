@@ -89,7 +89,7 @@ angular.module('sigmaCabsApp')
           displayName: 'Pickup Dt. & Tm.',
           width: '110'
         }, {
-          field: 'primaryPassanger',
+          field: 'primaryPassenger',
           displayName: 'Passenger Name',
           width: 110
         }, {

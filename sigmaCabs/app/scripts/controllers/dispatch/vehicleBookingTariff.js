@@ -50,7 +50,7 @@ angular.module('sigmaCabsApp')
                             pickupPlace: oDetails.pickupPlace,
                             pickupTime: oDetails.pickupTime,
                             primaryMobile: "",
-                            primaryPassanger: "",
+                            primaryPassenger: "",
                             subJourneyType: oDetails.subJourneyType,
                             vehicleName: null,
                             vehicleType: scope.vehicleDetails.vehicleMainDetails.vehicleType

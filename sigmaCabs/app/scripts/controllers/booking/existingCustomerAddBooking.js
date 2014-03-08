@@ -211,6 +211,8 @@ angular.module('sigmaCabsApp')
 
 		scope.fnGetTickedSmsMobiles = function() {
 			var aRtn = [], sms1,sms2,sms3,sms4;
+				aRtn[0] = "";
+				aRtn[1] = "";
 
 			if(scope.sms.smsForCallerPhone1) {
 				sms1 = scope.callerPhone;
@@ -226,32 +228,48 @@ angular.module('sigmaCabsApp')
 				sms4 = scope.searchedCustomerDetails.altMobile;
 			}
 
+			if(sms1) {
+				aRtn[0] = sms1;
+			}
+			if(!sms1 && sms2) {
+				aRtn[0] = sms2;
+			}
+
 			if(sms1 && sms3) {
-				aRtn.push(sms1);
-				aRtn.push(sms3);
+				aRtn[0] = sms1;
+				aRtn[1] = sms3;
 				return aRtn;
 			}
 
 			if(sms1 && sms4){
-				aRtn.push(sms1);
-				aRtn.push(sms4);
+				aRtn[0] = sms1;
+				aRtn[1] = sms4;
 				return aRtn;
 			}
 
 			if(sms2 && sms3){
-				aRtn.push(sms2);
-				aRtn.push(sms3);
+				aRtn[0] = sms2;
+				aRtn[1] = sms3;
 				return aRtn;
 			}
 
 			if(sms3 && sms4){
-				aRtn.push(sms3);
-				aRtn.push(sms4);
+				aRtn[0] = sms3;
+				aRtn[1] = sms4;
 				return aRtn;
 			}
 
+			if(sms3) {
+				aRtn[0] = sms3;
+			}
+			if(!sms3 && sms4) {
+				aRtn[0] = sms4;
+			} else if( sms4){
+				aRtn[1] = sms4;
+			}
 
 
+			return aRtn;
 		};
 
 
