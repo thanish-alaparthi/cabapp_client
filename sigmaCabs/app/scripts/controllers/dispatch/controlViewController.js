@@ -194,7 +194,7 @@ angular.module('sigmaCabsApp')
           // vehicle details
           if(data.vehicle) {
             oData.vehicle = {
-              "id": "12",
+              "id": data.vehicle.id || '',
               "vehicleCode": data.vehicle.vehicleCode || '',
               "registrationNumber": data.vehicle.registrationNumber || '',
               "vehicleNameId": data.vehicle.vehicleName || '',
@@ -221,11 +221,10 @@ angular.module('sigmaCabsApp')
           // driver details
           if(data.driver) {
             oData.driver = {
-                  "id": "12",
+                  "id": data.driver.id || '',
                   "driverCode": data.driver.driverCode || '',
                   "name": data.driver.name || '',
                   "mobile": data.driver.mobile || '',
-                  // converting to 5 scale assuming it is 10 point scale
                   "aRating": scope.FormatRatingAndReturnClassArray(data.driver.rating),
                   "rating": Math.round(parseFloat(data.driver.rating)) || 0
               };

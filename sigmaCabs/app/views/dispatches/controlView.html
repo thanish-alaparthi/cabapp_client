@@ -97,7 +97,7 @@
 		</div>
 		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder" ng-class="{paddTop0:bookingSelected}">
 			<div ng-switch="mainGridView" class="mainGridView">
-				<div ng-switch-when="vInfo">
+				<div ng-switch-when="vInfo" class="flex-height">
 						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!whileDrivingVehicleSelected"> </div>
 						<div ng-show="whileDrivingVehicleSelected">
 							<div class="tabs">
@@ -128,7 +128,7 @@
 							</div>
 						</div>
 				</div>
-				<div ng-switch-default>
+				<div ng-switch-default="" class="flex-height">
 						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected"`> </div>
 						<div ng-show="bookingSelected">
 							<div class="tabs">

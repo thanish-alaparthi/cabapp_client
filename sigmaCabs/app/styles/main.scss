@@ -828,9 +828,19 @@ textFieldCompact[disabled] .textFieldCompact {
 .currentMonthData {
   float: left;
   font-size: 12px;
-  height: 277px;
+  height: 252px;
   margin-right: 7px;
   width:50%;
+  .header-display {
+    margin-bottom: 5px;
+    span {
+      &.ellipsisText {
+        width: 80px;
+      }
+      float: left;
+      margin-right: 5px;
+    }
+  }
 }
 /*.chatFormDiv {
   float: left;
@@ -840,7 +850,7 @@ textFieldCompact[disabled] .textFieldCompact {
   }
 }*/
 .vehicleHistory {
-  height:277px;
+  height:252px;
   .fieldContainer {
     width: 300px;
     .labelCompact {
@@ -850,4 +860,7 @@ textFieldCompact[disabled] .textFieldCompact {
       width: 180px;
     }
   }
+}
+.flex-height {
+  height: 100%;
 }
