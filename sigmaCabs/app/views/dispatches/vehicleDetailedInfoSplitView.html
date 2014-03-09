@@ -11,7 +11,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Vehicle Id">Veh.Id</label>
+			<label title="Vehicle Id">Veh.Id</label>{{vehicleDetailsData.vehicle.vehicleCode}}
 		</div>
 		<div class="col-xs-6">
 			<select title="Driver No" class="left">
@@ -38,12 +38,73 @@
 			<label title="Present Average Login Time">PAL. Time</label> {{vehicleDetailsData.vehicle.presentAvgLoginTime}}
 		</div>
 	</div>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-xs-6">
 			<label title="Projected Collection">P.Coll</label> {{vehicleDetailsData.vehicle.projectedCollection}}
 		</div>
 		<div class="col-xs-6">
 			<label title="Present Average Collection">PA.Coll</label> {{vehicleDetailsData.vehicle.presentAvgCollection}}
+		</div>
+	</div> -->	
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Login Time">LiT</label> {{vehicleDetailsData.vehicle.loginTime}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Expected Logout Time">ELoT</label> {{vehicleDetailsData.vehicle.logoutTime}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Previous Location">PL</label> {{vehicleDetailsData.vehicle.prevousLocation}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Status">Status</label> {{vehicleDetailsData.vehicle.status}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Day Collection">Day Call</label> {{vehicleDetailsData.vehicle.dayCollection}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Total Break Time">T.Br.Tm</label> {{vehicleDetailsData.vehicle.totalBreakTime}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Working Hours">W. Hrs</label> {{vehicleDetailsData.vehicle.totalWorkingTime}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Performance">Perf.</label> {{vehicleDetailsData.vehicle.performance}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Total Bookings">T.B.</label> {{vehicleDetailsData.vehicle.totalBookings}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Successfull Bookings">SB</label> {{vehicleDetailsData.vehicle.completedBookings}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Roadside Bookings">Ro.B</label> {{vehicleDetailsData.vehicle.roadsideBookings}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Rejected Bookings">RB</label> {{vehicleDetailsData.vehicle.rejectedBookings}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Cancelled Booking">CB</label> {{vehicleDetailsData.vehicle.canceledBookings}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Manufacture Year">M.Year</label> {{vehicleDetailsData.vehicle.manufactureYear}}
+		</div>
+		<div class="col-xs-6">
+			<label title="Manufacture Month">M.Month</label> {{vehicleDetailsData.vehicle.manufactureMonth}}
 		</div>
 	</div>
 	<div class="row">
@@ -62,7 +123,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<label title="Available Facilities">Facilities</label>
+			<label title="Available Facilities" class="vTop">Facilities</label>
 			<ul class="facilities">
 				<li ng-repeat="i in vehicleDetailsData.vehicle.facilities">
 					<span class="glyphicon glyphicon-check"></span> {{i}}

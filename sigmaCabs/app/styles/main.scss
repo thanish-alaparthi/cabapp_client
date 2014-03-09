@@ -497,6 +497,10 @@ body {
   margin-right: 10px;
 }
 
+.margin-bottom5 {
+  margin-bottom: 5px;
+}
+
 
 /* Roles CSS Begin*/
 .roles-modal-body{
@@ -873,4 +877,15 @@ textFieldCompact[disabled] .textFieldCompact {
 }
 .flex-height {
   height: 100%;
+}
+
+.vTop {
+  vertical-align: top;
+}
+
+.bookingCountInFilter {
+  border:1px solid #999;
+  width: 30px; height: 20px;
+  color: #000;
+  text-align: center;
 }

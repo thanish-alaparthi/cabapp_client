@@ -191,9 +191,15 @@
     .glyphicon-check {
       color: #ee7d29;
     }
-    display: inline-table;
+    display: inline-block;
     list-style: none;
     padding-left: 10px;
+    width: 265px;
+    
+    li{
+      float: left;
+      margin-right: 5px;
+    }
   }
   h4 {
     border-bottom: 1px solid #ccc;

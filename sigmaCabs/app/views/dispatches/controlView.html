@@ -29,7 +29,92 @@
 				  <span class="clearfix"></span>
 				</div>
 				<div class="panel-body padding-5-panel-body">
-				  The content is straight forward
+				  
+					<div>
+					  <div class="row margin-bottom5">
+							<div class="col-xs-5">
+								<label title="Attachment Type" >Atmt. Type</label>
+							</div>
+							<div class="col-xs-7">
+					  			<select class="selectFieldCompact" style="width:100%;"><option>Attachment Type1</option><option>Attachment Type1</option></select>
+					  		</div>
+					  </div>
+					  <div class="row margin-bottom5">
+							<div class="col-xs-5">
+								<label title="Vehicle Condition">Veh. Cond.</label>
+							</div>
+							<div class="col-xs-7">
+					  			<select style="width:100%;" class="selectFieldCompact"><option>Attachment Type1</option><option>Attachment Type1</option></select>
+					  		</div>
+					  </div>
+					  <div class="row margin-bottom5">
+							<div class="col-xs-5">
+								<label title="Projected Hours" >P.H.</label>
+								<select style="width: 42px;" class="selectFieldCompact" data-ng-model="bdSearch.projHrs" data-ng-options="obj.val as obj.txt for obj in projHrs"></select>
+							</div>
+							<div class="col-xs-7">
+								<label title="Collection" >Col.</label>
+								<select style="width: 70px;" class="selectFieldCompact" data-ng-model="bdSearch.collection" data-ng-options="obj.val as obj.txt for obj in collections"></select>
+							</div>
+					  </div>
+					  <div class=" margin-bottom5">
+					  	<button>Search</button>
+					  </div>
+					</div>
+					
+					<hr class="buttonSpliter" />
+
+					<div>
+						<div class="row">
+							<div class="col-xs-6">
+								<label title="Vehicle Type">V. Type</label>
+								<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bdSearch.vType" data-ng-options="obj.id as obj.vehicleType for obj in vTypes"></select>
+							</div>
+							<div class="col-xs-6">
+								<label title="Hours">Hours</label>
+								<select style="width:90px;" class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="bdSearch.nxtHrs" data-ng-options="obj.val as obj.txt for obj in nxtHrs"></select>
+							</div>
+						</div>
+					</div>
+
+					<hr class="buttonSpliter" />
+
+
+					<div>
+						<div class="row margin-bottom5">
+							<div class="col-xs-9">
+								<button class="btn btn-xs btn-success">Show All</button>								
+							</div>
+							<div class="col-xs-3">
+								<div  class="bookingCountInFilter">{{allCount}}</div>
+							</div>
+						</div>
+						<div class="row margin-bottom5">
+							<div class="col-xs-9">
+								<button  class="btn btn-xs btn-danger" title="Yet to Dispatch">Yet to Dispatch</button>								
+							</div>
+							<div class="col-xs-3">
+								<div class="bookingCountInFilter">{{ytdCount}}</div>
+							</div>
+						</div>
+						<div class="row margin-bottom5">
+							<div class="col-xs-9">
+								<button class="btn btn-xs btn-warning">Allotted</button>								
+							</div>
+							<div class="col-xs-3">
+								<div class="bookingCountInFilter">{{altCount}}</div>
+							</div>
+						</div>
+						<div class="row margin-bottom5">
+							<div class="col-xs-9">
+								<button class="btn btn-xs btn-success">Confirmed</button>								
+							</div>
+							<div class="col-xs-3">
+								<div class="bookingCountInFilter">{{cnfCount}}</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<div class="panel panel-info" accordian-handler>
@@ -131,6 +216,12 @@
 				<div ng-switch-default="" class="flex-height">
 						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected"`> </div>
 						<div ng-show="bookingSelected">
+							<div style="width: 100%;padding-left: 20px;">
+								<div ng-repeat="vType in vTypes" class="left margin-right10">
+									<input type="checkbox" style="margin-right:2px;" ng-model="chbVtype[vType.id]" data-ng-change="fnVehicleTypeTicked()" /><span data-ng-bind="vType.vehicleType"></span>
+								</div>
+								<p class="clear"/>
+							</div>
 							<div class="tabs">
 								<div class="tabHeader clearfix">
 							  	<div ng-repeat="tab in tabs" class="tabContainer left">
