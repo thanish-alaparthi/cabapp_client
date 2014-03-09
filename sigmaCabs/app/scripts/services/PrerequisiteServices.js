@@ -529,6 +529,22 @@ angular.module('sigmaCabsApp')
                 return hours + " : " + minutes;
             },
 
+            fnFormatRatingAndReturnClassArray: function(rating) {
+                var ratingArray = [];
+                rating = (isNaN(rating)) ? 0 : Math.round(rating); // check for number
+                rating = (rating > 5) ? 5 : rating; // restricting for 5 point scale
+
+                for (var i = 0; i < 5; i++) {
+                    var cls = ((rating <= i) ? 'glyphicon-star-empty' : 'glyphicon-star');
+                    ratingArray.push({
+                        'cls': cls
+                    });
+                }
+
+                //console.log(ratingArray);
+                return ratingArray; // creating array for ng-repeat
+            },
+
             fnGetBookingStatusName : function(sBookingStatusId){
                 var aBs = this.oLs[this.currentDate]['bookingStates'],
                     iCount = aBs.length;

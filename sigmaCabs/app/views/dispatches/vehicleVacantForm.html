@@ -42,7 +42,11 @@
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Booking Id</label>
-        <input type="text" ng-model="vehicleMainDetails.details.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id"/>
+        <select class="left" data-ng-model="bookingType">
+            <option title="Current Day Booking" value="1">C</option>
+            <option title="Advance Booking" value="2">A</option>
+        </select>
+        <input type="text" ng-model="vehicleMainDetails.details.bookingId" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Booking Id" style="width: 58px;margin-left: 5px;" />
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />

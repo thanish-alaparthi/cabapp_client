@@ -22,12 +22,8 @@ angular.module('sigmaCabsApp')
           }
         };
 
-
-
-
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
-
 
         var scope = $scope;
         
@@ -116,6 +112,7 @@ angular.module('sigmaCabsApp')
         };
 
         scope.showTariffDetailsTab = function() {
+            scope.mainTariffDetails = URLService.view('mainTariffDetails');
             scope.showBookingDetails =  false;
             scope.showBookingHistoryDetails =  false;
             scope.showControlViewDetails =  false;
@@ -338,10 +335,7 @@ angular.module('sigmaCabsApp')
 
 
         scope.fnInit = function() {            
-
             scope.fnLoadMainTariffGrids();
-
-            scope.mainTariffDetails = URLService.view('mainTariffDetails');
 
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;

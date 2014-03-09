@@ -31,10 +31,11 @@ angular.module('sigmaCabsApp')
 
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
+        scope.dispatcherMainView = URLService.view('dispatcherMainView');
 
         scope.fnInit = function() {
             var errorMesg = 'Vehicle Details not found..';
-            scope.dispatcherMainView = URLService.view('dispatcherMainView');
+            scope.vehicleErrorMessage = errorMesg;
             scope.vehicleInformationForm = URLService.view('vehicleInformationForm');
             scope.vehicleLoginForm = URLService.view('vehicleLoginForm');
             scope.vehicleVacantForm = URLService.view('vehicleVacantForm');
@@ -46,6 +47,7 @@ angular.module('sigmaCabsApp')
             scope.vehicleData = URLService.view('vehicleData');
             scope.vehiclePerformance = URLService.view('vehiclePerformance');
             scope.chatForm = URLService.view('chatForm');
+            scope.previousRequestVehId = 0;
 
             scope.callerPhone = $routeParams.mobile;
             scope.callerInfo = "";
@@ -210,7 +212,73 @@ angular.module('sigmaCabsApp')
                             scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
                             scope.currentMonthGridDetails = ((data.result.bookings) ? data.result.bookings : []);
                         }
+                    })
+                    .error(function(data, status, headers, config) {
+                        console.log('Error: ', data)
+                    });
+            };
 
+            scope.fnCurrentMonthData = function(vId) {
+                console.log('vehicle Id: ' + vId);
+                var oData = {
+                    "vehicleId": vId
+                };
+
+                DispatchService.fnLoadCurrentMonthData(oData)
+                    .success(function(data, status, headers, config) {
+                        console.log('Success: ', data);
+
+                        if (data.status === 200 && data.result) {
+                            scope.currentMonthStatistics = data.result;
+                            scope.currentMonthStatistics.driver.avgLoginHoursText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.result.driver.avgLoginHours);
+                            scope.currentMonthStatistics.vehicle.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.vehicle.vehicleRating);
+                            scope.currentMonthStatistics.driver.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.driver.driverRating);
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        console.log('Error: ', data)
+                    });
+            };
+
+            scope.fnLastMonthData = function(vId) {
+                console.log('vehicle Id: ' + vId);
+                var oData = {
+                    "vehicleId": vId
+                };
+
+                DispatchService.fnLoadLastMonthData(oData)
+                    .success(function(data, status, headers, config) {
+                        console.log('Success: ', data);
+
+                        if (data.status === 200 && data.result) {
+                            scope.lastMonthStatistics = data.result;
+                            scope.lastMonthStatistics.driver.avgLoginHoursText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.result.driver.avgLoginHours);
+                            scope.lastMonthStatistics.vehicle.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.vehicle.vehicleRating);
+                            scope.lastMonthStatistics.driver.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.driver.driverRating);
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        console.log('Error: ', data)
+                    });
+            };
+
+            scope.fnVehicleData = function(vId) {
+                console.log('vehicle Id: ' + vId);
+                var oData = {
+                    "vehicleId": vId
+                };
+
+                DispatchService.fnLoadVehicleData(oData)
+                    .success(function(data, status, headers, config) {
+                        console.log('Success: ', data);
+
+                        if (data.status === 200 && data.result) {
+                            scope.vehicleStatistics = data.result;
+                            scope.vehicleStatistics.optedPackageText = '-';
+                            scope.vehicleStatistics.vehicle.projLoginHours = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.result.vehicle.projLoginHours);
+                            scope.vehicleStatistics.vehicle.facilitiesText = data.result.vehicle.facilities.join(', ');
+                            scope.vehicleStatistics.vehicle.invalidDocsText = data.result.vehicle.invalidDocs.join(', ');
+                        }
                     })
                     .error(function(data, status, headers, config) {
                         console.log('Error: ', data)
@@ -246,6 +314,7 @@ angular.module('sigmaCabsApp')
                         break;
                     case "2": // Vacant
                     case "3": // In Break
+                        scope.bookingType = "1";
                         scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
                         scope.vVacantView = true;
@@ -293,13 +362,27 @@ angular.module('sigmaCabsApp')
                 // load current Day data
                 if (scope.vehicleMainDetails.id) {
                     scope.fnCurrentDayData(scope.vehicleMainDetails.id);
+
+                    // Load the details only once
+                    if (scope.previousRequestVehId !== scope.vehicleMainDetails.id) {
+                        scope.previousRequestVehId = scope.vehicleMainDetails.id;
+
+                        // load current Month & last month history and Vehicle performance
+                        scope.fnCurrentMonthData(scope.vehicleMainDetails.id);
+                        scope.fnLastMonthData(scope.vehicleMainDetails.id);
+                        scope.fnVehicleData(scope.vehicleMainDetails.id);
+                    }
                 }
             };
             scope.fnSearchVehicle = function(sSearch) {
                 console.log(sSearch);
                 console.log('Searching by vehicle Id');
                 // search by vehicle code / vehicle mobile no.
-                var oSearch = (sSearch && sSearch.length === 4 ) ? {vcode: sSearch} : {mobile: sSearch};
+                var oSearch = (sSearch && sSearch.length === 4) ? {
+                    vcode: sSearch
+                } : {
+                    mobile: sSearch
+                };
                 console.log(oSearch);
                 DispatchService.fnFindVehicleByMobile(oSearch)
                     .success(function(data, status, headers, config) {
@@ -326,7 +409,7 @@ angular.module('sigmaCabsApp')
             }
             scope.fnMultipurposeSearch = function() {
                 var sSearch = scope.searchDetails.searchByVehicleId;
-                if(sSearch && (sSearch.length !== 4 || sSearch.length !== 10)) {
+                if (sSearch && (sSearch.length !== 4 || sSearch.length !== 10)) {
                     alert('Please enter valid Vehicle Code or Mobile no.')
                     return false;
                 }
@@ -879,4 +962,15 @@ angular.module('sigmaCabsApp')
 
             //scope.fnResizeWindowHack();
         };
+
+        /*scope.showTariffDetailsTab = function() {
+            scope.mainTariffDetails = URLService.view('mainTariffDetails');
+            scope.showBookingDetails = false;
+            scope.showBookingHistoryDetails = false;
+            scope.showControlViewDetails = false;
+            scope.showTariffDetails = true;
+            scope.showDispatchView = false;
+
+            //scope.fnResizeWindowHack();
+        };*/
     });

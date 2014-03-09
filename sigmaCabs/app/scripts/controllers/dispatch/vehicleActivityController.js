@@ -101,7 +101,8 @@ angular.module('sigmaCabsApp')
 			oData = {
 				"vehicleId": scope.vehicleMainDetails.id,
 				"driverId": scope.vehicleMainDetails.selectedDriver,
-				"bookingId": bookingId
+				"bookingId": bookingId,
+				"bookingType": scope.bookingType || '1'
 			};
 
 			DispatchService.fnVehicleAcceptBooking(oData)

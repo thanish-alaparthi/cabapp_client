@@ -124,16 +124,15 @@ angular.module('sigmaCabsApp')
         scope.FormatNloadBookingMgmtGridData = function(data){
           var data = data, 
               dataLen = data.length,
-              namesService = PrerequisiteService;
+              formatSource = PrerequisiteService;
           while(dataLen--){
             var datum = data[dataLen];
-            datum.bookingId = 'BID'+datum.bookingId;
-            datum.vehicleName = (datum.vehicleName) ? namesService.fnGetVehicleDisplayNameById(datum.vehicleName) : '';
-            datum.vehicleType = (datum.vehicleType) ? namesService.fnGetVehicleDisplayTypeById(datum.vehicleType) : '';
-            datum.bookingStatus = namesService.fnGetBookingStatusName(datum.bookingStatus);
+            datum.bookingId = datum.bookingId;
+            datum.vehicleName = (datum.vehicleName) ? formatSource.fnGetVehicleDisplayNameById(datum.vehicleName) : '';
+            datum.bookingStatus = formatSource.fnGetBookingStatusName(datum.bookingStatus);
             var sJourneyTypeId = datum.subJourneyType;
-            datum.subJourneyType = (datum.subJourneyType) ? namesService.fnGetJourneyTypeName(datum.subJourneyType) : '';
-            datum.journeyType = (datum.subJourneyType) ? namesService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType : '';
+            datum.subJourneyType = (datum.subJourneyType) ? formatSource.fnGetJourneyTypeName(datum.subJourneyType) : '';
+            datum.pickupTime = formatSource.fnFormatHours(datum.pickupTime) + ':' + formatSource.fnFormatMinutes(datum.pickupTime);
           }
           scope.loadBookingMgmtGridData(data);
         }
@@ -143,12 +142,12 @@ angular.module('sigmaCabsApp')
               formatSource = PrerequisiteService;
           while(dataLen--){
             var datum = data[dataLen];
-            datum.bookingId = 'BID'+datum.bookingId;
+            datum.bookingId = datum.bookingId;
             datum.vehicleName = formatSource.fnGetVehicleDisplayNameById(datum.vehicleName);
             datum.vehicleType = formatSource.fnGetVehicleDisplayTypeById(datum.vehicleType);
             var sJourneyTypeId = datum.subJourneyType;
             datum.subJourneyType = formatSource.fnGetJourneyTypeName(datum.subJourneyType);            
-            datum.journeyType = formatSource.fnGetMainJourneyTypeObjectBySubJourneyTypeId(sJourneyTypeId).journeyType;
+            datum.pickupTime = formatSource.fnFormatHours(datum.pickupTime) + ':' + formatSource.fnFormatMinutes(datum.pickupTime);
           }
           scope.loadWhileDrivingVehiclesGridData(data);
         }
@@ -172,19 +171,6 @@ angular.module('sigmaCabsApp')
           }
           scope.loadBookingVehiclesGridData(data);
         }
-        scope.FormatRatingAndReturnClassArray = function(rating) {
-          var ratingArray = [];
-          rating = (isNaN(rating)) ? 0 : Math.round(rating); // check for number
-          rating =  (rating > 5) ? 5 : rating; // restricting for 5 point scale
-
-          for(var i = 0; i < 5; i++) {
-            var cls = ((rating <= i) ? 'glyphicon-star-empty' : 'glyphicon-star');
-            ratingArray.push({'cls' : cls});
-          }
-          
-          //console.log(ratingArray);
-          return ratingArray; // creating array for ng-repeat
-        };
         scope.FormatNloadVehicleDetailsData = function(data){
           var data = data, 
               dataLen = data.length,          
@@ -212,7 +198,7 @@ angular.module('sigmaCabsApp')
               "presentAvgCollection": data.vehicle.presentAvgCollection || 0,
               // on a rating scale of 5
               "rating": data.vehicle.rating || 0,
-              "aRating": scope.FormatRatingAndReturnClassArray(data.vehicle.rating),
+              "aRating": PrerequisiteService.fnFormatRatingAndReturnClassArray(data.vehicle.rating),
               "facilities": data.vehicle.facilities || []
             };
           } else {
@@ -225,7 +211,7 @@ angular.module('sigmaCabsApp')
                   "driverCode": data.driver.driverCode || '',
                   "name": data.driver.name || '',
                   "mobile": data.driver.mobile || '',
-                  "aRating": scope.FormatRatingAndReturnClassArray(data.driver.rating),
+                  "aRating": PrerequisiteService.fnFormatRatingAndReturnClassArray(data.driver.rating),
                   "rating": Math.round(parseFloat(data.driver.rating)) || 0
               };
           } else {
@@ -641,16 +627,14 @@ angular.module('sigmaCabsApp')
         }
 
         scope.bookingGridColDefs = [
-          {field:'bookingCode', displayName:'BID', width: '*'},
-          {field:'vehicleName', displayName:'Vehicle', width: '*'},
-          {field:'vehicleType', displayName:'V.Type', width: '*'},
-          {field:'pickupTime', displayName:'P.Time', width: '*'},
+          {field:'bookingCode', displayName:'B.No', width: '55'},
+          {field:'vehicleName', displayName:'V.Name', width: '70'},
+          {field:'pickupTime', displayName:'P.Time', width: '60'},
           {field:'pickupPlace', displayName:'P.Place', width: '*'},
-          {field:'journeyType', displayName:'Journey', width: '*'},
           {field:'subJourneyType', displayName:'Package', width: '*'},
-          {field:'bookingOrigin', displayName:'Origin', width: '*'},
-          {field:'bookingStatus', displayName:'Status', width: '*'},
-          {field:'vehicleCode', displayName:'VID', width: '*'}
+          {field:'bookingOrigin', displayName:'Origin', width: '50'},
+          {field:'bookingStatus', displayName:'Status', width: '50'},
+          {field:'vehicleCode', displayName:'VID', width: '50'}
         ];
 
         scope.bookingSelectedFn = function(booking){
@@ -710,8 +694,7 @@ angular.module('sigmaCabsApp')
         /*START: Vehicles for Booking Grid*/
         scope.vehiclesForBookingColDefs = [
           {field:'vehicleCode', displayName:'VID', width: '*'},
-          {field:'vehicleName', displayName:'Vehicle', width: '*'},
-          {field:'mobileNumber', displayName:'Mobile', width: '*'},
+          {field:'vehicleName', displayName:'V.Name', width: '*'},
           {field:'location', displayName:'Location', width: '*'}
         ];
 
@@ -781,13 +764,11 @@ angular.module('sigmaCabsApp')
         }
 
         scope.vehiclesForWhileDrivingColDefs = [
-          {field:'bookingId', displayName:'BID', width: '*'},
-          {field:'vehicleCode', displayName:'VID', width: '*'},
-          {field:'vehicleName', displayName:'Vehicle', width: '*'},
-          {field:'vehicleType', displayName:'V.Type', width: '*'},
-          {field:'pickupTime', displayName:'P.Time', width: '*'},
+          {field:'bookingCode', displayName:'B.No', width: '55'},
+          {field:'vehicleCode', displayName:'VID', width: '50'},
+          {field:'vehicleName', displayName:'V.Name', width: '70'},
+          {field:'pickupTime', displayName:'P.Time', width: '60'},
           {field:'pickupPlace', displayName:'P.Place', width: '*'},
-          {field:'journeyType', displayName:'J.Type', width: '*'},
           {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'expectedDropTime', displayName:'Vacant', width: '*'},
           {field:'dayCollection', displayName:'Collection', width: '*'},

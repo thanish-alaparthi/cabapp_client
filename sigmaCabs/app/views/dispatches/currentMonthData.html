@@ -67,7 +67,7 @@
     </div>
     <p class="clear" />
 </fieldset>
-<fieldset class="left" style="width:46.3%">
+<fieldset class="left" style="width:49.3%">
     <legend class="searchbox-border">Current Month History</legend>
     
     <div style="width: 100%;">
@@ -76,63 +76,53 @@
                 <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Vehicle and Driver Details</h4>
                 <div class="fieldContainer relative left" style="width:180px;">
                     <label class="labelCompact" title="Day Average">Day Avg.</label>
-                    <span>1500</span>
+                    <span>{{currentMonthStatistics.vehicle.dayAverage}}</span>
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact" title="Till now Reached">Reached</label>
-                    <span class="left margin-right10">1400</span>
-                    <span class="left" style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:green;"></span>
+                    <span class="left margin-right10">{{currentMonthStatistics.vehicle.reached}}</span>
+                    <span class="left" style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{currentMonthStatistics.vehicle.performance}};"></span>
                     <p class="clear"/>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left" style="width:180px;">
-                    <label class="labelCompact" title="Vehicle Performance">Perf..</label>
-                    <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:orange;"></span>
+                    <label class="labelCompact" title="Driver Performance">Perf..</label>
+                    <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{currentMonthStatistics.driver.performance}};"></span>
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact" title="Average Login Hours">Avg.Login</label>
-                    <span>32</span>
+                    <span>{{currentMonthStatistics.driver.avgLoginHoursText}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left" style="width:180px;">
                     <label class="labelCompact" title="Total Days">T.Days</label>
-                    <span>20</span>
+                    <span>{{currentMonthStatistics.driver.totalDays}}</span>
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact" title="Working Days">W.Days</label>
-                    <span>18</span>
+                    <span>{{currentMonthStatistics.driver.workingDays}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left" style="width:180px;">
                     <label class="labelCompact" title="Vehicle Complaints Count">V.Comp.</label>
-                    <span>1</span>
+                    <span>{{currentMonthStatistics.vehicle.complaintsCount}}</span>
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact" title="Driver Complaints Count">D.Comp.</label>
-                    <span>1</span>
+                    <span>{{currentMonthStatistics.driver.complaintsCount}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left" style="width:180px">
                     <label class="labelCompact" title="Vehicle Rating">V.Rating</label>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
+                    <span ng-repeat="j in currentMonthStatistics.vehicle.aRating">
                         <span class="glyphicon {{j.cls}}"></span>
-                    </span> -->
+                    </span>
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact" title="Driver Rating">D.Rating</label>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <!-- <span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
+                    <span ng-repeat="j in currentMonthStatistics.driver.aRating">
                         <span class="glyphicon {{j.cls}}"></span>
-                    </span> -->
+                    </span>
                 </div>
                 <p class="clear"/>
             </div>
@@ -140,20 +130,20 @@
                 <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Booking Details</h4>
                 <div class="fieldContainer relative" style="width:180px;">
                     <label class="labelCompact" title="Total Bookings">T.Bkngs</label>
-                    <span>150</span>
+                    <span>{{currentMonthStatistics.booking.total}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <span title="Successful Bookings">SB: </span>
-                    <span class="margin-right10">145</span>
+                    <span class="margin-right10">{{currentMonthStatistics.booking.completed}}</span>
 
                     <span title="Rejected Bookings">RB: </span>
-                    <span class="margin-right10">2</span>
+                    <span class="margin-right10">{{currentMonthStatistics.booking.rejected}}</span>
 
                     <span title="Roadside Bookings">Ro.B: </span>
-                    <span class="margin-right10">2</span>
+                    <span class="margin-right10">{{currentMonthStatistics.booking.roadside}}</span>
 
                     <span title="Cancelled Bookings">CB: </span>
-                    <span class="margin-right10">1</span>
+                    <span class="margin-right10">{{currentMonthStatistics.booking.cancelled}}</span>
                 </div>
             </div>
         </div>

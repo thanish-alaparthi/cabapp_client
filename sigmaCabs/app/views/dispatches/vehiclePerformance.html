@@ -2,38 +2,38 @@
 	<legend class="searchbox-border">Vehicle Information</legend>
 	<div class="fieldContainer relative left">
         <label class="labelCompact" title="Projected Login Hours">P.Login Hours</label>
-        <span>14</span>
+        <span title="{{vehicleStatistics.vehicle.projLoginHours}}" class="ellipsisText">{{vehicleStatistics.vehicle.projLoginHours}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Driver Name">Driver Name</label>
-        <span>Test</span>
+        <span title="{{vehicleStatistics.driver.name}}" class="ellipsisText">{{vehicleStatistics.driver.name}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact" title="Opted Package">Opted Package</label>
-        <span>40,000</span>
+        <span title="{{vehicleStatistics.vehicle.optedPackageText}}" class="ellipsisText">{{vehicleStatistics.vehicle.optedPackageText}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Owner Name">Owner Name</label>
-        <span>Test 1</span>
+        <span>{{vehicleStatistics.owner.name}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact" title="Attachment Type">Attachment Type</label>
-        <span title="Promoting Partner" class="ellipsisText">Promoting Partner</span>
+        <span title="{{vehicleStatistics.vehicle.attachmentType}}" class="ellipsisText">{{vehicleStatistics.vehicle.attachmentType}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Registration Number">Registration No</label>
-        <span class="ellipsisText" title="AP 09 9999">AP 09 9999</span>
+        <span class="ellipsisText" title="{{vehicleStatistics.vehicle.registrationNumber}}">{{vehicleStatistics.vehicle.registrationNumber}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact" title="Driver Type">Driver Type</label>
-        <span title="Driver cum Owner" class="ellipsisText">DCO</span>
+        <span title="{{vehicleStatistics.vehicle.driverType}}" class="ellipsisText">{{vehicleStatistics.vehicle.driverType}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact">Model</label>
-        <span>08 - 2013</span>
+        <span>{{vehicleStatistics.vehicle.model}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
@@ -41,25 +41,25 @@
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Expected Login Time">Exp. Login Time</label>
-        <span>10:00 to 19:00</span>
+        <span>{{vehicleStatistics.vehicle.expectedLogin}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact" title="Paper Validity">Paper Val.</label>
-        <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:#ff0000;"></span>
+        <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{vehicleStatistics.vehicle.paperValidty}};"></span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Home Location">Home Location</label>
-        <span>Mehdipatnam</span>
+        <span title="{{vehicleStatistics.vehicle.homeLocation}}" class="ellipsisText">{{vehicleStatistics.vehicle.homeLocation}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
         <label class="labelCompact" title="Expired Documents">Expired Documents</label>
-        <span>License</span>
+        <span>{{vehicleStatistics.vehicle.invalidDocsText}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Facilities">Facilities</label>
-        <span>Music System</span>
+        <span>{{vehicleStatistics.vehicle.facilitiesText}}</span>
     </div>
     <p class="clear"/>
 </fieldset>

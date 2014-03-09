@@ -341,6 +341,48 @@ angular.module('sigmaCabsApp')
                 });
             },
 
+            fnLoadCurrentMonthData: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiDefaultEmpty'),
+                    data: {
+                        url: "vehicle/getCurrentMonthStatistics",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnLoadLastMonthData: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiDefaultEmpty'),
+                    data: {
+                        url: "vehicle/getMonthStatistics",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
+            fnLoadVehicleData: function(oDataParams) {
+                return $http({
+                    method: 'POST',
+                    url: URLService.service('RestApiDefaultEmpty'),
+                    data: {
+                        url: "vehicle/getVehicleStandardInfo",
+                        data: JSON.stringify(oDataParams)
+                    },
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+            },
+
             fnVehicleAcceptBooking: function(oDataParams) {
                 return $http({
                     method: 'POST',
