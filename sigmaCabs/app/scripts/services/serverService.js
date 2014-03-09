@@ -17,6 +17,7 @@ angular.module('sigmaCabsApp')
 				'headers' : {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.success(function(data, status, headers, config) {
+				var errorMesg = "Error in processing your request";
 				if(status == 200){
 					//check for the valid format of the data, else through into the error callback
 					var isValidData = (data && data.status) || false;
@@ -26,7 +27,14 @@ angular.module('sigmaCabsApp')
 						} else{
 							errorCallback(data);
 						}
-				}else{
+				} else if(status === 500) {
+					if(data.result && data.result.length && data.result[0]) {
+						var mesg = data.result[0].message || errorMesg;
+						alert(mesg);
+					} else {
+						alert(errorMesg);
+					}
+				} else{
 					errorCallback(data);
 				}
 		  })

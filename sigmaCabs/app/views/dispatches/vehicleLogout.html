@@ -15,16 +15,72 @@
             </div>
         </div>
         <div class="modal-body" > 
-            <fieldset class="left">
+            <fieldset>
                 <legend class="searchbox-border">Vehicle Logout</legend>
-                <div class="fieldContainer relative">
-                    <label class="labelCompact">Current Location</label>
-                    <input type="text" ng-model="logout.currentLocation" maxlength="15" class="textFieldCompact" googleplace />
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Current Location">Current Loc.</label>
+                    <input type="text" ng-model="logout.currentLocation" maxlength="20" class="textFieldCompact" googleplace />
                 </div>
-                <div class="fieldContainer relative">
+                <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="logout.currentKms" maxlength="15" class="textFieldCompact" />
+                    <input type="text" ng-model="logout.currentKms" maxlength="20" class="textFieldCompact" />
                 </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative left" style="width:180px;">
+                    <label class="labelCompact" title="Next Expected Login Time">Next ELiT</label>
+                    <input type="text" ng-model="logout.nextLoginTime" maxlength="20" class="textFieldCompact"/>
+                </div>
+                <div class="fieldContainer relative right" style="width:180px">
+                    <label class="labelCompact" title="Next Expected Login Location">Next ELiLoc</label>
+                    <input type="text" ng-model="logout.nextLoginLocation" maxlength="20" class="textFieldCompact" googleplace />
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact" title="Vehicle Checked By">Checked By</label>
+                    <input type="text" ng-model="logout.checkedBy" maxlength="20" class="textFieldCompact"/>
+                </div>
+                <div class="fieldContainer relative" style="height:60px;">
+                    <label class="labelCompact">Comments</label>
+                    <textarea data-ng-model="logout.comments"></textarea>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Fuel Filled?</label>
+                    <input type="checkbox" data-ng-model="logout.isFuel" class="cancelBookingComment" style="width: 15px;height: 15px;"/>
+                </div>
+                <div ng-show="logout.isFuel">
+                    <div class="fieldContainer relative left" style="width:180px;">
+                        <label class="labelCompact" title="Fuel Litres">Litres</label>
+                        <input type="text" ng-model="logout.fuelLtrs" maxlength="20" class="textFieldCompact"/>
+                    </div>
+                    <div class="fieldContainer relative right" style="width:180px">
+                        <label class="labelCompact" title="Fuel Amount">Amount</label>
+                        <input type="text" ng-model="logout.fuelAmount" maxlength="20" class="textFieldCompact" />
+                    </div>
+                    <p class="clear"/>
+                    <div class="fieldContainer relative left" style="width:180px;">
+                        <label class="labelCompact" title="Filling Station Name">Bunk Name</label>
+                        <input type="text" ng-model="logout.fuelName" maxlength="20" class="textFieldCompact"/>
+                    </div>
+                    <div class="fieldContainer relative right" style="width:180px">
+                        <label class="labelCompact" title="Filling Station Receipt No">Receipt No.</label>
+                        <input type="text" ng-model="logout.fuelReceiptNo" maxlength="20" class="textFieldCompact"/>
+                    </div>
+                    <p class="clear"/>
+                    <div class="fieldContainer relative">
+                        <label class="labelCompact" title="Filling Station Location">Bunk Loc.</label>
+                        <input type="text" data-ng-class="{fieldExpand: bunkLocationFocused}" data-ng-blur="bunkLocationFocused = false" data-ng-focus="bunkLocationFocused = true" ng-model="logout.fuelLocation" maxlength="20" class="textFieldCompact" googleplace />
+                    </div>
+                    <div class="fieldContainer relative left" style="width:180px;">
+                        <label class="labelCompact" title="Incharge Name from Company">Incharge Nm.</label>
+                        <input type="text" ng-model="logout.fuelIncharge" maxlength="20" class="textFieldCompact"/>
+                    </div>
+                    <div class="fieldContainer relative right" style="width:180px">
+                        <label class="labelCompact" title="Voucher Number - Issued by Company">Voucher No.</label>
+                        <input type="text" ng-model="logout.fuelVoucher" maxlength="20" class="textFieldCompact" />
+                    </div>
+                    <p class="clear"/>
+                </div>
+                <p class="clear"/>
             </fieldset>
             <p class="clear"/>
         </div>

@@ -1,10 +1,9 @@
-<fieldset class="left" style="width:50%;margin-right: 7px;">
+<fieldset class="left" style="width:50%;margin-right: 7px;height: 215px;">
     <legend class="searchbox-border">Last Month History</legend>
 
     <div style="width: 100%;">
-        <div class="left" style="width:69%;padding: 0 5px 0 0;border-right: 1px solid #ccc;margin-bottom: 5px;">
-            <div style="width:100%;border-bottom: 1px solid #ccc;padding-bottom: 5px;">
-                <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Vehicle and Driver Details</h4>
+        <div class="left" style="width:60%;padding: 0 5px 0 0;border-right: 1px solid #ccc;margin-bottom: 5px;">
+            <div style="width:100%;border-bottom: 1px solid #ccc;padding-bottom: 5px;margin-bottom: 5px;">
                 <div class="fieldContainer relative left" style="width:180px;">
                     <label class="labelCompact" title="Day Average">Day Avg.</label>
                     <span>{{lastMonthStatistics.vehicle.dayAverage}}</span>
@@ -58,12 +57,10 @@
                 <p class="clear"/>
             </div>
             <div style="width:100%;">
-                <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Booking Details</h4>
-                <div class="fieldContainer relative" style="width:180px;">
-                    <label class="labelCompact" title="Total Bookings">T.Bkngs</label>
-                    <span>{{lastMonthStatistics.booking.total}}</span>
-                </div>
                 <div class="fieldContainer relative">
+                    <span title="Total Bookings">T.Bkngs</span>
+                    <span class="margin-right10">{{lastMonthStatistics.booking.total}}</span>
+
                     <span title="Successful Bookings">SB: </span>
                     <span class="margin-right10">{{lastMonthStatistics.booking.completed}}</span>
 
@@ -78,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="left" style="height: 100%;width:30%; text-align: center;">
+        <div class="left" style="height: 100%;width:39%; text-align: center;">
             <!-- <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart> --> Chart Data
         </div>
         <p class="clear"/>

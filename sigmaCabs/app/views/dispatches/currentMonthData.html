@@ -18,10 +18,27 @@
         <span class="ellipsisText"><strong>{{currentDayStatistics.status}}</strong></span>
         <p class="clear"/>
     </div>
-    <div style="height:200px;margin-right: 20px;width:72%;" id="customerBookingGridID" class="bookingHistoryGrid left">
-    	<div class="gridStyle" ng-grid="gridCurrentMonthData" style="min-height:195px;"></div>
+    <div class="header-display">
+        <span title="Total Booking"><strong>T.Bookings:&nbsp;</strong></span>
+        <span class="ellipsisText"><strong>{{currentDayStatistics.totalBookings}}</strong></span>
+
+        <span title="Successful Booking"><strong>SB:&nbsp;</strong></span>
+        <span class="ellipsisText"><strong>{{currentDayStatistics.completedBookings}}</strong></span>
+        
+        <span title="Roadside Booking"><strong>Ro.B:&nbsp;</strong></span>
+        <span class="ellipsisText"><strong>{{currentDayStatistics.completedBookings}}</strong></span>
+    
+        <span title="Rejected Booking"><strong>RB:&nbsp;</strong></span>
+        <span class="ellipsisText"><strong>{{currentDayStatistics.rejectedBookings}}</strong></span>
+
+        <span title="Cancelled Booking"><strong>CB:&nbsp;</strong></span>
+        <span class="ellipsisText"><strong>{{currentDayStatistics.canceledBookings}}</strong></span>
+        <p class="clear"/>
     </div>
-    <div style="width:24%;margin-top: 5px;" class="left">
+    <div style="height:120px;margin-right: 20px;width:72%;" id="customerBookingGridID" class="bookingHistoryGrid left">
+    	<div class="gridStyle" ng-grid="gridCurrentMonthData" style="min-height:115px;"></div>
+    </div>
+    <div style="width:24%;" class="left">
     	<div class="fieldContainer relative clearBoth">
             <label class="labelCompact" title="Day Collection">Day Coll:</label>
             <span>{{currentDayStatistics.dayCollection}}</span>
@@ -42,27 +59,6 @@
             <label class="labelCompact" title="Performance">Performance:</label>
             <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{currentDayStatistics.performance}};"></span>
         </div>
-        <div class="fieldContainer relative clearBoth">
-            <span title="Total Booking"><strong>T.Bookings:&nbsp;</strong></span>
-            <span class="margin-right10"><strong>{{currentDayStatistics.totalBookings}}</strong></span>
-        </div>
-        <div class="fieldContainer relative left" style="width:75px;">
-            <span title="Successful Booking"><strong>SB:&nbsp;</strong></span>
-            <span class="margin-right10"><strong>{{currentDayStatistics.completedBookings}}</strong></span>
-        </div>
-        <div class="fieldContainer relative right" style="width:75px">
-            <span title="Roadside Booking"><strong>Ro.B:&nbsp;</strong></span>
-            <span class="margin-right10"><strong>{{currentDayStatistics.completedBookings}}</strong></span>
-        </div>
-        <p class="clear"/>
-        <div class="fieldContainer relative left" style="width:75px;">
-            <span title="Rejected Booking"><strong>RB:&nbsp;</strong></span>
-            <span class="margin-right10"><strong>{{currentDayStatistics.rejectedBookings}}</strong></span>
-        </div>
-        <div class="fieldContainer relative right" style="width:75px">
-            <span title="Cancelled Booking"><strong>CB:&nbsp;</strong></span>
-            <span class="margin-right10"><strong>{{currentDayStatistics.canceledBookings}}</strong></span>
-        </div>
         <p class="clear"/>
     </div>
     <p class="clear" />
@@ -71,9 +67,8 @@
     <legend class="searchbox-border">Current Month History</legend>
     
     <div style="width: 100%;">
-        <div class="left" style="width:69%;padding: 0 5px 0 0;border-right: 1px solid #ccc;margin-bottom: 5px;">
-            <div style="width:100%;border-bottom: 1px solid #ccc;padding-bottom: 5px;">
-                <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Vehicle and Driver Details</h4>
+        <div class="left" style="width:60%;padding: 0 5px 0 0;border-right: 1px solid #ccc;margin-bottom: 5px;">
+            <div style="width:100%;border-bottom: 1px solid #ccc;padding-bottom: 5px;margin-bottom: 5px;">
                 <div class="fieldContainer relative left" style="width:180px;">
                     <label class="labelCompact" title="Day Average">Day Avg.</label>
                     <span>{{currentMonthStatistics.vehicle.dayAverage}}</span>
@@ -127,12 +122,10 @@
                 <p class="clear"/>
             </div>
             <div style="width:100%;">
-                <h4 style="margin: 5px;font-size: 12px;font-weight: bold;">Booking Details</h4>
-                <div class="fieldContainer relative" style="width:180px;">
-                    <label class="labelCompact" title="Total Bookings">T.Bkngs</label>
-                    <span>{{currentMonthStatistics.booking.total}}</span>
-                </div>
                 <div class="fieldContainer relative">
+                    <span title="Total Bookings">T.Bkngs</span>
+                    <span class="margin-right10">{{currentMonthStatistics.booking.total}}</span>
+
                     <span title="Successful Bookings">SB: </span>
                     <span class="margin-right10">{{currentMonthStatistics.booking.completed}}</span>
 
@@ -147,7 +140,7 @@
                 </div>
             </div>
         </div>
-        <div class="left" style="height: 100%;width:30%; text-align: center;">
+        <div class="left" style="height: 100%;width:39%; text-align: center;">
             <!-- <chart  value='{{assetStateChartData}}' type="pie" id="stateChart" height="200" width="200"></chart> --> Chart Data
         </div>
         <p class="clear"/>

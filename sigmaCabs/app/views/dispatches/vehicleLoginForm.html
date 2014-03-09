@@ -12,35 +12,46 @@
     <p class="clear" />
     <div class="fieldContainer relative left">
         <label class="labelCompact">Current Loc</label>
-        <span>{{vehicleMainDetails.location}}</span>
+        <span title="{{vehicleMainDetails.location}}" class="ellipsisText">{{vehicleMainDetails.location}}</span>
     </div>
-    <div class="fieldContainer relative right">
-        <label class="labelCompact">New Location</label>
-        <input type="text" ng-model="vehicleDetails.loginLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder="New Location" googleplace/>
-    </div>
-     <div class="fieldContainer relative left">
+    <div class="fieldContainer relative right" style="width: 180px;">
         <label class="labelCompact">Reg. No.</label>
         <span>{{vehicleMainDetails.details.registrationNumber}}</span>
+    </div>
+     <div class="fieldContainer relative left">
+        <label class="labelCompact">New Location</label>
+        <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused = false" data-ng-focus="locationFocused = true" ng-model="vehicleDetails.loginLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder="New Location" googleplace/>
     </div>
     <div class="fieldContainer relative right" style="width: 180px;">
         <label class="labelCompact">V.Model</label>
         <span>{{vehicleDetails.loginVehModel}}</span>
     </div>
     <div class="fieldContainer relative left" style="width:180px;">
+        <label class="labelCompact">Start Kms</label>
+        <input type="text" ng-model="vehicleMainDetails.startKms" class="validate[required,maxSize[128]] textFieldCompact" placeholder="Login Kms"/>
+    </div>
+    <div class="fieldContainer relative right" style="width:180px;">
         <label class="labelCompact">Paper Validity</label>
         <span>{{vehicleDetails.vPaperValidity}}</span>
     </div>
-    <div class="fieldContainer relative right" style="width:180px;">
-        <label class="labelCompact" title="Tracking Device">Track Device</label>
-        <span>{{vehicleDetails.vTrackingDevice}}</span>
-    </div>
     <div class="fieldContainer relative left" style="width:180px;">
-        <label class="labelCompact">Carrier</label>
-        <span>{{vehicleDetails.vCarrier}}</span>
+        <label class="labelCompact" title="Expected Login Hours">E. LiH</label>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="vehicleMainDetails.details.loginHours" ng-options='k as v for (k,v) in hours'></select>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
-        <label class="labelCompact">Music System</label>
-        <span>{{vehicleDetails.vMusicPlayer}}</span>
+        <span class="left margin-right10" title="Carrier">C</span>
+        <span class="left margin-right10 glyphicon glyphicon-ok"></span>
+
+        <span class="left margin-right10" title="Music System">MS</span>
+        <span class="left margin-right10 glyphicon glyphicon-remove"></span>
+
+        <span class="left margin-right10" title="Track Device">TD</span>
+        <span class="left margin-right10 glyphicon glyphicon-ok"></span>
+
+        <!-- <span>{{vehicleDetails.vMusicPlayer}}</span> -->
+        <!-- <span>{{vehicleDetails.vTrackingDevice}}</span> -->
+
+        <p class="clear" />
     </div>
     <div class="fieldContainer relative left">
         <label class="labelCompact">V.Condition</label>

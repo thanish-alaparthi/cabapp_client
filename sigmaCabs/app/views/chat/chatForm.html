@@ -1,27 +1,26 @@
-<fieldset data-ng-controller="chatController" class="chatContainer left" style="margin-left: 7px;">
+<fieldset data-ng-controller="chatController" class="chatContainer">
     <legend class="searchbox-border">Chat</legend>
 
-    <div class="fieldContainer  relative">
-        <label class="labelCompact" style="width: 55px;">Process</label>
+    <div class="fieldContainer relative">
+        <label class="labelCompact">Process</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" >
             <option>Choose</option>
         </select>
     </div>
-    <div class="fieldContainer  relative">
-        <label class="labelCompact" style="width: 55px;">Name</label>
+    <div class="fieldContainer relative">
+        <label class="labelCompact">Name</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" >
             <option>Choose</option>
         </select>
     </div>
+    <p class="clear" />
     <div class="relative chatMsgContainer"></div>
     <hr class="buttonSpliter" />
-    <div class="relative">
-         <button class="btnCompact btn-success" style="margin:0px;" data-ng-click="fnShowTemplates()">Templates</button>
-    </div>
     <div class="mainButtonContainer">
         <div>
-             <textarea class="chatMsgText"></textarea>
-             <button class="btnCompact btn-success" style="margin:0px;" data-ng-click="fnShowTemplates()">Send</button>
+            <button class="btnCompact btn-success" style="margin:0px;" data-ng-click="fnShowTemplates()">Templates</button>
+            <textarea class="chatMsgText"></textarea>
+            <button class="btnCompact btn-success" style="margin:0px;" data-ng-click="fnShowTemplates()">Send</button>
         </div>
         <p class="clear"/>
     </div>

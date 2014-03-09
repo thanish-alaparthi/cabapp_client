@@ -562,46 +562,27 @@ body {
   background-color: #FFF;
   background-origin: padding-box;
   background-size: auto;
-  border-bottom-color: #B5B8C8;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border: 1px solid #B5B8C8;
   border-image-outset: 0px;
   border-image-repeat: stretch;
   border-image-slice: 100%;
   border-image-source: none;
   border-image-width: 1;
-  border-left-color: #B5B8C8;
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-right-color: #B5B8C8;
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-top-color: #B5B8C8;
-  border-top-style: solid;
-  border-top-width: 1px;
   color: #000;
   cursor: auto;
   display: inline-block;
   font-family: tahoma, arial, helvetica, sans-serif;
   font-size: 11px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
   height: 20px;
   letter-spacing: normal;
   line-height: normal;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0px;
-  padding-bottom: 1px;
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-top: 1px;
+  margin: 0px;
+  padding: 1px 3px;
   text-align: start;
   text-indent: 0px;
   text-shadow: none;
   text-transform: none;
+  text-overflow: ellipsis;
   vertical-align: middle;
   visibility: visible;
   width: 100px;
@@ -716,7 +697,7 @@ textFieldCompact[disabled] .textFieldCompact {
 .fieldExpand {
   position: absolute;
   width: 333px;
-  z-index: 1;
+  z-index: 4;
 }
 .fieldExpandLeft {
   position: absolute;
@@ -771,29 +752,9 @@ textFieldCompact[disabled] .textFieldCompact {
   heigth:28px;
 }
 
-.chatMsgContainer{
-  background: #FFF;
-  width: 100%;
-  height: 70px;
-  clear: both;
-  border: 1px solid #B5B8C8;
-  margin-bottom: 9px;
-  overflow: auto;
-}
-
-.chatMsgText{
-  margin: -7px 0px 0px 0px;
-  height: 33px;
-  font-size: 11px;
-  width: 162px;
-  border: 1px solid #B5B8C8;
-  resize: none;
-}
-
 .modal-body{
   padding: 0px 8px 8px 8px;
 }
-
 
 .modalClass .modal-header{
   background: #99BBE8;
@@ -842,11 +803,11 @@ textFieldCompact[disabled] .textFieldCompact {
 .currentMonthData {
   float: left;
   font-size: 12px;
-  height: 252px;
+  height: 185px;
   margin-right: 7px;
   width:50%;
   .header-display {
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
     span {
       &.ellipsisText {
         width: 80px;
@@ -864,7 +825,7 @@ textFieldCompact[disabled] .textFieldCompact {
   }
 }*/
 .vehicleHistory {
-  height:252px;
+  height:215px;
   .fieldContainer {
     width: 300px;
     .labelCompact {
@@ -878,6 +839,28 @@ textFieldCompact[disabled] .textFieldCompact {
 .flex-height {
   height: 100%;
 }
+.chatContainer {
+  float: left;
+  height: 212px;
+  margin-left: 7px;
+  .chatMsgContainer{
+    background: #FFF;
+    width: 100%;
+    height: 95px;
+    clear: both;
+    border: 1px solid #B5B8C8;
+    margin-bottom: 9px;
+    overflow: auto;
+  }
+  .chatMsgText{
+    margin: -7px 0px 0px 0px;
+    height: 33px;
+    font-size: 11px;
+    width: 162px;
+    border: 1px solid #B5B8C8;
+    resize: none;
+  }
+}	
 
 .vTop {
   vertical-align: top;

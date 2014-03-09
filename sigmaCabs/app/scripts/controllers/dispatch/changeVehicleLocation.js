@@ -34,7 +34,7 @@ angular.module('sigmaCabsApp')
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					scope.close();
-					alert(data.result[0].message);
+					//alert(data.result[0].message);
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

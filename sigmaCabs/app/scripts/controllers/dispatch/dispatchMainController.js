@@ -637,7 +637,7 @@ angular.module('sigmaCabsApp')
             $scope.opts = {
                 templateUrl: URLService.view('vehicleLogout'),
                 controller: 'vehicleLogout',
-                dialogClass: 'modalClass cancel-booking-container',
+                dialogClass: 'modalClass add-request',
                 resolve: {
                     editMode: [
 
@@ -858,6 +858,9 @@ angular.module('sigmaCabsApp')
                             vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
+                    },
+                    isControlView: function() {
+                      return false;
                     }
                 }
             };

@@ -29,7 +29,7 @@ angular.module('sigmaCabsApp')
 				}
 			})
 	})
-	.controller('vehicleActivityController', function($scope, $rootScope, URLService, modalWindow, DispatchService) { //$dialog,
+	.controller('vehicleActivityController', function($scope, $rootScope, URLService, modalWindow, DispatchService, serverService) {
 		console.log('vehicleActivityController');
 
 		var scope = $scope;
@@ -55,7 +55,7 @@ angular.module('sigmaCabsApp')
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
 					//scope.bloginShow = false;
-					alert(data.result[0].message);
+					//alert(data.result[0].message);
 					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
@@ -81,7 +81,7 @@ angular.module('sigmaCabsApp')
 			DispatchService.fnVehicleConfirm(oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
-					alert(data.result[0].message);
+					//alert(data.result[0].message);
 					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {
@@ -108,7 +108,7 @@ angular.module('sigmaCabsApp')
 			DispatchService.fnVehicleAcceptBooking(oData)
 				.success(function(data, status, headers, config) {
 					console.log('Success: ', data);
-					alert(data.result[0].message);
+					//alert(data.result[0].message);
 					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 				})
 				.error(function(data, status, headers, config) {

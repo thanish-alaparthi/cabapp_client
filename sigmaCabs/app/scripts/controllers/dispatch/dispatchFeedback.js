@@ -48,7 +48,7 @@ angular.module('sigmaCabsApp')
 		scope.fnRestApiSuccess = function(data, status, headers, config) {
 			console.log("Success fnSaveCustomerRequest", data);
 			scope.close();
-			alert(data.result[0].message);
+			//alert(data.result[0].message);
 		};
 
 		scope.close = function() {
