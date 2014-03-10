@@ -383,20 +383,6 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnVehicleAcceptBooking: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/acceptBooking",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnVehicleRejectBooking: function(oDataParams) {
                 return $http({
                     method: 'POST',

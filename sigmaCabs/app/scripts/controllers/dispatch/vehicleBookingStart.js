@@ -17,8 +17,7 @@ angular.module('sigmaCabsApp')
         scope.vehicleDetails = oVehicleData;
         scope.vehicleReasonTypes = PrerequisiteService.fnGetReasons();
         scope.bookingStart = {};
-        scope.vehicleDetails.actualKms = 500; // should get from API
-        scope.bookingStart.nextBooking = "1"; // should get from API
+        scope.bookingStart.nextBooking = scope.vehicleDetails.vehicleMainDetails.details.nextBooking;
         // Decide rating based on Pickup date and time vs current Date and time
         pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetails.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetails.details.pickupTime).getTime();
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
@@ -30,10 +29,10 @@ angular.module('sigmaCabsApp')
             scope.bookingStart.rating = "Ok";
             scope.bookingStart.moreInfo = false;
         }
-
+        scope.bookingStart.currentKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms;
         scope.$watch('bookingStart.currentKms', function(newVal) {
             var currentKms = parseFloat(scope.bookingStart.currentKms),
-                actualKms = scope.vehicleDetails.actualKms;
+                actualKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms;
 
             currentKms = (isNaN(currentKms)) ? actualKms : currentKms;
             scope.bookingStart.deadMileage = currentKms - actualKms;

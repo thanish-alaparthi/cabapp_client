@@ -18,24 +18,22 @@ angular.module('sigmaCabsApp')
 			})
 			.success(function(data, status, headers, config) {
 				var errorMesg = "Error in processing your request";
-				if(status == 200){
+				if (status == 200) {
 					//check for the valid format of the data, else through into the error callback
 					var isValidData = (data && data.status) || false;
-						if((isValidData) && (data.status == 200)  ){
-							var data = data.result;
-							sucessCallback(data);
-						} else{
-							errorCallback(data);
+					if ((isValidData) && (data.status == 200)) {
+						var data = data.result;
+						sucessCallback(data);
+					} else if ((isValidData) && (data.status === 500)) {
+						if (data.result && data.result.length && data.result[0]) {
+							var mesg = data.result[0].message || errorMesg;
+							alert(mesg);
+						} else {
+							alert(errorMesg);
 						}
-				} else if(status === 500) {
-					if(data.result && data.result.length && data.result[0]) {
-						var mesg = data.result[0].message || errorMesg;
-						alert(mesg);
 					} else {
-						alert(errorMesg);
+						errorCallback(data);
 					}
-				} else{
-					errorCallback(data);
 				}
 		  })
 		  .error(function(data, status, headers, config) {

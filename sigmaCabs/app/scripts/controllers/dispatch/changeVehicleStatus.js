@@ -14,11 +14,15 @@ angular.module('sigmaCabsApp')
 			previousStatusId;
 		console.log('inside changeVehicleStatus', oVehicleData);
 
+		scope.vChangeStatus = {};
+        scope.vehicleChangeStatusReasonTypes = PrerequisiteService.fnGetReasons();
+        scope.vehiclePriorities = PrerequisiteService.priorities;
+
 		scope.vehicleDetails = oVehicleData;
-		scope.statusComments = '';
 		previousStatusId = scope.vehicleDetails.vehicleMainDetails.paymentStatus;
-		scope.stateFrom = previousStatusId;
-		scope.stateTo = previousStatusId;
+		scope.vChangeStatus.statusComments = '';
+		scope.vChangeStatus.stateFrom = previousStatusId;
+		scope.vChangeStatus.stateTo = previousStatusId;
 
 		scope.close = function() {
 			dialog.close();
@@ -27,11 +31,21 @@ angular.module('sigmaCabsApp')
 			scope.oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
 				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
-				"stateFrom": scope.stateFrom,
-				"stateTo": scope.stateTo,
-				"comment": scope.statusComments
+				"stateFrom": scope.vChangeStatus.stateFrom,
+				"stateTo": scope.vChangeStatus.stateTo,
+				"reasonId": scope.vChangeStatus.reasonId || '',
+                "priority": scope.vChangeStatus.priorityId || '',
+				"comment": scope.vChangeStatus.statusComments
 			};
 			console.log(scope.oData);
+
+			/*if (oData.requester === '' || oData.reasonId === '') {
+                alert('Please select required information');
+                return;
+            } else if (scope.vReject.categoryId === 4 && driverId === '') {
+                alert('Please select driver in vehicle information');
+                return;
+            }*/
 
 			DispatchService.fnChangeVehicleStatus(scope.oData)
 				.success(function(data, status, headers, config) {

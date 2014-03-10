@@ -5,17 +5,17 @@
         <span title="{{vehicleStatistics.vehicle.projLoginHours}}" class="ellipsisText">{{vehicleStatistics.vehicle.projLoginHours}}</span>
     </div>
     <div class="fieldContainer relative right">
-        <label class="labelCompact" title="Driver Name">Driver Name</label>
-        <span title="{{vehicleStatistics.driver.name}}" class="ellipsisText">{{vehicleStatistics.driver.name}}</span>
-    </div>
-    <p class="clear"/>
-    <div class="fieldContainer relative left">
         <label class="labelCompact" title="Opted Package">Opted Package</label>
         <span title="{{vehicleStatistics.vehicle.optedPackageText}}" class="ellipsisText">{{vehicleStatistics.vehicle.optedPackageText}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <p class="clear"/>
+    <div class="fieldContainer relative left">
         <label class="labelCompact" title="Owner Name">Owner Name</label>
         <span>{{vehicleStatistics.owner.name}}</span>
+    </div>
+    <div class="fieldContainer relative right">
+        <label class="labelCompact" title="Driver Name">Driver Name</label>
+        <span title="{{vehicleStatistics.driver.name}}" class="ellipsisText">{{vehicleStatistics.driver.name}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
@@ -23,13 +23,13 @@
         <span title="{{vehicleStatistics.vehicle.attachmentType}}" class="ellipsisText">{{vehicleStatistics.vehicle.attachmentType}}</span>
     </div>
     <div class="fieldContainer relative right">
-        <label class="labelCompact" title="Registration Number">Registration No</label>
-        <span class="ellipsisText" title="{{vehicleStatistics.vehicle.registrationNumber}}">{{vehicleStatistics.vehicle.registrationNumber}}</span>
+        <label class="labelCompact" title="Driver Type">Driver Type</label>
+        <span title="{{vehicleStatistics.vehicle.driverType}}" class="ellipsisText">{{vehicleStatistics.vehicle.driverType}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
-        <label class="labelCompact" title="Driver Type">Driver Type</label>
-        <span title="{{vehicleStatistics.vehicle.driverType}}" class="ellipsisText">{{vehicleStatistics.vehicle.driverType}}</span>
+        <label class="labelCompact" title="Registration Number">Registration No</label>
+        <span class="ellipsisText" title="{{vehicleStatistics.vehicle.registrationNumber}}">{{vehicleStatistics.vehicle.registrationNumber}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact">Model</label>
@@ -37,7 +37,8 @@
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left">
-        
+        <label class="labelCompact" title="Home Location">Home Location</label>
+        <span title="{{vehicleStatistics.vehicle.homeLocation}}" class="ellipsisText">{{vehicleStatistics.vehicle.homeLocation}}</span>
     </div>
     <div class="fieldContainer relative right">
         <label class="labelCompact" title="Expected Login Time">Exp. Login Time</label>
@@ -49,15 +50,14 @@
         <span style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{vehicleStatistics.vehicle.paperValidty}};"></span>
     </div>
     <div class="fieldContainer relative right">
-        <label class="labelCompact" title="Home Location">Home Location</label>
-        <span title="{{vehicleStatistics.vehicle.homeLocation}}" class="ellipsisText">{{vehicleStatistics.vehicle.homeLocation}}</span>
+       
     </div>
     <p class="clear"/>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative">
         <label class="labelCompact" title="Expired Documents">Expired Documents</label>
         <span>{{vehicleStatistics.vehicle.invalidDocsText}}</span>
     </div>
-    <div class="fieldContainer relative right">
+    <div class="fieldContainer relative">
         <label class="labelCompact" title="Facilities">Facilities</label>
         <span>{{vehicleStatistics.vehicle.facilitiesText}}</span>
     </div>

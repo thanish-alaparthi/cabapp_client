@@ -23,17 +23,26 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">New Location</label>
-                    <input type="text" ng-model="changeLocation.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
+                    <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="changeLocation.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Kms</label>
                     <input type="text" ng-model="changeLocation.currentKms" maxlength="15" class="textFieldCompact" />
                 </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="changeLocation.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleChangeLocReasonTypes"></select>
+                </div>
+                <div class="fieldContainer relative" style="height:75px;">
+                    <label class="labelCompact">Comments</label>
+                    <textarea data-ng-model="changeLocation.comments" class=""></textarea>
+                </div>
             </fieldset>
             <p class="clear"/>
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()">Cancel</button>
         </div>
     </div>
 </div>

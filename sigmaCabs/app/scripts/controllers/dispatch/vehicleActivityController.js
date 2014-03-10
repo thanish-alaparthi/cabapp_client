@@ -89,7 +89,7 @@ angular.module('sigmaCabsApp')
 				});
 		};
 
-		scope.fnVehicleAccepBooking = function() {
+		scope.fnVehicleAcceptBooking = function() {
 			var bookingId = scope.vehicleMainDetails.details.bookingId || '',
 				oData = {};
 			console.log(scope.vehicleMainDetails);
@@ -105,15 +105,18 @@ angular.module('sigmaCabsApp')
 				"bookingType": scope.bookingType || '1'
 			};
 
-			DispatchService.fnVehicleAcceptBooking(oData)
-				.success(function(data, status, headers, config) {
-					console.log('Success: ', data);
-					//alert(data.result[0].message);
-					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
-				})
-				.error(function(data, status, headers, config) {
-					console.log('Error: ', data)
-				});
+			serverService.sendData('P',
+				'vehicle/acceptBooking',
+				oData, scope.fnVehicleAcceptBookingSuccess, scope.fnVehicleAcceptBookingError);
+		};
+
+		scope.fnVehicleAcceptBookingSuccess = function(data, status, headers, config) {
+			console.log('Success: ', data);
+			//alert(data.result[0].message);
+			scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
+		};
+		scope.fnVehicleAcceptBookingError = function(data, status, headers, config) {
+			console.log('Error: ', data);
 		};
 
 		/*scope.close = function(){

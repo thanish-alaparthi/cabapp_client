@@ -13,15 +13,19 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 		console.log('inside changeVehiclePhone', oVehicleData);
 
+		scope.changePhone = {};
+		scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
+        scope.vehicleChangePhoneReasonTypes = PrerequisiteService.fnGetReasons();
+
 		scope.vehicleDetails = oVehicleData;
-		scope.phoneChangeComments = '';
+		scope.changePhone.phoneChangeComments = '';
 
 		scope.close = function() {
 			dialog.close();
 		}
 
 		scope.fnSaveAndClose = function() {
-			var newMobile = scope.newMobile || '';
+			var newMobile = scope.changePhone.newMobile || '';
 			if (newMobile === '' || newMobile.length < 10) {
 				alert('Please enter valid Mobile No.');
 				return;
@@ -31,7 +35,9 @@ angular.module('sigmaCabsApp')
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
 				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
 				"mobile": newMobile,
-				"comments": scope.phoneChangeComments
+				"requester": scope.changePhone.categoryId,
+				"reasonId": scope.changePhone.reasonId || '',
+				"comments": scope.changePhone.phoneChangeComments
 			};
 
 			console.log(scope.oData);

@@ -20,7 +20,7 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup</label>
-        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-readonly="makePickupReadOnly" googleplace/>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
     </div>
     <div class="fieldContainer  relative right">
         <button class="left btnCompact btn-success" style="border-radius: 5px; margin:0px;" ng-click = "checkVehicleAvilabilty()">Vehicle Availability</button>
@@ -28,15 +28,15 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes();" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnSubJourneyTypeChanged()"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Drop</label>
-        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-readonly="makeDropReadOnly" googleplace />
+        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
     </div>    
     <div class="fieldContainer  relative right" style="width: 40%;">
         <button class="left btnCompact btn-success" style="border-radius: 5px;" ng-click = "checkTariff()">Tariff</button>

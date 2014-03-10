@@ -16,7 +16,7 @@ angular.module('sigmaCabsApp')
             pickupTimeStamp,
             actualPackage;
         console.log('inside vehicleBookingClose', oVehicleData);
-
+        scope.vehicleBkngCloseReasonTypes = PrerequisiteService.fnGetReasons();
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
         scope.bookingClose.actualKms = scope.vehicleDetails.vehicleMainDetails.details.startKms;
@@ -51,17 +51,17 @@ angular.module('sigmaCabsApp')
         }
 
         // if no package is set then select the actual package
-        if(actualPackage === undefined) {
-            //actualPackage = scope.bookingClose.tariffDetails;
-            alert('Error in package selection');
-            scope.close();
-        }
+        // if(actualPackage === undefined) {
+        //     //actualPackage = scope.bookingClose.tariffDetails;
+        //     alert('Error in package selection');
+        //     scope.close();
+        // }
 
         scope.$watch('bookingClose.currentKms', function(newVal) {
             if (newVal != '' && !isNaN(newVal)) {
                 var currentKms = parseFloat(scope.bookingClose.currentKms),
                     startKms = scope.vehicleDetails.vehicleMainDetails.details.startKms,
-                    packageBaseAmount = parseFloat(actualPackage.price),
+                    packageBaseAmount = (actualPackage) ? parseFloat(actualPackage.price) : alert('Error in package selection'),
                     packageExtraKmCharge = parseFloat(actualPackage.extraKmPrice),
                     packageKmLimit = parseFloat(actualPackage.kms),
                     packageExtraCharge = parseFloat(actualPackage.extraCharges),

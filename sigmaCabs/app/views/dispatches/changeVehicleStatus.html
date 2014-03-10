@@ -20,19 +20,28 @@
 
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Status</label>
-                    <select class="validate[maxSize[36]] selectFieldCompact" ng-model="stateTo" data-ng-options="obj.id as obj.status for obj in vehicleDetails.vehicleStatusTypes">
+                    <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vChangeStatus.stateTo" data-ng-options="obj.id as obj.status for obj in vehicleDetails.vehicleStatusTypes">
                         <option>Choose</option>
                     </select>
                 </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vChangeStatus.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleChangeStatusReasonTypes"></select>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Priority</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vChangeStatus.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                </div>
                 <div class="fieldContainer  relative" style="height:75px;">
                     <label class="labelCompact">Comments</label>
-                    <textarea data-ng-model="statusComments" class="cancelBookingComment"></textarea>
+                    <textarea data-ng-model="vChangeStatus.statusComments" class="cancelBookingComment"></textarea>
                 </div>
             </fieldset>
             <p class="clear"/>
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()">Cancel</button>
         </div>
     </div>
 </div>

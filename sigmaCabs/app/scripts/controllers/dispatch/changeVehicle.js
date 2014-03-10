@@ -15,7 +15,8 @@ angular.module('sigmaCabsApp')
 
         scope.vehicleDetails = oVehicleData;
         scope.vChange = {};
-        //scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
+        scope.vChange.amountPaid = "0";
+        scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
         scope.vehicleReasonTypes = PrerequisiteService.fnGetReasons();
         scope.vehiclePriorities = PrerequisiteService.priorities;
 
@@ -28,6 +29,8 @@ angular.module('sigmaCabsApp')
                 "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
                 "currentVehicleId": scope.vehicleDetails.vehicleMainDetails.id,
                 "newVehicleId": scope.vChange.newVehicleId || '1', // need to change
+                "amountPaid": scope.vChange.amountPaid || '0',
+                "requester": scope.vChange.categoryId,
                 "reasonId": scope.vChange.reasonId || '',
                 "priority": scope.vChange.priorityId || '',
                 "comments": scope.vChange.comments

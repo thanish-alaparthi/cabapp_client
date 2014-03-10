@@ -9,3 +9,21 @@ fieldset.dispatchFormController {
 		padding: 0;
 	}
 }
+.modalClass.booking-close-modal .modal-dialog {
+	width: 670px !important;
+	.fieldContainer {
+		&.fieldContainer-lg {
+			width: 300px;
+			.labelCompact {
+				width: 100px;
+			}
+			select {
+				width: 65%;
+			}
+		}
+		width: 200px;
+		.labelCompact {
+			width: 100px;
+		}
+	}
+}

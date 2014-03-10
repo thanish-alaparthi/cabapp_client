@@ -22,8 +22,24 @@
                     <span>{{vehicleDetails.vehicleMainDetails.details.vehicleCode}}</span> <!--  current Vehicle code -->
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">New Vehicle</label>
+                    <label class="labelCompact">Amount Paid</label>
+                    <input type="text" ng-model="vChange.amountPaid" maxlength="15" class="textFieldCompact" />
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Location</label>
+                    <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="vChange.location" maxlength="15" class="textFieldCompact" googleplace/>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">New Vehicle Id</label>
                     <input type="text" ng-model="vChange.newVehicleCode" maxlength="15" class="textFieldCompact"/>
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">New Pickup Time</label>
+                    <input type="text" ng-model="vChange.pickupTime" maxlength="15" class="textFieldCompact" />
+                </div>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Category By</label>
+                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vChange.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Reason</label><!--  ng-model="" -->
@@ -41,7 +57,8 @@
             <p class="clear"/>
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()">Cancel</button>
         </div>
     </div>
 </div>

@@ -73,7 +73,7 @@ angular.module('sigmaCabsApp')
 		// };
 
 		// function to change sub-Journey Types
-		scope.fnPopSubJourneyTypes = function() {			
+		scope.fnPopSubJourneyTypes = function() {
 			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpDetails.tmpJourneyType);
 			for(var i=0;i<scope.subJourneyTypes.length;i++){
 				if(scope.subJourneyTypes[i].parentId == scope.tmpDetails.tmpJourneyType){

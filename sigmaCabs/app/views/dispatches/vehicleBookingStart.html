@@ -18,8 +18,8 @@
             <fieldset class="left">
                 <legend class="searchbox-border">Start Report</legend>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Actual Kms</label>
-                    <span>{{vehicleDetails.actualKms}}</span>
+                    <label class="labelCompact">Previous Kms</label>
+                    <span>{{vehicleDetails.vehicleMainDetails.details.previousKms}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Kms</label>
@@ -56,7 +56,8 @@
             <p class="clear"/>
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()">Cancel</button>
         </div>
     </div>
 </div>

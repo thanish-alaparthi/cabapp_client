@@ -11,6 +11,7 @@ angular.module('sigmaCabsApp')
 
 		var scope = $scope;
 		console.log('inside changeVehicleLocation', oVehicleData);
+		scope.vehicleChangeLocReasonTypes = PrerequisiteService.fnGetReasons();
 
 		scope.vehicleDetails = oVehicleData;
 		scope.changeLocation = {};
@@ -27,8 +28,18 @@ angular.module('sigmaCabsApp')
 				"location": scope.changeLocation.newLocation,
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
-				"currentKms": scope.changeLocation.currentKms
-			};
+				"currentKms": scope.changeLocation.currentKms,
+				"reasonId": scope.changeLocation.reasonId || '',
+                "comments": scope.changeLocation.comments
+            };
+
+            /*if (oData.requester === '' || oData.reasonId === '') {
+                alert('Please select required information');
+                return;
+            } else if (scope.vReject.categoryId === 4 && driverId === '') {
+                alert('Please select driver in vehicle information');
+                return;
+            }*/
 
 			DispatchService.fnVehicleChangeLocation(scope.oData)
 				.success(function(data, status, headers, config) {
