@@ -20,7 +20,7 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Pickup</label>
-        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder=""  googleplace/>
+        <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-readonly="makePickupReadOnly" googleplace/>
     </div>
     <div class="fieldContainer  relative right">
         <button class="left btnCompact btn-success" style="border-radius: 5px; margin:0px;" ng-click = "checkVehicleAvilabilty()">Vehicle Availability</button>
@@ -36,7 +36,7 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Drop</label>
-        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
+        <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" data-ng-readonly="makeDropReadOnly" googleplace />
     </div>    
     <div class="fieldContainer  relative right" style="width: 40%;">
         <button class="left btnCompact btn-success" style="border-radius: 5px;" ng-click = "checkTariff()">Tariff</button>

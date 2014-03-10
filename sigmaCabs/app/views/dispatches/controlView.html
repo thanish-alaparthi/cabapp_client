@@ -155,7 +155,7 @@
 			<div ng-show="showingWhilDrivingGrid">
 			  <span class="panel-title">While Driving Vehicles</span>
 			  <div class="pull-right">
-				  <input id="while_driving_search" type="text" ng-model="filterText" class="searchInput" placeholder ="Search Vehicles" ng-change="whileDrivingSearch()"/>
+				  <input id="while_driving_search" type="text" ng-model="whileDrivingFilterText" class="searchInput" placeholder ="Search Vehicles" ng-change="whileDrivingSearch()"/>
 			  	  <i class="glyphicon glyphicon-chevron-left" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>
 			  	  <span class="clearfix"></span>
 		  	  </div>
@@ -164,7 +164,7 @@
 			<div ng-show="showingBookingsInfoGrid">
 			  <span class="panel-title">Booking Info</span>
 			  <span class="glyphicon glyphicon-refresh" title="Refresh Booking Info" data-ng-click="setBookingInfoGrid(false)"></span>
-			  <input id="while_info_search" type="text" ng-model="filterText" class="searchInput pull-right" placeholder="Search Bookings" ng-change="bookingInfoSearch()"/>
+			  <input id="while_info_search" type="text" ng-model="bookingInfoFilterText" class="searchInput pull-right" placeholder="Search Bookings" ng-change="bookingInfoSearch()"/>
 			</div>
 		  <span class="clearfix"></span>
 		</div>

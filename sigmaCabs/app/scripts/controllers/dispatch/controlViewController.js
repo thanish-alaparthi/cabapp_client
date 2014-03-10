@@ -370,7 +370,7 @@ angular.module('sigmaCabsApp')
         scope.loadBookingMgmtGridData = function(data){
           var data = data;
           scope.bookingData = data;
-          scope.bookingDataObjs = JSON.parse(JSON.stringify(data));
+          scope.bookingDataObjs = angular.copy(data);
           scope.bookingDataLength = data.length;
           scope.resize_BookingMgmtGrid();
         }
@@ -387,13 +387,13 @@ angular.module('sigmaCabsApp')
 
         scope.loadWhileDrivingVehiclesGridData = function(data){
           scope.whileDrivingData = data;
-          scope.whileDrivingDataObjs = JSON.parse(JSON.stringify(data));
+          scope.whileDrivingDataObjs = angular.copy(data);
           scope.whileDrivingDataLength = data.length;
         }
 
         scope.loadBookingInfoGridData = function(data){
           scope.bookingInfoData = data;
-          scope.bookingInfoDataObjs = JSON.parse(JSON.stringify(data));
+          scope.bookingInfoDataObjs = angular.copy(data);
           scope.bookingInfoDataLength = data.length;
         }
         scope.loadVehicleDetailsData = function(data){          
@@ -872,12 +872,12 @@ angular.module('sigmaCabsApp')
 
 
         /*START: Booking info Grid*/        
-        scope.bookingSearch = function(){          
-          $scope.getBookingInfoDataAsync(scope.bookingInfoGridPgOptions.pageSize,scope.bookingInfoGridPgOptions.currentPage, scope.filterText);
+        scope.bookingInfoSearch = function(){          
+          $scope.getBookingInfoDataAsync(scope.bookingInfoGridPgOptions.pageSize,scope.bookingInfoGridPgOptions.currentPage, scope.bookingInfoFilterText);
         }
         
         scope.$watch('bookingInfoGridPgOptions', function () {
-          $scope.getBookingInfoDataAsync($scope.bookingInfoGridPgOptions.pageSize,$scope.bookingInfoGridPgOptions.currentPage, $scope.filterText);
+          $scope.getBookingInfoDataAsync($scope.bookingInfoGridPgOptions.pageSize,$scope.bookingInfoGridPgOptions.currentPage, $scope.bookingInfoFilterText);
         }, true);
 
         scope.getBookingInfoDataAsync = function (pageSize, page, searchText) {
