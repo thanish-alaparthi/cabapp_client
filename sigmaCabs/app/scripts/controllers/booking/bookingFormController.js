@@ -66,8 +66,14 @@ angular.module('sigmaCabsApp')
 			scope.fnValidatePickupTime();
 		};
 
+		// scope.fnEmptyPlaces = function(){			
+		// 	scope.bookingDetails.pickupPlace =  "";
+		// 	scope.bookingDetails.dropPlace =  "";
+		// 	scope.fnPopSubJourneyTypes();
+		// };
+
 		// function to change sub-Journey Types
-		scope.fnPopSubJourneyTypes = function() {
+		scope.fnPopSubJourneyTypes = function() {			
 			scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpDetails.tmpJourneyType);
 			for(var i=0;i<scope.subJourneyTypes.length;i++){
 				if(scope.subJourneyTypes[i].parentId == scope.tmpDetails.tmpJourneyType){
@@ -378,10 +384,34 @@ angular.module('sigmaCabsApp')
 			scope.fnShowHideBookingButtons();
 		},true);
 
-		scope.$watch('bookingDetails.subJourneyType', function(newVal,oldVal){
+		scope.$watch('bookingDetails.subJourneyType', function(newVal,oldVal){	
 			console.log('CCCCCCCCCCCCC in watch bookingDetails.subJourneyType');
 			scope.makePickupReadOnly = false;
 			scope.makeDropReadOnly = false;
+			
+			if(PreConfigService.aAirportJourneyIds.indexOf(scope.bookingDetails.subJourneyType) != -1) {
+				if(    scope.bookingDetails.subJourneyType == PreConfigService.START_IS_AIRPORT_ID
+					|| scope.bookingDetails.subJourneyType == PreConfigService.START_AND_END_IS_AIRPORT_ID
+					|| scope.bookingDetails.subJourneyType == PreConfigService.START_AIRPORT_PACKAGE_ID
+				) {
+					scope.bookingDetails.pickupPlace = PreConfigService.DEFAULT_ADDR_FOR_AIRPORT;
+					scope.makePickupReadOnly = true;
+				}
+				if(    scope.bookingDetails.subJourneyType == PreConfigService.END_IS_AIRPORT_ID
+					|| scope.bookingDetails.subJourneyType == PreConfigService.MID_IS_AIRPORT_ID
+					|| scope.bookingDetails.subJourneyType == PreConfigService.START_AND_END_IS_AIRPORT_ID
+				) {
+					scope.bookingDetails.dropPlace = PreConfigService.DEFAULT_ADDR_FOR_AIRPORT;
+					scope.makeDropReadOnly = true;
+				}
+			}		
+		},true);
+
+		scope.fnSubJourneyTypeChanged = function() {
+			console.log('CCCCCCCCCCCCC in watch bookingDetails.subJourneyType');
+			scope.makePickupReadOnly = false;
+			scope.makeDropReadOnly = false;
+
 			if(PreConfigService.aAirportJourneyIds.indexOf(scope.bookingDetails.subJourneyType) != -1) {
 				scope.bookingDetails.pickupPlace =  "";
 				scope.bookingDetails.dropPlace =  "";
@@ -400,7 +430,7 @@ angular.module('sigmaCabsApp')
 					scope.makeDropReadOnly = true;
 				}
 			}
-		},true);
+		};
 
 
 		scope.$watch('tmpDetails', function(newVal,oldVal){

@@ -285,6 +285,7 @@ angular.module('sigmaCabsApp')
 
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
+				bookingCode : scope.bookingDetails.bookingCode, 
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
 				pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
 				pickupPlace : scope.bookingDetails.pickupPlace, 
@@ -321,6 +322,7 @@ angular.module('sigmaCabsApp')
 
 			scope.fnApiSaveBooking({
 				id : "", 
+				bookingCode : "",
 				pickupDate : PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate), 
 				pickupTime : scope.bookingDetails.pickupHours +':' + scope.bookingDetails.pickupMinutes + ':00', 
 				pickupPlace : scope.bookingDetails.pickupPlace, 

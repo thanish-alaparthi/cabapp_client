@@ -28,11 +28,11 @@
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes();" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnSubJourneyTypeChanged()"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Drop</label>
