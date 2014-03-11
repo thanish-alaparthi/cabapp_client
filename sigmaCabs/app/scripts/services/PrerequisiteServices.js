@@ -36,7 +36,7 @@ angular.module('sigmaCabsApp')
         return {
             oLs: oLs,
             iApiCount : 0,  // count of successful/Error callback returned.
-            iApiLimit : 0,  // Total number of API calls made.            
+            iApiLimit : 0,  // Total number of API calls made.
             fnEmitEvent : function(sMyDataToken, isFromError){
 
                 var oThis = this;

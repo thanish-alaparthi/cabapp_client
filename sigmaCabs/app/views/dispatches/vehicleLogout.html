@@ -19,7 +19,7 @@
                 <legend class="searchbox-border">Vehicle Logout</legend>
                 <div class="fieldContainer relative left" style="width:180px;">
                     <label class="labelCompact" title="Current Location">Current Loc.</label>
-                    <input type="text" ng-model="logout.currentLocation" maxlength="20" class="textFieldCompact" googleplace />
+                    <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="logout.currentLocation" maxlength="20" class="textFieldCompact" googleplace />
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact">Current Kms</label>
@@ -27,12 +27,12 @@
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left" style="width:180px;">
-                    <label class="labelCompact" title="Next Expected Login Time">Next ELiT</label>
-                    <input type="text" ng-model="logout.nextLoginTime" maxlength="20" class="textFieldCompact"/>
+                    <label class="labelCompact" title="Next Expected Login Location">Next ELiLoc</label>
+                    <input type="text" data-ng-class="{fieldExpand: nextLocationFocused}" data-ng-blur="nextLocationFocused=false" data-ng-focus="nextLocationFocused=true" ng-model="logout.nextLoginLocation" maxlength="20" class="textFieldCompact" googleplace />
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
-                    <label class="labelCompact" title="Next Expected Login Location">Next ELiLoc</label>
-                    <input type="text" ng-model="logout.nextLoginLocation" maxlength="20" class="textFieldCompact" googleplace />
+                    <label class="labelCompact" title="Next Expected Login Time">Next ELiT</label>
+                    <input type="text" ng-model="logout.nextLoginTime" maxlength="20" class="textFieldCompact"/>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative">
@@ -45,7 +45,9 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Fuel Filled?</label>
-                    <input type="checkbox" data-ng-model="logout.isFuel" class="cancelBookingComment" style="width: 15px;height: 15px;"/>
+                    <input type="checkbox" data-ng-model="logout.isFuel" class="cancelBookingComment" style="width: 15px;height: 15px;float: left; margin-right: 5px;"/>
+                    <span class="text-muted left">(for company vehicles)</span>
+                    <p class="clear" />
                 </div>
                 <div ng-show="logout.isFuel">
                     <div class="fieldContainer relative left" style="width:180px;">
@@ -85,7 +87,8 @@
             <p class="clear"/>
         </div>
         <div class="modal-footer">
-            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()" >Save & Close</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveAndClose()">Save</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()">Cancel</button>
         </div>
     </div>
 </div>

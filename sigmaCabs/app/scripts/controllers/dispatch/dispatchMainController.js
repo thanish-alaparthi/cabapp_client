@@ -26,7 +26,7 @@ angular.module('sigmaCabsApp')
                 }
             })
     })
-    .controller('dispatchMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow) {
+    .controller('dispatchMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow, serverService) {
         var scope = $scope;
 
         // Get the preRequisiteData

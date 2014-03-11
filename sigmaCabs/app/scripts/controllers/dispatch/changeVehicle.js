@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('changeVehicle', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('changeVehicle', function(oVehicleData, DispatchService, $rootScope, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 
         var scope = $scope;
         console.log('inside changeVehicle', oVehicleData);
@@ -29,32 +29,40 @@ angular.module('sigmaCabsApp')
                 "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
                 "currentVehicleId": scope.vehicleDetails.vehicleMainDetails.id,
                 "newVehicleId": scope.vChange.newVehicleId || '1', // need to change
+                "location": scope.vChange.location || '',
+                "lattitude": "12345.564",
+                "longitude": "988756.345",
+                "pickupTime": scope.vChange.pickupTime || '0',
                 "amountPaid": scope.vChange.amountPaid || '0',
-                "requester": scope.vChange.categoryId,
+                "changedBy": scope.vChange.categoryId,
                 "reasonId": scope.vChange.reasonId || '',
                 "priority": scope.vChange.priorityId || '',
                 "comments": scope.vChange.comments
             };
 
-            if(oData.newVehicleId === '') {
+            if (oData.newVehicleId === '') {
                 alert('Please select new vehicle');
                 return;
             } else if (oData.driverId === '') {
                 alert('Please select driver in vehicle information');
                 return;
-            } else if (oData.priority === '' || oData.reasonId === '') {
+            } else if (oData.location === '' || oData.priority === '' || oData.reasonId === '') {
                 alert('Please select required information');
                 return;
             }
 
-            DispatchService.fnChangeVehicle(oData)
-                .success(function(data, status, headers, config) {
-                    console.log('Success: ', data);
-                    scope.close();
-                    //alert(data.result[0].message);
-                })
-                .error(function(data, status, headers, config) {
-                    console.log('Error: ', data)
-                });
+            serverService.sendData('P',
+                'booking/saveVehicleChangeInfo',
+                oData, scope.fnChangeVehicleSuccess, scope.fnChangeVehicleError);
         }
+
+        scope.fnChangeVehicleSuccess = function(data, status, headers, config) {
+            console.log('Success: ', data);
+            scope.close();
+            $rootScope.$emit('eventGetVehicleStatus', null);
+            //alert(data.result[0].message);
+        };
+        scope.fnChangeVehicleError = function(data, status, headers, config) {
+            console.log('Error: ', data);
+        };
     });

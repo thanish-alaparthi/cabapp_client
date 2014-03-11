@@ -103,48 +103,6 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnChangeVehicleStatus: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/statechange",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnChangeVehiclePhone: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/mobilechange",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleChangeLocation: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/locationchange",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnVehicleBreakStart: function(oDataParams) {
                 return $http({
                     method: 'POST',
@@ -173,54 +131,12 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnVehicleLogout: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/logout",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnVehicleConfirm: function(oDataParams) {
                 return $http({
                     method: 'POST',
                     url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "vehicle/dispatch",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleBookingStart: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/start",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleBookingClose: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/close",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {
@@ -277,20 +193,6 @@ angular.module('sigmaCabsApp')
                     url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/saveTariffChangeInfo",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnChangeVehicle: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/saveVehicleChangeInfo",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {

@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 
         var scope = $scope,
             currentTimeStamp = new Date(),
@@ -19,6 +19,7 @@ angular.module('sigmaCabsApp')
         scope.vehicleBkngCloseReasonTypes = PrerequisiteService.fnGetReasons();
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
+        scope.bookingClose.discount = scope.vehicleDetails.vehicleMainDetails.details.discount;
         scope.bookingClose.actualKms = scope.vehicleDetails.vehicleMainDetails.details.startKms;
         scope.bookingClose.currentTimeDisplay = currentTimeStamp.getHours() + ':' + currentTimeStamp.getMinutes();
         console.log('Journey Type: ' + scope.vehicleDetails.vehicleMainDetails.tempSelectedJourneyTypeId);
@@ -40,6 +41,10 @@ angular.module('sigmaCabsApp')
                 packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace), // package time + grace time
                 diffMs = (currentTimeMsec - pickupTimeStamp), // milliseconds between now & pickup time
                 diffMinutes = Math.round(diffMs / 60000); // minutes;
+
+            // trip time issue to be fixed
+            scope.bookingClose.tripTime = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(diffMinutes);
+            console.log(scope.bookingClose.tripTime);
             //diffMinutes = 120; // Remove this later
             //console.log('packageTime: ' + packageTime + ' diffMinutes: ' + diffMinutes);
             if (diffMinutes <= packageTime) {
@@ -86,7 +91,7 @@ angular.module('sigmaCabsApp')
             dialog.close();
         }
         scope.fnSaveAndClose = function() {
-            scope.oData = {
+            var oData = {
                 "id": "", // need to check with lala about id
                 "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
                 "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
@@ -100,22 +105,34 @@ angular.module('sigmaCabsApp')
                 "timeConsumed": "240",
                 "tariffOpted": scope.vehicleDetails.vehicleMainDetails.details.tariffId,
                 "tariffActual": "4",
-                "totalAmount": "1500",
+                "totalAmount": bookingClose.totalAmount,
                 "paidAmount": scope.bookingClose.paidAmount,
                 "actualDropPlace": scope.bookingClose.actualDropPlace,
                 "lattitude": "1523.678",
-                "longitude": "678.1523"
+                "longitude": "678.1523",
+                "discount": scope.bookingClose.discount,
+                "reasonId": scope.bookingClose.reasonId || '',
+                "comments": scope.bookingClose.comments
             };
+            console.log(oData);
+            // validations
+            if(isNaN(oData.currentKms) || isNaN(oData.paidAmount)) {
+                alert('Please enter valid information.');
+                return false;
+            }
 
-            DispatchService.fnVehicleBookingClose(scope.oData)
-                .success(function(data, status, headers, config) {
-                    console.log('Success: ', data);
-                    scope.close();
-                    //alert(data.result[0].message);
-                    $rootScope.$emit('eventGetVehicleStatus', null);
-                })
-                .error(function(data, status, headers, config) {
-                    console.log('Error: ', data)
-                });
+            serverService.sendData('P',
+                'booking/close',
+                oData, scope.fnVehicleBookingCloseSuccess, scope.fnVehicleBookingCloseError);
         }
+
+        scope.fnVehicleBookingCloseSuccess = function(data, status, headers, config) {
+            console.log('Success: ', data);
+            scope.close();
+            //alert(data.result[0].message);
+            $rootScope.$emit('eventGetVehicleStatus', null);
+        };
+        scope.fnVehicleBookingCloseError = function(data, status, headers, config) {
+            console.log('Error: ', data);
+        };
     });
