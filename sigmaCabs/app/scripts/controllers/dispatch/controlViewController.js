@@ -106,13 +106,27 @@ angular.module('sigmaCabsApp')
         };
 
 
-        // get the vehicleTypes for filters
+        // get the vehicleTypes for filters        
+        scope.vNames = PrerequisiteService.fnGetVehicleNames();
         scope.vTypes = PrerequisiteService.fnGetVehicleTypes();
+        scope.vNames.push({
+          id: "0",
+          status: "1",
+          tariffType: "0",
+          vehicleName: "All",
+          vehicleType: "0"
+        });
+        scope.vTypes.push({
+          description: "All Vehicle Types",
+          id: "0",
+          status: "1",
+          vehicleType: "All"
+        });
         scope.chbVtype = [];
         for(var i=0,iC=scope.vTypes.length;i<iC;i++){
           scope.chbVtype[scope.vTypes[i].id] = false;
         }
-        
+
         // set default counts for filter statuses
         scope.allCount = 0;
         scope.ytdCount = 0;
@@ -129,6 +143,9 @@ angular.module('sigmaCabsApp')
           'txt' : 'Next 3 hour',
           'val' : '3'
         }];
+        scope.oMonths = PrerequisiteService.fnGetMonthsObjects();
+        scope.oMonths['00'] = 'select';
+
         scope.projHrs = [];
         for(var i=12;i<=24;i+=2) {
           scope.projHrs.push({
@@ -145,10 +162,12 @@ angular.module('sigmaCabsApp')
         }
 
         scope.bdSearch = {
-          vType : '1',
+          vType : '0',
+          vName : '0',
           nxtHrs: '1',
           projHrs : '12',
-          collection: '500'
+          collection: '500',
+          vModMonth : '00'
         };
 
 
@@ -396,6 +415,11 @@ angular.module('sigmaCabsApp')
           scope.bookingInfoDataObjs = angular.copy(data);
           scope.bookingInfoDataLength = data.length;
         }
+        scope.loadAutoLoginVehicleGridData = function(data){
+          scope.bookingInfoData = data;
+          scope.bookingInfoDataObjs = angular.copy(data);
+          scope.bookingInfoDataLength = data.length;
+        }
         scope.loadVehicleDetailsData = function(data){          
           scope.vehicleDetailsData = data;
         }
@@ -507,6 +531,30 @@ angular.module('sigmaCabsApp')
         scope.setBookingInfoGrid_Error = function(xhr, data){
           console.error('in setBookingInfoGrid_Error :: api error');
           scope.loadBookingInfoGridData([]);
+        }
+        /*END: setting the booking info grid*/
+
+        
+        /*START: setting the booking info grid*/
+        scope.setAutoLoginVehicleGrid = function(doEmptyGrid){
+          var oData = {};
+          if(doEmptyGrid && doEmptyGrid == true)
+            scope.loadAutoLoginVehicleGridData([]);
+          else{
+            oData = {
+              "bookingStatus" : ["2", "4"],
+              "pickupDate" : scope.bookingInfoDate
+            };
+            //Need to trigger the server call from here
+            serverService.sendData('P','dispatcher/getAllBookings', oData, scope.fnAutoLoginVehicle_Success, scope.fnAutoLoginVehicle_Error);
+          }
+        }        
+        scope.fnAutoLoginVehicle_Success = function(data){
+          scope.loadAutoLoginVehicleGridData(data);
+        }
+        scope.fnAutoLoginVehicle_Error = function(xhr, data){
+          console.error('in fnAutoLoginVehicle_Error :: api error');
+          scope.loadAutoLoginVehicleGridData([]);
         }
         /*END: setting the booking info grid*/
         
@@ -1047,6 +1095,8 @@ angular.module('sigmaCabsApp')
             scope.showWhileDriving();
           }else if(opt == 'bInfo'){
             scope.showBookingInfo();
+          }else if(opt == 'autoLog'){
+            scope.fnShowAutoLogin();
           }
         }
         var hide_reset_AllMainGridViews = function(){
@@ -1083,6 +1133,11 @@ angular.module('sigmaCabsApp')
           scope.vehiclePanelToggle(false);
           scope.showingBookingsInfoGrid = true;          
           scope.setBookingInfoGrid();          
+        }     
+        scope.fnShowAutoLogin = function(){
+          scope.vehiclePanelToggle(false);
+          scope.showingAutoLoginVehicleGrid = true;          
+          scope.setAutoLoginVehicleGrid();          
         }
         /*END: Handle While-driving and bookings hide-show*/
         

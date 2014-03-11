@@ -36,7 +36,7 @@ angular.module('sigmaCabsApp')
         return {
             oLs: oLs,
             iApiCount : 0,  // count of successful/Error callback returned.
-            iApiLimit : 0,  // Total number of API calls made.
+            iApiLimit : 0,  // Total number of API calls made.            
             fnEmitEvent : function(sMyDataToken, isFromError){
 
                 var oThis = this;
@@ -272,6 +272,23 @@ angular.module('sigmaCabsApp')
                 '30': '30',
                 '40': '40',
                 '50': '50'
+            },
+
+            fnGetMonthsObjects : function() {
+                return { 
+                  '01' : 'Jan',
+                  '02' : 'Feb',
+                  '03' : 'Mar',
+                  '04' : 'Apr',
+                  '05' : 'May',
+                  '06' : 'Jun',
+                  '07' : 'Jul',
+                  '08' : 'Aug',
+                  '09' : 'Sep',
+                  '10' : 'Oct',
+                  '11' : 'Nov',
+                  '12' : 'Dec',
+                };
             },
 
             fnGetJourneyTypes : function(){         // Function to return Only Main JourneyTypes
