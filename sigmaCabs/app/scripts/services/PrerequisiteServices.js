@@ -546,6 +546,34 @@ angular.module('sigmaCabsApp')
                 return hours + " : " + minutes;
             },
 
+            fnDiffInTwoDatesForDisplay: function(oldDate, newDate) {
+                // oldDate && newDate should be in milliseconds
+                var difference = newDate - oldDate,
+                    daysDifference, hoursDifference, minutesDifference,
+                    str = '';
+
+                // days
+                daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+                difference -= daysDifference * 1000 * 60 * 60 * 24;
+                if(daysDifference > 0) {
+                    str += daysDifference + 'Days ';
+                }
+
+                // hours
+                hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+                difference -= hoursDifference * 1000 * 60 * 60;
+                str += hoursDifference + 'hrs ';
+
+                // minutes
+                minutesDifference = Math.floor(difference / 1000 / 60);
+                difference -= minutesDifference * 1000 * 60;
+                str += minutesDifference + 'mins';
+
+                //var secondsDifference = Math.floor(difference / 1000);
+
+                return str;
+            },
+
             fnFormatRatingAndReturnClassArray: function(rating) {
                 var ratingArray = [];
                 rating = (isNaN(rating)) ? 0 : Math.round(rating); // check for number

@@ -19,15 +19,15 @@
                 <legend class="searchbox-border">Closing Report</legend>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact">Start Time</label>
-                    <span>{{vehicleDetails.vehicleMainDetails.details.pickupTime}}</span>
+                    <span style="font-size: 12px;">{{vehicleDetails.vehicleMainDetails.details.displayPickupDate}} {{bookingClose.pickupTimeText}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact">Current Time</label>
-                    <span>{{bookingClose.currentTimeDisplay}}</span>
+                    <span style="font-size: 12px;">{{bookingClose.currentTimeDisplay}}</span>
                 </div>
                 <div class="fieldContainer relative left">
                     <label class="labelCompact">Trip Time</label>
-                    <span>{{bookingClose.tripTime}}</span>
+                    <span class="ellipsisText" title="{{bookingClose.tripTime}}">{{bookingClose.tripTime}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
@@ -62,6 +62,15 @@
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingClose.tariffActual" data-ng-options="obj.id as obj.text for obj in vehiclePackageTypes" disabled></select>
                 </div>
                 <p class="clear"/>
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10">
+                    <label class="labelCompact">Journey Type</label>
+                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes" disabled></select>
+                </div>
+                <div class="fieldContainer fieldContainer-lg relative left">
+                    <label class="labelCompact">Sub-Journey Type</label>
+                    <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="vehicleDetails.vehicleMainDetails.details.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}" disabled></select>
+                </div>
+                <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact" title="Extra Hour Charge">Ex. Hr Chrg.</label>
                     <span>{{bookingClose.extraHrChrg}}</span>
@@ -77,15 +86,15 @@
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact" title="Customer Category">Cust. Catg.</label>
-                    <span>{{vehicleDetails.vehicleMainDetails.details.custCat}}</span>
+                    <span>{{bookingClose.custCat}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact" title="Customer Grade">Cust. Grade</label>
-                    <span>{{vehicleDetails.vehicleMainDetails.details.custGrade}}</span>
+                    <span>{{bookingClose.custGrade}}</span>
                 </div>
                 <div class="fieldContainer relative left">
                     <label class="labelCompact" title="Discount">Discount</label>
-                    <span>{{bookingClose.discount}}</span>
+                    <input type="text" ng-model="bookingClose.discount" maxlength="15" class="textFieldCompact"/>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
