@@ -14,16 +14,18 @@ angular.module('sigmaCabsApp')
             currentTimeStamp = new Date(),
             currentTimeMsec = currentTimeStamp.getTime(),
             pickupTimeStamp,
-            actualPackage;
+            actualPackage, actualAmountBeforeDiscount = 0, initialStartKms = 0;
         console.log('inside vehicleBookingClose', oVehicleData);
         scope.vehicleBkngCloseReasonTypes = PrerequisiteService.fnGetReasons();
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
+        initialStartKms = Math.abs(parseFloat(scope.vehicleDetails.vehicleMainDetails.details.startKms).toFixed(2)) || 0;
+        scope.bookingClose.currentKms = initialStartKms;
         scope.bookingClose.custCat = PrerequisiteService.fnGetCustomerCategoryById(scope.vehicleDetails.vehicleMainDetails.details.category).categoryName;
         scope.bookingClose.custGrade = PrerequisiteService.fnGetGradeById(scope.vehicleDetails.vehicleMainDetails.details.grade).grade;
         scope.bookingClose.pickupTimeText = scope.vehicleDetails.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds
-        scope.bookingClose.discount = scope.vehicleDetails.vehicleMainDetails.details.discount;
-        scope.bookingClose.actualKms = scope.vehicleDetails.vehicleMainDetails.details.startKms;
+        scope.bookingClose.discount = scope.vehicleDetails.vehicleMainDetails.details.discount || 0;
+        scope.bookingClose.actualKms = 0;
         scope.bookingClose.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStamp.getMonth() + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStamp.getHours() + ':' + currentTimeStamp.getMinutes();
         console.log('Journey Type: ' + scope.vehicleDetails.vehicleMainDetails.tempSelectedJourneyTypeId);
         console.log('vehicle Type: ' + scope.vehicleDetails.vehicleMainDetails.vehicleType);
@@ -68,30 +70,72 @@ angular.module('sigmaCabsApp')
         //     scope.close();
         // }
 
-        scope.$watch('bookingClose.currentKms', function(newVal) {
+        //scope.$watch('bookingClose.currentKms', function(newVal) {
+        scope.fnCalculateOnCurrentKms = function() {
+            var newVal = scope.bookingClose.currentKms;
             if (newVal != '' && !isNaN(newVal)) {
-                var currentKms = parseFloat(scope.bookingClose.currentKms),
-                    startKms = scope.vehicleDetails.vehicleMainDetails.details.startKms,
+                newVal = Math.abs(parseFloat(newVal).toFixed(2));
+                if(newVal < initialStartKms) {
+                    //scope.bookingClose.currentKms = initialStartKms;
+                    alert('Current Kms cannot be less than Start kms.');
+                    return false;
+                }
+                var currentKms = newVal,
                     packageBaseAmount = (actualPackage) ? parseFloat(actualPackage.price) : alert('Error in package selection'),
                     packageExtraKmCharge = parseFloat(actualPackage.extraKmPrice),
                     packageKmLimit = parseFloat(actualPackage.kms),
                     packageExtraCharge = parseFloat(actualPackage.extraCharges),
                     totalKmsCharge = 0,
-                    actualKms = 0;
+                    actualKms = 0,
+                    calculatedAmount = 0,
+                    discount = scope.bookingClose.discount,
+                    discountedAmount = 0;
 
-                currentKms = (isNaN(currentKms)) ? startKms : currentKms;
-                actualKms = currentKms - startKms;
+                currentKms = (isNaN(currentKms)) ? initialStartKms : currentKms;
+                actualKms = currentKms - initialStartKms;
                 scope.bookingClose.actualKms = (actualKms < 0) ? 0 : actualKms;
                 console.log('actualKms: ' + actualKms + ' packageKmLimit: ' + packageKmLimit);
                 // change package
-                if (actualKms > packageKmLimit) {
-                    totalKmsCharge = actualKms * packageExtraKmCharge;
+                if (actualKms > 0 && actualKms > packageKmLimit) {
+                    totalKmsCharge = (actualKms - packageKmLimit) * packageExtraKmCharge;
                 }
 
                 // Total Amount
-                scope.bookingClose.totalAmount = packageBaseAmount + totalKmsCharge + packageExtraCharge;
+                calculatedAmount = packageBaseAmount + totalKmsCharge + packageExtraCharge;
+                actualAmountBeforeDiscount = calculatedAmount;
+                if(!isNaN(discount)) {
+                    discountedAmount = (calculatedAmount/100) * discount;
+                    scope.bookingClose.totalAmount = parseFloat(calculatedAmount - discountedAmount).toFixed(2);
+                } else {
+                    scope.bookingClose.totalAmount = calculatedAmount;
+                }
+            } else {
+                alert('Please enter valid kms.');
             }
-        }, true);
+        //}, true);
+        };
+
+        // scope.$watch('bookingClose.discount', function(newVal) {
+        scope.fnCalculateDiscount = function() {
+            var newVal = scope.bookingClose.discount,
+                discountedAmount = 0;
+            if (newVal != '' && !isNaN(newVal) 
+                    // && !isNaN(scope.bookingClose.currentKms)
+                    && !isNaN(actualAmountBeforeDiscount)) {
+                newVal = Math.abs(parseFloat(newVal).toFixed(2));
+
+                // restricting the discount to max 10
+                if(newVal > 10) {
+                    newVal = 10;
+                    scope.bookingClose.discount = 10;
+                }
+                discountedAmount = (actualAmountBeforeDiscount/100) * newVal;
+                scope.bookingClose.totalAmount = parseFloat(actualAmountBeforeDiscount - discountedAmount).toFixed(2);
+            } else {
+                scope.bookingClose.totalAmount = actualAmountBeforeDiscount;
+            }
+            // });
+        }
 
         scope.close = function() {
             dialog.close();
@@ -125,6 +169,11 @@ angular.module('sigmaCabsApp')
             if (isNaN(oData.currentKms) || isNaN(oData.paidAmount)) {
                 alert('Please enter valid information.');
                 return false;
+            }
+
+            // if discount is nothing set it as 0
+            if(oData.discount === '') {
+                oData.discount = 0;
             }
 
             serverService.sendData('P',

@@ -26,8 +26,9 @@
                     <span style="font-size: 12px;">{{bookingClose.currentTimeDisplay}}</span>
                 </div>
                 <div class="fieldContainer relative left">
-                    <label class="labelCompact">Trip Time</label>
-                    <span class="ellipsisText" title="{{bookingClose.tripTime}}">{{bookingClose.tripTime}}</span>
+                    <label class="labelCompact" style="width: 80px;">Trip Time</label>
+                    <span class="ellipsisText" title="{{bookingClose.tripTime}}" style="font-size: 12px;
+width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
@@ -36,10 +37,10 @@
                 </div>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="bookingClose.currentKms" maxlength="15" class="textFieldCompact" value=""/>
+                    <input type="text" ng-model="bookingClose.currentKms" maxlength="10" class="textFieldCompact" data-ng-blur="fnCalculateOnCurrentKms()"/>
                 </div>
                 <div class="fieldContainer relative left">
-                    <label class="labelCompact">Actual Kms</label>
+                    <label class="labelCompact" style="width: 80px;">Trip Kms</label>
                     <span>{{bookingClose.actualKms}}</span>
                 </div>
                 <p class="clear"/>
@@ -94,7 +95,7 @@
                 </div>
                 <div class="fieldContainer relative left">
                     <label class="labelCompact" title="Discount">Discount</label>
-                    <input type="text" ng-model="bookingClose.discount" maxlength="15" class="textFieldCompact"/>
+                    <input type="text" ng-model="bookingClose.discount" maxlength="5" class="textFieldCompact" style="width: 50px;" data-ng-blur="fnCalculateDiscount()"/>&nbsp; &#37;
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
