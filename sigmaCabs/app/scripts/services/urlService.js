@@ -27,8 +27,9 @@ angular.module('sigmaCabsApp')
                 'getUserDetails': "",
                 'userDelete': "",
 
-                'RestApiGetAllJourneyTypes': '?url=journey/all',
-                // 'RestApiGetAllJourneyTypes' : '?url=config/getAllJourneyTypes',
+                // 'RestApiGetAllJourneyTypes': '?url=journey/all',
+                'RestApiGetAllJourneyTypes' : '?url=config/getAllJourneyTypes',
+                'RestApiGetAllSubJourneyTypes' : '?url=config/getAllSubJourneyTypes',
 
                 'RestApiDefaultEmpty': '',
                 'RestApiGetAllReasons': '?url=reason/all',

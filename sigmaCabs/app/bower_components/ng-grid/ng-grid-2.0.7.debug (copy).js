@@ -928,26 +928,24 @@ ngDomAccessProvider.prototype.focusCellElement = function ($scope, index) {
 ngDomAccessProvider.prototype.selectionHandlers = function ($scope, elm) {
     var doingKeyDown = false;
     var self = this;
-    if(!this.grid.config.hasOwnProperty('disableKeyEvents')) {
-        elm.bind('keydown', function (evt) {
-            if (evt.keyCode === 16) { //shift key
-                self.changeUserSelect(elm, 'none', evt);
-                return true;
-            } else if (!doingKeyDown) {
-                doingKeyDown = true;
-                var ret = ngMoveSelectionHandler($scope, elm, evt, self.grid);
-                doingKeyDown = false;
-                return ret;
-            }
+    elm.bind('keydown', function (evt) {
+        if (evt.keyCode === 16) { //shift key
+            self.changeUserSelect(elm, 'none', evt);
             return true;
-        });
-        elm.bind('keyup', function (evt) {
-            if (evt.keyCode === 16) { //shift key
-                self.changeUserSelect(elm, 'text', evt);
-            }
-            return true;
-        });
-    }
+        } else if (!doingKeyDown) {
+            doingKeyDown = true;
+            var ret = ngMoveSelectionHandler($scope, elm, evt, self.grid);
+            doingKeyDown = false;
+            return ret;
+        }
+        return true;
+    });
+    elm.bind('keyup', function (evt) {
+        if (evt.keyCode === 16) { //shift key
+            self.changeUserSelect(elm, 'text', evt);
+        }
+        return true;
+    });
 };
 var ngEventProvider = function (grid, $scope, domUtilityService, $timeout) {
     var self = this;

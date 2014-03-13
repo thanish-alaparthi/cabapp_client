@@ -738,6 +738,22 @@ angular.module('sigmaCabsApp')
           pageSizes: [20, 25, 30],
           pageSize: 20,
           currentPage: 1
+        };
+
+        scope.fnVehicleCodeAdded = function(oRow, oField) {
+          console.log('arguments', arguments);
+          if(confirm('Assign Vehicle:' + oField.sModel + ' to Booking:' + oRow.bookingCode + '?')){
+            scope.fnControlViewVehicleAccepBooking(oField.sModel, oRow.bookingId);
+          }
+        };
+
+        scope.fnTest = function(){
+            scope.gridBookingsData.selectAll(false);
+            scope.tst  = true;
+            $timeout(function(){
+                      // scope.bookingUnSelectedFn();     
+            }, 10);
+           
         }
 
         scope.bookingGridColDefs = [
@@ -748,10 +764,14 @@ angular.module('sigmaCabsApp')
           {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'bookingOrigin', displayName:'Origin', width: '50'},
           {field:'bookingStatus', displayName:'Status', width: '50'},
-          {field:'vehicleCode', displayName:'VID', width: '50'}
+          {field:'vehicleCode', displayName:'VID', width: '100', cellTemplate : '<input ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" />'}
         ];
 
         scope.bookingSelectedFn = function(booking, aVehTyp){
+          if(scope.tst) {
+            scope.tst = false;
+            return;
+          }
           scope.bookingSelected = true;
           var bookingId = booking.bookingId;
           scope.selectedBookingId = bookingId;
@@ -773,6 +793,7 @@ angular.module('sigmaCabsApp')
 
         scope.gridBookingsData = { 
           data: 'bookingData',
+          disableKeyEvents : true,
           columnDefs: 'bookingGridColDefs',
           filterOptions: {
             filterText: "",
@@ -1149,10 +1170,10 @@ angular.module('sigmaCabsApp')
         
         /*START: Accept / Confirm / Reject functionality */
         // In vehicle state = 2
-        scope.fnControlViewVehicleAccepBooking = function() {
+        scope.fnControlViewVehicleAccepBooking = function(sVId, sBId) {
           var oData = {
-            "vehicleId": scope.vehicleDetailsData.vehicle.id,
-            "bookingId": scope.selectedBookingItems[0].bookingId
+            "vehicleId": sVId || scope.vehicleDetailsData.vehicle.id,
+            "bookingId": sBId || scope.selectedBookingItems[0].bookingId
           };
           serverService.sendData('P',
             'dispatcher/resVehicleToBooking',

@@ -34,6 +34,7 @@ angular.module('sigmaCabsApp')
             };
 
         return {
+            iJc : 0,
             oLs: oLs,
             iApiCount : 0,  // count of successful/Error callback returned.
             iApiLimit : 0,  // Total number of API calls made.
@@ -49,9 +50,9 @@ angular.module('sigmaCabsApp')
                     oThis.oLs = {};
                 }
 
-                if(oThis.iApiCount == oThis.iApiLimit) {
-                    $rootScope.$emit('eventPrerequisitsLoaded');
+                if(oThis.iApiCount == oThis.iApiLimit && oThis.fnStoreJourneyTypes()) {
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
+                    $rootScope.$emit('eventPrerequisitsLoaded');
                 }
             },
             fnAddToLocalStorage : function(sType, oResult){
@@ -72,6 +73,13 @@ angular.module('sigmaCabsApp')
                 if(sType == 'tariff'){
                     oThis.fnStoreTariffData();
                 }
+
+                // if(sType == 'journeyTypesOnly' || sType == 'subJourneyTypesOnly'){
+                //     oThis.iJc++;
+                //     if(oThis.iJc ==2){
+                //         oThis.fnStoreJourneyTypes();
+                //     }
+                // }
 
                 return true;
             },
@@ -110,7 +118,18 @@ angular.module('sigmaCabsApp')
                 $http({
                     url: URLService.service('RestApiGetAllJourneyTypes'),
                     method: 'GET',
-                    myDataToken : 'journeyTypes',
+                    myDataToken : 'journeyTypesOnly',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestApiGetAllSubJourneyTypes'),
+                    method: 'GET',
+                    myDataToken : 'subJourneyTypesOnly',
                     oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -388,6 +407,29 @@ angular.module('sigmaCabsApp')
             },
             fnGetTariffData : function(){           // function to return TariffData
                 return this.oLs[this.currentDate]['tariff'];
+            },
+            fnStoreJourneyTypes : function() {
+                var oThis = this,
+                    oJt = oThis.oLs[oThis.currentDate]['journeyTypesOnly'],
+                    oSjt = oThis.oLs[oThis.currentDate]['subJourneyTypesOnly'],
+
+                    oNwJt = [];
+
+                    for(var i=0,iC=oJt.length;i<iC;i++){
+                        oJt[i].parentId = '0';
+                        oJt[i].status = '1';
+                        oNwJt.push(oJt[i]);
+                    }
+                    for(var i=0,iC=oSjt.length;i<iC;i++){
+                        oNwJt.push(oSjt[i]);
+                    }
+
+                    console.log('>>><<<<<>>><<<',oNwJt);
+                    oThis.fnAddToLocalStorage('journeyTypes', oNwJt);
+
+                    return true;
+
+
             },
             fnStoreTariffData : function() {
                 var oThis = this,

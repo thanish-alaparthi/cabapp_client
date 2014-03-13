@@ -876,3 +876,12 @@ textFieldCompact[disabled] .textFieldCompact {
 .autoWidth {
   width: 100%;
 }
+
+#dispatcherBookingsListGrid .ngCellText span {
+  cursor: pointer !important;
+}
+
+.ngGrid input {
+  vertical-align: middle;
+  margin-top: 2px;
+}
