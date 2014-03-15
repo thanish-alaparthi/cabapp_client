@@ -145,20 +145,6 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnUpdateVehPickupLocation: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/savePickupChangeInfo",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnLoadCurrentDayData: function(oDataParams) {
                 return $http({
                     method: 'POST',

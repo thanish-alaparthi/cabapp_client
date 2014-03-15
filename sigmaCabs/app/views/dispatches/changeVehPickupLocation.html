@@ -19,11 +19,11 @@
                 <legend class="searchbox-border">Change Pickup Location</legend>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Current Location</label>
-                    <span>{{vehicleDetails.vehicleMainDetails.location}}</span>
+                    <span class="ellipsisText" title="{{vehicleDetails.vehicleMainDetails.location}}">{{vehicleDetails.vehicleMainDetails.location}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">New Location</label>
-                    <input type="text" ng-model="changePickup.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
+                    <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" data-ng-model="changePickup.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;">
                     <label class="labelCompact">Comments</label>

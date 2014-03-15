@@ -6,7 +6,7 @@
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Pickup Time</label>
-        <span>{{vehicleMainDetails.details.pickupTime}}</span>
+        <span>{{vehicleMainDetails.details.pickupTimeText}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
@@ -55,11 +55,11 @@
     </div> -->
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Landmark1</label>
-        <span>{{vehicleMainDetails.details.landmark1}}</span>
+        <span class="ellipsisText" title="{{vehicleMainDetails.details.landmark1}}">{{vehicleMainDetails.details.landmark1}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Landmark2</label>
-        <span>{{vehicleMainDetails.details.landmark2}}</span>
+        <span class="ellipsisText" title="{{vehicleMainDetails.details.landmark2}}">{{vehicleMainDetails.details.landmark2}}</span>
     </div>
     <p class="clear"/>
     <hr class="buttonSpliter" />

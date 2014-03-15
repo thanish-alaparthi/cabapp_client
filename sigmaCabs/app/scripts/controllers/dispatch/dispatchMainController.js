@@ -333,6 +333,7 @@ angular.module('sigmaCabsApp')
                             scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
                             scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
                             scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
+                            scope.vehicleMainDetails.details.pickupTimeText = scope.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds
                             if (scope.vehicleMainDetails.vehicleState == "4") {
                                 scope.vStateHeading = ' - Allot';
                             } else if (scope.vehicleMainDetails.vehicleState == "5") {

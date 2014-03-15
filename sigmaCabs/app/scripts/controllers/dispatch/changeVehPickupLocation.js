@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('changeVehPickupLocation', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+    .controller('changeVehPickupLocation', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 
         var scope = $scope;
         console.log('inside changeVehPickupLocation', oVehicleData);
@@ -31,19 +31,25 @@ angular.module('sigmaCabsApp')
                 "comments": scope.changePickup.comments
             };
 
-            if(oData.newLocation === '') {
+            console.log(oData);
+
+            // validations
+            if (oData.newLocation === '') {
                 alert('Please enter new location');
                 return;
             }
 
-            DispatchService.fnUpdateVehPickupLocation(oData)
-                .success(function(data, status, headers, config) {
-                    console.log('Success: ', data);
-                    scope.close();
-                    //alert(data.result[0].message);
-                })
-                .error(function(data, status, headers, config) {
-                    console.log('Error: ', data)
-                });
+            serverService.sendData('P',
+                'booking/savePickupChangeInfo',
+                oData, scope.fnUpdateVehPickupLocationSuccess, scope.fnUpdateVehPickupLocationError);
         }
+
+        scope.fnUpdateVehPickupLocationSuccess = function(data, status, headers, config) {
+            console.log('Success: ', data);
+            scope.close();
+            //alert(data.result[0].message);
+        };
+        scope.fnUpdateVehPickupLocationError = function(data, status, headers, config) {
+            console.log('Error: ', data);
+        };
     });
