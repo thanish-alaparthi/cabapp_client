@@ -26,7 +26,7 @@ angular.module('sigmaCabsApp')
         currentTimeStampHrs = (currentTimeStampHrs < 10) ? '0' + currentTimeStampHrs : currentTimeStampHrs;
         currentTimeStampMins = (currentTimeStampMins < 10) ? '0' + currentTimeStampMins : currentTimeStampMins;
         console.log('inside vehicleBookingClose', oVehicleData);
-        scope.vehicleBkngCloseReasonTypes = PrerequisiteService.fnGetReasons();
+        scope.vehicleBkngCloseReasonTypes = PrerequisiteService.fnGetReasonsById(7);
         scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
 
         scope.vehicleDetails = oVehicleData;

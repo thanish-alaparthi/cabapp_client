@@ -15,7 +15,7 @@ angular.module('sigmaCabsApp')
 		console.log('inside changeVehicleStatus', oVehicleData);
 
 		scope.vChangeStatus = {};
-		scope.vehicleChangeStatusReasonTypes = PrerequisiteService.fnGetReasons();
+		scope.vehicleChangeStatusReasonTypes = PrerequisiteService.fnGetReasonsById(10);
 		scope.vehiclePriorities = PrerequisiteService.priorities;
 
 		scope.vehicleDetails = oVehicleData;

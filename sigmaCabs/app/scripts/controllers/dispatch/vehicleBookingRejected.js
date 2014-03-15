@@ -12,7 +12,7 @@ angular.module('sigmaCabsApp')
         var scope = $scope;
         console.log('inside vehicleBookingRejected', oVehicleData);
         scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
-        scope.vehicleBkngRejectReasonTypes = PrerequisiteService.fnGetReasons();
+        scope.vehicleBkngRejectReasonTypes = PrerequisiteService.fnGetReasonsById(3);
         scope.vehiclePriorities = PrerequisiteService.priorities;
 
         scope.vehicleDetails = oVehicleData;

@@ -16,7 +16,7 @@ angular.module('sigmaCabsApp')
 		scope.vehicleDetails = oVehicleData;
 		scope.breakDown = {};
 		scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
-		scope.vehicleReasonTypes = PrerequisiteService.fnGetReasons();
+		scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(11);
 		scope.vehiclePriorities = PrerequisiteService.priorities;
 
 

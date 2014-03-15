@@ -17,7 +17,7 @@ angular.module('sigmaCabsApp')
         scope.vChange = {};
         scope.vChange.amountPaid = "0";
         scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
-        scope.vehicleReasonTypes = PrerequisiteService.fnGetReasons();
+        scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(8);
         scope.vehiclePriorities = PrerequisiteService.priorities;
 
         scope.close = function() {

@@ -50,7 +50,10 @@ angular.module('sigmaCabsApp')
                     oThis.oLs = {};
                 }
 
-                if(oThis.iApiCount == oThis.iApiLimit && oThis.fnStoreJourneyTypes()) {
+                if(oThis.iApiCount == oThis.iApiLimit 
+                    && oThis.fnStoreJourneyTypes()
+                    && oThis.fnStoreReasonsByCategoryId()) {
+
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
                     $rootScope.$emit('eventPrerequisitsLoaded');
                 }
@@ -449,8 +452,6 @@ angular.module('sigmaCabsApp')
                     oThis.fnAddToLocalStorage('journeyTypes', oNwJt);
 
                     return true;
-
-
             },
             fnStoreTariffData : function() {
                 var oThis = this,
@@ -682,9 +683,27 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
-            fnGetReasons : function(){
+            fnGetReasonsById : function(sCategoryId){
                 var oThis = this;
-                return oThis.oLs[oThis.currentDate]['reasons'];
+                
+                return oThis.oLs[oThis.currentDate]['reasonsByCategoryId'][sCategoryId];
+            },
+            fnStoreReasonsByCategoryId : function(){
+                var oThis = this,
+                    reasonByCat = {},
+                    aReasons = oThis.oLs[oThis.currentDate]['reasons'];
+
+                for (var i = 0, reasonsLength = aReasons.length; i < reasonsLength; i++) {
+                    if(reasonByCat[aReasons[i].categoryId] == undefined) {
+                       reasonByCat[aReasons[i].categoryId] = []; 
+                    }
+                    reasonByCat[aReasons[i].categoryId].push(aReasons[i]);
+                };
+                console.log(reasonByCat);
+
+                oThis.fnAddToLocalStorage('reasonsByCategoryId', reasonByCat);
+
+                return true;
             },
             // fnGetStatistics: function() {
             //     var oThis = this;

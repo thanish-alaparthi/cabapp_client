@@ -21,7 +21,7 @@ angular.module('sigmaCabsApp')
 		scope.priorityId = '1';
 		scope.reasonId = '1';
 		scope.priorities = PrerequisiteService.priorities;
-		scope.reason = PrerequisiteService.fnGetReasons();
+		scope.reason = PrerequisiteService.fnGetReasonsById(0);
 
 		scope.close = function() {
 			dialog.close();

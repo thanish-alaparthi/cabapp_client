@@ -15,7 +15,7 @@ angular.module('sigmaCabsApp')
         console.log('inside vehicleBookingStart', oVehicleData);
 
         scope.vehicleDetails = oVehicleData;
-        scope.vehicleReasonTypes = PrerequisiteService.fnGetReasons();
+        scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(4);
         scope.bookingStart = {};
         scope.bookingStart.ratingValue = 2;
         scope.bookingStart.nextBooking = scope.vehicleDetails.vehicleMainDetails.details.nextBooking;

@@ -11,7 +11,7 @@ angular.module('sigmaCabsApp')
 	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 		var scope = $scope;
 		console.log('inside vehicleBreakStart', oVehicleData);
-		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasons();
+		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasonsById(13);
 
 		scope.vehicleDetails = oVehicleData;
 		scope.breakStart = {};

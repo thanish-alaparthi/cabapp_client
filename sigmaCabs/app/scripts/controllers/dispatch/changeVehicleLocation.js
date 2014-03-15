@@ -11,7 +11,7 @@ angular.module('sigmaCabsApp')
 
 		var scope = $scope;
 		console.log('inside changeVehicleLocation', oVehicleData);
-		scope.vehicleChangeLocReasonTypes = PrerequisiteService.fnGetReasons();
+		scope.vehicleChangeLocReasonTypes = PrerequisiteService.fnGetReasonsById(6);
 
 		scope.vehicleDetails = oVehicleData;
 		scope.changeLocation = {};
