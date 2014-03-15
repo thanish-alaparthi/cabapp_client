@@ -19,7 +19,7 @@ angular.module('sigmaCabsApp')
         scope.customerDetails = oCustomer;
 
         scope.selectedJourneyType = PrerequisiteService.fnGetMainJourneyTypeObjectBySubJourneyTypeId(oBooking.subJourneyType);
-        scope.selectedSubJourneyType = PrerequisiteService.fnGetJourneyObjectById(oBooking.subJourneyType);
+        scope.selectedSubJourneyType = PrerequisiteService.fnGetSubJourneyObjectById(oBooking.subJourneyType);
 
         scope.selectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(oBooking.vehicleType);
         scope.selectedVehicleName = PrerequisiteService.fnGetVehicleNameById(oBooking.vehicleName);
@@ -58,8 +58,8 @@ angular.module('sigmaCabsApp')
 		scope.selctedTariffType = {};
 
 
-		$scope.fnEditCell = function (row, cell, columnSelected, col, cellId){
-			console.log('@@@@@@@@', cellId, $('#' + cellId));
+		$scope.fnEditCell = function (row, cell, columnSelected, col, cellId, t){
+			console.log('@@@@@@@@', cellId, $('#' + cellId), t);
 			var tariffObj = row['tariffObj_' + columnSelected];
 			console.log('Selected Package: ', tariffObj);
 
@@ -96,7 +96,7 @@ angular.module('sigmaCabsApp')
 	    $scope.selectedRow;
 	    $scope.selectedColumn;
 	    
-	    var basicCellTemplate = '<div id="{{col.field + \'_color\' + col.id + row.getProperty(col.field)}}"  class="ngCellText col3 colt3" ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }"  ng-class="{myHoverClass: row.getProperty(col.field + \'_colorClass\')}" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,col.field + \'_color\' + col.id + row.getProperty(col.field));"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
+	    var basicCellTemplate = '<div id="{{row.getProperty(\'vt_\' + col.field)}}"  class="ngCellText col3 colt3" ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }"  ng-class="{myHoverClass: row.getProperty(col.field + \'_colorClass\')}" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,row.getProperty(\'vt_\' + col.field), col );"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>';
 	    
 
         scope.fnColorRows = function(oData){

@@ -466,14 +466,16 @@ angular.module('sigmaCabsApp')
                         tariffDataLength = tariffData.length,
                         oTd = [],
                         sTmpDuration = '',
-                        sTmpKms = '';
+                        sTmpKms = '',
+                        aSubJtypeDone = [];
 
                     oPackage[k] = {};
                     oTariffByVtypeAndJtype[k] = {};
                     for (var i = 0; i < tariffDataLength; i++) {
                         var oTempPackage = tariffData[i],
                             // as per new change subjourneytype = tariff id
-                            tariffId = tariffData[i].id;
+                            tariffId = tariffData[i].id,
+                            sTmpSubJtype = '';
 
                         oTariffById[tariffId] = tariffData[i];
                         oPackage[k][tariffData[i].vehicleType] = oPackage[k][tariffData[i].vehicleType] || [];
@@ -492,38 +494,36 @@ angular.module('sigmaCabsApp')
 
                         oTariffByVtypeAndJtype[k][tariffData[i].vehicleType] = oTariffByVtypeAndJtype[k][tariffData[i].vehicleType] || [];
                         oTariffByVtypeAndJtype[k][tariffData[i].vehicleType].push(oTempPackage);
-                        oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] = oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] || {};
+						oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] = oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] || {};
                         oTariffByVtypeAndSubJtype[tariffData[i].vehicleType][tariffData[i].subJourneyType] = oTempPackage;
-                        for(var j=i;j<tariffData.length;j++){
-                            if(tariffData[i].duration == tariffData[j].duration
-                                && tariffData[i].kms == tariffData[j].kms
-                            ){
+                        for (var j = 0; j < tariffDataLength; j++) {
+                            if(tariffData[i].subJourneyType == tariffData[j].subJourneyType){
                                 tariffRow['vehicleType' + tariffData[j].vehicleType] = tariffData[j].price;
-                                tariffRow['tariffObj_vehicleType' + tariffData[j].vehicleType] = tariffData[j];
+                                tariffRow['tariffObj_vehicleType' + tariffData[j].vehicleType] = tariffData[j];                                
+                                tariffRow['vt_vehicleType' + tariffData[j].vehicleType] = tariffData[j].id;
                             }
-
                         }
-                        if(sTmpDuration != tariffData[i].duration && sTmpKms != tariffData[i].kms) {
+
+                        if(aSubJtypeDone.indexOf(tariffData[i].subJourneyType) == -1){
                             oTd.push(tariffRow);
-                            sTmpDuration = tariffData[i].duration;
-                            sTmpKms = tariffData[i].kms;
+                            aSubJtypeDone.push(tariffData[i].subJourneyType);
                         }
                     }
                     aFormatedTd[k] = oTd;
                 }
-                oThis.fnAddToLocalStorage('tariffTypeOnVehicleType', aFormatedTd);
+                oThis.fnAddToLocalStorage('tariffTypeOnJtype', aFormatedTd);
                 oThis.fnAddToLocalStorage('tariffById', oTariffById);
                 oThis.fnAddToLocalStorage('tariffByVtypeAndJtype', oTariffByVtypeAndJtype);
                 oThis.fnAddToLocalStorage('tariffByVtypeAndSubJtype', oTariffByVtypeAndSubJtype);
                 oThis.fnAddToLocalStorage('vehilcePackageByJtype', oPackage);
             },
-            fnGetTariffByVehicleType : function(sVehicleType){
+            fnGetTariffByVehicleType : function(sJourneyType){
                 var oThis = this;
 
-                return oThis.oLs[oThis.currentDate]['tariffTypeOnVehicleType'][sVehicleType] || null;
+                return oThis.oLs[oThis.currentDate]['tariffTypeOnJtype'][sJourneyType] || null;
             },
 
-            fnGetTariffByVtypeAndJtype : function(sVehicleType, subJourneyType){
+            fnGetTariffByVtypeAndSubJtype : function(sVehicleType, subJourneyType){
                 var oThis = this;
 
                 return oThis.oLs[oThis.currentDate]['tariffByVtypeAndSubJtype'][sVehicleType][subJourneyType] || null;

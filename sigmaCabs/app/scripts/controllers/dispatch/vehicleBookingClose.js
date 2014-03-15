@@ -43,7 +43,7 @@ angular.module('sigmaCabsApp')
         scope.bookingClose.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStamp.getMonth() + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStampHrs + ':' + currentTimeStampMins;
         console.log('Journey Type: ' + scope.vehicleDetails.vehicleMainDetails.tempSelectedJourneyTypeId);
         console.log('vehicle Type: ' + scope.vehicleDetails.vehicleMainDetails.vehicleType);
-        scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffByVtypeAndJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);
+        scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);
         console.log(scope.bookingClose.tariffDetails);
         scope.bookingClose.modifiedPackageShow = false;
 
@@ -100,8 +100,8 @@ angular.module('sigmaCabsApp')
         // update the package if modified by user
         scope.fnUpdatePackage = function() {
             console.log(scope.bookingClose.subJourneyType);
-            console.log(PrerequisiteService.fnGetTariffByVtypeAndJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType));
-            modifiedPackage = PrerequisiteService.fnGetTariffByVtypeAndJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType);
+            console.log(PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType));
+            modifiedPackage = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType);
             currentPackage = angular.copy(modifiedPackage);
             scope.bookingClose.modifiedPackageText = modifiedPackage.text;
             scope.bookingClose.modifiedPackageShow = true;

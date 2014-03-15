@@ -527,8 +527,8 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnSelectTariffBySubJourneyType = function(){
-			var oTariff = PrerequisiteService.fnGetTariffByJtypeVType(scope.bookingDetails.subJourneyType, scope.bookingDetails.vehicleType);
-			console.log('oTariff',oTariff);
+			// var oTariff = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.bookingDetails.vehicleType, scope.bookingDetails.subJourneyType);
+			// console.log('oTariff',oTariff);
 		};
 
 		scope.fnOpenCustFeedback = function() {

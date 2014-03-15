@@ -31,14 +31,14 @@ angular.module('sigmaCabsApp')
             DEFAULT_ADDR_FOR_AIRPORT : 'RGIA, Hyderabad, Andhra Pradesh, India',
 
             // IDs of subJourney types 
-            START_IS_AIRPORT_ID : '20',
-            END_IS_AIRPORT_ID : '19',
-            MID_IS_AIRPORT_ID : '21',
-            START_AND_END_IS_AIRPORT_ID : '22',
-            START_AIRPORT_PACKAGE_ID : '23',
+            START_IS_AIRPORT_ID : '14',
+            END_IS_AIRPORT_ID : '13',
+            MID_IS_AIRPORT_ID : '15',
+            START_AND_END_IS_AIRPORT_ID : '16',
+            START_AIRPORT_PACKAGE_ID : '17',
 
             // array of subJourneyTypes IDs which has airport as either start or end.
-            aAirportJourneyIds : ['20', '19', '21', '22', '23']
+            aAirportJourneyIds : ['13', '14', '15', '16', '17']
         };
         
     });

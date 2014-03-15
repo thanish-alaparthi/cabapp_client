@@ -75,7 +75,7 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpVehicleName = '1';
 
             scope.tmpDetails.tmpJourneyType = '1';
-            scope.bookingDetails.subJourneyType = '5'; 
+            // scope.bookingDetails.subJourneyType = '5'; 
 
             // also clear selected Tariff Grid
             $rootScope.$emit('eventTariffGridDataChanged', null);
@@ -432,7 +432,7 @@ angular.module('sigmaCabsApp')
 
             var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(oData.bookingDetails.subJourneyType);
 
-            scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
+            scope.tmpDetails.tmpJourneyType = oTmpJt.id;
 
             scope.bookingDetails = oData.bookingDetails;
             scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate, true);    // setDate in DD/MM/YYYY format;
