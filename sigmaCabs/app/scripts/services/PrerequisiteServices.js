@@ -160,17 +160,6 @@ angular.module('sigmaCabsApp')
 
                 oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
                 $http({
-                    url: URLService.service('RestApiGetAllReasons'),
-                    method: 'GET',
-                    myDataToken : 'reason',
-                    oMe : oThis,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
-
-                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
-                $http({
                     url: URLService.service('RestApiGetAllTariff'),
                     method: 'GET',
                     myDataToken : 'tariff',
@@ -469,7 +458,8 @@ angular.module('sigmaCabsApp')
                     aFormatedTd = {},
                     oTariffById = {},
                     oPackage = {},
-                    oTariffByVtypeAndJtype = {};
+                    oTariffByVtypeAndJtype = {},
+                    oTariffByVtypeAndSubJtype = {};
 
                 for(var k in aTd){
                     var tariffData = aTd[k],
@@ -502,6 +492,8 @@ angular.module('sigmaCabsApp')
 
                         oTariffByVtypeAndJtype[k][tariffData[i].vehicleType] = oTariffByVtypeAndJtype[k][tariffData[i].vehicleType] || [];
                         oTariffByVtypeAndJtype[k][tariffData[i].vehicleType].push(oTempPackage);
+                        oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] = oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] || {};
+                        oTariffByVtypeAndSubJtype[tariffData[i].vehicleType][tariffData[i].subJourneyType] = oTempPackage;
                         for(var j=i;j<tariffData.length;j++){
                             if(tariffData[i].duration == tariffData[j].duration
                                 && tariffData[i].kms == tariffData[j].kms
@@ -522,6 +514,7 @@ angular.module('sigmaCabsApp')
                 oThis.fnAddToLocalStorage('tariffTypeOnVehicleType', aFormatedTd);
                 oThis.fnAddToLocalStorage('tariffById', oTariffById);
                 oThis.fnAddToLocalStorage('tariffByVtypeAndJtype', oTariffByVtypeAndJtype);
+                oThis.fnAddToLocalStorage('tariffByVtypeAndSubJtype', oTariffByVtypeAndSubJtype);
                 oThis.fnAddToLocalStorage('vehilcePackageByJtype', oPackage);
             },
             fnGetTariffByVehicleType : function(sVehicleType){
@@ -605,7 +598,6 @@ angular.module('sigmaCabsApp')
                 var aD = sTime.split(':');
                 return aD[0];
             },
-
 
             fnFormatMinutes : function(sTime){
                 if(!sTime || sTime.length < 8){
@@ -692,13 +684,13 @@ angular.module('sigmaCabsApp')
             },
             fnGetReasons : function(){
                 var oThis = this;
-                return oThis.oLs[oThis.currentDate]['reason'];
+                return oThis.oLs[oThis.currentDate]['reasons'];
             },
-			// fnGetStatistics : function(){
-   //              var oThis = this;
-   //              //return oThis.oLs[oThis.currentDate]['statistics'];
-   //              return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
-   //          },
+            // fnGetStatistics: function() {
+            //     var oThis = this;
+            //     //return oThis.oLs[oThis.currentDate]['statistics'];
+            //     return oThis.oLs[oThis.currentDate]['statistics']['statistics'];
+            // },
             fnGetVehicleNames : function(){
                 var oThis = this;
                 return oThis.oLs[oThis.currentDate]['vehicleNames'];
