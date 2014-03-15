@@ -1067,6 +1067,22 @@ angular.module('sigmaCabsApp')
                 }];
             },
 
+            fnValidateBookingTime : function(sDate,  sTm) {
+
+                var oThis = this,
+                    sPkTm = sDate + ' ' + sTm,
+                    oPkDt = new Date(sPkTm),
+                    oCDt = new Date();
+
+                    console.log(oPkDt);
+                    if(oCDt.getTime() + 1800000  <= oPkDt.getTime() ){
+                        return true
+                    }
+
+                    return false;
+
+            },
+
 
             /* Old settings. will be deleted later */
             isPrimaryTraveller: {
