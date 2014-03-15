@@ -119,18 +119,18 @@ angular.module('sigmaCabsApp')
           };
 
           // get the vehicleTypes for filters        
-          scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
+          scope.subJourneyTypes = angular.copy(PrerequisiteService.fnGetAllJourneyTypes());
           
-          scope.oSearchBy = PrerequisiteService.fnGetSearchByTypes();
-          scope.journeyTypes = PrerequisiteService.fnGetAllJourneyTypes();
+          scope.oSearchBy = angular.copy(PrerequisiteService.fnGetSearchByTypes());
+          scope.journeyTypes = angular.copy(PrerequisiteService.fnGetAllJourneyTypes());
           scope.journeyTypes.push({
             id: "",
             journeyType: "----All----",
             parentId: "0"
           });
-          scope.vNames = PrerequisiteService.fnGetVehicleNames();
-          scope.vTypes = PrerequisiteService.fnGetVehicleTypes();
-          scope.vStates = PrerequisiteService.fnGetAllVehicleStatus();
+          scope.vNames = angular.copy(PrerequisiteService.fnGetVehicleNames());
+          scope.vTypes = angular.copy(PrerequisiteService.fnGetVehicleTypes());
+          scope.vStates = angular.copy(PrerequisiteService.fnGetAllVehicleStatus());
           scope.vStates.push({
             description: "----All----",
             id: "",
@@ -163,9 +163,9 @@ angular.module('sigmaCabsApp')
             });
           }
 
-          scope.vAttTypes = PrerequisiteService.fnGetAttachmentTypes();
-          scope.vConditions = PrerequisiteService.fnGetVehicleConditionTypes();
-          scope.vModYear = PrerequisiteService.fnGetVehicleManufacturingYears();
+          scope.vAttTypes = angular.copy(PrerequisiteService.fnGetAttachmentTypes());
+          scope.vConditions = angular.copy(PrerequisiteService.fnGetVehicleConditionTypes());
+          scope.vModYear = angular.copy(PrerequisiteService.fnGetVehicleManufacturingYears());
           scope.vNames.push({
             id: "0",
             status: "1",
@@ -200,7 +200,7 @@ angular.module('sigmaCabsApp')
             'txt' : 'Next 3 hour',
             'val' : '3'
           }];
-          scope.oMonths = PrerequisiteService.fnGetMonthsObjects();
+          scope.oMonths = angular.copy(PrerequisiteService.fnGetMonthsObjects());
           scope.oMonths['00'] = 'select';
 
           scope.projHrs = [];
