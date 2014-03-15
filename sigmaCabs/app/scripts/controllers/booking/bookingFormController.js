@@ -527,8 +527,25 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnSelectTariffBySubJourneyType = function(){
-			// var oTariff = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.bookingDetails.vehicleType, scope.bookingDetails.subJourneyType);
-			// console.log('oTariff',oTariff);
+			var oTariff = angular.copy(PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.tmpDetails.tmpVehicleType, scope.bookingDetails.subJourneyType));
+			console.log('oTariff',oTariff);
+			
+			$rootScope.$emit('eventSingleTariffSelected', {
+				tariffDetails : {
+					amount: oTariff.price,
+					comments: oTariff.comments,
+					distance: oTariff.distance,
+					duration: oTariff.duration,
+					extraCharges: oTariff.extraCharges1,
+					extraHour: oTariff.extraHrPrice,
+					extraKm: oTariff.extraKmPrice,
+					graceTime: oTariff.grace,
+					id: oTariff.id,
+					vehicleName: PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName)['vehicleName'],
+					vehicleType: PrerequisiteService.fnGetVehicleTypeById(oTariff.vehicleType)['vehicleType']
+				},
+				tariffId : oTariff.id
+			});
 		};
 
 		scope.fnOpenCustFeedback = function() {

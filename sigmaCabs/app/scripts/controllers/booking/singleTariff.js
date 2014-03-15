@@ -152,6 +152,9 @@ angular.module('sigmaCabsApp')
 	    		tariffId : oT.id,
 	    		tariffDetails: oT
 	    	});
+	    	$rootScope.$emit('eventChangeSubJourneyType', {
+	    		subJourneyType : scope.selctedTariffType.subJourneyType
+	    	});
 
 	    	scope.close();
 	    };

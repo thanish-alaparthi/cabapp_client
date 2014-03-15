@@ -413,9 +413,9 @@ angular.module('sigmaCabsApp')
 
 				if(data.status == 500){
 					if(	data.result 
-						& data.result.length
+						&& data.result.length
 					){
-						alert(data.result[0].message);
+						alert(data.result[0].errorMessage);
 					} else {
 						alert('There was some error in saving booking details.');
 					}
@@ -482,6 +482,12 @@ angular.module('sigmaCabsApp')
 			scope.bookingDetails.tariffDuration = oData.tariffDetails.duration;
 			scope.bookingDetails.tariffGrace = oData.tariffDetails.graceTime;
         	scope.fnRefreshBookingTariffGrid(oData.tariffDetails);
+        });
+
+         // catch eventSingleTariffSelected to reload tariffGrid.
+        $rootScope.$on('eventChangeSubJourneyType', function(ev, oData) {
+        	console.log('on eventChangeSubJourneyType', oData);
+        	scope.bookingDetails.subJourneyType = oData.subJourneyType;
         });
 
         // catch eventVehicleTypeChanged to reload tariffGrid.

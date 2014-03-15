@@ -32,7 +32,7 @@
     </div>
     <div class="fieldContainer  relative right">
         <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
-        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}" data-ng-click="fnSelectTariffBySubJourneyType();"></select>
+        <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}" data-ng-change="fnSelectTariffBySubJourneyType();"></select>
     </div>
     <div class="fieldContainer  relative left">
         <label class="labelCompact">Drop</label>

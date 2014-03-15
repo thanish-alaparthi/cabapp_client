@@ -337,13 +337,14 @@ angular.module('sigmaCabsApp')
             },
             fnGetJourneyTypeBySubJourneyTypeId : function(sId){         // Function to return Only Main JourneyTypes
                 // filter main journey types i.e. where parentId = 0;
-                var aRtn = [],
-                    oJt = this.oLs[this.currentDate]['journeyTypes'],
+                var oThis = this,
+                    aRtn = [],
+                    oJt = oThis.oLs[oThis.currentDate]['journeyTypes'],
                     iCount = oJt.length;
 
                 for(var i=0;i<iCount;i++){
-                    if(oJt[i].id == sId) {
-                        return oJt[i];
+                    if(oJt[i].id == sId && oJt[i].parentId != '0') {
+                        return oThis.fnGetJourneyObjectById(oJt[i].parentId);
                     }
                 }
                 return null;
