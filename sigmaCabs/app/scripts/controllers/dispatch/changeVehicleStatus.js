@@ -15,7 +15,7 @@ angular.module('sigmaCabsApp')
 		console.log('inside changeVehicleStatus', oVehicleData);
 
 		scope.vChangeStatus = {};
-		scope.vehicleChangeStatusReasonTypes = PrerequisiteService.fnGetReasonsById(10);
+		scope.vehicleChangeStatusReasonTypes = PrerequisiteService.fnGetReasonsById(11);
 		scope.vehiclePriorities = PrerequisiteService.priorities;
 
 		scope.vehicleDetails = oVehicleData;
@@ -39,13 +39,16 @@ angular.module('sigmaCabsApp')
 			};
 			console.log(oData);
 			// validations
-			/*if (oData.requester === '' || oData.reasonId === '') {
+			if(oData.stateFrom === oData.stateTo) {
+				alert('Please select a new status');
+				return;
+			} else if (oData.priority === '' || oData.reasonId === '') {
                 alert('Please select required information');
                 return;
             } else if (oData.driverId === '') {
                 alert('Please select driver in vehicle information');
                 return;
-            }*/
+            }
 
 			serverService.sendData('P',
 				'vehicle/statechange',

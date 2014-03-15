@@ -12,7 +12,7 @@ angular.module('sigmaCabsApp')
         var scope = $scope;
         console.log('inside vehicleBookingRejected', oVehicleData);
         scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
-        scope.vehicleBkngRejectReasonTypes = PrerequisiteService.fnGetReasonsById(3);
+        scope.vehicleBkngRejectReasonTypes = PrerequisiteService.fnGetReasonsById(4);
         scope.vehiclePriorities = PrerequisiteService.priorities;
 
         scope.vehicleDetails = oVehicleData;
@@ -34,13 +34,13 @@ angular.module('sigmaCabsApp')
                     "comments": scope.vReject.comments
                 };
 
-            /*if (oData.requester === '' || oData.reasonId === '') {
+            if (oData.bookingId === '' || oData.priority === '' || oData.reasonId === '') {
                 alert('Please select required information');
                 return;
             } else if (scope.vReject.categoryId === 4 && driverId === '') {
                 alert('Please select driver in vehicle information');
                 return;
-            }*/
+            }
 
             DispatchService.fnVehicleRejectBooking(oData)
                 .success(function(data, status, headers, config) {

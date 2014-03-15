@@ -11,7 +11,7 @@ angular.module('sigmaCabsApp')
 	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 		var scope = $scope;
 		console.log('inside vehicleBreakStart', oVehicleData);
-		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasonsById(13);
+		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasonsById(14);
 
 		scope.vehicleDetails = oVehicleData;
 		scope.breakStart = {};
@@ -35,13 +35,13 @@ angular.module('sigmaCabsApp')
 			console.log(oData);
 
 			// validations
-			/*if (oData.reasonId === '') {
+			if (oData.location === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
 			} else if (driverId === '') {
 				alert('Please select driver in vehicle information');
 				return;
-			}*/
+			}
 
 			serverService.sendData('P',
 				'vehicle/breakstart',

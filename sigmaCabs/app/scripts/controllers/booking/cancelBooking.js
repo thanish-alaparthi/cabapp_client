@@ -18,7 +18,7 @@ angular.module('sigmaCabsApp')
 
 		scope.iPriority = '1';
 		scope.priorities = PrerequisiteService.priorities;		
-		scope.reason = PrerequisiteService.fnGetReasonsById(12);
+		scope.reason = PrerequisiteService.fnGetReasonsById(13);
 		scope.cancelCategories = PrerequisiteService.fnGetCancelBookingCategory();
 
 		scope.close = function() {

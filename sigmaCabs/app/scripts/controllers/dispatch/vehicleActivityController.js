@@ -41,7 +41,7 @@ angular.module('sigmaCabsApp')
 
 		scope.fnVehicleLogin = function() {
 			console.log(scope.vehicleMainDetails);
-			scope.vehicleLoginObj = {
+			var oData = {
 				"vehicleId": scope.vehicleMainDetails.id,
 				"driverId": scope.vehicleMainDetails.selectedDriver,
 				"location": scope.vehicleDetails.loginLocation,

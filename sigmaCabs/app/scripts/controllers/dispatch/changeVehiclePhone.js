@@ -15,7 +15,7 @@ angular.module('sigmaCabsApp')
 
 		scope.changePhone = {};
 		scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
-		scope.vehicleChangePhoneReasonTypes = PrerequisiteService.fnGetReasonsById(9);
+		scope.vehicleChangePhoneReasonTypes = PrerequisiteService.fnGetReasonsById(10);
 
 		scope.vehicleDetails = oVehicleData;
 		scope.changePhone.phoneChangeComments = '';

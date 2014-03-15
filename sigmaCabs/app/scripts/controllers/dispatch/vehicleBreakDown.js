@@ -16,7 +16,7 @@ angular.module('sigmaCabsApp')
 		scope.vehicleDetails = oVehicleData;
 		scope.breakDown = {};
 		scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
-		scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(11);
+		scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(12);
 		scope.vehiclePriorities = PrerequisiteService.priorities;
 
 
@@ -38,13 +38,13 @@ angular.module('sigmaCabsApp')
 			console.log(oData);
 
 			// validations
-			/*if (oData.requester === '' || oData.reasonId === '') {
+			if (oData.requester === '' || oData.priority === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
 			} else if (scope.breakDown.categoryId === 4 && driverId === '') {
 				alert('Please select driver in vehicle information');
 				return;
-			}*/
+			}
 
 			serverService.sendData('P',
 				'vehicle/saveBreakDownInfo',

@@ -321,6 +321,8 @@ angular.module('sigmaCabsApp')
                         scope.bookingType = "1";
                         scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
+                        scope.vehicleMainDetails.details.loginTime = scope.vehicleMainDetails.details.loginTime.substring(0, 5);
+                        scope.vehicleMainDetails.details.vacantTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot

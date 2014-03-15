@@ -17,7 +17,7 @@ angular.module('sigmaCabsApp')
 		scope.vBookingCancel = {};
 		scope.vBookingCancel.iPriority = '1';
 		scope.priorities = PrerequisiteService.priorities;
-		scope.reason = PrerequisiteService.fnGetReasonsById(12);
+		scope.reason = PrerequisiteService.fnGetReasonsById(13);
 		scope.cancelCategories = PrerequisiteService.fnGetCancelBookingCategory();
 
 		scope.close = function() {
@@ -34,10 +34,10 @@ angular.module('sigmaCabsApp')
 				"comments": scope.vBookingCancel.comments
 			};
 
-			/*if (oData.cancelCategory === '' || oData.reasonId === '') {
+			if (oData.cancelCategory === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
-			}*/
+			}
 
 			DispatchService.fnVehicleBookingCancel(oData)
 				.success(function(data, status, headers, config) {
