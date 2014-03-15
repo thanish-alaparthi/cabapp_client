@@ -401,6 +401,9 @@ angular.module('sigmaCabsApp')
                         if (data.status == 500) { // no data found of vehicle
                             console.log('500 fnSearchVehicle', data);
                             scope.vehicleErrorMessage = data.result[0].errorMessage || errorMesg;
+                            scope.vLoginView = false;
+                            scope.vVacantView = false;
+                            scope.vAllotView = false;
                             scope.vDefaultView = true;
                             // make callPhone as mobile 
                             scope.customerDetails.mobile = scope.callerPhone;
@@ -422,7 +425,7 @@ angular.module('sigmaCabsApp')
             }
             scope.fnMultipurposeSearch = function() {
                 var sSearch = scope.searchDetails.searchByVehicleId;
-                if (sSearch && (sSearch.length !== 4 || sSearch.length !== 10)) {
+                if (!sSearch && (sSearch.length !== 4 || sSearch.length !== 10)) {
                     alert('Please enter valid Vehicle Code or Mobile no.')
                     return false;
                 }

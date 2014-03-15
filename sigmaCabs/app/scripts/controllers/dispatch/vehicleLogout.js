@@ -15,6 +15,7 @@ angular.module('sigmaCabsApp')
 
 		scope.vehicleDetails = oVehicleData;
 		scope.logout = {};
+		scope.logout.currentKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms;
 
 		scope.close = function() {
 			dialog.close();
@@ -44,7 +45,10 @@ angular.module('sigmaCabsApp')
 			};
 
 			// validations
-			if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms)) {
+			if(oData.currentKms < scope.vehicleDetails.vehicleMainDetails.details.previousKms) {
+				alert('Current Kms cannot be less than previous kms.');
+				return;
+			} else if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms)) {
 				alert('Please enter valid information');
 				return;
 			} else if (oData.driverId === '') {

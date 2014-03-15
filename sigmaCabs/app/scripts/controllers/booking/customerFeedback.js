@@ -15,6 +15,10 @@ angular.module('sigmaCabsApp')
 
 		scope.customerDetails = oCustomer;
 		scope.bookingDetails = oBooking;
+		scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
+		scope.vehicleComplaintReasonTypes = PrerequisiteService.fnGetReasonsById(2);
+		scope.vehicleSuggestionReasonTypes = PrerequisiteService.fnGetReasonsById(3);
+		scope.vehiclePriorities = PrerequisiteService.priorities;
 
 		scope.saveText = 'Save Complaint'; //default text for save button.
 		scope.tab = 1;
