@@ -21,6 +21,8 @@ angular.module('sigmaCabsApp')
             BOOKING_COMPLETED_N_CLOSED : 7,
             BOOKING_CANCELLED : 8,
 
+            /* VEHICLE STATUS */
+
             VEHICLE_AVAILABLE_COLOR : '#00FF00',
             VEHICLE_PROBABLILY_AVAILABLE_COLOR : '#FFA500',
             VEHICLE_NOT_AVAILABLE_COLOR : '#FF0000',

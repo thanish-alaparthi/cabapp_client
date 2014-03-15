@@ -8,13 +8,17 @@ angular.module('sigmaCabsApp')
                   types: [],
                   componentRestrictions: {country: 'in'}
               };
-              scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
 
-              google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
-                  scope.$apply(function() {
-                      model.$setViewValue(element.val());                
-                  });
-              });
+              if(typeof(google) != 'undefined') {
+
+                scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+
+                google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+                    scope.$apply(function() {
+                        model.$setViewValue(element.val());                
+                    });
+                });
+              }
           }
       };
   });

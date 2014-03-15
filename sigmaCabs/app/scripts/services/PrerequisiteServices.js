@@ -243,6 +243,26 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAllReasonCategories'),
+                    method: 'GET',
+                    myDataToken : 'reasonCategories',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAllReasons'),
+                    method: 'GET',
+                    myDataToken : 'reasons',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
             },
 
 
@@ -394,7 +414,7 @@ angular.module('sigmaCabsApp')
                     sSelId = null;
 
                 for(var i=0;i<iCount;i++){
-                    if(oJt[i].id == sSubJourneyTypeId) {
+                    if(oJt[i].id == sSubJourneyTypeId && oJt[i].parentId !=0) {
                         sSelId = oJt[i].parentId;
                         break;
                     }
@@ -447,18 +467,21 @@ angular.module('sigmaCabsApp')
 
                     oPackage[k] = {};
                     for (var i = 0; i < tariffDataLength; i++) {
-                        var oTempPackage = tariffData[i];
+                        var oTempPackage = tariffData[i],
+                            // as per new change subjourneytype = tariff id
+                            tariffId = tariffData[i].subJourneyType;
 
-                        oTariffById[tariffData[i].id] = tariffData[i];
+                        oTariffById[tariffId] = tariffData[i];
 						oPackage[k][tariffData[i].vehicleType] = oPackage[k][tariffData[i].vehicleType] || [];
-                        oTariffById[tariffData[i].id]['duration'] = tariffData[i].duration;
-                        oTariffById[tariffData[i].id]['distance'] = tariffData[i].kms;
+                        oTariffById[tariffId]['duration'] = tariffData[i].duration;
+                        oTariffById[tariffId]['distance'] = tariffData[i].kms;
                         var tariffRow = {
                             'duration': tariffData[i].duration / 60,
+                           //  'displayText' : oThis.fnGetJourneyTypeName(tariffData[i].subJourneyType),
                             'kms' : tariffData[i].kms
                         }
 
-                        oTempPackage.text = 'D ' + tariffData[i].duration + ' - K ' + tariffData[i].kms + ' - P ' + tariffData[i].price;
+                        oTempPackage.text = parseInt((tariffData[i].duration)/60) + 'hrs - ' + tariffData[i].kms + 'kms - Rs' + tariffData[i].price;
                         oPackage[k][tariffData[i].vehicleType].push(oTempPackage);
 
                         tariffRow['vehicleType' + tariffData[i].vehicleType] = tariffData[i].price;
@@ -585,7 +608,7 @@ angular.module('sigmaCabsApp')
                 hours = (hours < 10) ? '0' + hours : hours;
                 minutes = (minutes < 10) ? '0' + minutes : minutes;
 
-                return hours + " : " + minutes;
+                return hours + ":" + minutes;
             },
 
             fnDiffInTwoDatesForDisplay: function(oldDate, newDate) {
@@ -705,6 +728,10 @@ angular.module('sigmaCabsApp')
                     }
                 }
                 return null;
+            },
+            fnGetAllVehicleStatus : function(){
+                var oThis = this;
+                return oThis.oLs[oThis.currentDate]['vehicleStates'];
             },
             fnGetVehicleStatusById: function(sId) {
                 var oThis = this,
@@ -951,6 +978,57 @@ angular.module('sigmaCabsApp')
                     '3' : 'Divorced',
                     "4": "widow / Widower"
                 }
+            },
+
+            fnGetAttachmentTypes : function() {
+                return [{
+                    id : '1',
+                    attachmentType : 'Company Vehicles'
+                }, {
+                    id : '2',
+                    attachmentType : 'Attached Vehicles'
+                }, {
+                    id : '3',
+                    attachmentType : 'Sublease Vehicles'
+                }, {
+                    id : '4',
+                    attachmentType : 'Promoting Partners'
+                }];
+            },
+            fnGetVehicleManufacturingYears : function(){
+                var aRtn = [],
+                    oD = new Date();
+                for(var i=(oD.getFullYear() - 15); i <= oD.getFullYear() ; i++){
+                    aRtn[i] = i;
+                }
+                return aRtn;
+            },
+            fnGetSearchByTypes : function(){
+                return [{
+                    id : '',
+                    title : '----Select----'
+                }, {
+                    id : '1',
+                    title : 'Mobile'
+                }, {
+                    id : '2',
+                    title : 'Booking ID'
+                }, {
+                    id : '3',
+                    title : 'Customer ID'
+                }, {
+                    id : '4',
+                    title : 'Vehicle ID'
+                }, {
+                    id : '5',
+                    title : 'Trip Count'
+                }, {
+                    id : '6',
+                    title : 'Grade'
+                }, {
+                    id : '7',
+                    title : 'Category'
+                }];
             },
 
 

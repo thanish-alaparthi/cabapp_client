@@ -36,18 +36,18 @@
 								<label title="Attachment Type" >Atmt. Type</label>
 							</div>
 							<div class="col-xs-7">
-									<select class="selectFieldCompact autoWidth"><option>Attachment Type1</option><option>Attachment Type1</option></select>
-								</div>
+								<select class=" autoWidth selectFieldCompact" data-ng-model="bdSearch.attType" data-ng-options="obj.id as obj.attachmentType for obj in vAttTypes"></select>
+							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
 								<label title="Vehicle Condition">Veh. Cond.</label>
 							</div>
 							<div class="col-xs-7">
-									<select class="selectFieldCompact autoWidth"><option>Attachment Type1</option><option>Attachment Type1</option></select>
+									<select class=" autoWidth selectFieldCompact" data-ng-model="bdSearch.vCondtion" data-ng-options="obj.id as obj.condition for obj in vConditions"></select>
 								</div>
 						</div>
-						<div class="row margin-bottom5">
+						<!-- <div class="row margin-bottom5">
 							<div class="col-xs-5">
 								<label title="Vehicle Type">V. Type</label>
 							</div>
@@ -55,12 +55,21 @@
 									<select class=" autoWidth selectFieldCompact" data-ng-model="bdSearch.vType" data-ng-options="obj.id as obj.vehicleType for obj in vTypes"></select>
 								</div>
 						</div>
+						
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
 							<label title="Vehicle Name">V. Name</label>
 							</div>
 							<div class="col-xs-7">
 								<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vName" data-ng-options="obj.id as obj.vehicleName for obj in vNames"></select>
+							</div>
+						</div> -->
+						<div class="row margin-bottom5">
+							<div class="col-xs-5">
+							<label title="Vehicle Name / Vehicle Type">Vehicle</label>
+							</div>
+							<div class="col-xs-7">
+								<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vehicle" data-ng-options="obj as obj.title for obj in oVehicles"></select>
 							</div>
 						</div>
 						<div class="row">
@@ -88,11 +97,11 @@
 							</div>
 							<div class="col-xs-6">
 								<label title="Vehicle Mode Year">YY.&nbsp;</label>
-								<select  style="width: 60px;" class="selectFieldCompact" data-ng-model="bdSearch.vModYear" data-ng-options="obj.year as obj.year for obj in vModYear"></select>
+								<select  style="width: 60px;" class="selectFieldCompact" data-ng-model="bdSearch.vModYear" data-ng-options="k as v for (k,v) in vModYear"></select>
 							</div>
 						</div>
 						<div class=" margin-bottom5" style="text-align: center;">
-							<button>Search</button>
+							<button data-ng-click="fnLoadBookingStatusWise(['4']);">Search</button>
 						</div>
 					</div>
 
@@ -102,28 +111,31 @@
 					<div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button class="autoWidth btn btn-xs btn-success">Show All ({{allCount}})</button>								
+								<button class="autoWidth btn btn-xs btn-success" data-ng-click="fnLoadBookingStatusWise(['4','5','6']);">Show All ({{allCount}})</button>								
 							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button  class="autoWidth btn btn-xs btn-danger" title="Yet to Dispatch">Yet to Dispatch ({{ytdCount}})</button>								
+								<button  class="autoWidth btn btn-xs btn-danger" title="Yet to Dispatch" data-ng-click="fnLoadBookingStatusWise(['4']);">Yet to Dispatch ({{ytdCount}})</button>								
 							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button class="autoWidth btn btn-xs btn-warning">Allotted ({{altCount}})</button>
+								<button class="autoWidth btn btn-xs btn-warning" data-ng-click="fnLoadBookingStatusWise(['5']);">Allotted ({{altCount}})</button>
 							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button class="autoWidth btn btn-xs btn-success">Confirmed ({{cnfCount}})</button>		
+								<button class="autoWidth btn btn-xs btn-success" data-ng-click="fnLoadBookingStatusWise(['6']);">Confirmed ({{cnfCount}})</button>		
 							</div>
 						</div>
 					</div>
 
 				</div>
 			</div>
+
+
+			<!-- vehicle Info accordian  -->
 			<div class="panel panel-info" accordian-handler>
 				<div class="panel-heading short-panel-heading" ng-click="handleShortPanelClick('vInfo')">
 				  <span class="panel-title">Vehicles Info</span>
@@ -131,36 +143,29 @@
 				  <span class="clearfix"></span>
 				</div>
 				<div class="panel-body padding-5-panel-body hide">
-				  	<div>
-				  			<a >Company Vehicles</a><br/>
-				  			<a >Attached Vehicles</a><br/>
-				  			<a >Sublease Vehicles</a><br/>
-				  			<a >Promoting Partners</a><br/>
-				  	</div>
-				  	<hr class="buttonSpliter" />
 					<div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
-								<label title="Vehicle Type">V. Type</label>
+								<label title="Attachment Type" >Atmt. Type</label>
 							</div>
 							<div class="col-xs-7">
-									<select class=" autoWidth selectFieldCompact" data-ng-model="bdSearch.vType" data-ng-options="obj.id as obj.vehicleType for obj in vTypes"></select>
-								</div>
+								<select class=" autoWidth selectFieldCompact" data-ng-model="viSearch.attType" data-ng-options="obj.id as obj.attachmentType for obj in vAttTypes"></select>
+							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
-							<label title="Vehicle Name">V. Name</label>
+							<label title="Vehicle Name / Vehicle Type">Vehicle</label>
 							</div>
 							<div class="col-xs-7">
-								<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vName" data-ng-options="obj.id as obj.vehicleName for obj in vNames"></select>
+								<select class="autoWidth selectFieldCompact" data-ng-model="viSearch.vehicle" data-ng-options="obj as obj.title for obj in oVehicles"></select>
 							</div>
-						</div>	
+						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
 							<label title="Vehicle Condition">Condition</label>
 							</div>
 							<div class="col-xs-7">
-								<select class="autoWidth selectFieldCompact" data-ng-model="viSearch.vCondition" data-ng-options="obj.id as obj.vehicleName for obj in vConditions"></select>
+								<select class=" autoWidth selectFieldCompact" data-ng-model="viSearch.vCondtion" data-ng-options="obj.id as obj.condition for obj in vConditions"></select>
 							</div>
 						</div>	
 						<div class="row margin-bottom5">
@@ -168,21 +173,21 @@
 							<label title="Vehicle Condition">Status</label>
 							</div>
 							<div class="col-xs-7">
-								<select class="autoWidth selectFieldCompact" data-ng-model="viSearch.vStatus" data-ng-options="obj.id as obj.vehicleName for obj in vStatuses"></select>
+								<select class="autoWidth selectFieldCompact" data-ng-model="viSearch.vStatus" data-ng-options="obj.id as obj.vehicleStatus for obj in vStates"></select>
 							</div>
 						</div>						
 						<div class="row margin-bottom5">
 							<div class="col-xs-6">
 								<label title="Projected Hours" >P.H.</label>
-								<select style="width: 60px;" class="selectFieldCompact" data-ng-model="bdSearch.projHrs" data-ng-options="obj.val as obj.txt for obj in projHrs"></select>
+								<select style="width: 60px;" class="selectFieldCompact" data-ng-model="viSearch.projHrs" data-ng-options="obj.val as obj.txt for obj in projHrs"></select>
 							</div>
 							<div class="col-xs-6">
 								<label title="Collection" >Col.</label>
-								<select style="width: 60px;" class="selectFieldCompact" data-ng-model="bdSearch.collection" data-ng-options="obj.val as obj.txt for obj in collections"></select>
+								<select style="width: 60px;" class="selectFieldCompact" data-ng-model="viSearch.collection" data-ng-options="obj.val as obj.txt for obj in collections"></select>
 							</div>
 						</div>
 						<div class=" margin-bottom5" style="text-align: center;">
-							<button>Search</button>
+							<button data-ng-click="fnSearchVehicleInfo();">Search</button>
 						</div>
 					</div>
 
@@ -190,6 +195,10 @@
 
 				</div>
 			</div>
+			<!-- EOF vehicle Info accordian  -->
+
+
+			<!-- Booking Info -->
 			<div class="panel panel-info" accordian-handler>
 				<div class="panel-heading short-panel-heading" ng-click="handleShortPanelClick('bInfo')">
 				  <span class="panel-title">Booking Info</span>
@@ -202,10 +211,10 @@
 							<label title="Date">Date</label>
 						</div>
 						<div class="col-xs-7">
-								<input type="text" datepicker ng-model="bookingInfoDate" class="textFieldCompact" placeholder=""/>
-							</div>
+							<input type="text" datepicker ng-model="biSearch.bookingInfoDate" class="autoWidth textFieldCompact" placeholder=""/>
+						</div>
 					</div>
-					<div class="row margin-bottom5">
+					<!-- <div class="row margin-bottom5">
 						<div class="col-xs-5">
 							<label title="Vehicle Type">V. Type</label>
 						</div>
@@ -220,13 +229,21 @@
 						<div class="col-xs-7">
 							<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vName" data-ng-options="obj.id as obj.vehicleName for obj in vNames"></select>
 						</div>
-					</div>
+					</div> -->
+					<div class="row margin-bottom5">
+							<div class="col-xs-5">
+							<label title="Vehicle Name / Vehicle Type">Vehicle</label>
+							</div>
+							<div class="col-xs-7">
+								<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.vehicle" data-ng-options="obj as obj.title for obj in oVehicles"></select>
+							</div>
+						</div>
 					<div class="row margin-bottom5">
 						<div class="col-xs-5">
 						<label title="Journey">Journey</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.journey" data-ng-options="obj.id as obj.vehicleName for obj in oJournies"></select>
+							<select class=" autoWidth selectFieldCompact" data-ng-model="biSearch.journey" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes | filter:{parentId: '0'}"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -234,7 +251,7 @@
 						<label title="Vehicle Name">Sub.J. From</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.sjFrom" data-ng-options="obj.id as obj.vehicleName for obj in oJournies | filter:{parentId: biSearch.journey}"></select>
+							<select class="autoWidth selectFieldCompact"  data-ng-model="biSearch.sjFrom" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: biSearch.journey}"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -242,7 +259,7 @@
 						<label title="Vehicle Name">Sub.J. To</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.sjTo" data-ng-options="obj.id as obj.vehicleName for obj in oJournies | filter:{parentId: biSearch.journey}"></select>
+							<select class="autoWidth selectFieldCompact"  data-ng-model="biSearch.sjTo" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: biSearch.journey}"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -266,7 +283,7 @@
 						<label title="Search By">Search By</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.area" data-ng-options="obj.id as obj.vehicleName for obj in oSearchBy"></select>
+							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.searchByType" data-ng-options="obj.id as obj.title for obj in oSearchBy"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -279,13 +296,14 @@
 					</div>
 
 					<div class=" margin-bottom5" style="text-align: center;">
-							<button class="" data-ng-click="setBookingInfoGrid(false)" title="Update Booking Details">Search</button>
-						</div>
-				  
+						<button class="" data-ng-click="setBookingInfoGrid(false)" title="Search Booking Info">Search</button>
+					</div>				  
 				</div>
-
-
 			</div>
+			<!-- EOF Booking Info -->
+
+
+			<!-- Auto login accordian -->
 			<div class="panel panel-info" accordian-handler>
 				<div class="panel-heading short-panel-heading" ng-click="handleShortPanelClick('autoLog')">
 				  <span class="panel-title">Auto-Login Vehicles</span>
@@ -299,7 +317,7 @@
 						<label title="Zone">Zone</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.zone" data-ng-options="obj.id as obj.vehicleName for obj in oJournies"></select>
+							<select class="autoWidth selectFieldCompact" data-ng-model="alSearch.zone" data-ng-options="obj.id as obj.vehicleName for obj in oJournies"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -307,44 +325,57 @@
 						<label title="Area">Area</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="biSearch.area" data-ng-options="obj.id as obj.vehicleName for obj in oAreas"></select>
+							<select class="autoWidth selectFieldCompact" data-ng-model="alSearch.area" data-ng-options="obj.id as obj.vehicleName for obj in oAreas"></select>
+						</div>
+					</div>
+					<!-- <div class="row margin-bottom5">
+						<div class="col-xs-5">
+							<label title="Vehicle Type">V. Type</label>
+						</div>
+						<div class="col-xs-7">
+								<select class=" autoWidth selectFieldCompact" data-ng-model="bdSearch.vType" data-ng-options="obj.id as obj.vehicleType for obj in vTypes"></select>
+							</div>
+					</div>
+					<div class="row margin-bottom5">
+						<div class="col-xs-5">
+						<label title="Vehicle Name">V. Name</label>
+						</div>
+						<div class="col-xs-7">
+							<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vName" data-ng-options="obj.id as obj.vehicleName for obj in vNames"></select>
+						</div>
+					</div> -->
+					<div class="row margin-bottom5">
+						<div class="col-xs-5">
+						<label title="Vehicle Name / Vehicle Type">Vehicle</label>
+						</div>
+						<div class="col-xs-7">
+							<select class="autoWidth selectFieldCompact" data-ng-model="alSearch.vehicle" data-ng-options="obj as obj.title for obj in oVehicles"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
-							<div class="col-xs-5">
-								<label title="Vehicle Type">V. Type</label>
-							</div>
-							<div class="col-xs-7">
-									<select class=" autoWidth selectFieldCompact" data-ng-model="bdSearch.vType" data-ng-options="obj.id as obj.vehicleType for obj in vTypes"></select>
-								</div>
+						<div class="col-xs-5">
+						<label title="From Time">From Time</label>
 						</div>
-						<div class="row margin-bottom5">
-							<div class="col-xs-5">
-							<label title="Vehicle Name">V. Name</label>
-							</div>
-							<div class="col-xs-7">
-								<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vName" data-ng-options="obj.id as obj.vehicleName for obj in vNames"></select>
-							</div>
+						<div class="col-xs-7">
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromHour" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
 						</div>
-						<div class="row margin-bottom5">
-							<div class="col-xs-5">
-							<label title="From Time">From Time</label>
-							</div>
-							<div class="col-xs-7">
-								<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromHour" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
-							</div>
+					</div>
+					<div class="row margin-bottom5">
+						<div class="col-xs-5">
+						<label title="To Time">To Time</label>
 						</div>
-						<div class="row margin-bottom5">
-							<div class="col-xs-5">
-							<label title="To Time">To Time</label>
-							</div>
-							<div class="col-xs-7">
-								<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromHour" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
-							</div>
+						<div class="col-xs-7">
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromHour" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
 						</div>
+					</div>
+					<div class=" margin-bottom5" style="text-align: center;">
+						<button class="" data-ng-click="fnSearchAutoLoginVehicleGrid(false)" title="Search Auto-login Vehicles">Search</button>
+					</div>
 				</div>
-
 			</div>
+			<!-- EOF Auto login Accordian -->
+
+
 		</div>
 	</div>
 	<div class="panel panel-info custom-panel-overrides pull-left booking-view booking-normal-view no-border-bottom" ng-class="{bookingNoVehicleView:!vehicleViewDisplay,bookingNoInformationalView:!informationViewDisplay,bookingFullView:!infoVehicleCombiDisplay}">
@@ -372,9 +403,10 @@
 			  <span class="panel-title">Booking Info</span>
 			  <span class="glyphicon glyphicon-refresh" title="Refresh Booking Info" data-ng-click="setBookingInfoGrid(false)"></span>
 			  <input id="while_info_search" type="text" ng-model="bookingInfoFilterText" class="searchInput pull-right" placeholder="Search Bookings" ng-change="bookingInfoSearch()"/>
-			</div>
+			</div>		
 			<div ng-show="showingAutoLoginVehicleGrid">
 			  <span class="panel-title">Auto-login Vehicles</span>
+		  	  <span class="clearfix"></span>
 			</div>
 		  <span class="clearfix"></span>
 		</div>
@@ -382,6 +414,7 @@
 		  	<div id="dispatcherBookingsListGrid" class="gridStyle" ng-grid="gridBookingsData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingBookingsGrid"></div>
 		  	<div id="dispatcherWhileDrivingListGrid" class="gridStyle" ng-grid="gridForWhileDrivingVehiclesData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingWhilDrivingGrid"></div>
 		  	<div id="dispatcherBookingsInfoGrid" class="gridStyle" ng-grid="gridBookingsInfoData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingBookingsInfoGrid"></div>
+		  	<div id="autoLoginVehicleGrid" class="gridStyle" ng-grid="gridAutoLoginVehiclesData" style="margin:0px;" fit-height-layout ng-model ="bookingGridHeight" ng-show="showingAutoLoginVehicleGrid"></div>
 		</div>
 	</div>
 	<div class="panel panel-info pull-left vehicles-view custom-panel-overrides no-border-bottom" ng-show="vehicleViewDisplay">

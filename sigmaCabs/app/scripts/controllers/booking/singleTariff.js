@@ -120,7 +120,7 @@ angular.module('sigmaCabsApp')
 	    	sTmpKms = '';
 
 	    $scope.colDefs = [
-	        {field:'duration', displayName:'Duration', width: '*'},
+	        {field:'displayText', displayName:'Duration', width: '*'},
 	        {field:'kms', displayName:'Kms', width: '*'}
 	    ];
 	    /* Add dynamic Columns */

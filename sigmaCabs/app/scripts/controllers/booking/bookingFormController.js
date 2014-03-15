@@ -526,6 +526,11 @@ angular.module('sigmaCabsApp')
 
 		};
 
+		scope.fnSelectTariffBySubJourneyType = function(){
+			var oTariff = PrerequisiteService.fnGetTariffByJtypeVType(scope.bookingDetails.subJourneyType, scope.bookingDetails.vehicleType);
+			console.log('oTariff',oTariff);
+		};
+
 		scope.fnOpenCustFeedback = function() {
 			$scope.opts = {
 				templateUrl: URLService.view('customerFeedback'),
