@@ -49,7 +49,7 @@ angular.module('sigmaCabsApp')
                 'addVehicle': "", //"?url=vehicle/save",
                 'updateVehicle': "", // ?url=vechile/modify"
                 'getAllVehicles': "?url=vehicle/index",
-                'getAvailableVehicles': "?url=vehicle/available",
+                'getAvailableVehicles': "?url=vehicle/getAvailability",
                 'getVehicleDetails': "",
                 'getAllAvailVehicles': "",
                 'getAllAvailBookings': "?url=booking/openbookings",
@@ -195,6 +195,7 @@ angular.module('sigmaCabsApp')
             // _serviceRoot = 'http://10.0.2.191/proxy.php';  // for localhost 
             // _serviceRoot = 'proxy.php';   // for hosting
             _serviceRoot = 'http://10.0.2.188:8080/proxy.php'; // for localhost 
+            //_serviceRoot = 'http://10.0.2.188:8080/index.php'; // for localhost 
 
         return {
             service: function(serviceName) {

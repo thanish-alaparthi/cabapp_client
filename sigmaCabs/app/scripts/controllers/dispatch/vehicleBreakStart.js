@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 		var scope = $scope;
 		console.log('inside vehicleBreakStart', oVehicleData);
 		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasons();
@@ -32,7 +32,9 @@ angular.module('sigmaCabsApp')
 					"comments": scope.breakStart.comments, // only if reason id is others
 					"breakTime": scope.breakStart.breakStartTime
 				};
+			console.log(oData);
 
+			// validations
 			/*if (oData.reasonId === '') {
 				alert('Please select required information');
 				return;
@@ -41,15 +43,18 @@ angular.module('sigmaCabsApp')
 				return;
 			}*/
 
-			DispatchService.fnVehicleBreakStart(oData)
-				.success(function(data, status, headers, config) {
-					console.log('Success: ', data);
-					scope.close();
-					// alert(data.result[0].message);
-					$rootScope.$emit('eventGetVehicleStatus', null);
-				})
-				.error(function(data, status, headers, config) {
-					console.log('Error: ', data)
-				});
+			serverService.sendData('P',
+				'vehicle/breakstart',
+				oData, scope.fnVehicleBreakStartSuccess, scope.fnVehicleBreakStartError);
 		}
+
+		scope.fnVehicleBreakStartSuccess = function(data, status, headers, config) {
+			console.log('Success: ', data);
+			scope.close();
+			// alert(data.result[0].message);
+			$rootScope.$emit('eventGetVehicleStatus', null);
+		};
+		scope.fnVehicleBreakStartError = function(data, status, headers, config) {
+			console.log('Error: ', data);
+		};
 	});

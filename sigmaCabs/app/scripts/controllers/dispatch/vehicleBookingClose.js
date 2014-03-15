@@ -13,26 +13,48 @@ angular.module('sigmaCabsApp')
         var scope = $scope,
             currentTimeStamp = new Date(),
             currentTimeMsec = currentTimeStamp.getTime(),
-            pickupTimeStamp,
-            actualPackage, actualAmountBeforeDiscount = 0, initialStartKms = 0;
+            currentTimeStampHrs = currentTimeStamp.getHours(),
+            currentTimeStampMins = currentTimeStamp.getMinutes(),
+            pickupTimeStamp, oJt,
+            actualPackage, actualAmountBeforeDiscount = 0,
+            modifiedPackage,
+            currentPackage,
+            initialStartKms = 0,
+            diffMinutes = 0;
+
+        //prefix 0 for hours & minutes 
+        currentTimeStampHrs = (currentTimeStampHrs < 10) ? '0' + currentTimeStampHrs : currentTimeStampHrs;
+        currentTimeStampMins = (currentTimeStampMins < 10) ? '0' + currentTimeStampMins : currentTimeStampMins;
         console.log('inside vehicleBookingClose', oVehicleData);
         scope.vehicleBkngCloseReasonTypes = PrerequisiteService.fnGetReasons();
+        scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
+
         scope.vehicleDetails = oVehicleData;
         scope.bookingClose = {};
+        scope.tmpDetails = {};
         initialStartKms = Math.abs(parseFloat(scope.vehicleDetails.vehicleMainDetails.details.startKms).toFixed(2)) || 0;
         scope.bookingClose.currentKms = initialStartKms;
+        scope.bookingClose.subJourneyType = scope.vehicleDetails.vehicleMainDetails.details.subJourneyType;
         scope.bookingClose.custCat = PrerequisiteService.fnGetCustomerCategoryById(scope.vehicleDetails.vehicleMainDetails.details.category).categoryName;
         scope.bookingClose.custGrade = PrerequisiteService.fnGetGradeById(scope.vehicleDetails.vehicleMainDetails.details.grade).grade;
         scope.bookingClose.pickupTimeText = scope.vehicleDetails.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds
         scope.bookingClose.discount = scope.vehicleDetails.vehicleMainDetails.details.discount || 0;
         scope.bookingClose.actualKms = 0;
-        scope.bookingClose.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStamp.getMonth() + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStamp.getHours() + ':' + currentTimeStamp.getMinutes();
+        scope.bookingClose.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStamp.getMonth() + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStampHrs + ':' + currentTimeStampMins;
         console.log('Journey Type: ' + scope.vehicleDetails.vehicleMainDetails.tempSelectedJourneyTypeId);
         console.log('vehicle Type: ' + scope.vehicleDetails.vehicleMainDetails.vehicleType);
-        scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffById(scope.vehicleDetails.vehicleMainDetails.details.tariffId);
+        scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffByVtypeAndJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);
         console.log(scope.bookingClose.tariffDetails);
-        scope.vehiclePackageTypes = PrerequisiteService.fnGetTariffByJtypeVType(scope.vehicleDetails.vehicleMainDetails.tempSelectedJourneyTypeId, scope.vehicleDetails.vehicleMainDetails.vehicleType);
+        scope.bookingClose.modifiedPackageShow = false;
+
+        oJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);
+        scope.tmpSelectedJourneyType = oJt;
+        scope.tmpDetails.tmpJourneyType = oJt.id;
+        scope.vehiclePackageTypes = PrerequisiteService.fnGetTariffByJtypeVType(oJt.id, scope.vehicleDetails.vehicleMainDetails.vehicleType);
+        console.log('scope.vehiclePackageTypes', scope.vehiclePackageTypes);
         console.log(scope.vehiclePackageTypes);
+        scope.subJourneyTypes = PrerequisiteService.fnGetSubJourneyTypes(oJt.id);
+
         /*
          * Decide Actual Package based on following conditions
          * 1. If it exceeds current package time + grace time
@@ -42,21 +64,26 @@ angular.module('sigmaCabsApp')
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
         console.log('currentTimeStamp: ' + currentTimeMsec);
         scope.bookingClose.tripTime = PrerequisiteService.fnDiffInTwoDatesForDisplay(pickupTimeStamp, currentTimeMsec);
-        for (var i = 0; i < scope.vehiclePackageTypes.length; i++) {
+        for (var i = 0, pTypelength = scope.vehiclePackageTypes.length; i < pTypelength; i++) {
             var oPackageData = scope.vehiclePackageTypes[i],
                 packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace), // package time + grace time
-                diffMs = (currentTimeMsec - pickupTimeStamp), // milliseconds between now & pickup time
-                diffMinutes = Math.round(diffMs / 60000); // minutes;
+                diffMs = (currentTimeMsec - pickupTimeStamp); // milliseconds between now & pickup time
+
+            diffMinutes = Math.round(diffMs / 60000); // minutes;
             console.log(diffMinutes);
 
             // diffMinutes = 120; // Remove this later
             //console.log('packageTime: ' + packageTime + ' diffMinutes: ' + diffMinutes);
-            if (diffMinutes <= packageTime) {
-                console.log(oPackageData.id);
-                scope.bookingClose.tariffActual = oPackageData.id;
+            // if no package is selected till the end of pakage list then select the last package by default
+            if (diffMinutes <= packageTime || i === (pTypelength - 1)) {
+                console.log(oPackageData.subJourneyType);
+                scope.bookingClose.tariffActual = oPackageData.subJourneyType;
+                // updating subJourneyType to sync with calculated package
+                scope.bookingClose.subJourneyType = oPackageData.subJourneyType;
+                scope.bookingClose.tariffActualText = oPackageData.text;
                 actualPackage = oPackageData;
+                currentPackage = angular.copy(actualPackage);
                 scope.bookingClose.graceTime = oPackageData.grace;
-                scope.bookingClose.extraKmsChrg = oPackageData.extraKmPrice;
                 scope.bookingClose.extraKmsChrg = oPackageData.extraKmPrice;
                 scope.bookingClose.extraHrChrg = oPackageData.extraHrPrice;
                 break;
@@ -70,22 +97,40 @@ angular.module('sigmaCabsApp')
         //     scope.close();
         // }
 
+        // update the package if modified by user
+        scope.fnUpdatePackage = function() {
+            console.log(scope.bookingClose.subJourneyType);
+            console.log(PrerequisiteService.fnGetTariffByVtypeAndJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType));
+            modifiedPackage = PrerequisiteService.fnGetTariffByVtypeAndJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType);
+            currentPackage = angular.copy(modifiedPackage);
+            scope.bookingClose.modifiedPackageText = modifiedPackage.text;
+            scope.bookingClose.modifiedPackageShow = true;
+            scope.bookingClose.graceTime = currentPackage.grace;
+            scope.bookingClose.extraKmsChrg = currentPackage.extraKmPrice;
+            scope.bookingClose.extraHrChrg = currentPackage.extraHrPrice;
+            scope.fnCalculateOnCurrentKms(modifiedPackage);
+        }
+
         //scope.$watch('bookingClose.currentKms', function(newVal) {
         scope.fnCalculateOnCurrentKms = function() {
             var newVal = scope.bookingClose.currentKms;
             if (newVal != '' && !isNaN(newVal)) {
                 newVal = Math.abs(parseFloat(newVal).toFixed(2));
-                if(newVal < initialStartKms) {
+                if (newVal < initialStartKms) {
                     //scope.bookingClose.currentKms = initialStartKms;
                     alert('Current Kms cannot be less than Start kms.');
                     return false;
                 }
                 var currentKms = newVal,
-                    packageBaseAmount = (actualPackage) ? parseFloat(actualPackage.price) : alert('Error in package selection'),
-                    packageExtraKmCharge = parseFloat(actualPackage.extraKmPrice),
-                    packageKmLimit = parseFloat(actualPackage.kms),
-                    packageExtraCharge = parseFloat(actualPackage.extraCharges),
-                    totalKmsCharge = 0,
+                    packageBaseAmount = (currentPackage && currentPackage.price) ? parseFloat(currentPackage.price) : alert('Error in package selection'),
+                    packageExtraKmCharge = parseFloat(currentPackage.extraKmPrice),
+                    packageExtraHrCharge = parseFloat(currentPackage.extraHrPrice),
+                    packageDuration = parseInt(currentPackage.duration),
+                    packageKmLimit = parseFloat(currentPackage.kms),
+                    packageExtraCharge1 = Math.abs(parseFloat(currentPackage.extraCharges1).toFixed(2)),
+                    packageExtraCharge2 = Math.abs(parseFloat(currentPackage.extraCharges2).toFixed(2)),
+                    totalExtraCharge = packageExtraCharge1 + packageExtraCharge2,
+                    totalDurationOrKmsCharge = 0,
                     actualKms = 0,
                     calculatedAmount = 0,
                     discount = scope.bookingClose.discount,
@@ -95,16 +140,19 @@ angular.module('sigmaCabsApp')
                 actualKms = currentKms - initialStartKms;
                 scope.bookingClose.actualKms = (actualKms < 0) ? 0 : actualKms;
                 console.log('actualKms: ' + actualKms + ' packageKmLimit: ' + packageKmLimit);
-                // change package
-                if (actualKms > 0 && actualKms > packageKmLimit) {
-                    totalKmsCharge = (actualKms - packageKmLimit) * packageExtraKmCharge;
+                // extra time / km charge
+                if (packageKmLimit > 0 && diffMinutes > packageDuration && packageExtraHrCharge !== 0) {
+                    totalDurationOrKmsCharge = (parseFloat(diffMinutes - packageDuration).toFixed(2) / 60) * packageExtraHrCharge;
+                    console.log('extra hrs: ' + (parseFloat(diffMinutes - packageDuration).toFixed(2) / 60));
+                } else if (actualKms > 0 && actualKms > packageKmLimit) {
+                    totalDurationOrKmsCharge = (actualKms - packageKmLimit) * packageExtraKmCharge;
                 }
 
                 // Total Amount
-                calculatedAmount = packageBaseAmount + totalKmsCharge + packageExtraCharge;
+                calculatedAmount = packageBaseAmount + totalDurationOrKmsCharge + totalExtraCharge;
                 actualAmountBeforeDiscount = calculatedAmount;
-                if(!isNaN(discount)) {
-                    discountedAmount = (calculatedAmount/100) * discount;
+                if (!isNaN(discount)) {
+                    discountedAmount = (calculatedAmount / 100) * discount;
                     scope.bookingClose.totalAmount = parseFloat(calculatedAmount - discountedAmount).toFixed(2);
                 } else {
                     scope.bookingClose.totalAmount = calculatedAmount;
@@ -112,30 +160,50 @@ angular.module('sigmaCabsApp')
             } else {
                 alert('Please enter valid kms.');
             }
-        //}, true);
+            //}, true);
         };
 
         // scope.$watch('bookingClose.discount', function(newVal) {
         scope.fnCalculateDiscount = function() {
             var newVal = scope.bookingClose.discount,
                 discountedAmount = 0;
-            if (newVal != '' && !isNaN(newVal) 
-                    // && !isNaN(scope.bookingClose.currentKms)
-                    && !isNaN(actualAmountBeforeDiscount)) {
+            if (newVal != '' && !isNaN(newVal)
+                // && !isNaN(scope.bookingClose.currentKms)
+                && !isNaN(actualAmountBeforeDiscount)) {
                 newVal = Math.abs(parseFloat(newVal).toFixed(2));
 
                 // restricting the discount to max 10
-                if(newVal > 10) {
+                if (newVal > 10) {
                     newVal = 10;
                     scope.bookingClose.discount = 10;
                 }
-                discountedAmount = (actualAmountBeforeDiscount/100) * newVal;
+                discountedAmount = (actualAmountBeforeDiscount / 100) * newVal;
                 scope.bookingClose.totalAmount = parseFloat(actualAmountBeforeDiscount - discountedAmount).toFixed(2);
             } else {
                 scope.bookingClose.totalAmount = actualAmountBeforeDiscount;
             }
             // });
         }
+
+        scope.$watch('tmpDetails', function(newVal, oldVal) {
+            if (newVal.tmpJourneyType != oldVal.tmpJourneyType) {
+                scope.fnPopSubJourneyTypes();
+            }
+        }, true);
+
+        // function to change sub-Journey Types
+        scope.fnPopSubJourneyTypes = function() {
+            scope.tmpSelectedJourneyType = PrerequisiteService.fnGetJourneyObjectById(scope.tmpDetails.tmpJourneyType);
+            scope.subJourneyTypes = PrerequisiteService.fnGetSubJourneyTypes(scope.tmpSelectedJourneyType.id);
+            for (var i = 0; i < scope.subJourneyTypes.length; i++) {
+                if (scope.subJourneyTypes[i].parentId == scope.tmpDetails.tmpJourneyType) {
+                    scope.bookingClose.subJourneyType = scope.subJourneyTypes[i].id;
+                    scope.fnUpdatePackage();
+                    break;
+                }
+            }
+
+        };
 
         scope.close = function() {
             dialog.close();
@@ -152,10 +220,11 @@ angular.module('sigmaCabsApp')
                 "actualKms": scope.bookingClose.actualKms,
                 "startTime": scope.vehicleDetails.vehicleMainDetails.details.pickupTime,
                 "currentTime": scope.bookingClose.currentTimeDisplay,
-                "timeConsumed": "240",
+                "timeConsumed": diffMinutes,
                 "tariffOpted": scope.vehicleDetails.vehicleMainDetails.details.tariffId,
-                "tariffActual": "4",
-                "totalAmount": bookingClose.totalAmount,
+                "tariffActual": currentPackage.subJourneyType,
+                "tariffCalculated": actualPackage.subJourneyType,
+                "totalAmount": scope.bookingClose.totalAmount,
                 "paidAmount": scope.bookingClose.paidAmount,
                 "actualDropPlace": scope.bookingClose.actualDropPlace,
                 "lattitude": "1523.678",
@@ -169,10 +238,13 @@ angular.module('sigmaCabsApp')
             if (isNaN(oData.currentKms) || isNaN(oData.paidAmount)) {
                 alert('Please enter valid information.');
                 return false;
+            } else if (oData.currentKms <= initialStartKms) {
+                alert('Current Kms cannot be less than or equal to Start kms.');
+                return false;
             }
 
             // if discount is nothing set it as 0
-            if(oData.discount === '') {
+            if (oData.discount === '') {
                 oData.discount = 0;
             }
 

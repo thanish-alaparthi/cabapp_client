@@ -15,17 +15,37 @@
             </div>
         </div>
         <div class="modal-body" > 
-            <fieldset class="left">
+            <fieldset>
                 <legend class="searchbox-border">Vehicle Break Stop</legend>
-                <div class="fieldContainer relative">
-                    <label class="labelCompact">Current Location</label>
-                    <span>{{vehicleDetails.vehicleMainDetails.location}}</span>
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10">
+                    <label class="labelCompact" title="Break Start Time">Break St. Tm.</label>
+                    <span>{{breakStop.breakStartTimeDisplay}}</span>
+                </div>
+                <div class="fieldContainer fieldContainer-lg relative left">
+                    <label class="labelCompact" title="Requested Time">Req. Time</label>
+                    <span>{{breakStop.requestedTimeText}}</span>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10">
+                    <label class="labelCompact">Current Time</label>
+                    <span>{{breakStop.currentTimeDisplay}}</span>
+                </div>
+                <div class="fieldContainer fieldContainer-lg relative left">
+                    <label class="labelCompact" title="Total Break Time">Break Time</label>
+                    <span class="left margin-right10">{{breakStop.totalBreakTimeDisplay}}</span>
+                    <span class="right" style="height:20px;display:inline-block;width:40px;border-radius:5px;background-color:{{breakStop.breakColorCode}};"></span>
+                    <p class="clear"/>
+                </div>
+                <p class="clear"/>
+                <div class="fieldContainer relative" style="width: 100%;">
+                    <label class="labelCompact">Previous Location</label>
+                    <span class="ellipsisText" style="width: 425px;" title="{{vehicleDetails.vehicleMainDetails.location}}">{{vehicleDetails.vehicleMainDetails.location}}</span>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">New Location</label>
-                    <input type="text" ng-model="breakStop.newLocation" maxlength="15" class="textFieldCompact" googleplace />
+                    <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="breakStop.newLocation" maxlength="15" class="textFieldCompact" googleplace />
                 </div>
-                <div class="fieldContainer relative">
+                <div class="fieldContainer fieldContainer-lg relative">
                     <label class="labelCompact">Current Kms</label>
                     <input type="text" ng-model="breakStop.currentKms" maxlength="15" class="textFieldCompact" />
                 </div>

@@ -111,7 +111,8 @@ angular.module('sigmaCabsApp')
                     })
                     .error(function(data, status, headers, config) {
                         console.log('Error fnFindVehicleByMobile: ', data);
-                        alert('There was some error while getting vehicle details. ');
+                        scope.vehicleErrorMessage = "Error in fetching vehicle details..";
+                        scope.vDefaultView = true;
                     });
             };
 
@@ -210,6 +211,9 @@ angular.module('sigmaCabsApp')
                             // update the vehicle state
                             scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? PrerequisiteService.fnFormatDate(oStatistics.loginTime.split(' ')[0]) + ' ' + oStatistics.loginTime.split(' ')[1] : '';
                             scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
+                            scope.currentDayStatistics.totalLoginTime = (parseInt(oStatistics.totalLoginTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalLoginTime) : 0;
+                            scope.currentDayStatistics.totalBreakTime = (parseInt(oStatistics.totalBreakTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalBreakTime) : 0;
+                            scope.currentDayStatistics.totalWorkingTime = (parseInt(oStatistics.totalWorkingTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalWorkingTime) : 0;
                             scope.currentMonthGridDetails = ((data.result.bookings) ? data.result.bookings : []);
                         }
                     })
@@ -408,7 +412,8 @@ angular.module('sigmaCabsApp')
                     })
                     .error(function(data, status, headers, config) {
                         console.log('error fnSearchVehicle: ', data);
-                        alert('There was some error while getting vehicle details. ');
+                        scope.vehicleErrorMessage = "Error in fetching vehicle details..";
+                        scope.vDefaultView = true;
                     });
 
             }
@@ -595,7 +600,7 @@ angular.module('sigmaCabsApp')
                 $scope.opts = {
                     templateUrl: URLService.view('vehicleBreakStop'),
                     controller: 'vehicleBreakStop',
-                    dialogClass: 'modalClass cancel-booking-container',
+                    dialogClass: 'modalClass booking-close-modal',
                     resolve: {
                         editMode: [
 

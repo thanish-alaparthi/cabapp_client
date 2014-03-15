@@ -89,62 +89,6 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnVehicleLogin: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/login",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleBreakStart: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/breakstart",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleBreakStop: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/breakend",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleConfirm: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/dispatch",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnVehicleComplaint: function(oDataParams) {
                 return $http({
                     method: 'POST',
@@ -165,20 +109,6 @@ angular.module('sigmaCabsApp')
                     url: URLService.service('RestApiDefaultEmpty'),
                     data: {
                         url: "booking/complaint", // should change to suggestion API
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleBreakDown: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "vehicle/saveBreakDownInfo",
                         data: JSON.stringify(oDataParams)
                     },
                     headers: {

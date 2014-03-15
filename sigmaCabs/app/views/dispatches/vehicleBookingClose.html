@@ -60,18 +60,23 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10">
                     <label class="labelCompact">New Package</label>
-                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingClose.tariffActual" data-ng-options="obj.id as obj.text for obj in vehiclePackageTypes" disabled></select>
+                    <span>{{bookingClose.tariffActualText}}</span>
+                    <!-- <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingClose.tariffActual" data-ng-options="obj.id as obj.text for obj in vehiclePackageTypes" disabled></select> -->
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10">
                     <label class="labelCompact">Journey Type</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes" disabled></select>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative left">
                     <label class="labelCompact">Sub-Journey Type</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="vehicleDetails.vehicleMainDetails.details.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}" disabled></select>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-change="fnUpdatePackage()"  data-ng-model="bookingClose.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes"></select>
                 </div>
                 <p class="clear"/>
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10" data-ng-show="bookingClose.modifiedPackageShow" style="width: 100%;">
+                    <label class="labelCompact">Modified Package</label>
+                    <span>{{bookingClose.modifiedPackageText}}</span>
+                </div>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact" title="Extra Hour Charge">Ex. Hr Chrg.</label>
                     <span>{{bookingClose.extraHrChrg}}</span>
@@ -108,7 +113,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10">
-                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                    <label class="labelCompact">Reason</label>
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingClose.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleBkngCloseReasonTypes"></select>
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10" style="height:60px;">

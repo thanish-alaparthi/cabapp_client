@@ -48,19 +48,10 @@ angular.module('sigmaCabsApp')
 				"lattitude": "1234.56",
 				"longitude": "6789.56"
 			};
-			/*scope.vehicleLoginObj['vehicleId'] = scope.chosenVehicle;
-			scope.vehicleLoginObj['driverId'] = scope.chosenDriver;*/
 
-			DispatchService.fnVehicleLogin(scope.vehicleLoginObj)
-				.success(function(data, status, headers, config) {
-					console.log('Success: ', data);
-					//scope.bloginShow = false;
-					//alert(data.result[0].message);
-					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
-				})
-				.error(function(data, status, headers, config) {
-					console.log('Error: ', data)
-				});
+			serverService.sendData('P',
+				'vehicle/login',
+				oData, scope.fnVehicleLoginSuccess, scope.fnVehicleLoginError);
 		};
 
 		scope.fnVehicleConfirm = function() {
@@ -78,15 +69,9 @@ angular.module('sigmaCabsApp')
 				"bookingId": bookingId
 			};
 
-			DispatchService.fnVehicleConfirm(oData)
-				.success(function(data, status, headers, config) {
-					console.log('Success: ', data);
-					//alert(data.result[0].message);
-					scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
-				})
-				.error(function(data, status, headers, config) {
-					console.log('Error: ', data)
-				});
+			serverService.sendData('P',
+				'vehicle/dispatch',
+				oData, scope.fnVehicleConfirmSuccess, scope.fnVehicleConfirmError);
 		};
 
 		scope.fnVehicleAcceptBooking = function() {
@@ -110,8 +95,18 @@ angular.module('sigmaCabsApp')
 				oData, scope.fnVehicleAcceptBookingSuccess, scope.fnVehicleAcceptBookingError);
 		};
 
+		scope.fnVehicleLoginSuccess = function(data, status, headers, config) {
+			console.log('fnVehicleLoginSuccess: ', data);
+			//scope.bloginShow = false;
+			//alert(data.result[0].message);
+			scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
+		};
+		scope.fnVehicleLoginError = function(data, status, headers, config) {
+			console.log('Error: ', data);
+		};
+
 		scope.fnVehicleAcceptBookingSuccess = function(data, status, headers, config) {
-			console.log('Success: ', data);
+			console.log('fnVehicleAcceptBookingSuccess: ', data);
 			//alert(data.result[0].message);
 			scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
 		};
@@ -119,7 +114,12 @@ angular.module('sigmaCabsApp')
 			console.log('Error: ', data);
 		};
 
-		/*scope.close = function(){
-			dialog.close();
-		};*/
+		scope.fnVehicleConfirmSuccess = function(data, status, headers, config) {
+			console.log('fnVehicleConfirmSuccess: ', data);
+			//alert(data.result[0].message);
+			scope.fnVehicleSearch(scope.vehicleMainDetails.mobileNumber);
+		};
+		scope.fnVehicleConfirmError = function(data, status, headers, config) {
+			console.log('Error: ', data);
+		};
 	});
