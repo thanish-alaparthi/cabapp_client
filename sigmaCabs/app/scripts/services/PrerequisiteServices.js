@@ -1032,7 +1032,7 @@ angular.module('sigmaCabsApp')
                 }];
             },
             fnGetVehicleManufacturingYears : function(){
-                var aRtn = [],
+                var aRtn = {'' : 'select'},
                     oD = new Date();
                 for(var i=(oD.getFullYear() - 15); i <= oD.getFullYear() ; i++){
                     aRtn[i] = i;

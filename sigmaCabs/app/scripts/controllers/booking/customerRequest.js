@@ -78,6 +78,20 @@ angular.module('sigmaCabsApp')
 						return;
 					}
 
+					if(!oSave.comments){
+						alert('Please add a comment');
+						return;
+					}
+
+					if(!oSave.pickupPlace){
+						alert('Please add a pickup place.');
+						return;
+					}
+					if(!oSave.dropPlace){
+						alert('Please add a drop place.');
+						return;
+					}
+
 					CustomerService.fnSaveRegularRequest(oSave)
 					.success(scope.fnRestApiSuccess)
 					.error(scope.fnRestApiError);

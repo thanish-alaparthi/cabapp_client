@@ -83,12 +83,12 @@ angular.module('sigmaCabsApp')
 		*/
 		scope.fnCustomerDetailsBlured = function(){
 			console.log('fnCustomerDetailsBlured');
-			if(scope.customerDetails.mobile && scope.customerDetails.name){
+			if((scope.customerDetails.mobile && scope.customerDetails.name) || (scope.customerDetails.mobile2 && scope.customerDetails.name)  ){
 				scope.fnSaveCustomerDetails({
 					"id":scope.customerDetails.id, 
 					"name" : scope.customerDetails.name, 
 					"mobile" : scope.customerDetails.mobile,
-					"altMobile" : scope.customerDetails.altMobile
+					"altMobile" : scope.customerDetails.mobile2
 				});
 			} else {
 				console.log('Mobile and Name are mandatory in customer save.');
