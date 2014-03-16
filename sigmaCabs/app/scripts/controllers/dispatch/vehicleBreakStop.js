@@ -15,6 +15,7 @@ angular.module('sigmaCabsApp')
 			currentTimeMsec = currentTimeStamp.getTime(),
 			currentTimeStampHrs = currentTimeStamp.getHours(),
 			currentTimeStampMins = currentTimeStamp.getMinutes(),
+			currentTimeStampMonth = currentTimeStamp.getMonth(),
 			requestedTime = 0,
 			breakStartTime = 0,
 			breakStartDate, breakStartTimeStamp, totalBreakTimeInMins = 0,
@@ -23,13 +24,14 @@ angular.module('sigmaCabsApp')
 		//prefix 0 for hours & minutes 
 		currentTimeStampHrs = (currentTimeStampHrs < 10) ? '0' + currentTimeStampHrs : currentTimeStampHrs;
 		currentTimeStampMins = (currentTimeStampMins < 10) ? '0' + currentTimeStampMins : currentTimeStampMins;
+		currentTimeStampMonth = (currentTimeStampMonth < 10) ? '0' + currentTimeStampMonth : currentTimeStampMonth;
 
 		scope.vehicleDetails = oVehicleData;
 		requestedTime = Math.abs(scope.vehicleDetails.vehicleMainDetails.details.requestedTime);
 		breakStartTime = scope.vehicleDetails.vehicleMainDetails.details.breakTime;
 		scope.breakStop = {};
 		breakStartDate = PrerequisiteService.fnFormatDate(breakStartTime.split(' ')[0]);
-		scope.breakStop.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStamp.getMonth() + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStampHrs + ':' + currentTimeStampMins;
+		scope.breakStop.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStampMonth + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStampHrs + ':' + currentTimeStampMins;
 		scope.breakStop.requestedTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(requestedTime);
 		scope.breakStop.breakStartTimeDisplay = breakStartDate + ' ' + breakStartTime.split(' ')[1].substring(0, 5);
 		breakStartTimeStamp = new Date(breakStartTime.split(' ')[0] + ' ' + breakStartTime.split(' ')[1]).getTime();

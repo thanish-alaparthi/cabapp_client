@@ -28,7 +28,7 @@ angular.module('sigmaCabsApp')
                     "requester": scope.vReject.categoryId,
                     "vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
                     "driverId": driverId,
-                    "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
+                    "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
                     "reasonId": scope.vReject.reasonId || '',
                     "priority": scope.vReject.priorityId || '',
                     "comments": scope.vReject.comments

@@ -322,15 +322,18 @@ angular.module('sigmaCabsApp')
                         scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
                         scope.vehicleMainDetails.details.loginTime = scope.vehicleMainDetails.details.loginTime.substring(0, 5);
+                        scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
+                        scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
                         scope.vehicleMainDetails.details.vacantTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
+                        scope.vehicleMainDetails.details.overAllBreakTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.dayBreakTime);
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot
                     case "5": // Attach
                     case "6": // While Driving
-                        var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.vehicleMainDetails.details.subJourneyType);
+                        var oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.vehicleMainDetails.details.subJourneyType);
                         if(oTmpJt) {
-                            scope.tmpDetails.tmpJourneyType = oTmpJt.parentId;
+                            scope.tmpDetails.tmpJourneyType = oTmpJt.id;
                             scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
                             scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
                             scope.vehicleMainDetails.details.pickupTimeText = scope.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds
@@ -342,7 +345,7 @@ angular.module('sigmaCabsApp')
                                 scope.vStateHeading = ' - In Driving';
                             }
                             // storing journey type to use in popup's
-                            scope.vehicleMainDetails.tempSelectedJourneyTypeId = oTmpJt.parentId;
+                            scope.vehicleMainDetails.tempSelectedJourneyTypeId = oTmpJt.id;
                             scope.vehicleMainDetails.details.displayPickupDate = PrerequisiteService.fnFormatDate(scope.vehicleMainDetails.details.pickupDate);
                             scope.vAllotView = true;
                         } else {
