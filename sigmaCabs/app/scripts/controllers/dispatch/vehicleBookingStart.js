@@ -69,6 +69,9 @@ angular.module('sigmaCabsApp')
             } else if (isNaN(oData.currentKms)) {
                 alert('Please enter valid Kms');
                 return;
+            } else if (oData.currentKms < scope.vehicleDetails.vehicleMainDetails.details.previousKms) {
+                alert('Current Kms cannot be less than previous kms.');
+                return;
             } else if (oData.rating === 1 && (oData.reasonId == '')) {
                 alert('Please select valid Reason');
                 return;

@@ -42,10 +42,12 @@ angular.module('sigmaCabsApp')
 				"receipt": scope.logout.fuelReceiptNo || '',
 				"voucher": scope.logout.fuelVoucher || '',
 				"incharge": scope.logout.fuelIncharge || ''
-			};
+			},
+			// till the time we get the current kms in base object, in some vehicle state we don't get previous kms
+			startOrPreviousKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms || scope.vehicleDetails.vehicleMainDetails.startKms;
 
 			// validations
-			if(oData.currentKms < scope.vehicleDetails.vehicleMainDetails.details.previousKms) {
+			if(oData.currentKms < startOrPreviousKms) {
 				alert('Current Kms cannot be less than previous kms.');
 				return;
 			} else if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms)) {

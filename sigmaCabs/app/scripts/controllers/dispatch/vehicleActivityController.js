@@ -43,12 +43,18 @@ angular.module('sigmaCabsApp')
 			console.log(scope.vehicleMainDetails);
 			var oData = {
 				"vehicleId": scope.vehicleMainDetails.id,
+				"currentKms": scope.vehicleMainDetails.loginStartKms,
 				"driverId": scope.vehicleMainDetails.selectedDriver,
 				"location": scope.vehicleDetails.loginLocation,
 				"lattitude": "1234.56",
 				"longitude": "6789.56"
 			};
 
+			// validations
+			if(oData.currentKms < scope.vehicleMainDetails.startKms) {
+				alert('Current Kms cannot be less than start kms.');
+				return;
+			}
 			serverService.sendData('P',
 				'vehicle/login',
 				oData, scope.fnVehicleLoginSuccess, scope.fnVehicleLoginError);

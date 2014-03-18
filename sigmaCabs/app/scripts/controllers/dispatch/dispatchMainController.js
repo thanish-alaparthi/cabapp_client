@@ -312,6 +312,7 @@ angular.module('sigmaCabsApp')
                         //scope.vehicleDetails.loginPaymentStatus = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetails.paymentStatus);
                         scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetails.details.condition);
                         scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetails.paymentStatus);
+                        scope.vehicleMainDetails.loginStartKms = scope.vehicleMainDetails.startKms;
 
                         scope.vStateHeading = '';
                         scope.vLoginView = true;

@@ -52,7 +52,7 @@ angular.module('sigmaCabsApp')
                             primaryMobile: "",
                             primaryPassenger: "",
                             subJourneyType: oDetails.subJourneyType,
-                            vehicleName: null,
+                            vehicleName: scope.vehicleDetails.vehicleMainDetails.vehicleName,
                             vehicleType: scope.vehicleDetails.vehicleMainDetails.vehicleType
                         }
                     },
