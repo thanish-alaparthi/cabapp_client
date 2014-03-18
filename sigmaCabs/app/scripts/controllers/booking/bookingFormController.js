@@ -202,7 +202,7 @@ angular.module('sigmaCabsApp')
 		// If booking is opened in edit Mode... than we have to set JourneyType based on subJourneyType
 		if(scope.bookingDetails.subJourneyType){
 			var oJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetails.subJourneyType);
-			scope.tmpDetails.tmpJourneyType = oJt.parentId;
+			scope.tmpDetails.tmpJourneyType = oJt.id;
 		} else {
 			scope.tmpDetails.tmpJourneyType = "1";
 		}	
@@ -277,6 +277,14 @@ angular.module('sigmaCabsApp')
 				alert('Please save the customer details first.');
 				return;
 			}
+			if(!scope.bookingDetails.pickupPlace){
+				alert('Please enter a pickup place.');
+				return;
+			}
+			if(!scope.bookingDetails.dropPlace){
+				alert('Please enter a drop place.');
+				return;
+			}
 
 			$scope.opts = {
 				templateUrl: URLService.view('dispositionForm'),
@@ -341,6 +349,14 @@ angular.module('sigmaCabsApp')
 			}
 			if(!scope.bookingDetails.dropPlace) {
 				alert('Please enter a drop place.');
+				return;
+			}
+			if(!scope.bookingDetails.vehicleName) {
+				alert('Please select a vehicle Name properly.');
+				return;
+			}
+			if(!scope.bookingDetails.vehicleType) {
+				alert('Please select a vehicle Type properly.');
 				return;
 			}
 

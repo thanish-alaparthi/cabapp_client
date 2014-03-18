@@ -430,7 +430,8 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpVehicleType = oData.bookingDetails.vehicleType ? oData.bookingDetails.vehicleType : "1";
             scope.tmpDetails.tmpVehicleName = oData.bookingDetails.vehicleName ? oData.bookingDetails.vehicleName : "";
 
-            var oTmpJt = PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(oData.bookingDetails.subJourneyType);
+            // var oTmpJt = PrerequisiteService.fnGetMainJourneyTypeBySubJourneyTypeId(oData.bookingDetails.subJourneyType);
+            var oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(oData.bookingDetails.subJourneyType);
 
             scope.tmpDetails.tmpJourneyType = oTmpJt.id;
 

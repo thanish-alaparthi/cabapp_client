@@ -55,7 +55,7 @@
                         </div>
                         <div class="fieldContainer left relative  ">
                             <label class="labelCompact">No. of Days</label>
-                            <input data-ng-model="regularRequestDetails.totalDays" type="number"class="left validate[required,maxSize[128]] textFieldCompact" number-only/>
+                            <input data-ng-model="regularRequestDetails.totalDays" type="text"class="left validate[required,maxSize[128]] textFieldCompact" number-only/>
                         </div>
                         <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
                             <label class="labelCompact">Comment</label>
@@ -105,7 +105,8 @@
                     <div class="tab-body cust-request" data-ng-show="tab==3">
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Travel Type</label>
-                             <select data-ng-model="specialRequestDetails.travelType" class=" validate[maxSize[36]] selectFieldCompact"  ng-options="obj.id as obj.travelType for obj in travelTypes"></select>
+                             <!-- <select data-ng-model="specialRequestDetails.travelType" class=" validate[maxSize[36]] selectFieldCompact"  ng-options="obj.id as obj.travelType for obj in travelTypes"></select> -->
+                             <input data-ng-model="specialRequestDetails.travelType" style="width: 289px;" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Contact Person</label>

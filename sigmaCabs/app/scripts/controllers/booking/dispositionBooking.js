@@ -16,17 +16,28 @@ angular.module('sigmaCabsApp')
 		scope.customerDetails = oCustomer;
 		scope.bookingDetails = oBooking;
 
+		var oD = new Date();
+		oD.setMinutes(oD.getMinutes() + 5);
+
 		// set default type of disposition to enquiry
 		scope.dispositionDetails = {
 			type : PreConfigService.BOOKING_ENQUIRY,
-			followupDate: PrerequisiteService.fnFormatDate()
+			followupDate: PrerequisiteService.fnFormatDate(),
+			followUpHours : oD.getHours().toString(),
+			followUpMinutes : oD.getMinutes().toString()
 		};
 		scope.followUpFields = false;
 
+		
 
-		scope.dispositions = PrerequisiteService.getDispositionTypes();		
-	    scope.minutes = PrerequisiteService.minutes;
+		scope.dispositions = PrerequisiteService.getDispositionTypes();	
+	    scope.minutes = angular.copy(PrerequisiteService.minutes);
 	    scope.hours = PrerequisiteService.hours;
+
+	    if(!scope.minutes.hasOwnProperty(scope.dispositionDetails.followUpMinutes)){
+	    	scope.minutes[scope.dispositionDetails.followUpMinutes] = scope.dispositionDetails.followUpMinutes;
+	    }
+	    
 
 		scope.close = function() {
 			dialog.close();
@@ -36,6 +47,13 @@ angular.module('sigmaCabsApp')
 			var oSave = oBooking;
 			oSave.bookingStatus = scope.dispositionDetails.type;
 			oSave.comments = scope.dispositionDetails.comments;
+
+			// validation
+			if(!scope.dispositionDetails.comments) {
+				alert('Please enter comments');
+				return;
+			}
+			
 
 			if(scope.dispositionDetails.type == PreConfigService.BOOKING_FOLLOW_UP){
 				oSave.followupDate = PrerequisiteService.formatToServerDate(scope.dispositionDetails.followupDate);
