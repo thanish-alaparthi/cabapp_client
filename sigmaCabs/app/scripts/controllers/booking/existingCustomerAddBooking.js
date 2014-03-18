@@ -400,7 +400,7 @@ angular.module('sigmaCabsApp')
 		scope.fnApiSaveBooking = function(oData){
 
 			if(!PrerequisiteService.fnValidateBookingTime(oData.pickupDate, oData.pickupTime)){
-				alert('Pickup time should be atleast 30 minutes ahead of the current time.');
+				alert('Pickup time should be atleast 20 minutes ahead of the current time.');
 				return false;
 			}
 

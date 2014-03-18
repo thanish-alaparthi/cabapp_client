@@ -488,20 +488,20 @@ angular.module('sigmaCabsApp')
 					var oDt = new Date(),
 						oPkDt = new Date(PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate) + ' ' + scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00'),
 						sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours(),
-						isPkDtLessThan30Minutes = false;
+						isPkDtLessThan20Minutes = false;
 
-					if(((oDt.getTime() + (30 * 60 * 1000)) >= oPkDt.getTime() )){
-						isPkDtLessThan30Minutes = true;
+					if(((oDt.getTime() + (20 * 60 * 1000)) >= oPkDt.getTime() )){
+						isPkDtLessThan20Minutes = true;
 					}
 
 					if(		oPkDt.getTime() < oDt.getTime()  // pickup time should not be lessThan current time
-						|| isPkDtLessThan30Minutes ){
+						|| isPkDtLessThan20Minutes ){
 						var oDtNw = new Date();
-						oDtNw.setMinutes(oDtNw.getMinutes() + 30);
+						oDtNw.setMinutes(oDtNw.getMinutes() + 20);	// as per ticker:0000088
 
 						var	sHr = oDtNw.getHours() <=9 ? '0' + oDtNw.getHours() : oDtNw.getHours();
 
-						alert('Pickup time should be atleast 30 minutes ahead of the current time.');
+						alert('Pickup time should be atleast 20 minutes ahead of the current time.');
 
 						var sMn = (oDtNw.getMinutes() + (10 - (oDtNw.getMinutes()%10)));
 						sMn = sMn <=9 ? '0'+sMn : sMn;
