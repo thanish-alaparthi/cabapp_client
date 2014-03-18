@@ -37,7 +37,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="bookingClose.currentKms" maxlength="10" class="textFieldCompact" data-ng-blur="fnCalculateOnCurrentKms()"/>
+                    <input type="text" ng-model="bookingClose.currentKms" maxlength="10" class="textFieldCompact" data-ng-blur="fnCalculateOnCurrentKms()" number-only/>
                 </div>
                 <div class="fieldContainer relative left">
                     <label class="labelCompact" style="width: 80px;">Trip Kms</label>
@@ -100,7 +100,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <div class="fieldContainer relative left">
                     <label class="labelCompact" title="Discount">Discount</label>
-                    <input type="text" ng-model="bookingClose.discount" maxlength="5" class="textFieldCompact" style="width: 50px;" data-ng-blur="fnCalculateDiscount()"/>&nbsp; &#37;
+                    <input type="text" ng-model="bookingClose.discount" maxlength="5" class="textFieldCompact" style="width: 50px;" data-ng-blur="fnCalculateDiscount()" number-only/>&nbsp; &#37;
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
@@ -109,7 +109,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact">Paid Amount</label>
-                    <input type="text" ng-model="bookingClose.paidAmount" maxlength="15" class="textFieldCompact"/>
+                    <input type="text" ng-model="bookingClose.paidAmount" maxlength="10" class="textFieldCompact" number-only/>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10">

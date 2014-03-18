@@ -55,7 +55,7 @@
                         </div>
                         <div class="fieldContainer left relative  ">
                             <label class="labelCompact">No. of Days</label>
-                            <input data-ng-model="regularRequestDetails.totalDays" type="number"class="left validate[required,maxSize[128]] textFieldCompact" />
+                            <input data-ng-model="regularRequestDetails.totalDays" type="number"class="left validate[required,maxSize[128]] textFieldCompact" number-only/>
                         </div>
                         <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
                             <label class="labelCompact">Comment</label>
@@ -113,11 +113,11 @@
                         </div>
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Contact No.1</label>
-                            <input data-ng-model="specialRequestDetails.contact1" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                            <input data-ng-model="specialRequestDetails.contact1" phone type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Contact No.2</label>
-                            <input data-ng-model="specialRequestDetails.contact2" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
+                            <input data-ng-model="specialRequestDetails.contact2" phone type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative">
                             <label class="labelCompact">Address</label>

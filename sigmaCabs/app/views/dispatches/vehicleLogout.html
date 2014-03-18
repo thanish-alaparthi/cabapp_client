@@ -23,7 +23,7 @@
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
                     <label class="labelCompact">Current Kms</label>
-                    <input type="text" ng-model="logout.currentKms" maxlength="20" class="textFieldCompact" />
+                    <input type="text" ng-model="logout.currentKms" maxlength="10" number-only class="textFieldCompact" />
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left" style="width:180px;">
@@ -52,11 +52,11 @@
                 <div ng-show="logout.isFuel">
                     <div class="fieldContainer relative left" style="width:180px;">
                         <label class="labelCompact" title="Fuel Litres">Litres</label>
-                        <input type="text" ng-model="logout.fuelLtrs" maxlength="20" class="textFieldCompact"/>
+                        <input type="text" ng-model="logout.fuelLtrs" maxlength="10" number-only class="textFieldCompact"/>
                     </div>
                     <div class="fieldContainer relative right" style="width:180px">
                         <label class="labelCompact" title="Fuel Amount">Amount</label>
-                        <input type="text" ng-model="logout.fuelAmount" maxlength="20" class="textFieldCompact" />
+                        <input type="text" ng-model="logout.fuelAmount" maxlength="10" number-only class="textFieldCompact" />
                     </div>
                     <p class="clear"/>
                     <div class="fieldContainer relative left" style="width:180px;">

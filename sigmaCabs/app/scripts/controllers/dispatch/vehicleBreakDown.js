@@ -18,7 +18,7 @@ angular.module('sigmaCabsApp')
 		scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
 		scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(12);
 		scope.vehiclePriorities = PrerequisiteService.priorities;
-
+		scope.breakDown.currentKms = scope.vehicleDetails.vehicleMainDetails.startKms;
 
 		scope.close = function() {
 			dialog.close();
@@ -29,6 +29,7 @@ angular.module('sigmaCabsApp')
 					"requester": scope.breakDown.categoryId,
 					"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
 					"driverId": driverId,
+					"currentKms": scope.breakDown.currentKms,
 					"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 					"reasonId": scope.breakDown.reasonId || '',
 					"priority": scope.breakDown.priorityId || '',
@@ -38,7 +39,10 @@ angular.module('sigmaCabsApp')
 			console.log(oData);
 
 			// validations
-			if (oData.requester === '' || oData.priority === '' || oData.reasonId === '') {
+			if(oData.currentKms > 0 && oData.currentKms < scope.vehicleDetails.vehicleMainDetails.startKms) {
+				alert('Current Kms cannot be less than start kms.');
+				return;
+			} else if (oData.requester === '' || oData.priority === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
 			} else if (scope.breakDown.categoryId === 4 && driverId === '') {
