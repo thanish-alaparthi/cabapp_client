@@ -113,6 +113,14 @@ angular.module('sigmaCabsApp')
 
 	    console.log('tariffData: >>>>',scope.tariffData);
 
+	    setTimeout(function(){
+	    	console.log('SelectedTariffId', oBooking.tariffId, $('#' + oBooking.tariffId));
+		    if(oBooking.tariffId){
+		    	$('.myTariffSelected').removeClass('myTariffSelected');
+				$('#' + oBooking.tariffId).addClass('myTariffSelected');
+		    }
+	    },1000);
+
 	    var fieldName, keyValue, cellObj, objName = 'Obj';
 	    scope.oDataForTariffGrid = [];
 
@@ -158,8 +166,6 @@ angular.module('sigmaCabsApp')
 
 	    	scope.close();
 	    };
-
-
 	    
 	    $scope.gridCityPkgOptions = { 
 	      data: 'tariffData',

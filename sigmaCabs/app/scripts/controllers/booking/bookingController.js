@@ -56,10 +56,28 @@ angular.module('sigmaCabsApp')
         scope.tmpDetails = {};
 
         scope.fnClearBookingForm = function() {
+            var oDate = new Date();
+                oDate.setMinutes(oDate.getMinutes()  + 20);
+            var MM = parseInt(oDate.getMonth()+1),
+                DD  = oDate.getDate(),
+                YYYY = oDate.getFullYear(),
+                HH = (oDate.getHours() <=9 ? '0' + oDate.getHours() : oDate.getHours().toString() ),
+                MN = (oDate.getMinutes() <=9 ? '0' + oDate.getMinutes() : oDate.getMinutes().toString() );
+            var sDtPlus20Minutes = (DD <=9 ? '0' +DD: DD)  + '/'+ (MM <=9 ? '0' + MM: MM) + '/' + YYYY;
+
+            console.log('sDtPlus20Minutes', sDtPlus20Minutes, ' :: ', HH, ' :: ', MN); 
+
+            if(scope.minutes && !scope.minutes.hasOwnProperty(MN)){
+                scope.minutes[MN] = MN;
+            }
+            if(scope.hours && !scope.hours.hasOwnProperty(HH)){
+                scope.hours[HH] = HH;
+            }
+
             scope.bookingDetails = {
-                pickupDate : PrerequisiteService.fnFormatDate(),
-                pickupHours : PrerequisiteService.fnFormatHours(),
-                pickupMinutes : PrerequisiteService.fnFormatMinutes(),
+                pickupDate : sDtPlus20Minutes,
+                pickupHours : HH,
+                pickupMinutes : MN,
                 pickupAddress : '',
                 pickupLandmark : '',
                 dropAddress : '',
@@ -146,7 +164,6 @@ angular.module('sigmaCabsApp')
             mobile2 : '',
             id : ''
         };
-        scope.fnClearBookingForm();
         scope.bookingHistoryDetails = [];
 
         // add the loading text message
@@ -345,6 +362,8 @@ angular.module('sigmaCabsApp')
             scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
             scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
 
+            scope.fnClearBookingForm();
+
 
             // show rush or normal hours in statistcs
             var oDt = new Date();
@@ -416,10 +435,10 @@ angular.module('sigmaCabsApp')
         });
 
         scope.$watch('bookingDetails', function(newVal,oldVal){
-            console.log('>>>>',scope.bookingDetails.pickupPlace);
+            console.log('>>>>',scope.bookingDetails);
             scope.safeApply();
             // scope.bookingDetails.$render();
-        });
+        },true);
 
         var oEventSelBokgFrmHist  = $rootScope.$on('eventSelectedBookingFromHistory', function(ev, oData) {                        
             // clear booking form

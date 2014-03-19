@@ -81,6 +81,9 @@ angular.module('sigmaCabsApp')
 					break;
 				}
 			}
+			if(!scope.bookingDetails.id){
+				scope.bookingDetails.subJourneyType = '';
+			}
 			
 		};
 		// function to change VehicleNames
@@ -359,7 +362,6 @@ angular.module('sigmaCabsApp')
 				alert('Please select a vehicle Type properly.');
 				return;
 			}
-
 			$scope.opts = {
 				templateUrl: URLService.view('singleTariff'),
 				controller: 'singleTariffController',
@@ -379,9 +381,10 @@ angular.module('sigmaCabsApp')
 							landmark1 : scope.bookingDetails.landmark1, 
 							landmark2 : scope.bookingDetails.landmark2, 
 							vehicleName : scope.bookingDetails.vehicleName, 
+							tariffId : scope.bookingDetails.tariffId, 
 							//Nortan - Changed to fix the issue pointed out by Aswin
 							vehicleType : scope.tmpDetails.tmpVehicleType, // scope.bookingDetails.vehicleType, 
-							subJourneyType : scope.bookingDetails.subJourneyType, 
+							subJourneyType : (scope.bookingDetails.subJourneyType  || '1'), 
 							bookingStatus : null,	// reset the booking status in disposition.
 							customerId : scope.waCustomerDetails.id
 						}
