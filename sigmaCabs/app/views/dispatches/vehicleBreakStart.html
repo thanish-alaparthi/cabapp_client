@@ -27,7 +27,10 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Request Time</label>
-                    <input type="text" maxlength="15" ng-model="breakStart.breakStartTime" class="textFieldCompact" />
+                    <input type="text" datepicker ng-model="breakStart.pickupDate" class="textFieldCompact" placeholder="" dpMinDate="dpCurrentDate" dpMaxDate="dpCurrentPlusSevenDate"  />
+                    <select class="selectFieldCompact" data-ng-model="breakStart.pickupHours" ng-options='k as v for (k,v) in hours' style="width: 50px;"></select>
+                    <select class="selectFieldCompact" data-ng-model="breakStart.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:50px;"></select>
+                    <p class="clear"/>
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;display:none;">
                     <label class="labelCompact">Comments</label>

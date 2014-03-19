@@ -16,6 +16,16 @@ angular.module('sigmaCabsApp')
         scope.vehicleDetails = oVehicleData;
         scope.vChange = {};
         scope.vChange.amountPaid = "0";
+        // set current Date for pickup date
+        scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
+        // set date restriction.
+        scope.dpCurrentPlusSevenDate = PrerequisiteService.fnGetAdvancedDate(7);
+        scope.hours = PrerequisiteService.hours;
+        scope.minutes = PrerequisiteService.minutes;
+        // default data
+        scope.vChange.pickupDate = angular.copy(scope.dpCurrentDate);
+        scope.vChange.pickupHours = "00";
+        scope.vChange.pickupMinutes = "00";
         scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
         scope.vehicleReasonTypes = PrerequisiteService.fnGetReasonsById(9);
         scope.vehiclePriorities = PrerequisiteService.priorities;
@@ -24,6 +34,8 @@ angular.module('sigmaCabsApp')
             dialog.close();
         }
         scope.fnSaveAndClose = function() {
+            scope.vChange.pickupTime = PrerequisiteService.formatToServerDate(scope.vChange.pickupDate) + ' ' + scope.vChange.pickupHours + ':' + scope.vChange.pickupMinutes;
+            console.log(scope.vChange.pickupTime);
             var oData = {
                 "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
                 "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
@@ -42,6 +54,9 @@ angular.module('sigmaCabsApp')
 
             if (oData.newVehicleId === '') {
                 alert('Please select new vehicle');
+                return;
+            } else if(new Date(oData.pickupTime).getTime() < new Date().getTime()) {
+                alert('Pickup time should not be less than current Time');
                 return;
             } else if (oData.driverId === '') {
                 alert('Please select driver in vehicle information');

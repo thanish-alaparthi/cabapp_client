@@ -35,7 +35,10 @@
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">New Pickup Time</label>
-                    <input type="text" ng-model="vChange.pickupTime" maxlength="15" class="textFieldCompact" />
+                    <input type="text" datepicker ng-model="vChange.pickupDate" class="textFieldCompact" placeholder="" dpMinDate="dpCurrentDate" dpMaxDate="dpCurrentPlusSevenDate"  />
+                    <select class="selectFieldCompact" data-ng-model="vChange.pickupHours" ng-options='k as v for (k,v) in hours' style="width: 50px;"></select>
+                    <select class="selectFieldCompact" data-ng-model="vChange.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:50px;"></select>
+                    <p class="clear"/>
                 </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact">Category By</label>

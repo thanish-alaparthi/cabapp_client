@@ -31,10 +31,15 @@
                     <input type="text" data-ng-class="{fieldExpand: nextLocationFocused}" data-ng-blur="nextLocationFocused=false" data-ng-focus="nextLocationFocused=true" ng-model="logout.nextLoginLocation" maxlength="20" class="textFieldCompact" googleplace />
                 </div>
                 <div class="fieldContainer relative right" style="width:180px">
-                    <label class="labelCompact" title="Next Expected Login Time">Next ELiT</label>
-                    <input type="text" ng-model="logout.nextLoginTime" maxlength="20" class="textFieldCompact"/>
                 </div>
                 <p class="clear"/>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact">Next ELiT</label>
+                    <input type="text" datepicker ng-model="logout.pickupDate" class="textFieldCompact" placeholder="" dpMinDate="dpCurrentDate" dpMaxDate="dpCurrentPlusSevenDate"  />
+                    <select class="selectFieldCompact" data-ng-model="logout.pickupHours" ng-options='k as v for (k,v) in hours' style="width: 50px;"></select>
+                    <select class="selectFieldCompact" data-ng-model="logout.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:50px;"></select>
+                    <p class="clear"/>
+                </div>
                 <div class="fieldContainer relative">
                     <label class="labelCompact" title="Vehicle Checked By">Checked By</label>
                     <input type="text" ng-model="logout.checkedBy" maxlength="20" class="textFieldCompact"/>

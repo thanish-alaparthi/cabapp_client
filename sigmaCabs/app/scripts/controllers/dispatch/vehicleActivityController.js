@@ -45,6 +45,7 @@ angular.module('sigmaCabsApp')
 				"vehicleId": scope.vehicleMainDetails.id,
 				"currentKms": scope.vehicleMainDetails.loginStartKms,
 				"driverId": scope.vehicleMainDetails.selectedDriver,
+				"expectedLoginHrs": scope.vehicleMainDetails.expLoginHours || '',
 				"location": scope.vehicleDetails.loginLocation,
 				"lattitude": "1234.56",
 				"longitude": "6789.56"
@@ -54,7 +55,11 @@ angular.module('sigmaCabsApp')
 			if(oData.currentKms < scope.vehicleMainDetails.startKms) {
 				alert('Current Kms cannot be less than start kms.');
 				return;
+			} else if(oData.expectedLoginHrs === '') {
+				alert('Please select expeted login hours');
+				return;
 			}
+
 			serverService.sendData('P',
 				'vehicle/login',
 				oData, scope.fnVehicleLoginSuccess, scope.fnVehicleLoginError);

@@ -69,7 +69,7 @@ angular.module('sigmaCabsApp')
 
 			console.log(oData);
 			// validations
-			if(oData.currentKms > 0 && oData.currentKms < scope.vehicleDetails.vehicleMainDetails.startKms) {
+			if(oData.currentKms < scope.vehicleDetails.vehicleMainDetails.startKms) {
 				alert('Current Kms cannot be less than start kms.');
 				return;
 			} else if (isNaN(oData.currentKms) || oData.location === '') {

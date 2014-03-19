@@ -11,10 +11,20 @@ angular.module('sigmaCabsApp')
 	.controller('vehicleLogout', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
 
 		var scope = $scope;
+		scope.logout = {};
 		console.log('inside vehicleLogout', oVehicleData);
+		// set current Date for pickup date
+		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
+		// set date restriction.
+		scope.dpCurrentPlusSevenDate = PrerequisiteService.fnGetAdvancedDate(7);
+		scope.hours = PrerequisiteService.hours;
+		scope.minutes = PrerequisiteService.minutes;
+		// default data
+		scope.logout.pickupDate = angular.copy(scope.dpCurrentDate);
+		scope.logout.pickupHours = "00";
+		scope.logout.pickupMinutes = "00";
 
 		scope.vehicleDetails = oVehicleData;
-		scope.logout = {};
 		scope.logout.currentKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms;
 
 		scope.close = function() {
@@ -22,6 +32,8 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnSaveAndClose = function() {
+			scope.logout.nextLoginTime = PrerequisiteService.formatToServerDate(scope.logout.pickupDate) + ' ' + scope.logout.pickupHours + ':' + scope.logout.pickupMinutes;
+			console.log(scope.logout.nextLoginTime);
 			var oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
 				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
@@ -29,7 +41,7 @@ angular.module('sigmaCabsApp')
 				"lattitude": "12345.564",
 				"longitude": "988756.345",
 				"currentKms": scope.logout.currentKms || '',
-				"expLoginTime": scope.logout.nextLoginTime || '',
+				"expLoginTime": scope.logout.nextLoginTime || '0',
 				"expLoginLocation": scope.logout.nextLoginLocation || '',
 				"checkedBy": scope.logout.checkedBy || '',
 				"comments": scope.logout.comments || '',
@@ -43,15 +55,18 @@ angular.module('sigmaCabsApp')
 				"voucher": scope.logout.fuelVoucher || '',
 				"incharge": scope.logout.fuelIncharge || ''
 			},
-			// till the time we get the current kms in base object, in some vehicle state we don't get previous kms
-			startOrPreviousKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms || scope.vehicleDetails.vehicleMainDetails.startKms;
+				// till the time we get the current kms in base object, in some vehicle state we don't get previous kms
+				startOrPreviousKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms || scope.vehicleDetails.vehicleMainDetails.startKms;
 
 			// validations
-			if(oData.currentKms < startOrPreviousKms) {
+			if (oData.currentKms < startOrPreviousKms) {
 				alert('Current Kms cannot be less than previous kms.');
 				return;
 			} else if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms)) {
 				alert('Please enter valid information');
+				return;
+			} else if(new Date(oData.expLoginTime).getTime() < new Date().getTime()) {
+				alert('Next login time should not be less than current Time');
 				return;
 			} else if (oData.driverId === '') {
 				alert('Please select driver in vehicle information');
