@@ -38,9 +38,9 @@
         </div>
         <hr class="buttonSpliter" />
         <div class="clearBoth relative mainButtonContainer">
-            <button class="left btnCompact btn-success" data-ng-click="fnFeedback();">Feedback</button>
+            <button class="left btnCompact btn-success" data-ng-click="fnFeedback();" data-ng-disabled="vInfoButtonsDisable">Feedback</button>
             <div class="btn-group">
-                <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown" data-ng-disabled="vInfoButtonsDisable">
                 Add Request <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" ng-switch on="vehicleMainDetails.vehicleState">

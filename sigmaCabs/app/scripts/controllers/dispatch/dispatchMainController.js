@@ -63,6 +63,7 @@ angular.module('sigmaCabsApp')
             scope.vVacantView = false;
             scope.vAllotView = false;
             scope.vDefaultView = false;
+            scope.vInfoButtonsDisable = false;
 
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;
@@ -100,6 +101,7 @@ angular.module('sigmaCabsApp')
                             scope.callerInfo = " (New Caller)";
                             scope.vehicleErrorMessage = data.result[0].errorMessage || errorMesg;
                             scope.vDefaultView = true;
+                            scope.vInfoButtonsDisable = true;
 
                             // make callPhone as mobile 
                             //scope.customerDetails.mobile = scope.callerPhone;
@@ -113,6 +115,7 @@ angular.module('sigmaCabsApp')
                         console.log('Error fnFindVehicleByMobile: ', data);
                         scope.vehicleErrorMessage = "Error in fetching vehicle details..";
                         scope.vDefaultView = true;
+                        scope.vInfoButtonsDisable = true;
                     });
             };
 
@@ -123,6 +126,7 @@ angular.module('sigmaCabsApp')
             } else {
                 scope.showDispatchView = true;
                 scope.vDefaultView = true;
+                scope.vInfoButtonsDisable = true;
             }
 
             scope.currentMonthGridDetails = [];
@@ -297,6 +301,7 @@ angular.module('sigmaCabsApp')
                 scope.vVacantView = false;
                 scope.vAllotView = false;
                 scope.vDefaultView = false;
+                scope.vInfoButtonsDisable = false;
 
                 // select first driver by default
                 if (scope.vehicleMainDetails.driver.length) {
@@ -352,19 +357,23 @@ angular.module('sigmaCabsApp')
                         } else {
                             scope.vehicleErrorMessage = 'Error in fetching details..';
                             scope.vDefaultView = true;
+                            scope.vInfoButtonsDisable = true;
                         }
                         break;
                     case "7": // Inactive
                     case "8": // Not in use
                         scope.vehicleErrorMessage = scope.vehicleMainDetails.details.message;
                         scope.vDefaultView = true;
+                        scope.vInfoButtonsDisable = true;
                         break;
                     case "9": // Vehicle Breakdown
                         scope.vehicleErrorMessage = "Vehicle in Break down condition";
                         scope.vDefaultView = true;
+                        scope.vInfoButtonsDisable = true;
                         break;
                     default:
                         scope.vDefaultView = true;
+                        scope.vInfoButtonsDisable = true;
                         break;
                 }
 
@@ -409,6 +418,7 @@ angular.module('sigmaCabsApp')
                             scope.vVacantView = false;
                             scope.vAllotView = false;
                             scope.vDefaultView = true;
+                            scope.vInfoButtonsDisable = true;
                             // make callPhone as mobile 
                             scope.customerDetails.mobile = scope.callerPhone;
                         } else if (data.status == 200 && data.result) {
@@ -424,6 +434,7 @@ angular.module('sigmaCabsApp')
                         console.log('error fnSearchVehicle: ', data);
                         scope.vehicleErrorMessage = "Error in fetching vehicle details..";
                         scope.vDefaultView = true;
+                        scope.vInfoButtonsDisable = true;
                     });
 
             }

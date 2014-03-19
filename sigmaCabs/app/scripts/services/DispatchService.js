@@ -117,20 +117,6 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnVehicleChangeTariff: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/saveTariffChangeInfo",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnVehicleBookingCancel: function(oDataParams) {
                 return $http({
                     method: 'POST',

@@ -14,10 +14,10 @@ angular.module('sigmaCabsApp')
             return '';
           }
 
-          firstParse = inputValue.replace(/[^0-9 . -]/g, '');
+          firstParse = inputValue.replace(/[^0-9.]/g, '');
           safeParse = firstParse.charAt(0);
           prepParse = firstParse.substring(1, firstParse.length);
-          secondParse = safeParse + prepParse.replace(/[^0-9 .]/g, '');
+          secondParse = safeParse + prepParse.replace(/[^0-9.]/g, '');
           indexOfDot = secondParse.indexOf(".");
 
           if (indexOfDot == -1) {

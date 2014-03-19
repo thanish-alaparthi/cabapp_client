@@ -1074,8 +1074,8 @@ angular.module('sigmaCabsApp')
                     oPkDt = new Date(sPkTm),
                     oCDt = new Date();
 
-                    // 20 minutes
-                    if(oCDt.getTime() + 1200000  <= oPkDt.getTime() ){
+                    console.log(oPkDt);
+                    if(oCDt.getTime() + 1800000  <= oPkDt.getTime() ){
                         return true
                     }
 

@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingTariff', function(oVehicleData, oCustomerDetails, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, modalWindow) {
+    .controller('vehicleBookingTariff', function(oVehicleData, oCustomerDetails, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, modalWindow, serverService) {
 
         var scope = $scope;
         console.log('inside vehicleBookingTariff', oVehicleData);
@@ -74,15 +74,19 @@ angular.module('sigmaCabsApp')
         });
 
         scope.fnSaveAndClose = function() {
-            var oData = {
-                "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
-                "optedTariffId": scope.vehicleDetails.vehicleMainDetails.details.tariffId,
-                "changedTariffId": scope.vChangeTariff.newTariffId || '',
-                "changedBy": scope.vChangeTariff.categoryId || '',
-                "reasonId": scope.vChangeTariff.reasonId || '',
-                "comments": scope.vChangeTariff.comments
-            };
+            var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                oData = {
+                    "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
+                    "driverId": driverId || '',
+                    "optedTariffId": scope.vehicleDetails.vehicleMainDetails.details.tariffId,
+                    "changedTariffId": scope.vChangeTariff.newTariffId || '',
+                    "changedBy": scope.vChangeTariff.categoryId || '',
+                    "reasonId": scope.vChangeTariff.reasonId || '',
+                    "comments": scope.vChangeTariff.comments
+                };
 
+            console.log(oData);
+            // validations
             if (oData.changedTariffId === '' || oData.optedTariffId === oData.changedTariffId) {
                 alert('Please select a new Tariff');
                 return;
@@ -94,14 +98,18 @@ angular.module('sigmaCabsApp')
                 return;
             }
 
-            DispatchService.fnVehicleChangeTariff(oData)
-                .success(function(data, status, headers, config) {
-                    console.log('Success: ', data);
-                    scope.close();
-                    //alert(data.result[0].message);
-                })
-                .error(function(data, status, headers, config) {
-                    console.log('Error: ', data)
-                });
+            serverService.sendData('P',
+                'booking/saveTariffChangeInfo',
+                oData, scope.fnVehicleChangeTariffSuccess, scope.fnVehicleChangeTariffError);
         }
+
+        scope.fnVehicleChangeTariffSuccess = function(data, status, headers, config) {
+            console.log('Success: ', data);
+            scope.close();
+            //alert(data.result[0].message);
+            $rootScope.$emit('eventGetVehicleStatus', null);
+        };
+        scope.fnVehicleChangeTariffError = function(data, status, headers, config) {
+            console.log('Error: ', data);
+        };
     });

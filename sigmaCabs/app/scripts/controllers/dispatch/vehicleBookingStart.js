@@ -60,6 +60,7 @@ angular.module('sigmaCabsApp')
             };
 
             console.log(oData);
+            // validations
             if (oData.bookingId === '') {
                 alert('Not a valid booking!!!');
                 return;
