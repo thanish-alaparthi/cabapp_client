@@ -1082,6 +1082,24 @@ angular.module('sigmaCabsApp')
                     return false;
 
             },
+            fnGetVacantTimes : function() {
+                return [{
+                    title : '30min',
+                    id: '30'
+                }, {
+                    title : '45min',
+                    id: '45'
+                }, {
+                    title : '1hr',
+                    id: '60'
+                }, {
+                    title : '1hr 30min',
+                    id: '90'
+                }, {
+                    title : '2hr',
+                    id: '120'
+                }];
+            },
 
 
             /* Old settings. will be deleted later */

@@ -163,8 +163,22 @@ angular.module('sigmaCabsApp')
             });
           }
 
+          scope.oVacantTimes = angular.copy(PrerequisiteService.fnGetVacantTimes());
+          scope.oVacantTimes.push({
+            'title' : '---All---',
+            id: ''
+          });
+
           scope.vAttTypes = angular.copy(PrerequisiteService.fnGetAttachmentTypes());
+          scope.vAttTypes.push({
+            attachmentType: "---All---",
+            id: ""
+          });
           scope.vConditions = angular.copy(PrerequisiteService.fnGetVehicleConditionTypes());
+          scope.vConditions.push({
+            condition: "---All---",
+            id: ""
+          });
           scope.vModYear = angular.copy(PrerequisiteService.fnGetVehicleManufacturingYears());
           scope.vNames.push({
             id: "0",
@@ -219,7 +233,7 @@ angular.module('sigmaCabsApp')
           }
 
           scope.bdSearch = {
-            bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,  // default to yet to dispatch
+            bookingStatus : [PreConfigService.BOOKING_YET_TO_DISPATCH],  // default to yet to dispatch
             vehicle : scope.oVehicleDefault,
             nxtHrs: '1',
             projHrs : '12',
@@ -227,7 +241,8 @@ angular.module('sigmaCabsApp')
             vModMonth : '00',
             vModYear : '',
             attType : '',
-            vCondtion : ''
+            vCondtion : '',
+            vacantTm : ''
           };
 
           scope.viSearch = {
@@ -303,6 +318,7 @@ angular.module('sigmaCabsApp')
             datum.subJourneyType = (datum.subJourneyType) ? formatSource.fnGetJourneyTypeName(datum.subJourneyType) : '';
             datum.pickupTime = formatSource.fnFormatHours(datum.pickupTime) + ':' + formatSource.fnFormatMinutes(datum.pickupTime);
           }
+          console.log('Formated data',data);
           scope.loadBookingMgmtGridData(data);
         }
         scope.FormatNloadWhileDrivingVehiclesGridData = function(data){
@@ -532,18 +548,19 @@ angular.module('sigmaCabsApp')
         /*END: Loader methods*/
     /*END: Loading methods for the grids*/
 
-    /*START: Loading initial grids*/
+        /*START: Loading initial grids*/
         /*START: setting the booking management grid*/
         // fn to load booking status wise bookings
         scope.fnLoadBookingStatusWise = function(aStatus) {
           scope.bdSearch.bookingStatus = aStatus;
           scope.setBookingMgmtGrid();
+          scope.setVacantVehiclesGrid();
         };
         scope.setBookingMgmtGrid = function(doEmptyGrid){
           var oData = {};
-          if(doEmptyGrid && doEmptyGrid == true)
+          if(doEmptyGrid && doEmptyGrid == true){
             scope.loadBookingMgmtGridData([]);
-          else{
+          } else {
 
             // take the search filters for booking Grid load
 
@@ -553,24 +570,31 @@ angular.module('sigmaCabsApp')
 
             console.log('bdSearch Filters', scope.bdSearch);
 
+            // oData = {
+            //   "bookingStatus" : scope.bdSearch.bookingStatus, // send as an array.
+            //   'attachmentType' : scope.bdSearch.attType,
+            //   'collection' : scope.bdSearch.collection,
+            //   'nextHours' : scope.bdSearch.nxtHrs,
+            //   'projectedHours' : scope.bdSearch.projHrs,
+            //   'vehicleCondtion' : scope.bdSearch.vCondtion,
+            //   'modelMonth' : scope.bdSearch.vModMonth,
+            //   'modelYear' : scope.bdSearch.vModYear,
+            //   'vehicleName' : scope.bdSearch.vName,
+            //   'vehicleType' : scope.bdSearch.vType
+            // };
+
             oData = {
               "bookingStatus" : scope.bdSearch.bookingStatus, // send as an array.
-              'attachmentType' : scope.bdSearch.attType,
-              'collection' : scope.bdSearch.collection,
-              'nextHours' : scope.bdSearch.nxtHrs,
-              'projectedHours' : scope.bdSearch.projHrs,
-              'vehicleCondtion' : scope.bdSearch.vCondtion,
-              'modelMonth' : scope.bdSearch.vModMonth,
-              'modelYear' : scope.bdSearch.vModYear,
-              'vehicleName' : scope.bdSearch.vName,
-              'vehicleType' : scope.bdSearch.vType,
+              'nextHours' : scope.bdSearch.nxtHrs
             };
 
+
+            console.log('Making call dispatcher/getAllBookings');
             serverService.sendData('P','dispatcher/getAllBookings', oData, scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
-            //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingMgmtGrid_Success, scope.setBookingMgmtGrid_Error);
           }
         }        
         scope.setBookingMgmtGrid_Success = function(data){
+          console.log('>>>>>>>>>> setBookingMgmtGrid_Success', data);
           scope.FormatNloadBookingMgmtGridData(data);
           //pollForBookings();
         }
@@ -589,19 +613,31 @@ angular.module('sigmaCabsApp')
           } else {
 
             
-            var oVty = scope.fnGetVehicleTypeAndName(scope.viSearch.vehicle);
-            scope.viSearch.vName = oVty.vName;
-            scope.viSearch.vType = oVty.vType;
-            console.log('viSearch', scope.viSearch);
+            // var oVty = scope.fnGetVehicleTypeAndName(scope.viSearch.vehicle);
+            // scope.viSearch.vName = oVty.vName;
+            // scope.viSearch.vType = oVty.vType;
+            // console.log('viSearch', scope.viSearch);
             
+            // var oData = {
+            //   vehicleStatus :[2,3],
+            //   attachmentType : scope.viSearch.attType,
+            //   condition :  scope.viSearch.vCondtion,
+            //   vehicleType :  scope.viSearch.vType,
+            //   vehicleName :  scope.viSearch.vName,
+            //   projectedHrs :  scope.viSearch.projHrs,
+            //   dayCollection :  scope.viSearch.vCondtion
+            // };
+
             var oData = {
-              vehicleStatus :[2,3],
-              attachmentType : scope.viSearch.attType,
-              condition :  scope.viSearch.vCondtion,
-              vehicleType :  scope.viSearch.vType,
-              vehicleName :  scope.viSearch.vName,
-              projectedHrs :  scope.viSearch.projHrs,
-              dayCollection :  scope.viSearch.vCondtion
+              'vehicleStatus' :[2,3],
+              'attachmentType' : scope.bdSearch.attType,
+              'collection' : scope.bdSearch.collection,
+              'projectedHours' : scope.bdSearch.projHrs,
+              'vehicleCondtion' : scope.bdSearch.vCondtion,
+              'modelMonth' : scope.bdSearch.vModMonth,
+              'modelYear' : scope.bdSearch.vModYear,
+              'vehicleName' : scope.bdSearch.vName,
+              'vehicleType' : scope.bdSearch.vType
             };
 
             serverService.sendData('P','dispatcher/getAllVehicles',oData, scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
@@ -1313,6 +1349,7 @@ angular.module('sigmaCabsApp')
         /*START: Vacant vehicles Grid*/
         scope.vacantVehiclesColDefs = [
           {field:'vehicleCode', displayName:'VID', width: '*'},            
+          {field:'vacantTime', displayName:'VacantTm', width: '*'},            
           {field:'vehicleName', displayName:'V.Name', width: '*'},
           {field:'loginTime', displayName:'L.Hrs', width: '*'},
           {field:'location', displayName:'Location', width: '*'},
@@ -1322,6 +1359,7 @@ angular.module('sigmaCabsApp')
 
         scope.vacantVehicleSelectedFn = function(selected){
           scope.vacantVehicleSelected = true;
+          scope.setVehicleDetails(false, selected.vehicleId);
           scope.resize_vacantVehiclesGrid();
         }
         scope.vacantVehicleUnSelectedFn = function(){
@@ -1335,20 +1373,26 @@ angular.module('sigmaCabsApp')
           rowHeight: 24,
           enableColumnResize: true,
           multiSelect: false,
-          enableRowSelection: false,
+          enableRowSelection: true,
           keepLastSelected: false,
-          showColumnMenu: true
-          /*afterSelectionChange: function () {            
+          showColumnMenu: true,
+          afterSelectionChange: function () {            
             if(scope.selectedVacantVehicleRecords.length)
               scope.vacantVehicleSelectedFn(scope.selectedVacantVehicleRecords[0]);
             else
               scope.vacantVehicleUnSelectedFn();
-          }*/
+          }
         };
         scope.vehicleDetailsPageCloseFn = function(){
           scope.vacantVehicleSelected = false;
           scope.resize_vacantVehiclesGrid();
-        }        
+        }      
+
+        scope.fnHideVacantInfoPanel = function(){
+          scope.vacantVehicleSelected = false;
+          scope.gridForVacantVehiclesData.selectAll(false);
+          scope.resize_vacantVehiclesGrid();
+        }  
         /*END: Vacant vehicles Grid*/
 
     /*END: Grid related functionality*/

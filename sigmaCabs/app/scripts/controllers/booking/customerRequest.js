@@ -138,10 +138,10 @@ angular.module('sigmaCabsApp')
 					.error(scope.fnRestApiError);
 				break;
 				case 3: 	// Special Save
-					if(!scope.specialRequestDetails.travelType){
-						alert('Please select a travel type.');
-						return;
-					}
+					// if(!scope.specialRequestDetails.travelType){
+					// 	alert('Please select a travel type.');
+					// 	return;
+					// }
 					if(!scope.specialRequestDetails.contactPerson){
 						alert('Please select contact person name.');
 						return;

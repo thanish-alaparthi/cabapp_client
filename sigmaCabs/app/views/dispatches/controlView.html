@@ -72,6 +72,14 @@
 								<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vehicle" data-ng-options="obj as obj.title for obj in oVehicles"></select>
 							</div>
 						</div>
+						<div class="row margin-bottom5">
+							<div class="col-xs-5">
+							<label title="Vehicle Vaccant Time">Vacant Tm.</label>
+							</div>
+							<div class="col-xs-7">
+								<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vacantTm" data-ng-options="obj.id as obj.title for obj in oVacantTimes"></select>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-xs-5">
 								<label title="Hours">Hours</label>
@@ -457,7 +465,32 @@
 					</div>
 				</div>
 				<div ng-switch-default="" class="flex-height">
-					<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected"`> </div>
+					<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected" ng-class="{vehicleHalfView:vacantVehicleSelected}"> </div>
+
+
+					<div class="booking-vehicle-info-holder" ng-show='vacantVehicleSelected'>
+						<div class="panel panel-info">
+							<div class="panel-heading short-panel-heading">
+							    <span class="panel-title left">Vehicle details</span>
+								<span ng-switch on="vehicleDetailsData.vehicle.vehicleStatus" class="right">
+									<button ng-switch-when="4" class="btnCompact btn-success left" data-ng-click="fnControlViewVehicleConfirm()">Confirm</button>
+									<button ng-switch-when="4" class="btnCompact btn-danger left" data-ng-click="fnControlViewVehicleRejectBooking()">Reject</button>
+									<i class="glyphicon glyphicon-remove" ng-click="fnHideVacantInfoPanel()"></i>
+									<span class="clearfix"></span>
+								</span>
+								<span class="clearfix"></span>
+							</div>
+							<div class="panel-body padding-5-panel-body">
+							  <div class="vehicle-details-holder">
+							  	<div data-ng-include="vehicleDetailedInfoSplitView"></div>
+							  </div>
+							</div>
+						</div>
+					</div>
+
+
+
+
 					<div ng-show="bookingSelected">
 						<div style="width: 100%;padding-left: 20px;">
 							<div ng-repeat="vType in vTypes" class="left margin-right10">
