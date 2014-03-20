@@ -18,15 +18,15 @@
             <fieldset>
                 <legend class="searchbox-border">Booking Rejected</legend>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Category By</label>
+                    <label class="labelCompact requiredField">Category By</label>
                      <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vReject.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                    <label class="labelCompact requiredField">Reason</label><!--  ng-model="" -->
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vReject.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleBkngRejectReasonTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Priority</label>
+                    <label class="labelCompact requiredField">Priority</label>
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vReject.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
                 </div>
                 <div class="fieldContainer relative" style="height:75px;">

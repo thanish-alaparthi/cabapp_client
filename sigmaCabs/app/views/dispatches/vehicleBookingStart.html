@@ -22,7 +22,7 @@
                     <span>{{vehicleDetails.vehicleMainDetails.details.previousKms}}</span>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Current Kms</label>
+                    <label class="labelCompact requiredField">Current Kms</label>
                     <input type="text" ng-model="bookingStart.currentKms" maxlength="10" number-only class="textFieldCompact"/>
                 </div>
                 <div class="fieldContainer relative">
@@ -43,7 +43,7 @@
                 <div ng-show="bookingStart.moreInfo">
                     <div>
                         <div class="fieldContainer relative">
-                            <label class="labelCompact">Reason</label>
+                            <label class="labelCompact requiredField">Reason</label>
                             <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingStart.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleReasonTypes"></select>
                         </div>
                         <div class="fieldContainer relative" style="height:75px;">

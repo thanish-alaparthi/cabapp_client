@@ -26,7 +26,7 @@
                     <input type="text" ng-model="vChange.amountPaid" maxlength="10" number-only class="textFieldCompact" />
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Location</label>
+                    <label class="labelCompact requiredField">Location</label>
                     <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="vChange.location" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <div class="fieldContainer relative">
@@ -41,11 +41,11 @@
                     <p class="clear"/>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Category By</label>
+                    <label class="labelCompact requiredField">Category By</label>
                      <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vChange.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                    <label class="labelCompact requiredField">Reason</label><!--  ng-model="" -->
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vChange.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleReasonTypes"></select>
                 </div>
                 <div class="fieldContainer relative">

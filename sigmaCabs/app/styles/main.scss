@@ -659,6 +659,13 @@ textFieldCompact[disabled] .textFieldCompact {
   font-weight: bold;
   margin-bottom:0px;
 }
+.requiredField {
+  &:after {
+    color: red;
+    content: "*";
+    float: right;
+  }
+}
 .clearBoth{
   clear: both;
 }

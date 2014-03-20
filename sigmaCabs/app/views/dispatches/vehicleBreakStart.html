@@ -18,21 +18,21 @@
             <fieldset class="left">
                 <legend class="searchbox-border">Vehicle Break Start</legend>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Current Location</label>
+                    <label class="labelCompact requiredField">Current Location</label>
                     <input type="text" ng-model="breakStart.newLocation" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
-                <div class="fieldContainer  relative">
-                    <label class="labelCompact">Break Reason</label>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact requiredField">Break Reason</label>
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="breakStart.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleBreakReasonTypes"></select>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">Request Time</label>
+                    <label class="labelCompact requiredField">Request Time</label>
                     <input type="text" datepicker ng-model="breakStart.pickupDate" class="textFieldCompact" placeholder="" dpMinDate="dpCurrentDate" dpMaxDate="dpCurrentPlusSevenDate"  />
                     <select class="selectFieldCompact" data-ng-model="breakStart.pickupHours" ng-options='k as v for (k,v) in hours' style="width: 50px;"></select>
                     <select class="selectFieldCompact" data-ng-model="breakStart.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:50px;"></select>
                     <p class="clear"/>
                 </div>
-                <div class="fieldContainer  relative" style="height:75px;display:none;">
+                <div class="fieldContainer relative" style="height:75px;display:none;">
                     <label class="labelCompact">Comments</label>
                     <textarea data-ng-model="breakStart.comments" class="cancelBookingComment"></textarea>
                 </div>

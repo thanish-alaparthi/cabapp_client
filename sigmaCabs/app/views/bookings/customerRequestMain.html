@@ -18,7 +18,7 @@
             <fieldset>
                 <legend class="searchbox-border">Caller Request</legend>
 
-                <div class="fieldContainer  relative">
+                <div class="fieldContainer relative">
                     <label class="labelCompact">Priority</label>
                     <select class=" validate[maxSize[36]] selectFieldCompact" ng-model="iPriority" ng-options="k as v for (k,v) in priorities"></select>
                 </div>
@@ -37,28 +37,28 @@
 
                     <div class="tab-body cust-request" data-ng-show="tab==1">
                         <div class="fieldContainer left relative">
-                            <label class="labelCompact">Customized Date</label>
+                            <label class="labelCompact requiredField">Customized Date</label>
                             <input datepicker multidate="true" multidate-model="dateDetails.multiDates" data-ng-model="tmpMultiDates" type="text"class="left validate[required,maxSize[128]] textFieldCompact" dpMinDate="dpCurrentDate" />
                         </div>
                         <div class="fieldContainer left relative">
-                            <label class="labelCompact">Time</label>
+                            <label class="labelCompact requiredField">Time</label>
                             <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="regularRequestDetails.pickupHours" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
                             <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="regularRequestDetails.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:48px;"></select>
                         </div>
                         <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Pickup</label>
+                            <label class="labelCompact requiredField">Pickup</label>
                             <input googleplace data-ng-model="regularRequestDetails.pickupPlace" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Drop</label>
+                            <label class="labelCompact requiredField">Drop</label>
                             <input googleplace data-ng-model="regularRequestDetails.dropPlace" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">No. of Days</label>
+                            <label class="labelCompact requiredField">No. of Days</label>
                             <input data-ng-model="regularRequestDetails.totalDays" type="text"class="left validate[required,maxSize[128]] textFieldCompact" number-only/>
                         </div>
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
-                            <label class="labelCompact">Comment</label>
+                        <div class="fieldContainer relative clearBoth" style="width: 100%; height:75px;">
+                            <label class="labelCompact requiredField">Comment</label>
                             <textarea data-ng-model="regularRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
                         </div>
                         <p class="clear"/>
@@ -67,11 +67,11 @@
 
                     <div class="tab-body cust-request" data-ng-show="tab==2">
                         <div class="fieldContainer left relative">
-                            <label class="labelCompact">Company Name</label>
+                            <label class="labelCompact requiredField">Company Name</label>
                             <input data-ng-model="corporateRequestDetails.companyName" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Email</label>
+                            <label class="labelCompact requiredField">Email</label>
                             <input data-ng-model="corporateRequestDetails.email" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
@@ -79,7 +79,7 @@
                             <input data-ng-model="corporateRequestDetails.website" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Contact Person</label>
+                            <label class="labelCompact requiredField">Contact Person</label>
                             <input data-ng-model="corporateRequestDetails.contactPerson" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
@@ -87,14 +87,14 @@
                             <input data-ng-model="corporateRequestDetails.contact1" phone type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
-                            <label class="labelCompact">Contact No.2</label>
+                            <label class="labelCompact requiredField">Contact No.2</label>
                             <input data-ng-model="corporateRequestDetails.contact2" phone type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative  ">
                             <label class="labelCompact">Company Address</label>
                             <input data-ng-model="corporateRequestDetails.companyAddress" style="width: 289px;" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
+                        <div class="fieldContainer relative clearBoth" style="width: 100%; height:75px;">
                             <label class="labelCompact">Comment</label>
                             <textarea data-ng-model="corporateRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
                         </div>
@@ -109,11 +109,11 @@
                              <input data-ng-model="specialRequestDetails.travelType" style="width: 289px;" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative">
-                            <label class="labelCompact">Contact Person</label>
+                            <label class="labelCompact requiredField">Contact Person</label>
                             <input data-ng-model="specialRequestDetails.contactPerson" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative">
-                            <label class="labelCompact">Contact No.1</label>
+                            <label class="labelCompact requiredField">Contact No.1</label>
                             <input data-ng-model="specialRequestDetails.contact1" phone type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
                         <div class="fieldContainer left relative">
@@ -124,8 +124,8 @@
                             <label class="labelCompact">Address</label>
                             <input data-ng-model="specialRequestDetails.address" type="text"class="left validate[required,maxSize[128]] textFieldCompact" />
                         </div>
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
-                            <label class="labelCompact">Comment</label>
+                        <div class="fieldContainer relative clearBoth" style="width: 100%; height:75px;">
+                            <label class="labelCompact requiredField">Comment</label>
                             <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
                         </div>
                         <p class="clear"/>
@@ -133,8 +133,8 @@
 
 
                     <div class="tab-body" data-ng-show="tab==4">
-                        <div class="fieldContainer  relative clearBoth" style="width: 100%; height:75px;">
-                            <label class="labelCompact">Comment</label>
+                        <div class="fieldContainer relative clearBoth" style="width: 100%; height:75px;">
+                            <label class="labelCompact requiredField">Comment</label>
                             <textarea data-ng-model="specialRequestDetails.comments" class="cancelBookingComment" style="width:289px;"></textarea>
                         </div>
                         <p class="clear"/>

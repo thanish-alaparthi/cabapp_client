@@ -36,7 +36,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                     <span>{{vehicleDetails.vehicleMainDetails.details.startKms}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact">Current Kms</label>
+                    <label class="labelCompact requiredField">Current Kms</label>
                     <input type="text" ng-model="bookingClose.currentKms" maxlength="10" class="textFieldCompact" data-ng-blur="fnCalculateOnCurrentKms()" number-only/>
                 </div>
                 <div class="fieldContainer relative left">
@@ -49,7 +49,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                     <span class="ellipsisText" title="{{vehicleDetails.vehicleMainDetails.details.dropPlace}}">{{vehicleDetails.vehicleMainDetails.details.dropPlace}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact">New Drop Place</label>
+                    <label class="labelCompact requiredField">New Drop Place</label>
                     <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="bookingClose.actualDropPlace" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <p class="clear"/>
@@ -108,7 +108,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                     <span>{{bookingClose.totalAmount}}</span>
                 </div>
                 <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact">Paid Amount</label>
+                    <label class="labelCompact requiredField">Paid Amount</label>
                     <input type="text" ng-model="bookingClose.paidAmount" maxlength="10" class="textFieldCompact" number-only/>
                 </div>
                 <p class="clear"/>

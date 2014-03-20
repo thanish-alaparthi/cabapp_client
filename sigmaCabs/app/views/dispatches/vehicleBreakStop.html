@@ -42,11 +42,11 @@
                     <span class="ellipsisText" style="width: 425px;" title="{{vehicleDetails.vehicleMainDetails.location}}">{{vehicleDetails.vehicleMainDetails.location}}</span>
                 </div>
                 <div class="fieldContainer relative">
-                    <label class="labelCompact">New Location</label>
+                    <label class="labelCompact requiredField">New Location</label>
                     <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="breakStop.newLocation" maxlength="15" class="textFieldCompact" googleplace />
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative">
-                    <label class="labelCompact">Current Kms</label>
+                    <label class="labelCompact requiredField">Current Kms</label>
                     <input type="text" ng-model="breakStop.currentKms" maxlength="10" number-only class="textFieldCompact" />
                 </div>
             </fieldset>

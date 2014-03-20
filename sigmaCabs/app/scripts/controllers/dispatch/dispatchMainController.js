@@ -340,6 +340,8 @@ angular.module('sigmaCabsApp')
                         var oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.vehicleMainDetails.details.subJourneyType);
                         if(oTmpJt) {
                             scope.tmpDetails.tmpJourneyType = oTmpJt.id;
+                            scope.vehicleMainDetails.details.journeyTypeText = oTmpJt.journeyType;
+                            scope.vehicleMainDetails.details.subJourneyTypeText = PrerequisiteService.fnGetSubJourneyObjectById(scope.vehicleMainDetails.details.subJourneyType).journeyType;
                             scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
                             scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
                             scope.vehicleMainDetails.details.pickupTimeText = scope.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds

@@ -74,7 +74,7 @@ angular.module('sigmaCabsApp')
 					if (oData.requester === '' || oData.reasonId === '') {
 						alert('Please select required information');
 						return;
-					} else if (scope.feedback.categoryId === 4 && driverId === '') {
+					} else if (oData.requester === 4 && driverId === '') {
 						alert('Please select driver in vehicle information');
 						return;
 					}
@@ -98,7 +98,7 @@ angular.module('sigmaCabsApp')
 					if (oData.requester === '' || oData.reasonId === '') {
 						alert('Please select required information');
 						return;
-					} else if (scope.suggestions.categoryId === 4 && driverId === '') {
+					} else if (oData.requester === 4 && driverId === '') {
 						alert('Please select driver in vehicle information');
 						return;
 					}

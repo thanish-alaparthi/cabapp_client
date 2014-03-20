@@ -32,11 +32,11 @@
 
                     <div class="tab-body cust-request" data-ng-show="tab==1">
                         <div class="fieldContainer relative">
-                            <label class="labelCompact">Category By</label>
+                            <label class="labelCompact requiredField">Category By</label>
                              <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="feedback.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                         </div>
                         <div class="fieldContainer relative">
-                            <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                            <label class="labelCompact requiredField">Reason</label><!--  ng-model="" -->
                             <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="feedback.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleComplaintReasonTypes"></select>
                         </div>
                         <div class="fieldContainer relative">
@@ -52,11 +52,11 @@
 
                     <div class="tab-body cust-request" data-ng-show="tab==2">
                         <div class="fieldContainer relative">
-                            <label class="labelCompact">Category By</label>
+                            <label class="labelCompact requiredField">Category By</label>
                             <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.categoryId" data-ng-options="obj.id as obj.categoryName for obj in vehicleCategoryTypes"></select>
                         </div>
                         <div class="fieldContainer relative">
-                            <label class="labelCompact">Reason</label><!--  ng-model="" -->
+                            <label class="labelCompact requiredField">Reason</label><!--  ng-model="" -->
                             <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.reasonId" data-ng-options="obj.id as obj.description for obj in vehicleSuggestionReasonTypes"></select>
                         </div>
                         <div class="fieldContainer relative">
