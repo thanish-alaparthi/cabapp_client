@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBookingCancel', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('vehicleBookingCancel', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, isControlView) {
 
 		var scope = $scope;
 		console.log('inside vehicleBookingCancel', oVehicleData);
@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 			var oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
 				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
-				"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
+				"bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
 				"reasonId": scope.vBookingCancel.reasonId || '',
 				"priorityId": scope.vBookingCancel.priorityId || '',
 				"cancelCategory": scope.vBookingCancel.categoryId || '',
@@ -44,7 +44,14 @@ angular.module('sigmaCabsApp')
 					console.log('Success: ', data);
 					scope.close();
 					//alert(data.result[0].message);
-					$rootScope.$emit('eventGetVehicleStatus', null);
+					// $rootScope.$emit('eventGetVehicleStatus', null);
+
+					if(isControlView) {
+                        $rootScope.$emit('eventUpdateBookingMgmtGrid', null);
+                    } else {
+                        $rootScope.$emit('eventGetVehicleStatus', null);
+                    }
+
 				})
 				.error(function(data, status, headers, config) {
 					console.log('Error: ', data)

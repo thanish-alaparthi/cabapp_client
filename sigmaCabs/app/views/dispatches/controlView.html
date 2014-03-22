@@ -431,7 +431,7 @@
 		  <i class="glyphicon glyphicon-remove pull-right" ng-click="vehiclePanelToggle(false)"></i>
 		  <span class="clearfix"></span>
 		</div>
-		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder" ng-class="{paddTop0:bookingSelected}">
+		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder">
 			<div ng-switch="mainGridView" class="mainGridView">
 				<div ng-switch-when="vInfo" class="flex-height">
 						<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!whileDrivingVehicleSelected"> </div>
@@ -465,7 +465,7 @@
 					</div>
 				</div>
 				<div ng-switch-default="" class="flex-height">
-					<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected" ng-class="{vehicleHalfView:vacantVehicleSelected}"> </div>
+					<!-- <div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-show="!bookingSelected" ng-class="{vehicleHalfView:vacantVehicleSelected}"> </div>
 
 
 					<div class="booking-vehicle-info-holder" ng-show='vacantVehicleSelected'>
@@ -486,12 +486,9 @@
 							  </div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
-
-
-
-					<div ng-show="bookingSelected">
+					<div >
 						<div style="width: 100%;padding-left: 20px;">
 							<div ng-repeat="vType in vTypes" class="left margin-right10">
 								<input type="checkbox" style="margin-right:2px;" ng-model="chbVtype[vType.id]" data-ng-change="fnVehicleTypeTicked()" /><span data-ng-bind="vType.vehicleType"></span>

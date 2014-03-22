@@ -26,7 +26,7 @@ angular.module('sigmaCabsApp')
 						sucessCallback(data);
 					} else if ((isValidData) && (data.status === 500)) {
 						if (data.result && data.result.length && data.result[0]) {
-							var mesg = data.result[0].message || errorMesg;
+							var mesg = data.result[0].message || data.result[0].errorMessage || errorMesg;
 							alert(mesg);
 						} else {
 							alert(errorMesg);

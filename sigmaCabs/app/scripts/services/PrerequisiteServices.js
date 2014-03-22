@@ -1031,6 +1031,17 @@ angular.module('sigmaCabsApp')
                     attachmentType : 'Promoting Partners'
                 }];
             },
+            fnGetAttachmentTypeById : function(sId) {
+                var oThis = this,
+                    at = oThis.fnGetAttachmentTypes();
+                for(var i=0;i<at.lenght;i++){
+                    if(at[i].id == sId){
+                        return at[i];
+                    }
+                }
+
+                return null;
+            },
             fnGetVehicleManufacturingYears : function(){
                 var aRtn = {'' : 'select'},
                     oD = new Date();

@@ -43,6 +43,7 @@ angular.module('sigmaCabsApp')
 	    scope.gridBookingTariffOptions = { 
 	      data: 'aData',
 	      multiSelect: false,
+	      enableRowSelection: false,
 	      columnDefs: 'colDefs',
 	    };
 

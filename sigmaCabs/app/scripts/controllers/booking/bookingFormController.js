@@ -66,6 +66,28 @@ angular.module('sigmaCabsApp')
 			scope.fnValidatePickupTime();
 		};
 
+		scope.fnSelectTariffBySubJourneyType = function(){
+			var oTariff = angular.copy(PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.tmpDetails.tmpVehicleType, scope.bookingDetails.subJourneyType));
+			console.log('oTariff',oTariff);
+			
+			$rootScope.$emit('eventSingleTariffSelected', {
+				tariffDetails : {
+					amount: oTariff.price,
+					comments: oTariff.comments,
+					distance: oTariff.distance,
+					duration: oTariff.duration,
+					extraCharges: oTariff.extraCharges1,
+					extraHour: oTariff.extraHrPrice,
+					extraKm: oTariff.extraKmPrice,
+					graceTime: oTariff.grace,
+					id: oTariff.id,
+					vehicleName: PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName)['vehicleName'],
+					vehicleType: PrerequisiteService.fnGetVehicleTypeById(oTariff.vehicleType)['vehicleType']
+				},
+				tariffId : oTariff.id
+			});
+		};
+
 		// scope.fnEmptyPlaces = function(){			
 		// 	scope.bookingDetails.pickupPlace =  "";
 		// 	scope.bookingDetails.dropPlace =  "";
@@ -81,10 +103,8 @@ angular.module('sigmaCabsApp')
 					break;
 				}
 			}
-			if(!scope.bookingDetails.id){
-				scope.bookingDetails.subJourneyType = '';
-			}
-			
+
+			$timeout(scope.fnSelectTariffBySubJourneyType, 0);
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleNames = function() {
@@ -99,19 +119,7 @@ angular.module('sigmaCabsApp')
 			scope.bookingDetails.vehicleName = oVn.id;
 			scope.tmpDetails.tmpVehicleName = oVn.id;
 
-			// if(scope.vehicleNames){
-			// 	for(var i=0;i<scope.vehicleNames.length;i++){
-			// 		if(scope.vehicleNames[i].id == ""){
-			// 			scope.vehicleNames.splice(i,1);
-			// 		}
-			// 	}
-			// 	scope.vehicleNames.push({
-	  //               vehicleType : '1',	// any-vehicle default to small
-	  //               id: '',
-	  //               vehicleName : 'Any-Vehicle',
-	  //               status : '1'
-	  //           });
-			// }
+			$timeout(scope.fnSelectTariffBySubJourneyType, 0);
 		};
 		// function to change VehicleNames
 		scope.fnPopVehicleTypes = function() {
@@ -131,6 +139,8 @@ angular.module('sigmaCabsApp')
 			scope.tmpDetails.tmpVehicleType = scope.tmpSelectedVehicleName.vehicleType;
 
 			scope.bookingDetails.vehicleName = scope.tmpSelectedVehicleName.id;
+
+			$timeout(scope.fnSelectTariffBySubJourneyType, 0);
 		};
 
 		// function to show/Hide booking related buttons
@@ -399,7 +409,7 @@ angular.module('sigmaCabsApp')
 
 		scope.fnShowHideBookingButtons();
 
-		scope.$watch('bookingDetails.bookingStatus', function(newVal,oldVal){
+		scope.$watch('bookingDetails.id', function(newVal,oldVal){
 			scope.fnShowHideBookingButtons();
 		},true);
 
@@ -545,28 +555,6 @@ angular.module('sigmaCabsApp')
 
 		};
 
-		scope.fnSelectTariffBySubJourneyType = function(){
-			var oTariff = angular.copy(PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.tmpDetails.tmpVehicleType, scope.bookingDetails.subJourneyType));
-			console.log('oTariff',oTariff);
-			
-			$rootScope.$emit('eventSingleTariffSelected', {
-				tariffDetails : {
-					amount: oTariff.price,
-					comments: oTariff.comments,
-					distance: oTariff.distance,
-					duration: oTariff.duration,
-					extraCharges: oTariff.extraCharges1,
-					extraHour: oTariff.extraHrPrice,
-					extraKm: oTariff.extraKmPrice,
-					graceTime: oTariff.grace,
-					id: oTariff.id,
-					vehicleName: PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName)['vehicleName'],
-					vehicleType: PrerequisiteService.fnGetVehicleTypeById(oTariff.vehicleType)['vehicleType']
-				},
-				tariffId : oTariff.id
-			});
-		};
-
 		scope.fnOpenCustFeedback = function() {
 			$scope.opts = {
 				templateUrl: URLService.view('customerFeedback'),
@@ -606,4 +594,7 @@ angular.module('sigmaCabsApp')
 			};
 			modalWindow.addDataToModal($scope.opts);
 		};
+
+
+		$timeout(scope.fnSelectTariffBySubJourneyType, 0);
 	});
