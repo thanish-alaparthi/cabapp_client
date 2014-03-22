@@ -541,7 +541,6 @@ angular.module('sigmaCabsApp')
           while(dataLen--){
             var datum = data[dataLen];
             datum.attachmentType = formatSource.fnGetAttachmentTypeById(datum.attachmentType);
-            datum.vehicleName = (datum.vehicleName) ? formatSource.fnGetVehicleDisplayNameById(datum.vehicleName) : '';
             datum.breakTime = datum.breakTime;
             datum.dayCollection = datum.dayCollection;
             datum.inBreak = datum.inBreak;
@@ -550,7 +549,12 @@ angular.module('sigmaCabsApp')
             datum.mobileNumber = datum.mobileNumber;
             datum.vehicleCode = datum.vehicleCode;
             datum.vehicleId = datum.vehicleId;
-            datum.vehicleName = formatSource.fnGetMainJourneyTypeOfSubJourneyType(datum.vehicleName);
+            datum.vehicleName =  datum.vehicleName;
+            datum.vehicleNameNm =  formatSource.fnGetVehicleNameById(datum.vehicleName).vehicleName;
+            datum.vehicleStatus =  datum.vehicleStatus;
+            datum.vehicleStatusNm =  formatSource.fnGetVehicleStatusTextById(datum.vehicleStatus);
+            datum.vehicleType =  datum.vehicleType;
+            datum.vehicleTypeNm =  formatSource.fnGetVehicleTypeById(datum.vehicleType).vehicleType;
           }
           console.log('FormatNloadAutoLoginVehicleGridData Formated data',data);
           scope.loadAutoLoginVehicleGridData(data);
@@ -829,7 +833,8 @@ angular.module('sigmaCabsApp')
           }
         }        
         scope.setAutoLoginVehicleGrid_Success = function(data){
-          scope.loadAutoLoginVehicleGridData(data);
+          // scope.loadAutoLoginVehicleGridData(data);
+          scope.FormatNloadAutoLoginVehicleGridData(data);
         }
         scope.setAutoLoginVehicleGrid_Error = function(xhr, data){
           console.error('in setAutoLoginVehicleGrid_Error :: api error');
@@ -1442,15 +1447,17 @@ angular.module('sigmaCabsApp')
         }
 
         scope.autoLoginVehiclesGridColDefs = [
-          {field:'bookingId', displayName:'Booking ID', width: '*'},
-          {field:'vehicleName', displayName:'Vehicle', width: '*'},
-          {field:'pickupTime', displayName:'Pickup Time', width: '*'},
-          {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
-          {field:'journeyType', displayName:'Journey', width: '*'},
-          {field:'subJourneyType', displayName:'Package', width: '*'},
-          {field:'bookingOrigin', displayName:'booked from', width: '*'},
-          {field:'bookingStatus', displayName:'Status', width: '*'},
-          {field:'vehicleCode', displayName:'VID', width: '*'}
+          {field:'vehicleCode', displayName:'VID', width: '*'},
+          {field:'vehicleTypeNm', displayName:'V.Type', width: '*'},
+          {field:'vehicleNameNm', displayName:'V.Name', width: '*'},
+          {field:'attachmentType', displayName:'Att.Type', width: '*'},
+          {field:'mobileNumber', displayName:'Mobile', width: '*'},
+          {field:'vehicleStatusNm', displayName:'Status', width: '*'},
+          {field:'loginTime', displayName:'Login Tm.', width: '*'},
+          {field:'location', displayName:'Location', width: '*'},
+          {field:'dayCollection', displayName:'Day Col.', width: '*'},
+          {field:'inBreak', displayName:'In Break', width: '*'},
+          {field:'breakTime', displayName:'Break Tm.', width: '*'},
         ];
 
         scope.gridAutoLoginVehiclesData = {
