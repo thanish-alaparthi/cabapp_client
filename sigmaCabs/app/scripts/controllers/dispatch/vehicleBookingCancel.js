@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('vehicleBookingCancel', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, isControlView) {
+	.controller('vehicleBookingCancel', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, isControlView, serverService) {
 
 		var scope = $scope;
 		console.log('inside vehicleBookingCancel', oVehicleData);
@@ -34,27 +34,30 @@ angular.module('sigmaCabsApp')
 				"comments": scope.vBookingCancel.comments
 			};
 
+			// validations
 			if (oData.cancelCategory === '' || oData.reasonId === '') {
 				alert('Please select required information');
 				return;
 			}
 
-			DispatchService.fnVehicleBookingCancel(oData)
-				.success(function(data, status, headers, config) {
-					console.log('Success: ', data);
-					scope.close();
-					//alert(data.result[0].message);
-					// $rootScope.$emit('eventGetVehicleStatus', null);
+			console.log(oData);
+			serverService.sendData('P',
+				'booking/cancel',
+				oData, scope.fnVehicleBookingCancelSuccess, scope.fnVehicleBookingCancelError);
+		};
 
-					if(isControlView) {
-                        $rootScope.$emit('eventUpdateBookingMgmtGrid', null);
-                    } else {
-                        $rootScope.$emit('eventGetVehicleStatus', null);
-                    }
+		scope.fnVehicleBookingCancelSuccess = function(data, status, headers, config) {
+			console.log('fnVehicleBookingCancelSuccess: ', data);
+			scope.close();
+			//alert(data.result[0].message);
 
-				})
-				.error(function(data, status, headers, config) {
-					console.log('Error: ', data)
-				});
-		}
+			if (isControlView) {
+				$rootScope.$emit('eventUpdateBookingMgmtGrid', null);
+			} else {
+				$rootScope.$emit('eventGetVehicleStatus', null);
+			}
+		};
+		scope.fnVehicleBookingCancelError = function(data, status, headers, config) {
+			console.log('Error: ', data);
+		};
 	});

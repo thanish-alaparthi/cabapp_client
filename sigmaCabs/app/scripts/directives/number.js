@@ -7,7 +7,7 @@ angular.module('sigmaCabsApp')
         modelCtrl.$parsers.push(function(inputValue) {
           var firstParse, safeParse,
             secondParse, indexOfDot,
-            transformedInput, transformedInputLength,
+            transformedInput,
             min, max, returnValue;
 
           if (inputValue == undefined) {

@@ -205,25 +205,26 @@ angular.module('sigmaCabsApp')
                     "vehicleId": vId
                 };
 
-                DispatchService.fnLoadCurrentDayData(oData)
-                    .success(function(data, status, headers, config) {
-                        console.log('Success: ', data);
+                serverService.sendData('P',
+                    'vehicle/getCurrentDayStatistics',
+                    oData, scope.fnLoadCurrentDayDataSuccess, scope.fnLoadCurrentDayDataError);
+            };
 
-                        if (data.status === 200 && data.result) {
-                            var oStatistics = data.result.statistics;
-                            scope.currentDayStatistics = oStatistics;
-                            // update the vehicle state
-                            scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? PrerequisiteService.fnFormatDate(oStatistics.loginTime.split(' ')[0]) + ' ' + oStatistics.loginTime.split(' ')[1] : '';
-                            scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
-                            scope.currentDayStatistics.totalLoginTime = (parseInt(oStatistics.totalLoginTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalLoginTime) : 0;
-                            scope.currentDayStatistics.totalBreakTime = (parseInt(oStatistics.totalBreakTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalBreakTime) : 0;
-                            scope.currentDayStatistics.totalWorkingTime = (parseInt(oStatistics.totalWorkingTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalWorkingTime) : 0;
-                            scope.currentMonthGridDetails = ((data.result.bookings) ? data.result.bookings : []);
-                        }
-                    })
-                    .error(function(data, status, headers, config) {
-                        console.log('Error: ', data)
-                    });
+            scope.fnLoadCurrentDayDataSuccess = function(data, status, headers, config) {
+                console.log('fnLoadCurrentDayDataSuccess Success: ', data);
+
+                var oStatistics = data.statistics;
+                scope.currentDayStatistics = oStatistics;
+                // update the vehicle state
+                scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? PrerequisiteService.fnFormatDate(oStatistics.loginTime.split(' ')[0]) + ' ' + oStatistics.loginTime.split(' ')[1] : '';
+                scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
+                scope.currentDayStatistics.totalLoginTime = (parseInt(oStatistics.totalLoginTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalLoginTime) : 0;
+                scope.currentDayStatistics.totalBreakTime = (parseInt(oStatistics.totalBreakTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalBreakTime) : 0;
+                scope.currentDayStatistics.totalWorkingTime = (parseInt(oStatistics.totalWorkingTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalWorkingTime) : 0;
+                scope.currentMonthGridDetails = ((data.bookings) ? data.bookings : []);
+            };
+            scope.fnLoadCurrentDayDataError = function(data, status, headers, config) {
+                console.log('Error: ', data);
             };
 
             scope.fnCurrentMonthData = function(vId) {
@@ -232,20 +233,21 @@ angular.module('sigmaCabsApp')
                     "vehicleId": vId
                 };
 
-                DispatchService.fnLoadCurrentMonthData(oData)
-                    .success(function(data, status, headers, config) {
-                        console.log('Success: ', data);
+                serverService.sendData('P',
+                    'vehicle/getCurrentMonthStatistics',
+                    oData, scope.fnLoadCurrentMonthDataSuccess, scope.fnLoadCurrentMonthDataError);
+            };
 
-                        if (data.status === 200 && data.result) {
-                            scope.currentMonthStatistics = data.result;
-                            scope.currentMonthStatistics.driver.avgLoginHoursText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.result.driver.avgLoginHours);
-                            scope.currentMonthStatistics.vehicle.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.vehicle.vehicleRating);
-                            scope.currentMonthStatistics.driver.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.driver.driverRating);
-                        }
-                    })
-                    .error(function(data, status, headers, config) {
-                        console.log('Error: ', data)
-                    });
+            scope.fnLoadCurrentMonthDataSuccess = function(data, status, headers, config) {
+                console.log('fnLoadCurrentMonthDataSuccess Success: ', data);
+
+                scope.currentMonthStatistics = data;
+                scope.currentMonthStatistics.driver.avgLoginHoursText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.driver.avgLoginHours);
+                scope.currentMonthStatistics.vehicle.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.vehicle.vehicleRating);
+                scope.currentMonthStatistics.driver.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.driver.driverRating);
+            };
+            scope.fnLoadCurrentMonthDataError = function(data, status, headers, config) {
+                console.log('Error: ', data);
             };
 
             scope.fnLastMonthData = function(vId) {
@@ -254,20 +256,21 @@ angular.module('sigmaCabsApp')
                     "vehicleId": vId
                 };
 
-                DispatchService.fnLoadLastMonthData(oData)
-                    .success(function(data, status, headers, config) {
-                        console.log('Success: ', data);
+                serverService.sendData('P',
+                    'vehicle/getMonthStatistics',
+                    oData, scope.fnLoadLastMonthDataSuccess, scope.fnLoadLastMonthDataError);
+            };
 
-                        if (data.status === 200 && data.result) {
-                            scope.lastMonthStatistics = data.result;
-                            scope.lastMonthStatistics.driver.avgLoginHoursText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.result.driver.avgLoginHours);
-                            scope.lastMonthStatistics.vehicle.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.vehicle.vehicleRating);
-                            scope.lastMonthStatistics.driver.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.result.driver.driverRating);
-                        }
-                    })
-                    .error(function(data, status, headers, config) {
-                        console.log('Error: ', data)
-                    });
+            scope.fnLoadLastMonthDataSuccess = function(data, status, headers, config) {
+                console.log('fnLoadLastMonthDataSuccess Success: ', data);
+
+                scope.lastMonthStatistics = data;
+                scope.lastMonthStatistics.driver.avgLoginHoursText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.driver.avgLoginHours);
+                scope.lastMonthStatistics.vehicle.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.vehicle.vehicleRating);
+                scope.lastMonthStatistics.driver.aRating = PrerequisiteService.fnFormatRatingAndReturnClassArray(data.driver.driverRating);
+            };
+            scope.fnLoadLastMonthDataError = function(data, status, headers, config) {
+                console.log('Error: ', data);
             };
 
             scope.fnVehicleData = function(vId) {
@@ -276,21 +279,22 @@ angular.module('sigmaCabsApp')
                     "vehicleId": vId
                 };
 
-                DispatchService.fnLoadVehicleData(oData)
-                    .success(function(data, status, headers, config) {
-                        console.log('Success: ', data);
+                serverService.sendData('P',
+                    'vehicle/getVehicleStandardInfo',
+                    oData, scope.fnLoadVehicleDataSuccess, scope.fnLoadVehicleDataError);
+            };
 
-                        if (data.status === 200 && data.result) {
-                            scope.vehicleStatistics = data.result;
-                            scope.vehicleStatistics.optedPackageText = '-';
-                            scope.vehicleStatistics.vehicle.projLoginHours = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.result.vehicle.projLoginHours);
-                            scope.vehicleStatistics.vehicle.facilitiesText = data.result.vehicle.facilities.join(', ');
-                            scope.vehicleStatistics.vehicle.invalidDocsText = data.result.vehicle.invalidDocs.join(', ');
-                        }
-                    })
-                    .error(function(data, status, headers, config) {
-                        console.log('Error: ', data)
-                    });
+            scope.fnLoadVehicleDataSuccess = function(data, status, headers, config) {
+                console.log('fnLoadVehicleDataSuccess Success: ', data);
+
+                scope.vehicleStatistics = data;
+                scope.vehicleStatistics.optedPackageText = '-';
+                scope.vehicleStatistics.vehicle.projLoginHours = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(data.vehicle.projLoginHours);
+                scope.vehicleStatistics.vehicle.facilitiesText = data.vehicle.facilities.join(', ');
+                scope.vehicleStatistics.vehicle.invalidDocsText = data.vehicle.invalidDocs.join(', ');
+            };
+            scope.fnLoadVehicleDataError = function(data, status, headers, config) {
+                console.log('Error: ', data);
             };
 
             scope.fnSetVehicleDetails = function(oData) {
@@ -338,7 +342,7 @@ angular.module('sigmaCabsApp')
                     case "5": // Attach
                     case "6": // While Driving
                         var oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.vehicleMainDetails.details.subJourneyType);
-                        if(oTmpJt) {
+                        if (oTmpJt) {
                             scope.tmpDetails.tmpJourneyType = oTmpJt.id;
                             scope.vehicleMainDetails.details.journeyTypeText = oTmpJt.journeyType;
                             scope.vehicleMainDetails.details.subJourneyTypeText = PrerequisiteService.fnGetSubJourneyObjectById(scope.vehicleMainDetails.details.subJourneyType).journeyType;
@@ -893,7 +897,7 @@ angular.module('sigmaCabsApp')
                         return oData;
                     },
                     isControlView: function() {
-                      return false;
+                        return false;
                     }
                 }
             };

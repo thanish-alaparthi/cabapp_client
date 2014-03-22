@@ -55,6 +55,8 @@ angular.module('sigmaCabsApp')
         console.log(scope.vehiclePackageTypes);
         scope.subJourneyTypes = PrerequisiteService.fnGetSubJourneyTypes(oJt.id);
 
+        scope.bookingClose.actualDropPlace = angular.copy(scope.vehicleDetails.vehicleMainDetails.details.dropPlace);
+
         /*
          * Decide Actual Package based on following conditions
          * 1. If it exceeds current package time + grace time
@@ -202,7 +204,6 @@ angular.module('sigmaCabsApp')
                     break;
                 }
             }
-
         };
 
         scope.close = function() {

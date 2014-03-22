@@ -16,17 +16,15 @@ angular.module('sigmaCabsApp')
 	console.log('in bookingStatisticsController >>>>>>>>>>>>>>>>>>>>>> bookingDetails: ',oBooking);
 	
 	scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
-
-
         var sCellTemplateHtml = '<div class="ngCellText" style="{{ (row.entity[\'type\'] == \'Color Code\' ? \'background-color:\' + row.getProperty(col.field) : \'\') }}{{ (row.entity[\'type\'] == \'total\' ? \'font-weight: bold;\' : \'\') }}" ng-class="col.colIndex()">{{row.entity[\'type\'] == \'Color Code\' && col.field !=\'type\' ? \'\' :row.getProperty(col.field)}}</div>',
         	sCellTemplateHtmlForReserve = '<div class="ngCellText" ng-class="col.colIndex()" ng-click="fnEditCell(row.entity, row.getProperty(col.field), col.field, col,col.field + \'_color\' + col.id + row.getProperty(col.field));">{{row.getProperty(col.field)}}</div>';
 
-
+        // by default set the text of the button
+        scope.selectedHoursText = "Select Hours";
 
         scope.fnShowStatistics = function(iHour){
         	scope.selStatisticHour = iHour + ' Hour '
         };
-
 
         scope.fnRefreshStatistics = function(iHours) {
 			scope.vehicleAvailabilityData = [];
@@ -38,6 +36,9 @@ angular.module('sigmaCabsApp')
         		var oD = new Date();
         		oD.setHours(oD.getHours() + iHours);
 
+        		// update the button text for the selected Hours
+        		scope.selectedHoursText = iHours + ((iHours === 1) ? ' Hour' : ' Hours');
+
         		sReqTm = PrerequisiteService.fnFormatDateOnDateObj(oD);
         	} else {
         		if(oBooking){	// from callTaker view
@@ -46,7 +47,7 @@ angular.module('sigmaCabsApp')
 	        		sReqTm = PrerequisiteService.formatToServerDate(PrerequisiteService.fnFormatDate()) + ' ' + PrerequisiteService.fnFormatHours() +':' +  PrerequisiteService.fnFormatMinutes() +':00';
 	        	}
         	}        	
-
+        	console.log('sReqTm: ' + sReqTm)
         	// get the vehicleAvailablity
 			VehiclesService.fnGetAvailableVehicles({
 				requestTime : sReqTm

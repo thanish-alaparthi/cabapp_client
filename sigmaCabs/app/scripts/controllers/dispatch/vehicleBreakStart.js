@@ -14,13 +14,13 @@ angular.module('sigmaCabsApp')
 		console.log('inside vehicleBreakStart', oVehicleData);
 		scope.vehicleBreakReasonTypes = PrerequisiteService.fnGetReasonsById(14);
 		// set current Date for pickup date
-		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
+		//scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
 		// set date restriction.
-		scope.dpCurrentPlusSevenDate = PrerequisiteService.fnGetAdvancedDate(7);
+		//scope.dpCurrentPlusSevenDate = PrerequisiteService.fnGetAdvancedDate(7);
 		scope.hours = PrerequisiteService.hours;
 		scope.minutes = PrerequisiteService.minutes;
 		// default data
-		scope.breakStart.pickupDate = angular.copy(scope.dpCurrentDate);
+		//scope.breakStart.pickupDate = angular.copy(scope.dpCurrentDate);
 		scope.breakStart.pickupHours = "00";
 		scope.breakStart.pickupMinutes = "00";
 
@@ -31,7 +31,7 @@ angular.module('sigmaCabsApp')
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
-			scope.breakStart.breakStartTime = PrerequisiteService.formatToServerDate(scope.breakStart.pickupDate) + ' ' + scope.breakStart.pickupHours + ':' + scope.breakStart.pickupMinutes;
+			scope.breakStart.breakStartTime = ((scope.breakStart.pickupHours) * 60) + (scope.breakStart.pickupMinutes * 1);
 			console.log(scope.breakStart.breakStartTime);
 			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
 				oData = {
@@ -41,17 +41,17 @@ angular.module('sigmaCabsApp')
 					"location": scope.breakStart.newLocation,
 					"lattitude": "12345.564",
 					"longitude": "988756.345",
-					"comments": scope.breakStart.comments, // only if reason id is others
-					"breakTime": scope.breakStart.breakStartTime || '0'
+					"comments": scope.breakStart.comments || '', // only if reason id is others
+					"breakTime": scope.breakStart.breakStartTime || 0
 				};
 			console.log(oData);
 
 			// validations
-			if (oData.location === '' || oData.reasonId === '' || oData.breakTime === '') {
-				alert('Please select required information');
+			if (Math.abs(oData.breakTime) <= 0) {
+				alert('Please select request time.');
 				return;
-			} else if(new Date(oData.breakTime).getTime() < new Date().getTime()) {
-				alert('Break time should not be less than current Time');
+			} else if (oData.location === '' || oData.reasonId === '' || oData.breakTime === '') {
+				alert('Please select required information');
 				return;
 			} else if (driverId === '') {
 				alert('Please select driver in vehicle information');

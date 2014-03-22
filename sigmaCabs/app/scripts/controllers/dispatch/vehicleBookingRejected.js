@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingRejected', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, isControlView) {
+    .controller('vehicleBookingRejected', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, isControlView, serverService) {
         var scope = $scope;
         console.log('inside vehicleBookingRejected', oVehicleData);
         scope.vehicleCategoryTypes = PrerequisiteService.fnGetCancelBookingCategory();
@@ -34,6 +34,7 @@ angular.module('sigmaCabsApp')
                     "comments": scope.vReject.comments
                 };
 
+            // validations
             if (oData.bookingId === '' || oData.priority === '' || oData.reasonId === '') {
                 alert('Please select required information');
                 return;
@@ -42,19 +43,22 @@ angular.module('sigmaCabsApp')
                 return;
             }
 
-            DispatchService.fnVehicleRejectBooking(oData)
-                .success(function(data, status, headers, config) {
-                    console.log('Success: ', data);
-                    scope.close();
-                    //alert(data.result[0].message);
-                    if(isControlView) {
-                        $rootScope.$emit('eventUpdateBookingMgmtGrid', null);
-                    } else {
-                        $rootScope.$emit('eventGetVehicleStatus', null);
-                    }
-                })
-                .error(function(data, status, headers, config) {
-                    console.log('Error: ', data)
-                });
+            serverService.sendData('P',
+                'vehicle/rejectBooking',
+                oData, scope.fnVehicleRejectBookingSuccess, scope.fnVehicleRejectBookingError);
         }
+
+        scope.fnVehicleRejectBookingSuccess = function(data, status, headers, config) {
+            console.log('Success: ', data);
+            scope.close();
+            //alert(data.result[0].message);
+            if (isControlView) {
+                $rootScope.$emit('eventUpdateBookingMgmtGrid', null);
+            } else {
+                $rootScope.$emit('eventGetVehicleStatus', null);
+            }
+        };
+        scope.fnVehicleRejectBookingError = function(data, status, headers, config) {
+            console.log('Error: ', data);
+        };
     });

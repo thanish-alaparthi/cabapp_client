@@ -1,0 +1,35 @@
+.bookingStatistics {
+	margin-left: 6px;
+	width: 365px;
+	.bookingHistoryGrid {
+		height: 160px;
+		.gridStyle {
+			background-color: transparent;
+			height: 100%;
+			margin: 0;
+		}
+	}
+	.mainButtonContainer {
+		margin-top:4px;
+		text-align:center;
+		.hourType {
+			border-radius: 5px;
+			border: 1px solid #999;
+			display: inline-block;
+			float: left;
+			font-weight: bold;
+			padding: 0px 5px;
+		}
+		.bookingStatisticsDropdown {
+		  float: right;
+		  margin-right: 5px;
+		  .btnCompact {
+		    min-width: 100px;
+		    width: 100px;
+		  }
+		  .dropdown-menu {
+		    min-width: 120px;
+		  }
+		}
+	}
+}

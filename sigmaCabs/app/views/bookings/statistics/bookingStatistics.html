@@ -1,14 +1,14 @@
-<fieldset class="" style="width:365px;margin-left: 6px;" ng-controller="bookingStatisticsController">
+<fieldset class="bookingStatistics" ng-controller="bookingStatisticsController">
     <legend class="searchbox-border">{{selStatisticHour}} Statistics</legend>
-    <div style="height:160px;" id="customerBookingGridID" class="bookingHistoryGrid">
-    	<div class="gridStyle" ng-grid="gridStatisticsData" style="height:100%;margin:0px;background-color:transparent;"></div>
+    <div id="customerBookingGridID" class="bookingHistoryGrid">
+    	<div class="gridStyle" ng-grid="gridStatisticsData"></div>
     </div>
-    <div class="mainButtonContainer" style="margin-top:4px;text-align:center;">    	
-	    <div style="display:inline-block;float:left;border: 1px solid #999; border-radius: 5px; padding: 0px 5px; font-weight: bold;">{{ sHourType }}</div>
-    	<div class="fieldContainer  relative right">
+    <div class="mainButtonContainer">    	
+	    <div class="hourType">{{ sHourType }}</div>
+    	<div class="fieldContainer relative bookingStatisticsDropdown">
 	        <div class="btn-group">
                 <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown">
-                Select Hours<span class="caret"></span>
+                {{selectedHoursText}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="javascript:void(0);" data-ng-click="fnRefreshStatistics(1)">1 Hour</a></li>
@@ -17,5 +17,6 @@
                 </ul>
             </div>
 	    </div>
+        <p class="clear" />
     </div>
 </fieldset>
