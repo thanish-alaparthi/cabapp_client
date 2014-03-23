@@ -52,6 +52,7 @@ angular.module('sigmaCabsApp')
 
                 if(oThis.iApiCount == oThis.iApiLimit 
                     && oThis.fnStoreJourneyTypes()
+                    && oThis.fnSetAllLocations()
                     && oThis.fnStoreReasonsByCategoryId()) {
 
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
@@ -250,6 +251,16 @@ angular.module('sigmaCabsApp')
                     url: URLService.service('RestGetAllReasons'),
                     method: 'GET',
                     myDataToken : 'reasons',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAllLocations'),
+                    method: 'GET',
+                    myDataToken : 'allLocations',
                     oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -705,6 +716,25 @@ angular.module('sigmaCabsApp')
                 oThis.fnAddToLocalStorage('reasonsByCategoryId', reasonByCat);
 
                 return true;
+            },
+            fnSetAllLocations : function(){
+                var oThis = this,
+                    aLocations = oThis.oLs[oThis.currentDate]['allLocations'];
+
+                oThis.fnAddToLocalStorage('allLocations', aLocations);
+
+                return true;
+            },
+            fnGetAllLocations : function(){
+                var oThis = this,
+                    oLoc = oThis.oLs[oThis.currentDate]['allLocations'];
+
+                if (!oLoc) {
+                    alert('Problem in getting config data from server. Please contact server team immediately.');
+                    return;
+                }
+                
+                return oLoc;
             },
             // fnGetStatistics: function() {
             //     var oThis = this;

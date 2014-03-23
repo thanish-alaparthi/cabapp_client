@@ -312,6 +312,8 @@ angular.module('sigmaCabsApp')
                     scope.vehicleMainDetails.selectedDriver = scope.vehicleMainDetails.driver[0].id;
                 }
 
+                scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
                 switch (scope.vehicleMainDetails.vehicleState) {
                     case "1": // Not Logged In
                         scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;

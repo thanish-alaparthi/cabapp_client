@@ -18,8 +18,9 @@
         <label class="labelCompact">Reg. No.</label>
         <span>{{vehicleMainDetails.details.registrationNumber}}</span>
     </div>
-     <div class="fieldContainer relative left">
+     <div class="fieldContainer relative left" style="width: 180px;">
         <label class="labelCompact">New Location</label>
+        <!-- <div angucomplete id="ex1" placeholder="Search" pause="100" selectedObject="vehicleDetails.loginLocation" localdata="allLocations" searchfields="location" titlefield="location" minlength="1" inputclass="form-control form-control-small textFieldCompact"/> -->
         <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused = false" data-ng-focus="locationFocused = true" ng-model="vehicleDetails.loginLocation" class="validate[required,maxSize[128]] textFieldCompact" placeholder="New Location" googleplace/>
     </div>
     <div class="fieldContainer relative right" style="width: 180px;">

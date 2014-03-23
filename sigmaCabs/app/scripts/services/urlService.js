@@ -42,6 +42,7 @@ angular.module('sigmaCabsApp')
                 'RestGetAllVehicleTypes': '?url=config/getAllVehicleTypes',
                 'RestApiGetAllBookingStates': '?url=config/getAllBookingStatus',
                 'RestGetAllReasons': '?url=config/getAllReasonsByCategory',
+                'RestGetAllLocations': '?url=config/getAllLocations',
                 'RestGetAllReasonCategories': '?url=config/getAllReasonCategories',
                 'RestApiGetOverallStatistics': '?url=vehicle/getOverallStatistics',
 
