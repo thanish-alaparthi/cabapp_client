@@ -4,7 +4,7 @@
 
         <div class="fieldContainer clearBoth relative clearBoth">
             <label class="labelCompact">Caller Name </label>
-            <input type="text" ng-model="customerDetails.name" class="left validate[required,maxSize[128]] textFieldCompact" ng-blur="fnCustomerDetailsBlured()" />
+            <input type="text" ng-model="customerDetails.name" class="left validate[required,maxSize[128]] textFieldCompact" ng-blur="fnCustomerDetailsBlured()"  alphabets-only restrict="A" />
             <span class="smsText">SMS</span>
         </div>
         <div class="fieldContainer clearBoth relative clearBoth">
@@ -27,7 +27,7 @@
 
         <div class="fieldContainer clearBoth relative" >
             <label class="labelCompact">Cust. Name</label>
-            <input type="text" ng-model="searchedCustomerDetails.name"  ng-blur="fnSearchedCustomerDetailsBlured()" style="position:absolute;" class="validate[required,maxSize[128]] textFieldCompact" />
+            <input type="text" ng-model="searchedCustomerDetails.name"  ng-blur="fnSearchedCustomerDetailsBlured()" style="position:absolute;" class="validate[required,maxSize[128]] textFieldCompact"  alphabets-only restrict="A" />
         </div>
         <div class="fieldContainer clearBoth relative ">
             <label class="labelCompact">Cust. Ph.2</label>
