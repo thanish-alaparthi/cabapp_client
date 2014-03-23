@@ -106,16 +106,8 @@ angular.module('sigmaCabsApp')
 						alert('Please enter a email ID.');
 						return;
 					}
-					if(!scope.corporateRequestDetails.website){
-						alert('Please enter a website.');
-						return;
-					}
 					if(!scope.corporateRequestDetails.contactPerson){
 						alert('Please enter a contact person.');
-						return;
-					}
-					if(!scope.corporateRequestDetails.contact1){
-						alert('Please enter a contact 1 phone number.');
 						return;
 					}
 					if(!scope.corporateRequestDetails.comments){
