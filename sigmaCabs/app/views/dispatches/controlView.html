@@ -365,7 +365,7 @@
 						<label title="From Time">From Time</label>
 						</div>
 						<div class="col-xs-7">
-							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromHour" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromTime" ng-options='k as v for (k,v) in hours' data-ng-change="fnChangeToTime()" style="width:48px;"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -373,7 +373,7 @@
 						<label title="To Time">To Time</label>
 						</div>
 						<div class="col-xs-7">
-							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromHour" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidatePickupTime()" style="width:48px;"></select>
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.toTime" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
 						</div>
 					</div>
 					<div class=" margin-bottom5" style="text-align: center;">

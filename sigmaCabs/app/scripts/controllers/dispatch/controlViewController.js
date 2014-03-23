@@ -134,6 +134,9 @@ angular.module('sigmaCabsApp')
 
           // get the vehicleTypes for filters        
           scope.subJourneyTypes = angular.copy(PrerequisiteService.fnGetAllJourneyTypes());
+
+          scope.hours =angular.copy(PrerequisiteService.hours);
+          scope.hours['all'] = 'All';
           
           scope.oSearchBy = angular.copy(PrerequisiteService.fnGetSearchByTypes());
           scope.journeyTypes = angular.copy(PrerequisiteService.fnGetAllJourneyTypes());
@@ -194,6 +197,7 @@ angular.module('sigmaCabsApp')
             id: ""
           });
           scope.vModYear = angular.copy(PrerequisiteService.fnGetVehicleManufacturingYears());
+          scope.vModYear[''] = 'All';
           scope.vNames.push({
             id: "0",
             status: "1",
@@ -229,16 +233,16 @@ angular.module('sigmaCabsApp')
             'val' : '3'
           }];
           scope.oMonths = angular.copy(PrerequisiteService.fnGetMonthsObjects());
-          scope.oMonths['00'] = 'select';
+          scope.oMonths[''] = 'All';
 
-          scope.projHrs = [];
+          scope.projHrs = [{ 'txt' : 'All', 'val': ''}];
           for(var i=12;i<=24;i+=2) {
             scope.projHrs.push({
               'txt' : i.toString(),
               'val' : i.toString()
             });
           }
-          scope.collections = [];
+          scope.collections = [{ 'txt' : 'All', 'val': ''}];
           for(var i=500;i<=2000;i+=500) {
             scope.collections.push({
               'txt' : i.toString(),
@@ -250,9 +254,9 @@ angular.module('sigmaCabsApp')
             bookingStatus : [PreConfigService.BOOKING_YET_TO_DISPATCH],  // default to yet to dispatch
             vehicle : scope.oVehicleDefault,
             nxtHrs: '1',
-            projHrs : '12',
-            collection: '500',
-            vModMonth : '00',
+            projHrs : '',
+            collection: '',
+            vModMonth : '',
             vModYear : '',
             attType : '',
             vCondtion : '',
@@ -282,8 +286,8 @@ angular.module('sigmaCabsApp')
             vehicle : scope.oVehicleDefault,
             zone : '',
             area : '',
-            fromTime : '',
-            toTime: ''
+            fromTime : 'all',
+            toTime: 'all'
           };
         };
 
@@ -560,6 +564,10 @@ angular.module('sigmaCabsApp')
           scope.loadAutoLoginVehicleGridData(data);
         };
 
+        scope.fnChangeToTime = function(){
+          scope.alSearch.toTime = scope.alSearch.fromTime;
+        };
+
         /*END: Formatter methods*/
 
         /*START: Loader methods*/
@@ -635,19 +643,6 @@ angular.module('sigmaCabsApp')
 
             console.log('bdSearch Filters', scope.bdSearch);
 
-            // oData = {
-            //   "bookingStatus" : scope.bdSearch.bookingStatus, // send as an array.
-            //   'attachmentType' : scope.bdSearch.attType,
-            //   'collection' : scope.bdSearch.collection,
-            //   'nextHours' : scope.bdSearch.nxtHrs,
-            //   'projectedHours' : scope.bdSearch.projHrs,
-            //   'vehicleCondtion' : scope.bdSearch.vCondtion,
-            //   'modelMonth' : scope.bdSearch.vModMonth,
-            //   'modelYear' : scope.bdSearch.vModYear,
-            //   'vehicleName' : scope.bdSearch.vName,
-            //   'vehicleType' : scope.bdSearch.vType
-            // };
-
             oData = {
               "bookingStatus" : scope.bdSearch.bookingStatus, // send as an array.
               'nextHours' : scope.bdSearch.nxtHrs
@@ -699,8 +694,8 @@ angular.module('sigmaCabsApp')
               'collection' : scope.bdSearch.collection,
               'projectedHours' : scope.bdSearch.projHrs,
               'vehicleCondtion' : scope.bdSearch.vCondtion,
-              'modelMonth' : scope.bdSearch.vModMonth,
-              'modelYear' : scope.bdSearch.vModYear,
+              'modelMonth' : scope.bdSearch.vModMonth || '',
+              'modelYear' : scope.bdSearch.vModYear || '',
               'vehicleName' : scope.bdSearch.vName,
               'vehicleType' : scope.bdSearch.vType ? [scope.bdSearch.vType] : []
             };
@@ -815,14 +810,14 @@ angular.module('sigmaCabsApp')
             scope.alSearch.vType = oVty.vType;
 
             oData = {
-              "attachmentType" : "",
+              // "attachmentType" : "",
               "vehicleType" : scope.alSearch.vType,
               "vehicleName" : scope.alSearch.vName,
-              "projectedHrs" : "",
+             //  "projectedHrs" : "",
               "zone" : scope.alSearch.zone,
               "area" : scope.alSearch.area,
-              "expLoginFrom" : scope.alSearch.fromTime,
-              "expLoginTo" : scope.alSearch.toTime
+              "expLoginFrom" : ((scope.alSearch.fromTime == 'all') ? '' : scope.alSearch.fromTime ),
+              "expLoginTo" : ((scope.alSearch.toTime == 'all') ? '' : scope.alSearch.toTime )
             };
 
             console.log('alSearch', scope.alSearch);
@@ -1508,8 +1503,8 @@ angular.module('sigmaCabsApp')
               'collection' : scope.bdSearch.collection,
               'projectedHours' : scope.bdSearch.projHrs,
               'vehicleCondtion' : scope.bdSearch.vCondtion,
-              'modelMonth' : scope.bdSearch.vModMonth,
-              'modelYear' : scope.bdSearch.vModYear,
+              'modelMonth' : scope.bdSearch.vModMonth || '',
+              'modelYear' : scope.bdSearch.vModYear || '',
               'vehicleName' : ((aSelectedVehicleTypes.length >= 2 || aSelectedVehicleTypes[0] == '0') ? '' : scope.bdSearch.vName),
               'vehicleType' : aSelectedVehicleTypes
             };
@@ -1654,7 +1649,7 @@ angular.module('sigmaCabsApp')
         scope.showAutoLoginVehicles = function(){
           scope.vehiclePanelToggle(false);
           scope.showingAutoLoginVehicleGrid = true;          
-          scope.setAutoLoginVehicleGrid();          
+          // scope.setAutoLoginVehicleGrid();          
         }     
         /*END: Handle While-driving and bookings hide-show*/
         
