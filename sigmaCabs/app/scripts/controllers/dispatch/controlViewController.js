@@ -67,6 +67,7 @@ angular.module('sigmaCabsApp')
 
           scope.vehiclesForBookingData = [];
           scope.vacantVehiclesData = [];        
+          scope.vacantVehiclesDataObjs = [];        
           scope.selectedBookingItems = [];
           scope.selectedVacantVehicleRecords = [];
           scope.selectedBookingVehicleRecords = [];
@@ -77,6 +78,9 @@ angular.module('sigmaCabsApp')
           // on load datepicker gives error if ngMode is undefiend.
           scope.biSearch = {
             bookingInfoDate : scope.bookingInfoDate,
+          };
+          scope.alSearch = {
+            loginDate : scope.bookingInfoDate,
           };
 
         scope.fnResetVehicleDetailsPanel = function(){
@@ -286,6 +290,7 @@ angular.module('sigmaCabsApp')
             searchByText: ''
           };
           scope.alSearch = {
+            loginDate :scope.bookingInfoDate,
             vehicle : scope.oVehicleDefault,
             zone : '',
             area : '',
@@ -604,6 +609,7 @@ angular.module('sigmaCabsApp')
 
         scope.loadVacantVehiclesGridData = function(data){
           scope.vacantVehiclesData = data;
+          scope.vacantVehiclesDataObjs = angular.copy(data);
           scope.resize_vacantVehiclesGrid();
         }
         
@@ -811,7 +817,7 @@ angular.module('sigmaCabsApp')
 
             oData = {
               "bookingStatus" : [PreConfigService.BOOKING_FOLLOW_UP, PreConfigService.BOOKING_YET_TO_DISPATCH],
-              "pickupDate" : scope.biSearch.bookingInfoDate,
+              "pickupDate" : PrerequisiteService.formatToServerDate(scope.biSearch.bookingInfoDate),
               "pickupTm" : ((scope.biSearch.pickupTm == 'all') ? '' : scope.biSearch.pickupTm),
               "vehicleType" : scope.biSearch.vType,
               "vehicleName" : scope.biSearch.vName,
@@ -857,6 +863,7 @@ angular.module('sigmaCabsApp')
 
             oData = {
               // "attachmentType" : "",
+              "loginDate" : PrerequisiteService.formatToServerDate(scope.alSearch.loginDate),
               "vehicleType" : scope.alSearch.vType,
               "vehicleName" : scope.alSearch.vName,
              //  "projectedHrs" : "",
@@ -1058,15 +1065,16 @@ angular.module('sigmaCabsApp')
 
         scope.getBookingDataAsync = function (pageSize, page, searchText) {
           var data, resultLabel;
-          if (searchText && searchText.length >=3) {
-            var ft = searchText.toLowerCase();
-            data = scope.bookingData.filter(function(item) {
-              return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-            });
-            $scope.setPagingData(data,page,pageSize, true);
-          }else{
-            $scope.setPagingData(scope.bookingDataObjs,page,pageSize);
-          }  
+            if(searchText){
+              var ft = searchText.toLowerCase();
+              data = scope.bookingData.filter(function(item) {
+                return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+              });
+              $scope.setPagingData(data,page,pageSize, true);
+            
+            }else{
+              $scope.setPagingData(scope.bookingDataObjs,page,pageSize);
+            }  
         };
 
         scope.setPagingData = function(data, page, pageSize, setToFirstPage){
@@ -1552,6 +1560,21 @@ angular.module('sigmaCabsApp')
         /*END: Booking info Grid*/
 
         /*START: Vacant vehicles Grid*/
+        scope.fnVacantVehicleSearch = function(){          
+          $scope.fnGetVacantVehicleDataAsync(scope.vacantVehicleFilterText);
+        }
+        scope.fnGetVacantVehicleDataAsync = function (searchText) {
+          var data, resultLabel;
+          if(searchText){
+            var ft = searchText.toLowerCase();
+            data = scope.vacantVehiclesData.filter(function(item) {
+              return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+            });
+            scope.vacantVehiclesData = angular.copy(data);
+          } else {
+            scope.vacantVehiclesData = angular.copy(scope.vacantVehiclesDataObjs);
+          }
+        };
         scope.fnLoadVacantVehiclesGridData = function(aSelectedVehicleTypes) {
           // function which gets called when tickbox is changed.. 
           scope.setVacantVehiclesGrid(true);

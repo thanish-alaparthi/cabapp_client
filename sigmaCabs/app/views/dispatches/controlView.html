@@ -337,6 +337,15 @@
 				</div>
 
 				<div class="panel-body padding-5-panel-body hide">
+
+				  	<div class="row margin-bottom5">
+						<div class="col-xs-5">
+							<label title="Login Date">Date</label>
+						</div>
+						<div class="col-xs-7">
+							<input type="text" datepicker ng-model="alSearch.loginDate" class="autoWidth textFieldCompact" placeholder=""/>
+						</div>
+					</div>
 					<div class="row margin-bottom5">
 						<div class="col-xs-5">
 						<label title="Zone">Zone</label>
@@ -408,6 +417,7 @@
 			<i class="glyphicon glyphicon-chevron-right chevron-right" ng-click="infoPanelToggle()" ng-show="!informationViewDisplay" title="Open Information view"></i>
 			<div ng-show="showingBookingsGrid">
 			  <span class="panel-title">Bookings</span>
+			  <span class="glyphicon glyphicon-refresh" title="Refresh Booking Management Grid" data-ng-click="fnLoadBookingStatusWise(['4']);"></span>
 			  <div class="pull-right">
 				  <input id="booking_search" type="text" ng-model="filterText" class="searchInput" placeholder ="Search Bookings" ng-change="bookingSearch()"/>
 			  	  <i class="glyphicon glyphicon-chevron-left" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>
@@ -445,7 +455,8 @@
 	<div class="panel panel-info pull-left vehicles-view custom-panel-overrides no-border-bottom" ng-show="vehicleViewDisplay">
 		<div class="panel-heading custom-panel-header-overrides">
 		  <span class="panel-title">Vehicles</span>
-		  <i class="glyphicon glyphicon-remove pull-right" ng-click="vehiclePanelToggle(false)"></i>
+		  <i class="glyphicon glyphicon-remove pull-right right" ng-click="vehiclePanelToggle(false)"></i>
+		  <input id="vehicle_search" type="text" ng-model="vacantVehicleFilterText" class="searchInput textFieldCompact right" placeholder ="Search Vehicles" ng-change="fnVacantVehicleSearch()" style="margin-right: 5px;" />
 		  <span class="clearfix"></span>
 		</div>
 		<div class="panel-body custom-panel-body" fit-height-layout ng-model ="bookingGridBorder">
