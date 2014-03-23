@@ -399,6 +399,7 @@ angular.module('sigmaCabsApp')
               "vehicleCode": data.vehicle.vehicleCode || '',
               "registrationNumber": data.vehicle.registrationNumber || '',
               "vehicleNameId": data.vehicle.vehicleName || '',
+              "currentKms": data.vehicle.currentKms || '0',
               "vehicleName": PrerequisiteService.fnGetVehicleDisplayNameById(data.vehicle.vehicleName) || '',
               "vehicleTypeId": data.vehicle.vehicleType || '',
               "vehicleType": PrerequisiteService.fnGetVehicleDisplayTypeById(data.vehicle.vehicleType) || '',
@@ -1329,8 +1330,6 @@ angular.module('sigmaCabsApp')
           scope.vehicleViewDisplay = false;
 
           scope.resize_WhileDrivingVehiclesGrid();
-
-          
         };
 
         scope.vehiclesForWhileDrivingColDefs = [
@@ -1408,8 +1407,13 @@ angular.module('sigmaCabsApp')
         }
 
         scope.bookingInfoRecordSelectedFn = function(selected){
-          var vehicleId = selected.vehicleId
-            , bookingId = selected.bookingId;
+          var vehicleId = selected.vehicleId,
+              bookingId = selected.bookingId;
+
+            if(!vehicleId) {
+              alert('Vehicle is not assigned to ' + selected.bookingCode);
+              return;
+            }
           scope.selectedBookingId = bookingId;
           scope.bookingInfoRecordSelected = true;
           if(!scope.vehicleViewDisplay)
@@ -1942,20 +1946,97 @@ angular.module('sigmaCabsApp')
             scope.fnLoadVacantVehiclesGridData(aSelVt);
         };
 
+        // vehicle / booking related button handlers
+        scope.fnVehicleBookingClose = function() {
+          console.log(scope.selectedBookingId);
+          serverService.sendData('P','dispatcher/getBookingQuickInfo',{'bookingId':scope.selectedBookingId},scope.getBookingDetails_Success, scope.getBookingDetails_Error);
+        };
+
+        scope.getBookingDetails_Success = function(data){
+          console.log(scope.mainGridView);
+          var oTmpJt;
+          scope.FormatNloadBookingDetailsData(data);
+          console.log(scope.vehicleDetailsData);
+          console.log(scope.bookingDetailsData);
+
+          oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetailsData.booking.subJourneyType);
+          $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingClose'),
+                controller: 'vehicleBookingClose',
+                dialogClass: 'modalClass booking-close-modal',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetails: {
+                              id: scope.vehicleDetailsData.vehicle.id,
+                              selectedDriver: scope.vehicleDetailsData.driver.id,
+                              tempSelectedJourneyTypeId: oTmpJt.id,
+                              vehicleType: scope.vehicleDetailsData.vehicle.vehicleTypeId,
+                              details: {
+                                bookingId: scope.bookingDetailsData.booking.bookingCode,
+                                customerId: scope.bookingDetailsData.customer.customerCode,
+                                tariffId: scope.bookingDetailsData.booking.tariffId,
+                                dropPlace: scope.bookingDetailsData.booking.dropPlace,
+                                category: scope.bookingDetailsData.customer.category,
+                                grade: scope.bookingDetailsData.customer.grade,
+                                startKms: scope.vehicleDetailsData.vehicle.currentKms,
+                                pickupDate: scope.bookingDetailsData.booking.pickupDate,
+                                displayPickupDate: scope.bookingDetailsData.booking.pickupDate,
+                                pickupTime: scope.bookingDetailsData.booking.pickupTime,
+                                subJourneyType: scope.bookingDetailsData.booking.subJourneyType
+                              }
+                            }
+                        };
+                        return oData;
+                    },
+                    isControlView: function() {
+                      return true;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        }
+        scope.getBookingDetails_Error = function(xhr, data){
+          //do some error processing..
+        }
 
         // handling custom events
-        var oEventUpdateBookingMgmtGrid = $rootScope.$on('eventUpdateBookingMgmtGrid', function(oEvent, oData) {
-            console.log('>>>>>scope.eventUpdateBookingMgmtGrid changed', arguments);
-            scope.setBookingMgmtGrid(false);
-            scope.bookingVehicleUnSelectedFn();
-            scope.vacantVehicleUnSelectedFn();
-
-            scope.fnResetVehicleDetailsPanel();
+        var oEventUpdateControlViewGrid = $rootScope.$on('eventUpdateControlViewGrid', function(oEvent, oData) {
+            console.log('>>>>>scope.eventUpdateControlViewGrid changed', arguments);
+            console.log('scope.mainGridView: ' + scope.mainGridView);
+            switch(scope.mainGridView) {
+              case 'bMgmt': scope.setBookingMgmtGrid(false);
+                            scope.bookingVehicleUnSelectedFn();
+                            scope.vacantVehicleUnSelectedFn();
+                            scope.fnResetVehicleDetailsPanel();
+                            scope.fnLoadBookingStatusWise(['4']);
+                            break; 
+              case 'vInfo': scope.whileDrivingVehicleSelected = false;
+                            scope.vehicleViewDisplay = false;
+                            scope.resize_WhileDrivingVehiclesGrid();
+                            scope.fnSearchWhileDrivingVehicleInfo();
+                            break; 
+              case 'bInfo': scope.bookingInfoRecordSelected = false;
+                            scope.vehiclePanelToggle(false);
+                            scope.resize_BookingInfoGrid();
+                            scope.setBookingInfoGrid(false);
+                            break; 
+              case 'autoLog': scope.bookingInfoRecordSelected = false;
+                              scope.vehiclePanelToggle(false);
+                              scope.resize_AutoLoginVehiclesGrid();
+                              scope.fnSearchAutoLoginVehicleGrid(false);
+                              break; 
+            }
         });
 
-
         scope.$on('$destroy', function() {
-            console.log('destroying eventUpdateBookingMgmtGrid');
-            oEventUpdateBookingMgmtGrid();
+            console.log('destroying eldContainer relative');
+            oEventUpdateControlViewGrid();
         });
     });

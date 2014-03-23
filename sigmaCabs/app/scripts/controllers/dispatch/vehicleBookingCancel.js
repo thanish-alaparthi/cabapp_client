@@ -52,7 +52,7 @@ angular.module('sigmaCabsApp')
 			//alert(data.result[0].message);
 
 			if (isControlView) {
-				$rootScope.$emit('eventUpdateBookingMgmtGrid', null);
+				$rootScope.$emit('eventUpdateControlViewGrid', null);
 			} else {
 				$rootScope.$emit('eventGetVehicleStatus', null);
 			}

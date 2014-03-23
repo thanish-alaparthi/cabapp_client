@@ -8,8 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
-
+    .controller('vehicleBookingClose', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService, isControlView) {
         var scope = $scope,
             currentTimeStamp = new Date(),
             currentTimeMsec = currentTimeStamp.getTime(),
@@ -30,6 +29,7 @@ angular.module('sigmaCabsApp')
         scope.journeyTypes = PrerequisiteService.fnGetJourneyTypes();
 
         scope.vehicleDetails = oVehicleData;
+        isControlView = isControlView || false;
         scope.bookingClose = {};
         scope.tmpDetails = {};
         initialStartKms = Math.abs(parseFloat(scope.vehicleDetails.vehicleMainDetails.details.startKms).toFixed(2)) || 0;
@@ -258,7 +258,11 @@ angular.module('sigmaCabsApp')
             console.log('Success: ', data);
             scope.close();
             //alert(data.result[0].message);
-            $rootScope.$emit('eventGetVehicleStatus', null);
+            if (isControlView) {
+                $rootScope.$emit('eventUpdateControlViewGrid', null);
+            } else {
+                $rootScope.$emit('eventGetVehicleStatus', null);
+            }
         };
         scope.fnVehicleBookingCloseError = function(data, status, headers, config) {
             console.log('Error: ', data);
