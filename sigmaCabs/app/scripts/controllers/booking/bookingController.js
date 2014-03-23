@@ -181,6 +181,10 @@ angular.module('sigmaCabsApp')
             scope.fnResizeWindowHack();
         };
 
+        scope.fnLoadCallTakerBreakTimeView = function() {
+            scope.callTakerBreakTime = URLService.view('callTakerBreakTime');
+        }
+
         //fn which clears searchedCustomer details
         scope.fnClearSearchCustomerDetails = function() {
             scope.searchedCustomerDetails = {
@@ -354,6 +358,8 @@ angular.module('sigmaCabsApp')
         scope.fnInit = function() {            
             scope.fnLoadMainTariffGrids();
 
+            scope.fnLoadCallTakerBreakTimeView();
+
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;
             scope.minutes = PrerequisiteService.minutes;
@@ -496,5 +502,6 @@ angular.module('sigmaCabsApp')
         scope.$watch('headBookingType', function(newVal, oldVal){
             console.log('watch headBookingType');
         });
+
     
     });

@@ -96,6 +96,7 @@ angular.module('sigmaCabsApp')
                 'bookingSnapshotPackageDuration': 'views/bookings/bookingSnapshotPackageDurationDetails.html',
                 'bookingSnapshotTarrifDetails': 'views/bookings/bookingSnapshotTarrifDetails.html',
                 'bookingSnapshotRouteMapDetails': 'views/bookings/bookingSnapshotRouteMapDetails.html',
+                'callTakerBreakTime': 'views/bookings/callTakerBreakTime.html',
 
                 'customerPersonalDetailsTab': "views/customers/personalDetailsTab",
                 'customerProfessionalDetailsTab': "views/customers/professionalDetailsTab",

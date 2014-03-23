@@ -24,7 +24,10 @@ angular.module('sigmaCabsApp')
 		scope.customerMobile = oCustomer.mobile || oCustomer.mobile2 ;
 
 		// set default values for request form
-		scope.regularRequestDetails = {};
+		scope.regularRequestDetails = {
+			pickupHours: '00',
+			pickupMinutes: '00',
+		};
 		scope.corporateRequestDetails = {};
 		scope.specialRequestDetails = {};
 		scope.otherRequestDetails = {};
@@ -78,6 +81,15 @@ angular.module('sigmaCabsApp')
 						return;
 					}
 
+					if(!oSave.totalDays){
+						alert('Please add number of days.');
+						return;
+					}
+
+					if(!scope.regularRequestDetails.pickupHours || !scope.regularRequestDetails.pickupMinutes){
+						alert('Please add time');
+						return;
+					}
 					if(!oSave.comments){
 						alert('Please add a comment');
 						return;

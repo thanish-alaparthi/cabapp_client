@@ -349,3 +349,22 @@ tr:nth-child(odd) {
 .text-right {
   text-align: right !important;
 }
+
+.breakTmCenterCtnr {
+  position: absolute;
+  top: 0;
+  left: 42%;
+  z-index: 4;
+  text-align: center;
+  background: #FFF;
+}
+.fullScreenBlock {
+  position: fixed;
+  top:0;
+  left:0px;
+   width:100%;
+   height:100%;
+   background-color: #ccc;
+   opacity: 0.6;
+   z-index:3;
+}

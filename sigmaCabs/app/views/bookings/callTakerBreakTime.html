@@ -1,0 +1,10 @@
+<div data-ng-controller="breaksController">   	 <div data-ng-show="!showBreakStartBtn" class="fullScreenBlock"></div>
+					<div data-ng-show="!showBreakStartBtn" class="breakTmCenterCtnr">
+						<h1 id="breakTimeDisplayID"></h1>
+			        	<button class="btnCompact btn-success" data-ng-click="fnBreakEnd();" data-ng-show="!showBreakStartBtn">End Break</button>
+					</div>
+			        <label class="labelCompact" style="width:105px;">Breaks(0): <span data-ng-bind="breakTimings" id="breakTimeDisplayID"></span> </label>
+			        
+			        <button class="btnCompact btn-success" data-ng-click="fnBreakStart();" data-ng-show="showBreakStartBtn">Start Break</button>
+			        <button class="btnCompact btn-success" data-ng-click="fnBreakEnd();" data-ng-show="!showBreakStartBtn">End Break</button>
+	        </div>
