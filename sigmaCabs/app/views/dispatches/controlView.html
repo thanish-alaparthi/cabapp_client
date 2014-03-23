@@ -203,7 +203,7 @@
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
-							<label title="Vehicle Vaccant Time">Vacant Tm.</label>
+							<label title="Expected Vehicle Vacant Time">Vacant Tm.</label>
 							</div>
 							<div class="col-xs-7">
 								<select class="autoWidth selectFieldCompact" data-ng-model="viSearch.vacantTm" data-ng-options="obj.id as obj.title for obj in oVacantTimes"></select>
@@ -241,28 +241,20 @@
 				<div class="panel-body padding-5-panel-body hide">
 				  	<div class="row margin-bottom5">
 						<div class="col-xs-5">
-							<label title="Date">Date</label>
+							<label title="Pickup Date">Date</label>
 						</div>
 						<div class="col-xs-7">
 							<input type="text" datepicker ng-model="biSearch.bookingInfoDate" class="autoWidth textFieldCompact" placeholder=""/>
 						</div>
 					</div>
-					<!-- <div class="row margin-bottom5">
-						<div class="col-xs-5">
-							<label title="Vehicle Type">V. Type</label>
-						</div>
-						<div class="col-xs-7">
-								<select class=" autoWidth selectFieldCompact" data-ng-model="biSearch.vType" data-ng-options="obj.id as obj.vehicleType for obj in vTypes"></select>
-							</div>
-					</div>
 					<div class="row margin-bottom5">
 						<div class="col-xs-5">
-						<label title="Vehicle Name">V. Name</label>
+						<label title="Pickup Time">Time</label>
 						</div>
 						<div class="col-xs-7">
-							<select class="autoWidth selectFieldCompact" data-ng-model="bdSearch.vName" data-ng-options="obj.id as obj.vehicleName for obj in vNames"></select>
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="biSearch.pickupTm" ng-options='k as v for (k,v) in hours' data-ng-change="fnChangeToTime()" style="width:48px;"></select>
 						</div>
-					</div> -->
+					</div>
 					<div class="row margin-bottom5">
 							<div class="col-xs-5">
 							<label title="Vehicle Name / Vehicle Type">Vehicle</label>

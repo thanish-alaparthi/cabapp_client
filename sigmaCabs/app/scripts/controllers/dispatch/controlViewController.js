@@ -276,6 +276,7 @@ angular.module('sigmaCabsApp')
           scope.biSearch = {
             bookingInfoDate : scope.bookingInfoDate,
             vehicle : scope.oVehicleDefault,
+            pickupTm : 'all',
             journey : '',
             sjFrom : '',
             sjTo :  '',
@@ -565,6 +566,23 @@ angular.module('sigmaCabsApp')
           console.log('FormatNloadAutoLoginVehicleGridData Formated data',data);
           scope.loadAutoLoginVehicleGridData(data);
         };
+        scope.FormatNloadBookingInfoGridData = function(data){
+          console.log('raw bookingInfoData', data);
+          var data = data, 
+              dataLen = data.length,
+              formatSource = PrerequisiteService;
+          while(dataLen--){
+            var datum = data[dataLen];
+            console.log(datum.vehicleStatus, datum);
+            datum.attachmentTypeNm =  datum.attachmentType ? formatSource.fnGetAttachmentTypeById(datum.attachmentType): "";
+            datum.vehicleNameNm =  datum.vehicleName ? formatSource.fnGetVehicleNameById(datum.vehicleName).vehicleName : "";
+            datum.vehicleStatusNm =  datum.vehicleStatus ? formatSource.fnGetVehicleStatusTextById(datum.vehicleStatus) : "";
+            datum.bookingStatusNm =  datum.bookingStatus ? formatSource.fnGetBookingStatusName(datum.bookingStatus) : "";
+            datum.vehicleTypeNm =  datum.vehicleType ? formatSource.fnGetVehicleTypeById(datum.vehicleType).vehicleType : "";
+          }
+          console.log('FormatNloadBookingInfoGridData Formated data',data);
+          scope.loadBookingInfoGridData(data);
+        };
 
         scope.fnChangeToTime = function(){
           scope.alSearch.toTime = scope.alSearch.fromTime;
@@ -725,8 +743,27 @@ angular.module('sigmaCabsApp')
           if(doEmptyGrid && doEmptyGrid == true)
             scope.loadWhileDrivingVehiclesGridData([]);
           else{
+
+            var oData = {},
+                oVty = scope.fnGetVehicleTypeAndName(scope.viSearch.vehicle);
+                scope.viSearch.vName = oVty.vName;
+                scope.viSearch.vType = oVty.vType;
+                console.log('viSearch', scope.viSearch);
+                
+                oData = {
+                  attachmentType : scope.viSearch.attType,
+                  condition :  scope.viSearch.vCondtion,
+                  vehicleType :  scope.viSearch.vType ? [scope.viSearch.vType] : [],
+                  vehicleName :  scope.viSearch.vName,
+                  projectedHrs :  scope.viSearch.projHrs,
+                  dayCollection :  scope.viSearch.collection,
+                  zone : scope.viSearch.zone,
+                  area : scope.viSearch.area,
+                  vacantTm : scope.viSearch.vacantTm
+                };
+
             //Need to trigger the server call from here
-            serverService.sendData('P','dispatcher/getWhileDrivingVehicles', {}, scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
+            serverService.sendData('P','dispatcher/getWhileDrivingVehicles', oData, scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
             //serverService.stubData({'controller': _controller,'url':'whileDrivingData'},scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
           }
         }        
@@ -775,6 +812,7 @@ angular.module('sigmaCabsApp')
             oData = {
               "bookingStatus" : [PreConfigService.BOOKING_FOLLOW_UP, PreConfigService.BOOKING_YET_TO_DISPATCH],
               "pickupDate" : scope.biSearch.bookingInfoDate,
+              "pickupTm" : ((scope.biSearch.pickupTm == 'all') ? '' : scope.biSearch.pickupTm),
               "vehicleType" : scope.biSearch.vType,
               "vehicleName" : scope.biSearch.vName,
               "journeyType" : scope.biSearch.journey,
@@ -794,7 +832,8 @@ angular.module('sigmaCabsApp')
           }
         }        
         scope.setBookingInfoGrid_Success = function(data){
-          scope.loadBookingInfoGridData(data);
+          console.log('in setBookingInfoGrid_Success', data);
+          scope.FormatNloadBookingInfoGridData(data);
         }
         scope.setBookingInfoGrid_Error = function(xhr, data){
           console.error('in setBookingInfoGrid_Error :: api error');
@@ -1381,13 +1420,16 @@ angular.module('sigmaCabsApp')
 
         scope.bookingInfoGridColDefs = [
           {field:'bookingId', displayName:'Booking ID', width: '*'},
-          {field:'vehicleName', displayName:'Vehicle', width: '*'},
+          {field:'attachmentTypeNm', displayName:'Att.Type', width: '*'},
+          {field:'vehicleTypeNm', displayName:'V.Type', width: '*'},
+          {field:'vehicleNameNm', displayName:'V.Name', width: '*'},
           {field:'pickupTime', displayName:'Pickup Time', width: '*'},
           {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
           {field:'journeyType', displayName:'Journey', width: '*'},
           {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'bookingOrigin', displayName:'booked from', width: '*'},
-          {field:'bookingStatus', displayName:'Status', width: '*'},
+          {field:'bookingStatusNm', displayName:'B.Status', width: '*'},
+          {field:'vehicleStatusNm', displayName:'V.Status', width: '*'},
           {field:'vehicleCode', displayName:'VID', width: '*'}
         ];
 
