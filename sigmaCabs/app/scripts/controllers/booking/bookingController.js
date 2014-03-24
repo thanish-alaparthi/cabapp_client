@@ -93,7 +93,7 @@ angular.module('sigmaCabsApp')
             scope.tmpDetails.tmpVehicleName = '1';
 
             scope.tmpDetails.tmpJourneyType = '1';
-            // scope.bookingDetails.subJourneyType = '5'; 
+            scope.bookingDetails.subJourneyType = '1'; 
 
             // also clear selected Tariff Grid
             $rootScope.$emit('eventTariffGridDataChanged', null);

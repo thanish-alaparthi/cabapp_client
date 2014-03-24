@@ -410,7 +410,7 @@ angular.module('sigmaCabsApp')
 
 				if(data.status == 200){
 					// clear booking form
-					scope.fnClearBookingForm();					
+					scope.fnClearBookingForm();
 					scope.fnRefreshBookingHistory();
 					
 					alert('Booking Saved successfully.');
@@ -477,6 +477,7 @@ angular.module('sigmaCabsApp')
         $rootScope.$on('eventRefreshBookingHistory', function(ev, oData) {
         	console.log('eventRefreshBookingHistory');
         	scope.fnRefreshBookingHistory();
+        	scope.fnClearBookingForm();
         });
 
         // catch eventSingleTariffSelected to reload tariffGrid.

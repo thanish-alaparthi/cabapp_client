@@ -690,7 +690,7 @@ angular.module('sigmaCabsApp')
                   'modelMonth' : scope.bdSearch.vModMonth || '',
                   'modelYear' : scope.bdSearch.vModYear || '',
                   'vehicleName' : scope.bdSearch.vName,
-                  'vehicleType' : scope.bdSearch.vType ? [scope.bdSearch.vType] : []
+                  'vehicleType' : scope.bdSearch.vType ? [scope.bdSearch.vType] : scope.fnGetAllVehicleTypeIds()
                 };
               break;
             }
@@ -1545,6 +1545,16 @@ angular.module('sigmaCabsApp')
             scope.vacantVehiclesData = angular.copy(scope.vacantVehiclesDataObjs);
           }
         };
+        scope.fnGetAllVehicleTypeIds = function() {
+          var x = [];
+          for(var i=0;i<scope.vTypes.length;i++){
+            if(scope.vTypes[i].id == '0'){
+              continue;
+            }
+            x.push(scope.vTypes[i].id);
+          }
+          return x;
+        };
         scope.fnLoadVacantVehiclesGridData = function(aSelectedVehicleTypes) {
           // function which gets called when tickbox is changed.. 
           scope.setVacantVehiclesGrid(true);
@@ -1555,6 +1565,12 @@ angular.module('sigmaCabsApp')
           if(aSelectedVehicleTypes.length == 1 && aSelectedVehicleTypes[0] != '0'){
             oVty = scope.fnGetVehicleTypeAndName(aSelectedVehicleTypes[0]);
             scope.bdSearch.vName = oVty.vName;
+          } else if((aSelectedVehicleTypes.length == 1 && aSelectedVehicleTypes[0] == '0')
+            || aSelectedVehicleTypes.length == 0){
+            // pass all the vehicle types
+            aSelectedVehicleTypes = [];
+            aSelectedVehicleTypes = scope.fnGetAllVehicleTypeIds();
+
           }
 
           var oData = {
@@ -1753,12 +1769,11 @@ angular.module('sigmaCabsApp')
           var oData = {
             "vehicleId": scope.vehicleDetailsData.vehicle.id,   // actualVehicleID
             "driverId": scope.vehicleDetailsData.driver.id,
-            "bookingId": scope.selectedBookingDetails.bookingCode,  // bookingCode
-            "bookingType": '1'
+            "bookingId": scope.selectedBookingDetails.bookingId  // actualBookingID
           };
 
           serverService.sendData('P',
-            'vehicle/acceptBooking',
+            'dispatcher/confirmVehicleToBooking',
             oData, 
             scope.vehicleStateChange_Success, 
             scope.vehicleStateChange_Error);
