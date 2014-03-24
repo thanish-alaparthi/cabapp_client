@@ -735,6 +735,9 @@ angular.module('sigmaCabsApp')
                             vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
+                    },
+                    isControlView: function() {
+                        return false;
                     }
                 }
             };

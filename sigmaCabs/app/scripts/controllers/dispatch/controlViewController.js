@@ -459,75 +459,41 @@ angular.module('sigmaCabsApp')
             namesService = PrerequisiteService,
             oData = {};
           // customer details
+          oData.customer = {};
           if (data.customer) {
-            oData.customer = {
-              "customerCode": data.customer.customerCode || '',
-              "tripCount": data.customer.tripCount || 0,
-              "name": data.customer.name || '',
-              "mobile": data.customer.mobile || [],
-              "grade": data.customer.grade || '',
-              "category": data.customer.category || ''
-            };
-          } else {
-            oData.customer = {};
+            oData.customer = data.customer;
+            oData.customer.mobile = data.customer.mobile || [];
           }
+
           // booking details
+          oData.booking = {};
           if (data.booking) {
-            oData.booking = {
-              "bookingCode": data.booking.bookingCode || '',
-              "pickupDate": data.booking.pickupDate || '',
-              "pickupTime": data.booking.pickupTime || '',
-              "pickupPlace": data.booking.pickupPlace || '',
-              "dropPlace": data.booking.dropPlace || '',
-              "journeyType": data.booking.journeyType || 0,
-              "journeyTypeText": PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(data.booking.subJourneyType).journeyType || '',
-              "subJourneyType": data.booking.subJourneyType || 0,
-              "subJourneyTypeText": PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(data.booking.subJourneyType).journeyType || 0,
-              "landmark1": data.booking.landmark1 || '',
-              "landmark2": data.booking.landmark2 || '',
-              "tariffId": data.booking.tariffId || 0,
-              "tariffText": PrerequisiteService.fnGetTariffById(data.booking.tariffId).text || ''
-            };
-          } else {
-            oData.booking = {};
+            oData.booking = data.booking;
+            oData.booking.journeyTypeText = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(data.booking.subJourneyType).journeyType || '';
+            oData.booking.subJourneyTypeText = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(data.booking.subJourneyType).journeyType || 0,
+            oData.booking.tariffText = PrerequisiteService.fnGetTariffById(data.booking.tariffId).text || '';
           }
+
           // vehicle details
+          oData.vehicle = {};
           if (data.vehicle) {
-            oData.vehicle = {
-              "vehicleCode": data.vehicle.vehicleCode || '',
-              "registrationNumber": data.vehicle.registrationNumber || '',
-              "vehicleNameId": data.vehicle.vehicleName || '',
-              "vehicleName": PrerequisiteService.fnGetVehicleDisplayNameById(data.vehicle.vehicleName) || '',
-              "vehicleTypeId": data.vehicle.vehicleType || '',
-              "vehicleType": PrerequisiteService.fnGetVehicleDisplayTypeById(data.vehicle.vehicleType) || '',
-              "registeredMobile": data.vehicle.registeredMobile || '',
-              "previousLocation": data.vehicle.previousLocation || ''
-            };
-          } else {
-            oData.vehicle = {};
+            oData.vehicle = data.vehicle;
+            oData.vehicle.vehicleNameId = data.vehicle.vehicleName || '';
+            oData.vehicle.vehicleTypeId = data.vehicle.vehicleType || '';
+            oData.vehicle.vehicleName = PrerequisiteService.fnGetVehicleDisplayNameById(data.vehicle.vehicleName) || '';
+            oData.vehicle.vehicleType = PrerequisiteService.fnGetVehicleDisplayTypeById(data.vehicle.vehicleType) || '';
           }
+
           // driver details
+          oData.driver = {};
           if (data.driver) {
-            oData.driver = {
-              "driverCode": data.driver.driverCode || '',
-              "name": data.driver.name || '',
-              "mobile": data.driver.mobile || ''
-            };
-          } else {
-            oData.driver = {};
+            oData.driver = data.driver;
           }
+
           // employee details
+           oData.employee = {};
           if (data.employee) {
-            oData.employee = {
-              "callTakenBy": data.employee.callTakenBy || '',
-              "callDispatchedBy": data.employee.callDispatchedBy || '',
-              "startReportTakenBy": data.employee.startReportTakenBy || '',
-              "closeReportTakenBy": data.employee.closeReportTakenBy || '',
-              "modifiedBy": data.employee.modifiedBy || '',
-              "cancelledBy": data.employee.cancelledBy || ''
-            };
-          } else {
-            oData.employee = {};
+            oData.employee = data.employee;
           }
 
           scope.loadBookingDetailsData(oData);
@@ -1431,7 +1397,7 @@ angular.module('sigmaCabsApp')
         }
 
         scope.bookingInfoGridColDefs = [
-          {field:'bookingId', displayName:'Booking ID', width: '*'},
+          {field:'bookingCode', displayName:'Booking ID', width: '*'},
           {field:'attachmentTypeNm', displayName:'Att.Type', width: '*'},
           {field:'vehicleTypeNm', displayName:'V.Type', width: '*'},
           {field:'vehicleNameNm', displayName:'V.Name', width: '*'},
@@ -1817,6 +1783,8 @@ angular.module('sigmaCabsApp')
           scope.setBookingMgmtGrid(false);
           scope.bookingVehicleUnSelectedFn();
           scope.vacantVehicleUnSelectedFn();
+
+          scope.setVacantVehiclesGrid();
         }
         scope.vehicleStateChange_Error = function(xhr, data){
           console.error('in vehicleStateChange_Error :: api error', data);
@@ -1846,7 +1814,7 @@ angular.module('sigmaCabsApp')
                               details : {
                                 "bookingId": bookingId
                               },
-                              "vehicleId": scope.vehicleDetailsData.vehicle.id,
+                              "id": scope.vehicleDetailsData.vehicle.id,
                               "selectedDriver": scope.vehicleDetailsData.driver.id || ''
                             }
                         };
@@ -1979,7 +1947,7 @@ angular.module('sigmaCabsApp')
                               tempSelectedJourneyTypeId: oTmpJt.id,
                               vehicleType: scope.vehicleDetailsData.vehicle.vehicleTypeId,
                               details: {
-                                bookingId: scope.bookingDetailsData.booking.bookingCode,
+                                bookingId: scope.bookingDetailsData.booking.id,
                                 customerId: scope.bookingDetailsData.customer.customerCode,
                                 tariffId: scope.bookingDetailsData.booking.tariffId,
                                 dropPlace: scope.bookingDetailsData.booking.dropPlace,

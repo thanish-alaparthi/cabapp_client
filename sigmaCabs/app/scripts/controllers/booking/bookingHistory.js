@@ -73,14 +73,14 @@ angular.module('sigmaCabsApp')
 			}, {
 				field: 'bookingStatusName',
 				displayName: 'Status',
-				width: 90
+				width: 55
 			}, {
 				field: 'id',
 				displayName: 'id',
 				visible: false
 			}, { 
 				displayName: 'Action',
-				width: 70,
+				width: 95,
 				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED) ? "Book Again" : "Edit/View" )}}</button></div>'
 			}],
 			enablePaging: false,

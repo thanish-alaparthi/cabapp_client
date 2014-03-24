@@ -28,6 +28,7 @@ angular.module('sigmaCabsApp')
 		scope.fnSaveAndExit = function(){
 			BookingService.fnCancelBooking({
 				bookingId : scope.bookingDetails.id,
+				vehicleId : scope.bookingDetails.vehicleId,
 				reasonId : scope.reasonId,
 				priorityId : scope.priorityId,
 				cancelCategory : scope.categoryId,
