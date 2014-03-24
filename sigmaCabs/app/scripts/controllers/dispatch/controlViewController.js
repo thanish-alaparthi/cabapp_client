@@ -1250,11 +1250,14 @@ angular.module('sigmaCabsApp')
         scope.bookingVehicleDetailsPageCloseFn = function(){
           scope.bookingVehicleSelected = false;
           // scope.gridForVehicleBookingsData.selectAll(false);
-          scope.resize_BookingVehiclesGrid();
-
           scope.vacantVehicleSelected = false;
-
           scope.showVehicleInfo = false;
+
+
+          // scope.resize_vacantVehiclesGrid();
+
+          scope.vacantVehicleUnSelectedFn();
+
 
         };
         /*END: Vehicles for Booking Grid*/
@@ -1610,7 +1613,11 @@ angular.module('sigmaCabsApp')
 
         }
         scope.vacantVehicleUnSelectedFn = function(){
+          console.log(scope.selectedVacantVehicleRecords);
+          
+          console.log('in vacantVehicleUnSelectedFn');
           scope.vacantVehicleSelected = false;
+
           scope.resize_vacantVehiclesGrid();
         }
         scope.gridForVacantVehiclesData = { 
