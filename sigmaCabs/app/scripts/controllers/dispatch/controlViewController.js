@@ -603,9 +603,11 @@ angular.module('sigmaCabsApp')
         }
         scope.loadVehicleDetailsData = function(data){          
           scope.vehicleDetailsData = data;
+          //scope.vehicleDetailsData.dispatchCallDriverNo = data.driver.mobile;
         }
         scope.loadBookingDetailsData = function(data){          
           scope.bookingDetailsData = data;
+          //scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
         }
         /*END: Loader methods*/
     /*END: Loading methods for the grids*/
@@ -1995,6 +1997,50 @@ angular.module('sigmaCabsApp')
         scope.getBookingDetails_Error = function(xhr, data){
           //do some error processing..
         }
+
+        // Roadside booking - navigate to booking
+        scope.fnRoadSideBooking = function() {
+            window.location.hash = "#/";
+        }
+
+        // Call customer - navigate to booking with mobile no.
+        scope.fnBookingCallCustomer = function() {
+          console.log(scope.bookingDetailsData.bookingCallCustomerNo);
+          window.location.hash = '#/booking?mobile=' + scope.bookingDetailsData.bookingCallCustomerNo;
+        }
+
+        // Call driver - navigate to dispatch with mobile no.
+        scope.fnBookingCallDriver = function() {
+          console.log(scope.bookingDetailsData.bookingCallDriverNo);
+          window.location.hash = '#/dispatch?mobile=' + scope.bookingDetailsData.bookingCallDriverNo;
+        }
+        scope.fnDispatchCallDriver = function() {
+          console.log(scope.vehicleDetailsData.dispatchCallDriverNo);
+          window.location.hash = '#/dispatch?mobile=' + scope.vehicleDetailsData.dispatchCallDriverNo;
+        }
+
+        // scope.fnVehicleBookingStart = function() {
+        //     $scope.opts = {
+        //         templateUrl: URLService.view('vehicleBookingStart'),
+        //         controller: 'vehicleBookingStart',
+        //         dialogClass: 'modalClass cancel-booking-container',
+        //         resolve: {
+        //             editMode: [
+
+        //                 function() {
+        //                     return false;
+        //                 }
+        //             ],
+        //             oVehicleData: function() {
+        //                 var oData = {
+        //                     vehicleMainDetails: scope.vehicleMainDetails
+        //                 };
+        //                 return oData;
+        //             }
+        //         }
+        //     };
+        //     modalWindow.addDataToModal($scope.opts);
+        // };
 
         // handling custom events
         var oEventUpdateControlViewGrid = $rootScope.$on('eventUpdateControlViewGrid', function(oEvent, oData) {

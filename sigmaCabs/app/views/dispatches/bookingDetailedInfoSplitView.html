@@ -3,11 +3,11 @@
 	<div class="row">
 		<div class="col-xs-6"><label title="Customer Id">C.Id</label>{{bookingDetailsData.customer.customerCode}}</div>
 		<div class="col-xs-6">
-			<select title="Customer No" class="left">
-				<option ng-if="bookingDetailsData.customer.mobile" value="{{bookingDetailsData.customer.mobile}}" title="Primary No.">Pri.No</option>
+			<select title="Customer No" class="left" data-ng-model="bookingDetailsData.bookingCallCustomerNo">
+				<option ng-if="bookingDetailsData.customer.mobile" value="{{bookingDetailsData.customer.mobile}}" title="Primary No." ng-selected="true">Pri.No</option>
 				<option ng-if="bookingDetailsData.customer.altMobile" value="{{bookingDetailsData.customer.altMobile}}" title="Alternate No.">Alt.No</option>
 			</select>
-			<span title="Call" class="call-icon"><span class="glyphicon glyphicon-earphone"></span> Call</span>
+			<span title="Call" class="call-icon" data-ng-click="fnBookingCallCustomer()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
 			<p class="clear" />
 		</div>
 	</div>
@@ -110,11 +110,12 @@
 			<label title="Vehicle Id">Veh.Id</label> {{bookingDetailsData.vehicle.vehicleCode}}
 		</div>
 		<div class="col-xs-6">
-			<select title="Driver No">
-				<option ng-if="bookingDetailsData.driver.mobile" value="{{bookingDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
+			<select title="Driver No" data-ng-model="bookingDetailsData.bookingCallDriverNo" class="left">
+				<option ng-if="bookingDetailsData.driver.mobile" value="{{bookingDetailsData.driver.mobile}}" title="Driver No." ng-selected="true">D.No</option>
 				<option ng-if="bookingDetailsData.vehicle.registeredMobile" value="{{bookingDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
 			</select>
-			<span class="glyphicon glyphicon-earphone call-icon" title="Call"></span>
+			<span title="Call" class="call-icon" data-ng-click="fnBookingCallDriver()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
+			<p class="clear" />
 		</div>
 	</div>
 	<div class="row">

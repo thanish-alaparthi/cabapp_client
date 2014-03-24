@@ -54,7 +54,7 @@ angular.module('sigmaCabsApp')
                 "currentKms": scope.bookingStart.currentKms,
                 "deadMileage": scope.bookingStart.deadMileage,
                 "nextBooking": scope.bookingStart.nextBooking,
-                "reasonId": scope.bookingStart.reasonId, // only in the case of poor
+                "reasonId": scope.bookingStart.reasonId || '', // only in the case of poor
                 "rating": scope.bookingStart.ratingValue, //1 in case of poor and 2 in other case
                 "comments": scope.bookingStart.comments // only in the case of poor
             };
@@ -73,7 +73,7 @@ angular.module('sigmaCabsApp')
             } else if (oData.currentKms < scope.vehicleDetails.vehicleMainDetails.details.previousKms) {
                 alert('Current Kms cannot be less than previous kms.');
                 return;
-            } else if (oData.rating === 1 && (oData.reasonId == '')) {
+            } else if (oData.rating === 1 && oData.reasonId == '') {
                 alert('Please select valid Reason');
                 return;
             }

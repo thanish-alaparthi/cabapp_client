@@ -4,32 +4,32 @@
         <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown" data-ng-disabled="vInfoButtonsDisable">Add Request <span class="caret"></span></button>
         <ul class="dropdown-menu" role="menu" ng-switch on="vehicleDetailsData.vehicle.vehicleStatus">
             <!-- <li><a href="javascript:void(0);" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</a></li>
-            <li class="divider"></li> -->
+            <li class="divider"></li>
             <li><a href="javascript:void(0);" data-ng-click="fnChangeVehiclePhone()">Change Primary No.</a></li>
             <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleChangeLocation()">Change Location.</a></li>
             <li><a href="javascript:void(0);" data-ng-click="fnChangeVehicleStatus()">Vehcile Status Change</a></li>
             <li class="divider"></li>
             <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
             <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
-            <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
+            <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li> -->
 
 
-            <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleConfirm()">Confirm</a></li>
+            <!-- <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleConfirm()">Confirm</a></li>
             <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li>
             <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingCancel()">Cancel</a></li>
             <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingStart()">Start Report</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingTariff()">Change Tariff</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehPickupLocation()" title="Change Pickup Location">CPL</a></li>
+            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingStart()">Start Report</a></li> -->
+            <!-- <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingTariff()">Change Tariff</a></li>
+            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehPickupLocation()" title="Change Pickup Location">CPL</a></li> -->
             <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingClose()">Closing Report</a></li>
             <li class="divider"></li>
-            <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()">Break Start</a></li>
+            <!-- <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()">Break Start</a></li>
             <li ng-switch-when="3"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStop()">Break Stop</a></li>
-            <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li>
+            <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li> -->
             <li class="divider"></li>
             <li><a href="javascript:void(0);" data-ng-click="fnRoadSideBooking()">Road Side Booking</a></li>
             <li class="divider"></li>
-            <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakdown()">Vehicle Breakdown</a></li>
+            <!-- <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakdown()">Vehicle Breakdown</a></li> -->
         </ul>
     </div>
     <p class="clear" />
@@ -47,11 +47,11 @@
 			<label title="Vehicle Id">Veh.Id</label>{{vehicleDetailsData.vehicle.vehicleCode}}
 		</div>
 		<div class="col-xs-6">
-			<select title="Driver No" class="left">
-				<option ng-if="vehicleDetailsData.driver.mobile" value="{{vehicleDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
+			<select data-ng-model="vehicleDetailsData.dispatchCallDriverNo" title="Driver No" class="left">
+				<option ng-if="vehicleDetailsData.driver.mobile" value="{{vehicleDetailsData.driver.mobile}}" title="Driver No." ng-selected="true">D.No</option>
 				<option ng-if="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
 			</select>
-			<span title="Call" class="call-icon"><span class="glyphicon glyphicon-earphone"></span> Call</span>
+			<span title="Call" class="call-icon" data-ng-click="fnDispatchCallDriver()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
 			<p class="clear" />
 		</div>
 	</div>
