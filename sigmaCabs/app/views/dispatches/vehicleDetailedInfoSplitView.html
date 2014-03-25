@@ -17,8 +17,8 @@
             <!-- <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleConfirm()">Confirm</a></li>
             <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li>
             <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingCancel()">Cancel</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingStart()">Start Report</a></li> -->
+            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li> -->
+            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingStart()">Start Report</a></li>
             <!-- <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingTariff()">Change Tariff</a></li>
             <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehPickupLocation()" title="Change Pickup Location">CPL</a></li> -->
             <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingClose()">Closing Report</a></li>
@@ -46,10 +46,10 @@
 		<div class="col-xs-6">
 			<label title="Vehicle Id">Veh.Id</label>{{vehicleDetailsData.vehicle.vehicleCode}}
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-6"><!-- Removed ng-if as it was giving issue when data updates  ng-if="vehicleDetailsData.vehicle.registeredMobile" -->
 			<select data-ng-model="vehicleDetailsData.dispatchCallDriverNo" title="Driver No" class="left">
-				<option ng-if="vehicleDetailsData.driver.mobile" value="{{vehicleDetailsData.driver.mobile}}" title="Driver No." ng-selected="true">D.No</option>
-				<option ng-if="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
+				<option value="{{vehicleDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
+				<option ng-selected="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
 			</select>
 			<span title="Call" class="call-icon" data-ng-click="fnDispatchCallDriver()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
 			<p class="clear" />

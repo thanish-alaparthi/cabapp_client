@@ -8,7 +8,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('vehicleBookingStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService) {
+    .controller('vehicleBookingStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService, isControlView) {
         var scope = $scope,
             currentTimeStamp = new Date().getTime(),
             pickupTimeStamp;
@@ -19,6 +19,7 @@ angular.module('sigmaCabsApp')
         scope.bookingStart = {};
         scope.bookingStart.ratingValue = 2;
         scope.bookingStart.nextBooking = scope.vehicleDetails.vehicleMainDetails.details.nextBooking;
+        isControlView = isControlView || false;
         // Decide rating based on Pickup date and time vs current Date and time
         pickupTimeStamp = new Date(scope.vehicleDetails.vehicleMainDetails.details.pickupDate + ' ' + scope.vehicleDetails.vehicleMainDetails.details.pickupTime).getTime();
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
@@ -86,7 +87,11 @@ angular.module('sigmaCabsApp')
             console.log('Success: ', data);
             scope.close();
             //alert(data.result[0].message);
-            $rootScope.$emit('eventGetVehicleStatus', null);
+            if (isControlView) {
+                $rootScope.$emit('eventUpdateControlViewGrid', null);
+            } else {
+                $rootScope.$emit('eventGetVehicleStatus', null);
+            }
         };
         scope.fnVehicleBookingStartError = function(data, status, headers, config) {
             console.log('Error: ', data);

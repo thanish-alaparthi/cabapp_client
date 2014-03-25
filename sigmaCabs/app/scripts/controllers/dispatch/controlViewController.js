@@ -601,13 +601,13 @@ angular.module('sigmaCabsApp')
           scope.bookingInfoDataObjs = angular.copy(data);
           scope.bookingInfoDataLength = data.length;
         }
-        scope.loadVehicleDetailsData = function(data){          
+        scope.loadVehicleDetailsData = function(data){
           scope.vehicleDetailsData = data;
-          //scope.vehicleDetailsData.dispatchCallDriverNo = data.driver.mobile;
+          scope.vehicleDetailsData.dispatchCallDriverNo = data.driver.mobile;
         }
-        scope.loadBookingDetailsData = function(data){          
+        scope.loadBookingDetailsData = function(data){
           scope.bookingDetailsData = data;
-          //scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
+          scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
         }
         /*END: Loader methods*/
     /*END: Loading methods for the grids*/
@@ -1603,7 +1603,7 @@ angular.module('sigmaCabsApp')
         ];
 
         scope.vacantVehicleSelectedFn = function(selected){
-          scope.showVehicleInfo = true;          
+          scope.showVehicleInfo = true;
           scope.showCloseVehicleInfoBtn = true;
 
           scope.vacantVehicleSelected = true;
@@ -1979,7 +1979,7 @@ angular.module('sigmaCabsApp')
                                 grade: scope.bookingDetailsData.customer.grade,
                                 startKms: scope.vehicleDetailsData.vehicle.currentKms,
                                 pickupDate: scope.bookingDetailsData.booking.pickupDate,
-                                displayPickupDate: scope.bookingDetailsData.booking.pickupDate,
+                                displayPickupDate: PrerequisiteService.fnFormatDate(scope.bookingDetailsData.booking.pickupDate),
                                 pickupTime: scope.bookingDetailsData.booking.pickupTime,
                                 subJourneyType: scope.bookingDetailsData.booking.subJourneyType
                               }
@@ -2005,42 +2005,86 @@ angular.module('sigmaCabsApp')
 
         // Call customer - navigate to booking with mobile no.
         scope.fnBookingCallCustomer = function() {
-          console.log(scope.bookingDetailsData.bookingCallCustomerNo);
-          window.location.hash = '#/booking?mobile=' + scope.bookingDetailsData.bookingCallCustomerNo;
+          var phoneNo = scope.bookingDetailsData.bookingCallCustomerNo;
+
+          console.log(phoneNo);
+          if(phoneNo && phoneNo.length === 10 && !isNaN(phoneNo)) {
+            window.location.hash = '#/booking?mobile=' + scope.bookingDetailsData.bookingCallCustomerNo;
+          } else {
+            alert('Invalid phone no.');
+          }
         }
 
         // Call driver - navigate to dispatch with mobile no.
         scope.fnBookingCallDriver = function() {
-          console.log(scope.bookingDetailsData.bookingCallDriverNo);
-          window.location.hash = '#/dispatch?mobile=' + scope.bookingDetailsData.bookingCallDriverNo;
+          var phoneNo = scope.bookingDetailsData.bookingCallDriverNo;
+
+          console.log(phoneNo);
+          if(phoneNo && phoneNo.length === 10 && !isNaN(phoneNo)) {
+            window.location.hash = '#/dispatch?mobile=' + scope.bookingDetailsData.bookingCallDriverNo;
+          } else {
+            alert('Invalid phone no.');
+          }
         }
         scope.fnDispatchCallDriver = function() {
-          console.log(scope.vehicleDetailsData.dispatchCallDriverNo);
-          window.location.hash = '#/dispatch?mobile=' + scope.vehicleDetailsData.dispatchCallDriverNo;
+          var phoneNo = scope.vehicleDetailsData.dispatchCallDriverNo;
+
+          console.log(phoneNo);
+          if(phoneNo && phoneNo.length === 10 && !isNaN(phoneNo)) {
+            window.location.hash = '#/dispatch?mobile=' + scope.vehicleDetailsData.dispatchCallDriverNo;
+          } else {
+            alert('Invalid phone no.');
+          }
         }
 
-        // scope.fnVehicleBookingStart = function() {
-        //     $scope.opts = {
-        //         templateUrl: URLService.view('vehicleBookingStart'),
-        //         controller: 'vehicleBookingStart',
-        //         dialogClass: 'modalClass cancel-booking-container',
-        //         resolve: {
-        //             editMode: [
+        scope.fnVehicleBookingStart = function() {
+          console.log(scope.selectedBookingDetails);
+          console.log(scope.vehicleDetailsData);
+            $scope.opts = {
+                templateUrl: URLService.view('vehicleBookingStart'),
+                controller: 'vehicleBookingStart',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
 
-        //                 function() {
-        //                     return false;
-        //                 }
-        //             ],
-        //             oVehicleData: function() {
-        //                 var oData = {
-        //                     vehicleMainDetails: scope.vehicleMainDetails
-        //                 };
-        //                 return oData;
-        //             }
-        //         }
-        //     };
-        //     modalWindow.addDataToModal($scope.opts);
-        // };
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetails: {
+                              id: scope.vehicleDetailsData.vehicle.id,
+                              selectedDriver: scope.vehicleDetailsData.driver.id,
+                              details: {
+                                // need to change once proviced from api
+                                nextBooking: scope.vehicleDetailsData.vehicle.nextBooking || 1,
+                                previousKms: scope.vehicleDetailsData.vehicle.currentKms,
+                                bookingId: scope.selectedBookingDetails.bookingId,
+                                pickupDate: scope.selectedBookingDetails.pickupDate,
+                                displayPickupDate: PrerequisiteService.fnFormatDate(scope.selectedBookingDetails.pickupDate),
+                                pickupTime: scope.selectedBookingDetails.pickupTime/*,
+
+
+                                customerId: scope.bookingDetailsData.customer.customerCode,
+                                tariffId: scope.bookingDetailsData.booking.tariffId,
+                                dropPlace: scope.bookingDetailsData.booking.dropPlace,
+                                category: scope.bookingDetailsData.customer.category,
+                                grade: scope.bookingDetailsData.customer.grade,
+                                startKms: scope.vehicleDetailsData.vehicle.currentKms,
+                                subJourneyType: scope.bookingDetailsData.booking.subJourneyType*/
+                              }
+                            }
+                        };
+                        return oData;
+                    },
+                    isControlView: function() {
+                      return true;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
 
         // handling custom events
         var oEventUpdateControlViewGrid = $rootScope.$on('eventUpdateControlViewGrid', function(oEvent, oData) {
