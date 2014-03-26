@@ -29,6 +29,8 @@ angular.module('sigmaCabsApp')
 		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
 		scope.dpCurrentPlusSevenDate = PrerequisiteService.fnGetAdvancedDate(7);	// set date restriction.
 
+		scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
 		if(scope.bookingDetails.vehicleType){
 			scope.tmpDetails.tmpVehicleType = scope.bookingDetails.vehicleType;
 		}

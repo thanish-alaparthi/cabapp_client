@@ -18,7 +18,7 @@
         <label class="labelCompact requiredField">Vehicle Name</label>
         <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-change="fnPopVehicleTypes();" data-ng-model="tmpDetails.tmpVehicleName" data-ng-options="obj.id as obj.vehicleName for obj in vehicleNames"></select>
     </div>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width: 180px;">
         <label class="labelCompact requiredField">Pickup</label>
         <input type="text"  data-ng-class="{fieldExpand: pickupFocused}" data-ng-blur="pickupFocused = false" data-ng-focus="pickupFocused = true" ng-model="bookingDetails.pickupPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace/>
     </div>
@@ -34,12 +34,13 @@
         <label class="labelCompact requiredField" style="width: 113px;">Sub-Journey Type</label>
         <select class=" validate[maxSize[36]] selectFieldCompact"  data-ng-model="bookingDetails.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}" data-ng-change="fnSelectTariffBySubJourneyType();"></select>
     </div>
-    <div class="fieldContainer relative left">
+    <div class="fieldContainer relative left" style="width: 180px;">
         <label class="labelCompact requiredField">Drop</label>
         <input type="text"  data-ng-class="{fieldExpand: dropFocused}" data-ng-blur="dropFocused = false" data-ng-focus="dropFocused = true" ng-model="bookingDetails.dropPlace" class=" validate[required,maxSize[128]] textFieldCompact" placeholder="" googleplace />
     </div>    
-    <div class="fieldContainer relative right" style="width: 40%;">
+    <div class="fieldContainer relative right" style="width: 50%;">
         <button class="left btnCompact btn-success" style="border-radius: 5px;" ng-click = "checkTariff()">Tariff</button>
+        <button class="btn-warning btnCompact">Add More Info>></button>
     </div>
     <div class="fieldContainer relative left">
         <label class="labelCompact">Landmark1</label>
