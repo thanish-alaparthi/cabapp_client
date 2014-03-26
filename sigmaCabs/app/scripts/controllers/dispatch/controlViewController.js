@@ -2063,16 +2063,7 @@ angular.module('sigmaCabsApp')
                                 bookingId: scope.selectedBookingDetails.bookingId,
                                 pickupDate: scope.selectedBookingDetails.pickupDate,
                                 displayPickupDate: PrerequisiteService.fnFormatDate(scope.selectedBookingDetails.pickupDate),
-                                pickupTime: scope.selectedBookingDetails.pickupTime/*,
-
-
-                                customerId: scope.bookingDetailsData.customer.customerCode,
-                                tariffId: scope.bookingDetailsData.booking.tariffId,
-                                dropPlace: scope.bookingDetailsData.booking.dropPlace,
-                                category: scope.bookingDetailsData.customer.category,
-                                grade: scope.bookingDetailsData.customer.grade,
-                                startKms: scope.vehicleDetailsData.vehicle.currentKms,
-                                subJourneyType: scope.bookingDetailsData.booking.subJourneyType*/
+                                pickupTime: scope.selectedBookingDetails.pickupTime
                               }
                             }
                         };
@@ -2080,6 +2071,41 @@ angular.module('sigmaCabsApp')
                     },
                     isControlView: function() {
                       return true;
+                    }
+                }
+            };
+            modalWindow.addDataToModal($scope.opts);
+        };
+
+        scope.fnChangeVehPickupLocation = function() {
+          console.log(scope.selectedBookingDetails);
+          console.log(scope.vehicleDetailsData);
+            $scope.opts = {
+                templateUrl: URLService.view('changeVehPickupLocation'),
+                controller: 'changeVehPickupLocation',
+                dialogClass: 'modalClass cancel-booking-container',
+                resolve: {
+                    editMode: [
+
+                        function() {
+                            return false;
+                        }
+                    ],
+                    oVehicleData: function() {
+                        var oData = {
+                            vehicleMainDetails: {
+                              id: scope.vehicleDetailsData.vehicle.id,
+                              selectedDriver: scope.vehicleDetailsData.driver.id,
+                              location: '....', // change it once api chage is done
+                              details: {
+                                bookingId: scope.selectedBookingDetails.bookingId
+                              }
+                            }
+                        };
+                        return oData;
+                    },
+                    isControlView: function() {
+                        return true;
                     }
                 }
             };

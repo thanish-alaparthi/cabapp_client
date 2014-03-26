@@ -89,34 +89,6 @@ angular.module('sigmaCabsApp')
                 });
             },
 
-            fnVehicleComplaint: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/complaint",
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
-            fnVehicleSuggestion: function(oDataParams) {
-                return $http({
-                    method: 'POST',
-                    url: URLService.service('RestApiDefaultEmpty'),
-                    data: {
-                        url: "booking/complaint", // should change to suggestion API
-                        data: JSON.stringify(oDataParams)
-                    },
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            },
-
             fnVehicleBookingCancel: function(oDataParams) {
                 return $http({
                     method: 'POST',

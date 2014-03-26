@@ -7,7 +7,7 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('dispatchFeedback', function(oVehicleData, DispatchService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
+	.controller('dispatchFeedback', function(oVehicleData, serverService, $scope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils) {
 
 		var scope = $scope;
 		console.log('inside dispatchFeedback', oVehicleData);
@@ -43,12 +43,13 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnRestApiError = function(data, status, headers, config) {
+			alert('Error in processing your request..');
 			console.log("error fnSaveCustomerRequest", data);
 		};
 		scope.fnRestApiSuccess = function(data, status, headers, config) {
 			console.log("Success fnSaveCustomerRequest", data);
 			scope.close();
-			//alert(data.result[0].message);
+			alert(data[0].message);
 		};
 
 		scope.close = function() {
@@ -68,9 +69,12 @@ angular.module('sigmaCabsApp')
 						"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 						"reasonId": scope.feedback.reasonId || '',
 						"priority": scope.feedback.priorityId || '',
+						"source": 2, // 1 -> Calltaker, 2 -> Dispatcher
 						"comments": scope.feedback.comments
 					};
 
+					console.log(oData);
+					// validations
 					if (oData.requester === '' || oData.reasonId === '') {
 						alert('Please select required information');
 						return;
@@ -79,9 +83,9 @@ angular.module('sigmaCabsApp')
 						return;
 					}
 
-					DispatchService.fnVehicleComplaint(oData)
-						.success(scope.fnRestApiSuccess)
-						.error(scope.fnRestApiError);
+					serverService.sendData('P',
+						'booking/complaint',
+						oData, scope.fnRestApiSuccess, scope.fnRestApiError);
 					break;
 				case 2: // Suggestion Save
 					var oData = {
@@ -92,9 +96,12 @@ angular.module('sigmaCabsApp')
 						"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 						"reasonId": scope.suggestions.reasonId || '',
 						"priority": scope.suggestions.priorityId || '',
+						"source": 2, // 1 -> Calltaker, 2 -> Dispatcher
 						"comments": scope.suggestions.comments
 					};
 
+					console.log(oData);
+					// validations
 					if (oData.requester === '' || oData.reasonId === '') {
 						alert('Please select required information');
 						return;
@@ -103,9 +110,9 @@ angular.module('sigmaCabsApp')
 						return;
 					}
 
-					DispatchService.fnVehicleSuggestion(oData)
-						.success(scope.fnRestApiSuccess)
-						.error(scope.fnRestApiError);
+					serverService.sendData('P',
+						'booking/suggestion',
+						oData, scope.fnRestApiSuccess, scope.fnRestApiError);
 					break;
 				case 3: // Feedback Close
 				case 4: // Ratings Close

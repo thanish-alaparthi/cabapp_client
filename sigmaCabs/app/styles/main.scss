@@ -894,3 +894,22 @@ textFieldCompact[disabled] .textFieldCompact {
   vertical-align: middle;
   margin-top: 2px;
 }
+/* Parent class should be position relative to work properly */
+.wipOverlay {
+  background-color: #ccc;
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+.wipOverlay:after {
+  content: "WIP...";
+  font-size: 32px;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+  left: 35%;
+}
