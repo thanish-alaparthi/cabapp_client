@@ -29,6 +29,8 @@ angular.module('sigmaCabsApp')
     .controller('dispatchMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow, serverService) {
         var scope = $scope;
 
+        scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
         scope.dispatcherMainView = URLService.view('dispatcherMainView');

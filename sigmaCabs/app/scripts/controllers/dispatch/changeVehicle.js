@@ -13,6 +13,8 @@ angular.module('sigmaCabsApp')
         var scope = $scope;
         console.log('inside changeVehicle', oVehicleData);
 
+        scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
         scope.vehicleDetails = oVehicleData;
         scope.vChange = {};
         scope.vChange.amountPaid = "0";

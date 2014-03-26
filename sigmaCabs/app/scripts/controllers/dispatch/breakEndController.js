@@ -47,7 +47,7 @@ angular.module('sigmaCabsApp')
 			console.log('Error: ', data)
 		});
 
-		//$scope.driversList = ["SAmeer", "Gandhar", "Thanish", "Driver1", "Driver2", "Driver3", "Driver4"];
+		//$scope.driversList = ["SAmeer", "Mario", "Thanish", "Driver1", "Driver2", "Driver3", "Driver4"];
 
 		$scope.handleSave =  function(){
 			$scope.VehicleLoginObj = {};

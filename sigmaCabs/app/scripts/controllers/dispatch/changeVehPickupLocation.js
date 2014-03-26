@@ -16,6 +16,8 @@ angular.module('sigmaCabsApp')
         scope.vehicleDetails = oVehicleData;
         scope.changePickup = {};
 
+        scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
         scope.close = function() {
             dialog.close();
         }

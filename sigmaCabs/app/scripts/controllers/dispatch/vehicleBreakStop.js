@@ -21,6 +21,9 @@ angular.module('sigmaCabsApp')
 			breakStartDate, breakStartTimeStamp, totalBreakTimeInMins = 0,
 			breakTimeDiff = 0;
 		console.log('inside vehicleBreakStop', oVehicleData);
+
+		scope.allLocations = PrerequisiteService.fnGetAllLocations();
+		
 		//prefix 0 for hours & minutes 
 		currentTimeStampHrs = (currentTimeStampHrs < 10) ? '0' + currentTimeStampHrs : currentTimeStampHrs;
 		currentTimeStampMins = (currentTimeStampMins < 10) ? '0' + currentTimeStampMins : currentTimeStampMins;

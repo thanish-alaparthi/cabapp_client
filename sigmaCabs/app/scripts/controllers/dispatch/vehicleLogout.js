@@ -13,6 +13,9 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 		scope.logout = {};
 		console.log('inside vehicleLogout', oVehicleData);
+
+		scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
 		// set current Date for pickup date
 		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
 		// set date restriction.

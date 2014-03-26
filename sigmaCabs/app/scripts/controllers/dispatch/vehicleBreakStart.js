@@ -10,6 +10,9 @@ Author: Nortan::uipassionrocks.sigma@gmail.com
 angular.module('sigmaCabsApp')
 	.controller('vehicleBreakStart', function(oVehicleData, DispatchService, $scope, $rootScope, $dialog, dialog, wizardHandler, $http, PrerequisiteService, URLService, CustomerService, appUtils, serverService, isControlView) {
 		var scope = $scope;
+
+		scope.allLocations = PrerequisiteService.fnGetAllLocations();
+			
 		isControlView = isControlView || false;
 		scope.breakStart = {};
 		console.log('inside vehicleBreakStart', oVehicleData);

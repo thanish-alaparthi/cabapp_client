@@ -46,6 +46,8 @@ angular.module('sigmaCabsApp')
 			console.log('Error: ', data)
 		});
 
+		$scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
 
 		var activity = {
 			"userType":"1"

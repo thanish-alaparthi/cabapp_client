@@ -21,6 +21,8 @@ angular.module('sigmaCabsApp')
             initialStartKms = 0,
             diffMinutes = 0;
 
+        scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
         //prefix 0 for hours & minutes 
         currentTimeStampHrs = (currentTimeStampHrs < 10) ? '0' + currentTimeStampHrs : currentTimeStampHrs;
         currentTimeStampMins = (currentTimeStampMins < 10) ? '0' + currentTimeStampMins : currentTimeStampMins;

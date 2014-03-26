@@ -13,6 +13,8 @@ angular.module('sigmaCabsApp')
 		var scope = $scope;
 		console.log('inside customerRequest', oBooking, oCustomer);
 
+		scope.allLocations = PrerequisiteService.fnGetAllLocations();
+
 		scope.saveText = 'Save Regular Booking';	//default text for save button.
 
 		// set current Date for pickup date
