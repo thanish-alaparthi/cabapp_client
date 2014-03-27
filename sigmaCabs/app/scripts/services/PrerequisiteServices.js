@@ -1142,6 +1142,11 @@ angular.module('sigmaCabsApp')
                 }];
             },
 
+            fnGetLatLon : function(aPlaces) {
+                // function returns array of latLon objects as per 
+                return [];
+            },
+
 
             /* Old settings. will be deleted later */
             isPrimaryTraveller: {

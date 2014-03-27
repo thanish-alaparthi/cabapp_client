@@ -26,6 +26,11 @@ angular.module('sigmaCabsApp')
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
 
+
+        /* Auto Refresh stuff*/
+        scope.autoRefreshBookingMgmt = true;
+
+
         /*START: setting heights for the elements*/
           scope.containerHeight = 30;
           scope.bookingGridBorder = 96;
@@ -50,7 +55,7 @@ angular.module('sigmaCabsApp')
           /*END: setting initial views to display*/
 
           /*START: setting initial data*/
-          var POLLING_INTERVAL = 10000;
+          var POLLING_INTERVAL = 4000;
           scope.bookingData = [];
           scope.bookingDataObjs = []
           scope.bookingDataLength = 0;
@@ -316,9 +321,27 @@ angular.module('sigmaCabsApp')
 
 
       /********** Start of Polling Functionality ***********/
+        scope.pollForBookingsAfter30Seconds = function(){
+          console.log('------------------ in pollForBookingsAfter30Seconds');
+            $timeout(function(){
+              if(scope.autoRefreshBookingMgmt == false && scope.mainGridView == 'bMgmt'){
+                console.log('3333333333333333333333333333 pollForBookingsAfter30Seconds 30seconds');
+                scope.autoRefreshBookingMgmt = true;
+                scope.setBookingMgmtGrid();
+
+                scope.setVacantVehiclesGrid();
+              }
+            }, 30000);
+        };
         var pollForBookings = function(){
-          $timeout(scope.setBookingMgmtGrid, POLLING_INTERVAL);
-        }
+          console.log('------------------ in pollForBookings');
+          $timeout(function(){
+            if(scope.autoRefreshBookingMgmt && scope.mainGridView == 'bMgmt') {
+              console.log('4444444444444444 pollForBookings 4seconds');
+              scope.setBookingMgmtGrid();
+            }
+          }, POLLING_INTERVAL);
+        };
         var pollForVacantVehicles = function(){
           $timeout(scope.setVacantVehiclesGrid, POLLING_INTERVAL);
         }
@@ -651,7 +674,7 @@ angular.module('sigmaCabsApp')
         scope.setBookingMgmtGrid_Success = function(data){
           console.log('>>>>>>>>>> setBookingMgmtGrid_Success', data);
           scope.FormatNloadBookingMgmtGridData(data);
-          //pollForBookings();
+          pollForBookings();
         }
         scope.setBookingMgmtGrid_Error = function(xhr, data){
           //do some error processing..
@@ -1092,6 +1115,11 @@ angular.module('sigmaCabsApp')
 
         scope.bookingSelectedFn = function(booking, aVehTyp){
 
+          // booking selected
+          scope.autoRefreshBookingMgmt = false;
+          scope.pollForBookingsAfter30Seconds();
+
+
           console.log('scope.bookingSelectedFn: ', booking);
           scope.selectedBookingDetails = booking;
 
@@ -1147,6 +1175,10 @@ angular.module('sigmaCabsApp')
         };
 
         scope.bookingUnSelectedFn = function(){
+
+
+          // booking unselected selected
+          scope.autoRefreshBookingMgmt = true;
 
           if(scope.mainGridView != 'bMgmt'){
             console.log('>>>>> not in bMgmt');
