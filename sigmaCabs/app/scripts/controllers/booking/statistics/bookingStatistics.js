@@ -30,6 +30,7 @@ angular.module('sigmaCabsApp')
 			scope.vehicleAvailabilityData = [];
 
         	console.log('fnRefreshStatistics');
+
         	var sReqTm = "";
 
         	if(iHours){	// hour is selected
@@ -40,14 +41,24 @@ angular.module('sigmaCabsApp')
         		scope.selectedHoursText = iHours + ((iHours === 1) ? ' Hour' : ' Hours');
 
         		sReqTm = PrerequisiteService.fnFormatDateOnDateObj(oD);
+
+        		// for statistics hours
+        		scope.iStatsHours = iHours;
+
         	} else {
         		if(oBooking){	// from callTaker view
 	        		sReqTm = PrerequisiteService.formatToServerDate(oBooking.pickupDate) + ' ' + oBooking.pickupHours + ':' + oBooking.pickupMinutes + ':00';
 	        	} else {	// from dispatcher view
 	        		sReqTm = PrerequisiteService.formatToServerDate(PrerequisiteService.fnFormatDate()) + ' ' + PrerequisiteService.fnFormatHours() +':' +  PrerequisiteService.fnFormatMinutes() +':00';
 	        	}
+
+	        	scope.selectedHoursText = "Select Hours";
+	        	scope.iStatsHours = 'Pickup';
         	}        	
-        	console.log('sReqTm: ' + sReqTm)
+        	console.log('sReqTm: ' + sReqTm);
+
+        	scope.fnShowStatistics(scope.iStatsHours);
+
         	// get the vehicleAvailablity
 			VehiclesService.fnGetAvailableVehicles({
 				requestTime : sReqTm
