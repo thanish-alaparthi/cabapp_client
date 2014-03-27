@@ -28,7 +28,7 @@ angular.module('sigmaCabsApp')
 
 
         /* Auto Refresh stuff*/
-        scope.autoRefreshBookingMgmt = true;
+        scope.autoRefreshBookingMgmtAndVacantVehicles = true;
 
 
         /*START: setting heights for the elements*/
@@ -323,22 +323,34 @@ angular.module('sigmaCabsApp')
       /********** Start of Polling Functionality ***********/
         scope.pollForBookingsAfter30Seconds = function(){
           console.log('------------------ in pollForBookingsAfter30Seconds');
-            $timeout(function(){
-              if(scope.autoRefreshBookingMgmt == false && scope.mainGridView == 'bMgmt'){
-                console.log('3333333333333333333333333333 pollForBookingsAfter30Seconds 30seconds');
-                scope.autoRefreshBookingMgmt = true;
-                scope.setBookingMgmtGrid();
+            if(scope.timeout30){
+              $timeout.cancel(scope.timeout30);
+            }
 
+            scope.timeout30 = $timeout(function(){
+              if(scope.autoRefreshBookingMgmtAndVacantVehicles == false && scope.mainGridView == 'bMgmt'){
+                console.log('3333333333333333333333333333 pollForBookingsAfter30Seconds 30seconds');
+                scope.autoRefreshBookingMgmtAndVacantVehicles = true;
+                scope.setBookingMgmtGrid();
                 scope.setVacantVehiclesGrid();
+                scope.vacantVehicleUnSelectedFn();
               }
             }, 30000);
         };
+        var timeout4;
         var pollForBookings = function(){
           console.log('------------------ in pollForBookings');
-          $timeout(function(){
-            if(scope.autoRefreshBookingMgmt && scope.mainGridView == 'bMgmt') {
+          
+            if(timeout4){
+              $timeout.cancel(timeout4);
+            }
+
+            timeout4 = $timeout(function(){
+            if(scope.autoRefreshBookingMgmtAndVacantVehicles && scope.mainGridView == 'bMgmt') {
               console.log('4444444444444444 pollForBookings 4seconds');
               scope.setBookingMgmtGrid();
+              scope.setVacantVehiclesGrid();
+              scope.vacantVehicleUnSelectedFn();
             }
           }, POLLING_INTERVAL);
         };
@@ -672,6 +684,9 @@ angular.module('sigmaCabsApp')
           }
         }        
         scope.setBookingMgmtGrid_Success = function(data){
+          if(scope.isScopeDestroyed){
+            return;
+          }
           console.log('>>>>>>>>>> setBookingMgmtGrid_Success', data);
           scope.FormatNloadBookingMgmtGridData(data);
           pollForBookings();
@@ -1116,7 +1131,7 @@ angular.module('sigmaCabsApp')
         scope.bookingSelectedFn = function(booking, aVehTyp){
 
           // booking selected
-          scope.autoRefreshBookingMgmt = false;
+          scope.autoRefreshBookingMgmtAndVacantVehicles = false;
           scope.pollForBookingsAfter30Seconds();
 
 
@@ -1178,7 +1193,7 @@ angular.module('sigmaCabsApp')
 
 
           // booking unselected selected
-          scope.autoRefreshBookingMgmt = true;
+          scope.autoRefreshBookingMgmtAndVacantVehicles = true;
 
           if(scope.mainGridView != 'bMgmt'){
             console.log('>>>>> not in bMgmt');
@@ -2174,6 +2189,11 @@ angular.module('sigmaCabsApp')
         });
 
         scope.$on('$destroy', function() {
+          scope.isScopeDestroyed = true;
+          console.log(scope.timeout30, timeout4);
+          $timeout.cancel(scope.timeout30);
+          $timeout.cancel(timeout4);
+
             console.log('destroying eldContainer relative');
             oEventUpdateControlViewGrid();
         });
