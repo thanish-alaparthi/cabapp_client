@@ -39,7 +39,7 @@ angular.module('sigmaCabsApp')
 					break;
 				case 3:
 				case 4:
-					scope.saveText = 'Close'
+					scope.saveText = 'Save Rating & Feedback'
 					break;
 			}
 		};

@@ -24,9 +24,7 @@
                         </li>
                         <li data-ng-class="{ active: fnIsActive(2)}" data-ng-click="tab = 2;fnChangeSaveText();"><a>Suggestions</a>
                         </li>
-                        <li data-ng-class="{ active: fnIsActive(3)}" data-ng-click="tab = 3;fnChangeSaveText();"><a>Feedback</a>
-                        </li>
-                        <li data-ng-class="{ active: fnIsActive(4)}" data-ng-click="tab = 4;fnChangeSaveText();"><a>Ratings</a>
+                        <li data-ng-class="{ active: fnIsActive(3)}" data-ng-click="tab = 3;fnChangeSaveText();"><a>Feedback & Ratings</a>
                         </li>
                     </ul>
 
@@ -71,11 +69,57 @@
                     </div>
 
                     <div class="tab-body cust-request" data-ng-show="tab==3">
-                        Display information from API...
-                    </div>
-
-                    <div class="tab-body" data-ng-show="tab==4">
-                        Display information from API...
+                        <table style="width: 100%;">
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Rating</th>
+                                <th>Feedback</th>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <label style="width: 100%;" class="labelCompact">Customer support executive</label>
+                                </td>
+                                <td style="text-align: center;">
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                </td>
+                                <td style="text-align: center;">
+                                    <input type="text" class="textFieldCompact"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <label style="width: 100%;" class="labelCompact">Driver</label>
+                                </td>
+                                <td style="text-align: center;">
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                </td>
+                                <td style="text-align: center;">
+                                    <input type="text" class="textFieldCompact"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <label style="width: 100%;" class="labelCompact">Vehicle</label>
+                                </td>
+                                <td style="text-align: center;">
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                </td>
+                                <td style="text-align: center;">
+                                    <input type="text" class="textFieldCompact"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <label style="width: 100%;" class="labelCompact">Overall Rating</label>
+                                </td>
+                                <td style="text-align: center;">
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                </td>
+                                <td style="text-align: center;">
+                                    <input type="text" class="textFieldCompact"/>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </fieldset>

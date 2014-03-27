@@ -340,7 +340,7 @@ angular.module('sigmaCabsApp')
         var timeout4;
         var pollForBookings = function(){
           console.log('------------------ in pollForBookings');
-          
+
             if(timeout4){
               $timeout.cancel(timeout4);
             }
@@ -593,6 +593,14 @@ angular.module('sigmaCabsApp')
 
         scope.fnChangeToTime = function(){
           scope.alSearch.toTime = scope.alSearch.fromTime;
+        };
+        scope.fnValidateToTime = function(){
+          if(scope.alSearch.toTime == 'all'
+             || parseInt(scope.alSearch.toTime) < parseInt(scope.alSearch.fromTime)
+             || scope.alSearch.fromTime == 'all'
+          ){
+            scope.alSearch.toTime = scope.alSearch.fromTime;
+          }
         };
 
         /*END: Formatter methods*/
@@ -1782,7 +1790,7 @@ angular.module('sigmaCabsApp')
         scope.showAutoLoginVehicles = function(){
           scope.vehiclePanelToggle(false);
           scope.showingAutoLoginVehicleGrid = true;          
-          // scope.setAutoLoginVehicleGrid();          
+          scope.setAutoLoginVehicleGrid();          
         }     
         /*END: Handle While-driving and bookings hide-show*/
         

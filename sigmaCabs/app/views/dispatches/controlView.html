@@ -252,7 +252,7 @@
 						<label title="Pickup Time">Time</label>
 						</div>
 						<div class="col-xs-7">
-							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="biSearch.pickupTm" ng-options='k as v for (k,v) in hours' data-ng-change="fnChangeToTime()" style="width:48px;"></select>
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="biSearch.pickupTm" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
 						</div>
 					</div>
 					<div class="row margin-bottom5">
@@ -348,6 +348,22 @@
 					</div>
 					<div class="row margin-bottom5">
 						<div class="col-xs-5">
+						<label title="From Time">From Time</label>
+						</div>
+						<div class="col-xs-7">
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromTime" ng-options='k as v for (k,v) in hours' data-ng-change="fnChangeToTime()" style="width:48px;"></select>
+						</div>
+					</div>
+					<div class="row margin-bottom5">
+						<div class="col-xs-5">
+						<label title="To Time">To Time</label>
+						</div>
+						<div class="col-xs-7">
+							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.toTime" ng-options='k as v for (k,v) in hours' data-ng-change="fnValidateToTime()" style="width:48px;"></select>
+						</div>
+					</div>
+					<div class="row margin-bottom5">
+						<div class="col-xs-5">
 						<label title="Zone">Zone</label>
 						</div>
 						<div class="col-xs-7">
@@ -384,22 +400,6 @@
 						</div>
 						<div class="col-xs-7">
 							<select class="autoWidth selectFieldCompact" data-ng-model="alSearch.vehicle" data-ng-options="obj as obj.title for obj in oVehicles"></select>
-						</div>
-					</div>
-					<div class="row margin-bottom5">
-						<div class="col-xs-5">
-						<label title="From Time">From Time</label>
-						</div>
-						<div class="col-xs-7">
-							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.fromTime" ng-options='k as v for (k,v) in hours' data-ng-change="fnChangeToTime()" style="width:48px;"></select>
-						</div>
-					</div>
-					<div class="row margin-bottom5">
-						<div class="col-xs-5">
-						<label title="To Time">To Time</label>
-						</div>
-						<div class="col-xs-7">
-							<select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="alSearch.toTime" ng-options='k as v for (k,v) in hours' style="width:48px;"></select>
 						</div>
 					</div>
 					<div class=" margin-bottom5" style="text-align: center;">
