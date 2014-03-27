@@ -35,14 +35,14 @@ angular.module('sigmaCabsApp')
 				"stateTo": scope.vChangeStatus.stateTo,
 				"reasonId": scope.vChangeStatus.reasonId || '',
 				"priority": scope.vChangeStatus.priorityId || '',
-				"comment": scope.vChangeStatus.statusComments
+				"comment": scope.vChangeStatus.statusComments || ''
 			};
 			console.log(oData);
 			// validations
 			if(oData.stateFrom === oData.stateTo) {
 				alert('Please select a new status');
 				return;
-			} else if (oData.priority === '' || oData.reasonId === '') {
+			} else if (oData.priority === '' || oData.reasonId === '' || oData.comment === '') {
                 alert('Please select required information');
                 return;
             } else if (oData.driverId === '') {

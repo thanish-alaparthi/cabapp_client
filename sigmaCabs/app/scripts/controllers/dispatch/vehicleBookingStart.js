@@ -74,8 +74,8 @@ angular.module('sigmaCabsApp')
             } else if (oData.currentKms < scope.vehicleDetails.vehicleMainDetails.details.previousKms) {
                 alert('Current Kms cannot be less than previous kms.');
                 return;
-            } else if (oData.rating === 1 && oData.reasonId == '') {
-                alert('Please select valid Reason');
+            } else if (oData.rating === 1 && (oData.reasonId == '' || oData.comments === '')) {
+                alert('Please enter valid information.');
                 return;
             }
             serverService.sendData('P',

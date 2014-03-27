@@ -30,7 +30,6 @@ angular.module('sigmaCabsApp')
 			scope.vehicleAvailabilityData = [];
 
         	console.log('fnRefreshStatistics');
-
         	var sReqTm = "";
 
         	if(iHours){	// hour is selected

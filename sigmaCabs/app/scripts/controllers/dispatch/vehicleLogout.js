@@ -65,7 +65,7 @@ angular.module('sigmaCabsApp')
 			if (oData.currentKms < startOrPreviousKms) {
 				alert('Current Kms cannot be less than previous kms.');
 				return;
-			} else if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms)) {
+			} else if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms) || oData.comments === '') {
 				alert('Please enter valid information');
 				return;
 			} else if(new Date(oData.expLoginTime).getTime() < new Date().getTime()) {

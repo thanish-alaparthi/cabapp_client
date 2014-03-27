@@ -31,14 +31,14 @@ angular.module('sigmaCabsApp')
 				"mobile": scope.changePhone.newMobile || '',
 				"changedBy": scope.changePhone.categoryId || '',
 				"reasonId": scope.changePhone.reasonId || '',
-				"comments": scope.changePhone.phoneChangeComments
+				"comments": scope.changePhone.phoneChangeComments || ''
 			};
 
 			// validations
 			if (oData.mobile === '' || oData.mobile.length < 10) {
 				alert('Please enter valid Mobile No.');
 				return;
-			} else if (oData.changedBy === '' || oData.reasonId === '') {
+			} else if (oData.changedBy === '' || oData.reasonId === '' || oData.comments === '') {
 				alert('Please select required information');
 				return;
 			}

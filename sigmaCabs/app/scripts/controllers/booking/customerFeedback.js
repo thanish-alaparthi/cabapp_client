@@ -72,12 +72,12 @@ angular.module('sigmaCabsApp')
 						"reasonId": scope.feedback.reasonId || '',
 						"priority": scope.feedback.priorityId || '',
 						"source": 1, // 1 -> Calltaker, 2 -> Dispatcher
-						"comments": scope.feedback.comments
+						"comments": scope.feedback.comments || ''
 					};
 
 					console.log(oData);
 					// validations
-					if (oData.requester === '' || oData.reasonId === '') {
+					if (oData.requester === '' || oData.reasonId === '' || oData.comments === '') {
 						alert('Please select required information');
 						return;
 					} else if (scope.feedback.categoryId === 4 && driverId === '') {
@@ -104,7 +104,7 @@ angular.module('sigmaCabsApp')
 					
 					console.log(oData);
 					// validations
-					if (oData.requester === '' || oData.reasonId === '') {
+					if (oData.requester === '' || oData.reasonId === '' || oData.comments === '') {
 						alert('Please select required information');
 						return;
 					} else if (scope.suggestions.categoryId === 4 && driverId === '') {

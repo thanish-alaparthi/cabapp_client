@@ -234,11 +234,11 @@ angular.module('sigmaCabsApp')
                 "longitude": "678.1523",
                 "discount": scope.bookingClose.discount,
                 "reasonId": scope.bookingClose.reasonId || '',
-                "comments": scope.bookingClose.comments
+                "comments": scope.bookingClose.comments || ''
             };
             console.log(oData);
             // validations
-            if (isNaN(oData.currentKms) || isNaN(oData.paidAmount)) {
+            if (isNaN(oData.currentKms) || isNaN(oData.paidAmount) || oData.comments === '') {
                 alert('Please enter valid information.');
                 return false;
             } else if (oData.currentKms <= initialStartKms) {

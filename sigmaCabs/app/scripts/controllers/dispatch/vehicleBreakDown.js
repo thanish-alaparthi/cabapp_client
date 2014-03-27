@@ -42,7 +42,7 @@ angular.module('sigmaCabsApp')
 			if(oData.currentKms > 0 && oData.currentKms < scope.vehicleDetails.vehicleMainDetails.startKms) {
 				alert('Current Kms cannot be less than start kms.');
 				return;
-			} else if (oData.requester === '' || oData.priority === '' || oData.reasonId === '') {
+			} else if (oData.requester === '' || oData.priority === '' || oData.reasonId === '' || oData.comments === '') {
 				alert('Please select required information');
 				return;
 			} else if (scope.breakDown.categoryId === 4 && driverId === '') {

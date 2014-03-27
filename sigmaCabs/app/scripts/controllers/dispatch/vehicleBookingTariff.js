@@ -82,7 +82,7 @@ angular.module('sigmaCabsApp')
                     "changedTariffId": scope.vChangeTariff.newTariffId || '',
                     "changedBy": scope.vChangeTariff.categoryId || '',
                     "reasonId": scope.vChangeTariff.reasonId || '',
-                    "comments": scope.vChangeTariff.comments
+                    "comments": scope.vChangeTariff.comments || ''
                 };
 
             console.log(oData);
@@ -90,7 +90,7 @@ angular.module('sigmaCabsApp')
             if (oData.changedTariffId === '' || oData.optedTariffId === oData.changedTariffId) {
                 alert('Please select a new Tariff');
                 return;
-            } else if (oData.changedBy === '') { // || oData.reasonId === ''
+            } else if (oData.changedBy === '' || oData.comments === '') { // || oData.reasonId === ''
                 alert('Please select required information');
                 return;
             } else if (scope.vChangeTariff.categoryId === 4 && driverId === '') {

@@ -33,11 +33,11 @@ angular.module('sigmaCabsApp')
 				"longitude": "988756.345",
 				"currentKms": scope.changeLocation.currentKms || '',
 				"reasonId": scope.changeLocation.reasonId || '',
-				"comments": scope.changeLocation.comments
+				"comments": scope.changeLocation.comments || ''
 			};
 			console.log(oData);
 			// validations
-			if (isNaN(oData.currentKms) || oData.reasonId === '' || oData.location === '') {
+			if (isNaN(oData.currentKms) || oData.reasonId === '' || oData.location === '' || oData.comments === '') {
                 alert('Please select required information');
                 return;
             } else if (oData.driverId === '') {

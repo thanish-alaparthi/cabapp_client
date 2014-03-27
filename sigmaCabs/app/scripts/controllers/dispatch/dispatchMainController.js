@@ -215,10 +215,13 @@ angular.module('sigmaCabsApp')
             scope.fnLoadCurrentDayDataSuccess = function(data, status, headers, config) {
                 console.log('fnLoadCurrentDayDataSuccess Success: ', data);
 
-                var oStatistics = data.statistics;
+                var oStatistics = data.statistics,
+                    aExpLogout = oStatistics.expLogout.split(' '),
+                    dt = aExpLogout[0].split('-')[2];
                 scope.currentDayStatistics = oStatistics;
                 // update the vehicle state
-                scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? PrerequisiteService.fnFormatDate(oStatistics.loginTime.split(' ')[0]) + ' ' + oStatistics.loginTime.split(' ')[1] : '';
+                scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? oStatistics.loginTime.substring(0, 5) : '';
+                scope.currentDayStatistics.expectedLogoutTime = (oStatistics.expLogout) ? (dt + ' -> ' + aExpLogout[1].substring(0, 5)) : '';
                 scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
                 scope.currentDayStatistics.totalLoginTime = (parseInt(oStatistics.totalLoginTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalLoginTime) : 0;
                 scope.currentDayStatistics.totalBreakTime = (parseInt(oStatistics.totalBreakTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalBreakTime) : 0;

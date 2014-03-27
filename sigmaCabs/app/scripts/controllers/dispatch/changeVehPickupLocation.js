@@ -29,14 +29,14 @@ angular.module('sigmaCabsApp')
                 "newLocation": scope.changePickup.newLocation,
                 "latitude": "1745.852",
                 "longitude": "145821.369",
-                "comments": scope.changePickup.comments
+                "comments": scope.changePickup.comments || ''
             };
 
             console.log(oData);
 
             // validations
-            if (oData.newLocation === '') {
-                alert('Please enter new location');
+            if (oData.newLocation === '' || oData.comments === '') {
+                alert('Please enter required details.');
                 return;
             }
 

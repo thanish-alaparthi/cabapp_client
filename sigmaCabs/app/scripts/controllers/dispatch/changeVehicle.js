@@ -51,7 +51,7 @@ angular.module('sigmaCabsApp')
                 "changedBy": scope.vChange.categoryId,
                 "reasonId": scope.vChange.reasonId || '',
                 "priority": scope.vChange.priorityId || '',
-                "comments": scope.vChange.comments
+                "comments": scope.vChange.comments || ''
             };
 
             if (oData.newVehicleId === '') {
@@ -63,7 +63,7 @@ angular.module('sigmaCabsApp')
             } else if (oData.driverId === '') {
                 alert('Please select driver in vehicle information');
                 return;
-            } else if (oData.location === '' || oData.priority === '' || oData.reasonId === '') {
+            } else if (oData.location === '' || oData.priority === '' || oData.reasonId === '' || oData.comments === '') {
                 alert('Please select required information');
                 return;
             }

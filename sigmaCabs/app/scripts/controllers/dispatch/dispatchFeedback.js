@@ -70,12 +70,12 @@ angular.module('sigmaCabsApp')
 						"reasonId": scope.feedback.reasonId || '',
 						"priority": scope.feedback.priorityId || '',
 						"source": 2, // 1 -> Calltaker, 2 -> Dispatcher
-						"comments": scope.feedback.comments
+						"comments": scope.feedback.comments || ''
 					};
 
 					console.log(oData);
 					// validations
-					if (oData.requester === '' || oData.reasonId === '') {
+					if (oData.requester === '' || oData.reasonId === '' || oData.comments === '') {
 						alert('Please select required information');
 						return;
 					} else if (oData.requester === 4 && driverId === '') {
@@ -97,12 +97,12 @@ angular.module('sigmaCabsApp')
 						"reasonId": scope.suggestions.reasonId || '',
 						"priority": scope.suggestions.priorityId || '',
 						"source": 2, // 1 -> Calltaker, 2 -> Dispatcher
-						"comments": scope.suggestions.comments
+						"comments": scope.suggestions.comments || ''
 					};
 
 					console.log(oData);
 					// validations
-					if (oData.requester === '' || oData.reasonId === '') {
+					if (oData.requester === '' || oData.reasonId === '' || oData.comments === '') {
 						alert('Please select required information');
 						return;
 					} else if (oData.requester === 4 && driverId === '') {

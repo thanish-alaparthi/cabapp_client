@@ -54,7 +54,7 @@ angular.module('sigmaCabsApp')
 			if (Math.abs(oData.breakTime) <= 0) {
 				alert('Please select request time.');
 				return;
-			} else if (oData.location === '' || oData.reasonId === '' || oData.breakTime === '') {
+			} else if (oData.location === '' || oData.reasonId === '' || oData.breakTime === '' || oData.comments === '') {
 				alert('Please select required information');
 				return;
 			} else if (driverId === '') {
