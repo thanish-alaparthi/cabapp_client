@@ -31,11 +31,11 @@ angular.module('sigmaCabsApp')
                     "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
                     "reasonId": scope.vReject.reasonId || '',
                     "priority": scope.vReject.priorityId || '',
-                    "comments": scope.vReject.comments
+                    "comments": scope.vReject.comments || ''
                 };
 
             // validations
-            if (oData.bookingId === '' || oData.priority === '' || oData.reasonId === '') {
+            if (oData.bookingId === '' || oData.priority === '' || oData.reasonId === '' || oData.comments === '') {
                 alert('Please select required information');
                 return;
             } else if (scope.vReject.categoryId === 4 && driverId === '') {

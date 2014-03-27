@@ -153,6 +153,7 @@ angular.module('sigmaCabsApp')
                 'vehicleAvailabilityCheck': 'views/bookings/checkVehicleAvilabilty.html',
                 'cancelBookingMain': 'views/bookings/cancelBookingMain.html',
                 'dispositionForm': 'views/bookings/dispositionForm.html',
+                'specialRequestForm': 'views/bookings/specialRequestForm.html',
                 'blockCustomerMain': 'views/bookings/blockCustomerMain.html',
                 'customerRequestMain': 'views/bookings/customerRequestMain.html',
                 'bookingTariffTable': 'views/bookings/bookingTariffTable.html',

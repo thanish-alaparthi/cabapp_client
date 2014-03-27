@@ -77,7 +77,7 @@ angular.module('sigmaCabsApp')
 					amount: oTariff.price,
 					comments: oTariff.comments,
 					distance: oTariff.distance,
-					duration: oTariff.duration,
+					duration: oTariff.duration / 60,
 					extraCharges: oTariff.extraCharges1,
 					extraHour: oTariff.extraHrPrice,
 					extraKm: oTariff.extraKmPrice,
@@ -330,6 +330,34 @@ angular.module('sigmaCabsApp')
 							bookingStatus : null,	// reset the booking status in disposition.
 							customerId : scope.waCustomerDetails.id
 						}
+					},
+					oCustomer : function(){
+						return scope.waCustomerDetails
+					}
+				}
+			};
+			modalWindow.addDataToModal($scope.opts);
+		};
+
+		scope.fnOpenSpecialRequest = function(){
+			if(!scope.waCustomerDetails.id) {
+				alert('Please save the customer details first.');
+				return;
+			}
+
+			$scope.opts = {
+				templateUrl: URLService.view('specialRequestForm'),
+				controller: 'specialRequestBookingForm',
+				dialogClass: 'modalClass disposition-booking-container',
+				resolve: {
+					editMode: [
+						function() {
+							return false;
+						}
+					],
+					oBooking : function(){
+						// send readyToSave booking details
+						return scope.bookingDetails
 					},
 					oCustomer : function(){
 						return scope.waCustomerDetails

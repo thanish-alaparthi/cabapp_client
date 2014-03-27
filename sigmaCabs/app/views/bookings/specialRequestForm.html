@@ -1,0 +1,37 @@
+<div class="modal-dialog disposition-booking-container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="close()" aria-hidden="true">×</button>
+            <h4 class="modal-title">Special Request of Booking</h4>
+        </div>
+        <div class="popupCallerInfo">
+            <div class="left innerLabelContainer">
+                <span  class="innerLabel">Caller Name: </span>
+                <span>{{ customerDetails.name }}</span>
+            </div>
+            <div class="right innerLabelContainer">
+                <span class="innerLabel">Caller Ph.: </span>
+                <span>{{ customerDetails.mobile }}</span>
+            </div>
+        </div>
+        <div class="modal-body" > 
+            <fieldset class="left">
+                <div class="fieldContainer  relative">
+                    <label class="labelCompact">Special Request</label>
+                    <select class="selectFieldCompact" data-ng-model="specialRequest.specialRequestId" ng-options='k as v for (k,v) in specialRequests' ></select>
+                </div>
+                <div class="fieldContainer  relative left" style="height:75px;margin-top: 5px;">
+                    <label class="labelCompact requiredField">Comment</label>
+                    <textarea data-ng-model="specialRequest.specialRequestComments" class="cancelBookingComment" style="width: 289px;"></textarea>
+                </div>
+
+            </fieldset>
+            <p class="clear"/>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="fnSaveSpecialRequestAndExit()">Save Special Request</button>
+            <button type="button" style="margin: 0px;" class="btn-success btnCompact" ng-click="close()" >Cancel</button>
+        </div>
+    </div>
+</div>

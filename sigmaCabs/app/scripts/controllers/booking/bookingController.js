@@ -87,7 +87,9 @@ angular.module('sigmaCabsApp')
                 vehicleType: '1',
                 vehicleName: '1',
                 id: '',
-                customerId : ''
+                customerId : '',
+                specialRequestId : '',
+                specialRequestComments: ''
             };
             scope.tmpDetails.tmpVehicleType = '1';
             scope.tmpDetails.tmpVehicleName = '1';

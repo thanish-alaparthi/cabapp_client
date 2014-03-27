@@ -479,6 +479,11 @@ angular.module('sigmaCabsApp')
         	scope.fnRefreshBookingHistory();
         	scope.fnClearBookingForm();
         });
+        // check whether boookingDetails are saved from cancelBooking or dispostion form
+        $rootScope.$on('eventSpecialRequestBookingIsSaved', function(ev, oData) {
+        	scope.bookingDetails.specialRequestId = oData.specialRequestId;
+        	scope.bookingDetails.specialRequestComments = oData.specialRequestComments;
+        });
 
         // catch eventSingleTariffSelected to reload tariffGrid.
         $rootScope.$on('eventSingleTariffSelected', function(ev, oData) {
