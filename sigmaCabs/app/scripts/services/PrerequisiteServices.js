@@ -266,6 +266,16 @@ angular.module('sigmaCabsApp')
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetSpecialRequestTypes'),
+                    method: 'GET',
+                    myDataToken : 'specialRequests',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
             },
 
 
@@ -1145,6 +1155,11 @@ angular.module('sigmaCabsApp')
             fnGetLatLon : function(aPlaces) {
                 // function returns array of latLon objects as per 
                 return [];
+            },
+            fnGetSpecialRequestTypes : function() {
+                var oThis = this;
+
+                return oThis.oLs[oThis.currentDate]['specialRequests'];
             },
 
 

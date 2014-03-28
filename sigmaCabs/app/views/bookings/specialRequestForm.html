@@ -18,7 +18,7 @@
             <fieldset class="left">
                 <div class="fieldContainer  relative">
                     <label class="labelCompact">Special Request</label>
-                    <select class="selectFieldCompact" data-ng-model="specialRequest.specialRequestId" ng-options='k as v for (k,v) in specialRequests' ></select>
+                    <select class="selectFieldCompact" data-ng-model="specialRequest.specialRequestId" data-ng-options="obj.id as obj.value for obj in specialRequest" ></select>
                 </div>
                 <div class="fieldContainer  relative left" style="height:75px;margin-top: 5px;">
                     <label class="labelCompact requiredField">Comment</label>

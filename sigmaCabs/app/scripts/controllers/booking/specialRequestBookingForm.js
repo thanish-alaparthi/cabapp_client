@@ -16,7 +16,8 @@ angular.module('sigmaCabsApp')
 		scope.customerDetails = oCustomer;
 		scope.bookingDetails = oBooking;
 
-		scope.specialRequest = {};
+		scope.specialRequest = PrerequisiteService.fnGetSpecialRequestTypes();
+		console.log('>>>>>>>>>>>>>>sp req',scope.specialRequest);
 
 		scope.specialRequest.specialRequestComments  = oBooking.specialRequestComments;
 		scope.specialRequest.specialRequestId  = oBooking.specialRequestId;

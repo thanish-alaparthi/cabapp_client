@@ -305,7 +305,10 @@ angular.module('sigmaCabsApp')
 				passengerName : scope.waCustomerDetails.name,
 				passengerMobile : scope.waCustomerDetails.mobile,
 				sms1 : aSms[0],
-				sms2 : aSms[1]
+				sms2 : aSms[1],
+				journeyType : PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.bookingDetails.subJourneyType).id, 
+				specialRequestId : scope.bookingDetails.specialRequestId,
+                specialRequestComments : scope.bookingDetails.specialRequestComments
 			});
 		};
 
@@ -342,7 +345,10 @@ angular.module('sigmaCabsApp')
 				passengerName : scope.waCustomerDetails.name,
 				passengerMobile : scope.waCustomerDetails.mobile,
 				sms1 : aSms[0],
-				sms2 : aSms[1]
+				sms2 : aSms[1],
+				journeyType : PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.bookingDetails.subJourneyType).id, 
+				specialRequestId : scope.bookingDetails.specialRequestId || '',
+                specialRequestComments : scope.bookingDetails.specialRequestComments || ''
 			});
 		};
 
