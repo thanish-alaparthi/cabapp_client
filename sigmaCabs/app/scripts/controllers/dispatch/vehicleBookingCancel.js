@@ -29,13 +29,13 @@ angular.module('sigmaCabsApp')
 				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
 				"bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
 				"reasonId": scope.vBookingCancel.reasonId || '',
-				"priorityId": scope.vBookingCancel.priorityId || '',
+				"priorityId": scope.vBookingCancel.iPriority || '',
 				"cancelCategory": scope.vBookingCancel.categoryId || '',
 				"comments": scope.vBookingCancel.comments
 			};
 
 			// validations
-			if (oData.cancelCategory === '' || oData.reasonId === '') {
+			if (oData.cancelCategory === '' || oData.reasonId === '' || oData.priorityId === '' || oData.comments === '') {
 				alert('Please select required information');
 				return;
 			}

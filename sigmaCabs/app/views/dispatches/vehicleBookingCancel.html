@@ -18,20 +18,20 @@
             <fieldset class="left">
                 <legend class="searchbox-border">Cancel Booking</legend>
 
-                <div class="fieldContainer  relative">
-                    <label class="labelCompact">Priority</label>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact requiredField">Priority</label>
                     <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vBookingCancel.iPriority" ng-options="k as v for (k,v) in priorities"></select>
                 </div>
-                <div class="fieldContainer  relative">
-                    <label class="labelCompact">Cancel Category</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="vBookingCancel.categoryId" data-ng-options="obj.id as obj.categoryName for obj in cancelCategories"></select>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact requiredField">Cancel Category</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vBookingCancel.categoryId" data-ng-options="obj.id as obj.categoryName for obj in cancelCategories"></select>
                 </div>
-                <div class="fieldContainer  relative">
-                    <label class="labelCompact">Reason</label>
-                    <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="vBookingCancel.reasonId" data-ng-options="obj.id as obj.reason for obj in reason"></select>
+                <div class="fieldContainer relative">
+                    <label class="labelCompact requiredField">Reason</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="vBookingCancel.reasonId" data-ng-options="obj.id as obj.reason for obj in reason"></select>
                 </div>
-                <div class="fieldContainer  relative" style="height:75px;">
-                    <label class="labelCompact">Comment</label>
+                <div class="fieldContainer relative" style="height:75px;">
+                    <label class="labelCompact requiredField">Comment</label>
                     <textarea data-ng-model="vBookingCancel.comments" class="cancelBookingComment"></textarea>
                 </div>
 

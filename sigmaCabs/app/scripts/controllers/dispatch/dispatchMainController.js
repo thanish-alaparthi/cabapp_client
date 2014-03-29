@@ -49,7 +49,7 @@ angular.module('sigmaCabsApp')
             scope.chatForm = URLService.view('chatForm');
             scope.previousRequestVehId = 0;
 
-            scope.callerPhone = $routeParams.mobile;
+            scope.callerPhone = PrerequisiteService.fnCheckValidMobile($routeParams.mobile);
             scope.callerInfo = "";
             console.log(scope.callerPhone);
 
@@ -86,6 +86,7 @@ angular.module('sigmaCabsApp')
 
             scope.fnVehicleSearch = function(mobileNo) {
                 mobileNo = mobileNo || scope.callerPhone;
+                mobileNo = PrerequisiteService.fnCheckValidMobile(mobileNo);
                 DispatchService.fnFindVehicleByMobile({
                     mobile: mobileNo
                 })
@@ -418,7 +419,7 @@ angular.module('sigmaCabsApp')
                 var oSearch = (sSearch && sSearch.length === 4) ? {
                     vcode: sSearch
                 } : {
-                    mobile: sSearch
+                    mobile: PrerequisiteService.fnCheckValidMobile(sSearch)
                 };
                 console.log(oSearch);
                 DispatchService.fnFindVehicleByMobile(oSearch)
@@ -836,6 +837,9 @@ angular.module('sigmaCabsApp')
                             vehicleMainDetails: scope.vehicleMainDetails
                         };
                         return oData;
+                    },
+                    isControlView: function() {
+                        return false;
                     }
                 }
             };

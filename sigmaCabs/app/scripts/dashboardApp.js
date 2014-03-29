@@ -46,6 +46,11 @@ angular.module('sigmaCabsApp', [
         templateUrl: 'views/customer.html',
         controller: 'customersMainController'
       })
+      .when('/admincs', {
+        templateUrl: 'views/admincs.html',
+        // customer support
+        controller: 'adminCsMainController'
+      })
       .otherwise({
         redirectTo: '/' // redirect to dashboard.html 
       });

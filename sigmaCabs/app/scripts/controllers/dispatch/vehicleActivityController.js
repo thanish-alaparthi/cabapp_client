@@ -55,8 +55,8 @@ angular.module('sigmaCabsApp')
 			if(oData.currentKms < scope.vehicleMainDetails.startKms) {
 				alert('Current Kms cannot be less than start kms.');
 				return;
-			} else if(oData.expectedLoginHrs === '') {
-				alert('Please select expeted login hours');
+			} else if(oData.expectedLoginHrs === '' || oData.expectedLoginHrs === '00') {
+				alert('Please select valid expected login hours');
 				return;
 			}
 

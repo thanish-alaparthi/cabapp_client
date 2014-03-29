@@ -12,7 +12,7 @@ angular.module('sigmaCabsApp')
 
         var scope = $scope;
         console.log('inside changeVehPickupLocation', oVehicleData);
-
+        scope.allLocations = PrerequisiteService.fnGetAllLocations();
         scope.vehicleDetails = oVehicleData;
         scope.changePickup = {};
         isControlView = isControlView || false;
