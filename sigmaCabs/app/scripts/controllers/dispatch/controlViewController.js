@@ -1128,14 +1128,14 @@ angular.module('sigmaCabsApp')
         };
 
         scope.bookingGridColDefs = [
-          {field:'bookingCode', displayName:'B.No', width: '55'},
+          {field:'bookingCode', displayName:'B.No', width: '50'},
           {field:'vehicleName', displayName:'V.Name', width: '70'},
-          {field:'pickupTime', displayName:'P.Time', width: '60'},
-          {field:'pickupPlace', displayName:'P.Place', width: '*'},
-          {field:'subJourneyType', displayName:'Package', width: '*'},
+          {field:'pickupTime', displayName:'P.Time', width: '50'},
+          {field:'pickupPlace', displayName:'P.Place', width: '*', cellClass : 'forceLeftAlign'},
+          {field:'subJourneyType', displayName:'Package', width: '70'},
           {field:'bookingOrigin', displayName:'Origin', width: '50'},
           {field:'bookingStatusNm', displayName:'Status', width: '50'},
-          {field:'vehicleCode', displayName:'VID', width: '100', cellTemplate : '<input ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" ng-show="(row.getProperty(\'vehicleId\') ? false : true )" /> <span>{{row.getProperty(\'vehicleCode\')}}</span>'}
+          {field:'vehicleCode', displayName:'VID', width: '50', cellTemplate : '<input style="width: 45px;" ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" ng-show="(row.getProperty(\'vehicleId\') ? false : true )" /> <span>{{row.getProperty(\'vehicleCode\')}}</span>'}
         ];
 
         scope.bookingSelectedFn = function(booking, aVehTyp){
