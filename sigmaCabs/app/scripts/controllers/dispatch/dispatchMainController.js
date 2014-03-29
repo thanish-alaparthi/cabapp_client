@@ -29,8 +29,6 @@ angular.module('sigmaCabsApp')
     .controller('dispatchMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow, serverService) {
         var scope = $scope;
 
-        scope.allLocations = PrerequisiteService.fnGetAllLocations();
-
         // Get the preRequisiteData
         PrerequisiteService.fnGetPrerequisites();
         scope.dispatcherMainView = URLService.view('dispatcherMainView');
@@ -76,6 +74,7 @@ angular.module('sigmaCabsApp')
             scope.subJourneyTypes = PrerequisiteService.fnGetAllJourneyTypes();
             scope.vehicleConditionTypes = PrerequisiteService.fnGetVehicleConditionTypes();
             scope.vehicleStatusTypes = PrerequisiteService.fnGetStatusTypes();
+            scope.allLocations = PrerequisiteService.fnGetAllLocations();
 
             // show rush or normal hours in statistics
             var oDt = new Date();

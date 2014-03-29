@@ -37,7 +37,7 @@ angular.module('sigmaCabsApp')
         };
 
         // save the getCall phone in scope.
-        scope.callerPhone = $routeParams.mobile;
+        scope.callerPhone = PrerequisiteService.fnCheckValidMobile($routeParams.mobile);
 
         // show the current time as callTime
         scope.callTime = PrerequisiteService.fnGetCallTime();

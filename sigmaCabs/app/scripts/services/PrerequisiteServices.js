@@ -1161,6 +1161,28 @@ angular.module('sigmaCabsApp')
 
                 return oThis.oLs[oThis.currentDate]['specialRequests'];
             },
+            fnGetFeedbackRatings : function(){
+                return {
+                    '1' : '1 - Poor',
+                    '2' : '2 - Average',
+                    '3' : '3 - Good',
+                    '4' : '4 - Very Good',
+                    '5' : '5 - Excellent'
+                };
+            },
+            fnCheckValidMobile : function(sMobile) {
+                // returns last 10 digits of the passed number
+                if(!sMobile){
+                    return '';
+                }
+
+                if(sMobile.length <= 10){
+                    return sMobile;
+                }
+
+                return sMobile.slice(-10);
+
+            },
 
 
             /* Old settings. will be deleted later */

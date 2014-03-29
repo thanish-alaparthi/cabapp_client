@@ -80,10 +80,10 @@
                                     <label style="width: 100%;" class="labelCompact">Customer support executive</label>
                                 </td>
                                 <td style="text-align: center;">
-                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="ratingsAndFeedback.callTakerRating" ng-options="k as v for (k,v) in feedBackRatings"></select>
                                 </td>
                                 <td style="text-align: center;">
-                                    <input type="text" class="textFieldCompact"/>
+                                    <input type="text" data-ng-model="ratingsAndFeedback.callTakerFeedback" class="textFieldCompact"/>
                                 </td>
                             </tr>
                             <tr>
@@ -91,10 +91,10 @@
                                     <label style="width: 100%;" class="labelCompact">Driver</label>
                                 </td>
                                 <td style="text-align: center;">
-                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="ratingsAndFeedback.driverRating" ng-options="k as v for (k,v) in feedBackRatings"></select>
                                 </td>
                                 <td style="text-align: center;">
-                                    <input type="text" class="textFieldCompact"/>
+                                    <input type="text" data-ng-model="ratingsAndFeedback.driverFeedback" class="textFieldCompact"/>
                                 </td>
                             </tr>
                             <tr>
@@ -102,10 +102,10 @@
                                     <label style="width: 100%;" class="labelCompact">Vehicle</label>
                                 </td>
                                 <td style="text-align: center;">
-                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="ratingsAndFeedback.vehicleRating" ng-options="k as v for (k,v) in feedBackRatings"></select>
                                 </td>
                                 <td style="text-align: center;">
-                                    <input type="text" class="textFieldCompact"/>
+                                    <input type="text" data-ng-model="ratingsAndFeedback.vehicleFeedback" class="textFieldCompact"/>
                                 </td>
                             </tr>
                             <tr>
@@ -113,10 +113,10 @@
                                     <label style="width: 100%;" class="labelCompact">Overall Rating</label>
                                 </td>
                                 <td style="text-align: center;">
-                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="suggestions.priorityId" ng-options="k as v for (k,v) in vehiclePriorities"></select>
+                                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="ratingsAndFeedback.companyRating" ng-options="k as v for (k,v) in feedBackRatings"></select>
                                 </td>
                                 <td style="text-align: center;">
-                                    <input type="text" class="textFieldCompact"/>
+                                    <input type="text" data-ng-model="ratingsAndFeedback.companyFeedback" class="textFieldCompact"/>
                                 </td>
                             </tr>
                         </table>

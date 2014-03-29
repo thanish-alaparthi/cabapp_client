@@ -22,8 +22,21 @@ angular.module('sigmaCabsApp')
 		scope.vehicleSuggestionReasonTypes = PrerequisiteService.fnGetReasonsById(3);
 		scope.vehiclePriorities = PrerequisiteService.priorities;
 
+		scope.feedBackRatings = PrerequisiteService.fnGetFeedbackRatings();
+
 		scope.saveText = 'Save Complaint'; //default text for save button.
 		scope.tab = 1;
+
+		scope.ratingsAndFeedback = {
+			callTakerRating : '',
+			callTakerFeedback : '',
+			driverRating : '',
+			driverFeedback : '',
+			vehicleRating : '',
+			vehicleFeedback : '',
+			companyRating : '',
+			companyFeedback : ''
+		};
 
 		scope.fnIsActive = function(iTab) {
 			return scope.tab == iTab ? true : false;
@@ -116,10 +129,46 @@ angular.module('sigmaCabsApp')
 						'booking/suggestion',
 						oData, scope.fnRestApiSuccess, scope.fnRestApiError);
 					break;
-				case 3: // Feedback Close
-				case 4: // Ratings Close
-					scope.close();
-					break;
+				case 3: // Feedback & ratings
+					var oData = {
+						feedbacks : [{
+							feedbackId : '1',	// callTaker
+							customerId : scope.bookingDetails.customerId,
+							feedbackValue : scope.ratingsAndFeedback.callTakerRating,
+							message : scope.ratingsAndFeedback.callTakerFeedback 
+						}, {
+							feedbackId : '2',	// driver
+							customerId : scope.bookingDetails.customerId,
+							feedbackValue : scope.ratingsAndFeedback.driverRating,
+							message : scope.ratingsAndFeedback.driverFeedback 
+						}, {
+							feedbackId : '3',	// vehicle
+							customerId : scope.bookingDetails.customerId,
+							feedbackValue : scope.ratingsAndFeedback.vehicleRating,
+							message : scope.ratingsAndFeedback.vehicleFeedback 
+						}, {
+							feedbackId : '4',	// company
+							customerId : scope.bookingDetails.customerId,
+							feedbackValue : scope.ratingsAndFeedback.companyRating,
+							message : scope.ratingsAndFeedback.companyFeedback 
+						}]
+					};
+					
+					console.log(oData);
+					// validations
+					if (   (!scope.ratingsAndFeedback.callTakerFeedback && !scope.ratingsAndFeedback.callTakerRating)
+						&& (!scope.ratingsAndFeedback.driverFeedback && !scope.ratingsAndFeedback.driverRating)
+						&& (!scope.ratingsAndFeedback.vehicleFeedback && !scope.ratingsAndFeedback.vehicleRating)
+						&& (!scope.ratingsAndFeedback.companyFeedback && !scope.ratingsAndFeedback.companyRating)
+					) {
+						alert('Please select required information');
+						return;
+					}
+
+					serverService.sendData('P',
+						'booking/customerFeedback',
+						oData, scope.fnRestApiSuccess, scope.fnRestApiError);
+				break;
 			};
 
 		};
