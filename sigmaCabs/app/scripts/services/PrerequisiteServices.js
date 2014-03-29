@@ -427,7 +427,7 @@ angular.module('sigmaCabsApp')
                     iCount = oJt.length;
 
                 for(var i=0;i<iCount;i++){
-                    if(oJt[i].id == sId) {
+                    if(oJt[i].id == sId && oJt[i].parentid != '0') {
                         return oJt[i].journeyType;
                     }
                 }
@@ -922,7 +922,7 @@ angular.module('sigmaCabsApp')
                     oBh.bookingDisplayDate = oThis.fnFormatDate(oBh.bookingDate) +' '+ oThis.fnFormatHours(oBh.bookingTime)+':'+ oThis.fnFormatMinutes(oBh.bookingTime);
                     oBh.pickupDisplayDateAndTime = oThis.fnFormatDate(oBh.pickupDate) + ' ' + oThis.fnFormatHours(oBh.pickupTime) + ':' + oThis.fnFormatMinutes(oBh.pickupTime);
                     oBh.primaryPassenger = oCustomer ? oCustomer.name : '-'
-                    oBh.subJourneyTypeName = oThis.fnGetJourneyTypeName(oBh.subJourneyType);
+                    oBh.subJourneyTypeName = oThis.fnGetSubJourneyObjectById(oBh.subJourneyType) ? oThis.fnGetSubJourneyObjectById(oBh.subJourneyType)['journeyType'] : "";
                     oBh.vehicleDisplayType = oThis.fnGetVehicleDisplayTypeById(oBh.vehicleType);
                     oBh.vehicleDisplayName = oThis.fnGetVehicleDisplayNameById(oBh.vehicleName) || '';
                     oRtn.push(oBh);
