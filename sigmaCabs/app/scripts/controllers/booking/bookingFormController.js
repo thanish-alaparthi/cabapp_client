@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-	.controller('bookingFormController', function($scope, $rootScope, URLService,PrerequisiteService, BookingService, VehiclesService, $dialog, modalWindow, PreConfigService, $timeout) {
+	.controller('bookingFormController', function($scope, $rootScope, URLService,PrerequisiteService, BookingService, VehiclesService, $dialog, modalWindow, PreConfigService, $timeout, serverService) {
 		var scope = $scope;
 
 		//attach safeApply
@@ -435,7 +435,31 @@ angular.module('sigmaCabsApp')
 				}
 			};
 			modalWindow.addDataToModal($scope.opts);
-		}
+		};
+
+		scope.fnCheckDistance = function() {
+			if(!scope.bookingDetails.pickupPlace || !scope.bookingDetails.dropPlace) {
+				alert('Please select drop place and pickup place properly.');
+				return;
+			}
+
+			var aLocations = PrerequisiteService.fnGetLocationsByNames([scope.bookingDetails.pickupPlace,scope.bookingDetails.dropPlace]);
+			console.log(aLocations);
+			serverService.sendData('P',
+						'booking/getDistance',
+						{
+							sourceId : aLocations[0].id,
+							destinationId : aLocations[1].id
+						}, scope.fnRestApiCheckDistanceSuccess, scope.fnRestApiCheckDistanceError);
+
+		};
+		scope.fnRestApiCheckDistanceSuccess = function(oData){
+			console.log('fnRestApiCheckDistanceSuccess :', oData);
+			alert('Distance between ' + scope.bookingDetails.pickupPlace + ' and ' + scope.bookingDetails.dropPlace + ' is \n approximately ' + oData[0].distance + ' K.M.');
+		};
+		scope.fnRestApiCheckDistanceError = function(oData){
+			console.log('fnRestApiCheckDistanceError : ', oData)
+		};
 
 		scope.fnShowHideBookingButtons();
 
@@ -545,16 +569,11 @@ angular.module('sigmaCabsApp')
 				if(PrerequisiteService.currentDate == sBkdt){
 					console.log('pickupDate is currentDate');
 					var oDt = new Date(),
-						oPkDt = new Date(PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate) + ' ' + scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00'),
-						sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours(),
-						isPkDtLessThan20Minutes = false;
-
-					if(((oDt.getTime() + (20 * 60 * 1000)) >= oPkDt.getTime() )){
-						isPkDtLessThan20Minutes = true;
-					}
-
-					if(		oPkDt.getTime() < oDt.getTime()  // pickup time should not be lessThan current time
-						|| isPkDtLessThan20Minutes ){
+						sPkDt = PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate),
+						sPkTm = scope.bookingDetails.pickupHours + ':' + scope.bookingDetails.pickupMinutes + ':00',
+						sHr = oDt.getHours() <=9 ? '0' + oDt.getHours() : oDt.getHours();
+						
+					if(!PrerequisiteService.fnValidateBookingTime(sPkDt, sPkTm)){
 						var oDtNw = new Date();
 						oDtNw.setMinutes(oDtNw.getMinutes() + 20);	// as per ticker:0000088
 

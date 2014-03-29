@@ -90,6 +90,7 @@ angular.module('sigmaCabsApp')
               console.log('DateClosed:: Selected: ',oMd.join());
             } else {
               ngModel.$setViewValue(fnFormatDate(selectedDates[0]));
+              ngModel.$render();
             }
           });
 

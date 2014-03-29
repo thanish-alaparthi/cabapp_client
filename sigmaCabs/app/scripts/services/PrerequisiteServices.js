@@ -1121,16 +1121,20 @@ angular.module('sigmaCabsApp')
             fnValidateBookingTime : function(sDate,  sTm) {
 
                 var oThis = this,
-                    sPkTm = sDate + ' ' + sTm,
-                    oPkDt = new Date(sPkTm),
+                    aDt = sDate.split('-'),
+                    aTm = sTm.split(':'),
+                   //  sPkTm = sDate + ' ' + sTm,
+                    oPkDt = new Date(aDt[0], parseInt(aDt[1])- 1, aDt[2], aTm[0], aTm[1],0,0),
                     oCDt = new Date();
 
-                    console.log(oCDt.getTime(), '+ 1200000 <=' ,oPkDt.getTime());
-                    if(oCDt.getTime() + 1200000  < oPkDt.getTime() ){
-                        return true;
-                    }
+                console.log('oCDt : ',oCDt);
+                console.log('oPkDt : ',oPkDt);
+                console.log(parseInt(oCDt.getTime() + 1200000) + ' <=' ,oPkDt.getTime());
+                if(parseInt(oCDt.getTime() + 1200000)  < oPkDt.getTime() ){
+                    return true;
+                }
 
-                    return false;
+                return false;
 
             },
             fnGetVacantTimes : function() {
@@ -1155,6 +1159,24 @@ angular.module('sigmaCabsApp')
             fnGetLatLon : function(aPlaces) {
                 // function returns array of latLon objects as per 
                 return [];
+            },
+            fnGetLocationsByNames : function(aPlaces) {
+                // returns locationObjects based on the same order as aPlaces
+                var aRtn = [],
+                    oThis = this,
+                    oLoc = oThis.oLs[oThis.currentDate]['allLocations'];
+
+                for(var i=0;i<oLoc.length;i++){
+                    for(var j=0;j<aPlaces.length;j++){
+                        if(aPlaces[j] == oLoc[i].location){
+                            aRtn.push(oLoc[i]);
+                        }
+                    }
+                }
+
+
+
+                return aRtn;
             },
             fnGetSpecialRequestTypes : function() {
                 var oThis = this;
