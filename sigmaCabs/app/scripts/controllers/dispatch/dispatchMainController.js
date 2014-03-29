@@ -67,6 +67,7 @@ angular.module('sigmaCabsApp')
 
             // add dropdwon fields
             scope.hours = PrerequisiteService.hours;
+            scope.loginHours = PrerequisiteService.loginHours;
             scope.minutes = PrerequisiteService.minutes;
             scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
             scope.vehicleNames = PrerequisiteService.fnGetVehicleNames();
@@ -163,7 +164,7 @@ angular.module('sigmaCabsApp')
 
             scope.gridCurrentMonthData = {
                 data: 'currentMonthGridDetails',
-                rowHeight: 25,
+                rowHeight: 20,
                 columnDefs: [{
                     field: 'bookingCode',
                     displayName: 'B.No',
@@ -217,11 +218,13 @@ angular.module('sigmaCabsApp')
 
                 var oStatistics = data.statistics,
                     aExpLogout = (oStatistics.expLogout) ? oStatistics.expLogout.split(' ') : [],
-                    dt = (aExpLogout.length) ? aExpLogout[0].split('-')[2] : '';
+                    logoutDt = (aExpLogout.length) ? aExpLogout[0].split('-')[2] : '',
+                    aLoginTime = (oStatistics.loginTime) ? oStatistics.loginTime.split(' ') : [],
+                    loginDt = (aLoginTime.length) ? aLoginTime[0].split('-')[2] : '';
                 scope.currentDayStatistics = oStatistics;
                 // update the vehicle state
-                scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? oStatistics.loginTime.substring(0, 5) : '';
-                scope.currentDayStatistics.expectedLogoutTime = (oStatistics.expLogout) ? (dt + ' -> ' + aExpLogout[1].substring(0, 5)) : '';
+                scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? (loginDt + ' -> ' + aLoginTime[1].substring(0, 5)) : '';
+                scope.currentDayStatistics.expectedLogoutTime = (oStatistics.expLogout) ? (logoutDt + ' -> ' + aExpLogout[1].substring(0, 5)) : '';
                 scope.currentDayStatistics.status = (oStatistics.status) ? PrerequisiteService.fnGetVehicleStatusById(oStatistics.status) : '';
                 scope.currentDayStatistics.totalLoginTime = (parseInt(oStatistics.totalLoginTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalLoginTime) : 0;
                 scope.currentDayStatistics.totalBreakTime = (parseInt(oStatistics.totalBreakTime) > 0) ? PrerequisiteService.fnFormatMinutesToHoursAndMinutes(oStatistics.totalBreakTime) : 0;
@@ -329,12 +332,14 @@ angular.module('sigmaCabsApp')
                         scope.vehicleDetails.vConditionText = PrerequisiteService.fnGetVehicleConditionTextById(scope.vehicleMainDetails.details.condition);
                         scope.vehicleDetails.vStatusText = PrerequisiteService.fnGetVehicleStatusTextById(scope.vehicleMainDetails.paymentStatus);
                         scope.vehicleMainDetails.loginStartKms = scope.vehicleMainDetails.startKms;
+                        scope.vehicleMainDetails.expLoginHours = '14'; // default login hours
 
                         scope.vStateHeading = '';
                         scope.vLoginView = true;
                         break;
                     case "2": // Vacant
                     case "3": // In Break
+                        var loginTime = scope.vehicleMainDetails.details.loginTime.split(' ');
                         scope.bookingType = "1";
                         scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
@@ -342,7 +347,7 @@ angular.module('sigmaCabsApp')
                         scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
                         scope.vehicleMainDetails.details.vacantTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
                         scope.vehicleMainDetails.details.overAllBreakTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.dayBreakTime);
-                        scope.vehicleMainDetails.details.loginTime = (scope.vehicleMainDetails.details.loginTime) ? scope.vehicleMainDetails.details.loginTime.substring(0, 5) : '';
+                        scope.vehicleMainDetails.details.loginTime = loginTime[0].split('-')[2] + ' -> ' + loginTime[1].substring(0, 5);
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot
