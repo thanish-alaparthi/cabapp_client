@@ -29,6 +29,7 @@ angular.module('sigmaCabsApp')
                     "vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
                     "driverId": driverId,
                     "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
+                    "pickupTimeStamp": scope.vehicleDetails.vehicleMainDetails.details.pickupTimeStamp || '',
                     "reasonId": scope.vReject.reasonId || '',
                     "priority": scope.vReject.priorityId || '',
                     "comments": scope.vReject.comments || ''

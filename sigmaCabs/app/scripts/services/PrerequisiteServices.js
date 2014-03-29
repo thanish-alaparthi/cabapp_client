@@ -422,18 +422,18 @@ angular.module('sigmaCabsApp')
 
                 return null;
             },
-            fnGetJourneyTypeName : function(sId){    //function to get journey type name
-                var oJt = this.oLs[this.currentDate]['journeyTypes'],
-                    iCount = oJt.length;
+            // fnGetJourneyTypeName : function(sId){    //function to get journey type name
+            //     var oJt = this.oLs[this.currentDate]['journeyTypes'],
+            //         iCount = oJt.length;
 
-                for(var i=0;i<iCount;i++){
-                    if(oJt[i].id == sId && oJt[i].parentid != '0') {
-                        return oJt[i].journeyType;
-                    }
-                }
+            //     for(var i=0;i<iCount;i++){
+            //         if(oJt[i].id == sId && oJt[i].parentid != '0') {
+            //             return oJt[i].journeyType;
+            //         }
+            //     }
 
-                return null;
-            },
+            //     return null;
+            // },
             fnGetMainJourneyTypeObjectBySubJourneyTypeId : function(sSubJourneyTypeId, key){    //function to find out MainJourneyType based on SubJourneyTypeId
                 var oJt = this.oLs[this.currentDate]['journeyTypes'],
                     iCount = oJt.length,

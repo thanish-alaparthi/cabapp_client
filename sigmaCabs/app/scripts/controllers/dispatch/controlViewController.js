@@ -379,7 +379,7 @@ angular.module('sigmaCabsApp')
             datum.bookingStatusNm = formatSource.fnGetBookingStatusName(datum.bookingStatus);
             datum.bookingStatus = datum.bookingStatus;
             var sJourneyTypeId = datum.subJourneyType;
-            datum.subJourneyType = (datum.subJourneyType) ? formatSource.fnGetJourneyTypeName(datum.subJourneyType) : '';
+            datum.subJourneyType = (datum.subJourneyType) ? formatSource.fnGetSubJourneyObjectById(datum.subJourneyType).journeyType : '';
             datum.pickupTime = formatSource.fnFormatHours(datum.pickupTime) + ':' + formatSource.fnFormatMinutes(datum.pickupTime);
           }
           console.log('Formated data',data);
@@ -395,7 +395,7 @@ angular.module('sigmaCabsApp')
             datum.vehicleName = formatSource.fnGetVehicleDisplayNameById(datum.vehicleName);
             datum.vehicleType = formatSource.fnGetVehicleDisplayTypeById(datum.vehicleType);
             var sJourneyTypeId = datum.subJourneyType;
-            datum.subJourneyType = formatSource.fnGetJourneyTypeName(datum.subJourneyType);            
+            datum.subJourneyType = formatSource.fnGetSubJourneyObjectById(datum.subJourneyType).journeyType;            
             datum.pickupTime = formatSource.fnFormatHours(datum.pickupTime) + ':' + formatSource.fnFormatMinutes(datum.pickupTime);
           }
           scope.loadWhileDrivingVehiclesGridData(data);
@@ -1848,7 +1848,8 @@ angular.module('sigmaCabsApp')
           var oData = {
             "vehicleId": scope.vehicleDetailsData.vehicle.id, // actual VehicleID
             "driverId": scope.vehicleDetailsData.driver.id,
-            "bookingId": scope.selectedBookingItems[0].bookingId  // acutal BookingID
+            "bookingId": scope.selectedBookingItems[0].bookingId,  // acutal BookingID
+            "pickupTimeStamp": scope.selectedBookingItems[0].pickupTimeStamp
           };
           serverService.sendData('P',
             'dispatcher/confirmVehicleToBooking',
@@ -1873,6 +1874,7 @@ angular.module('sigmaCabsApp')
 
         scope.fnControlViewVehicleRejectBooking = function() {
             var bookingId = scope.selectedBookingItems[0].bookingId || '';
+            var pickupTimeStamp = scope.selectedBookingItems[0].pickupTimeStamp || '';
             if (bookingId === '') {
                 alert('Booking Id is required');
                 return;
@@ -1892,7 +1894,8 @@ angular.module('sigmaCabsApp')
                         var oData = {
                             vehicleMainDetails: {
                               details : {
-                                "bookingId": bookingId
+                                "bookingId": bookingId,
+                                "pickupTimeStamp" : pickupTimeStamp
                               },
                               "id": scope.vehicleDetailsData.vehicle.id,
                               "selectedDriver": scope.vehicleDetailsData.driver.id || ''
