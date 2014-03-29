@@ -216,8 +216,8 @@ angular.module('sigmaCabsApp')
                 console.log('fnLoadCurrentDayDataSuccess Success: ', data);
 
                 var oStatistics = data.statistics,
-                    aExpLogout = oStatistics.expLogout.split(' '),
-                    dt = aExpLogout[0].split('-')[2];
+                    aExpLogout = (oStatistics.expLogout) ? oStatistics.expLogout.split(' ') : [],
+                    dt = (aExpLogout.length) ? aExpLogout[0].split('-')[2] : '';
                 scope.currentDayStatistics = oStatistics;
                 // update the vehicle state
                 scope.currentDayStatistics.loginTime = (oStatistics.loginTime) ? oStatistics.loginTime.substring(0, 5) : '';
@@ -338,11 +338,11 @@ angular.module('sigmaCabsApp')
                         scope.bookingType = "1";
                         scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
-                        scope.vehicleMainDetails.details.loginTime = scope.vehicleMainDetails.details.loginTime.substring(0, 5);
                         scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
                         scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
                         scope.vehicleMainDetails.details.vacantTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
                         scope.vehicleMainDetails.details.overAllBreakTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.dayBreakTime);
+                        scope.vehicleMainDetails.details.loginTime = (scope.vehicleMainDetails.details.loginTime) ? scope.vehicleMainDetails.details.loginTime.substring(0, 5) : '';
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot
@@ -421,6 +421,9 @@ angular.module('sigmaCabsApp')
                 } : {
                     mobile: PrerequisiteService.fnCheckValidMobile(sSearch)
                 };
+                if(oSearch.mobile) {
+                    scope.callerPhone = oSearch.mobile;
+                }
                 console.log(oSearch);
                 DispatchService.fnFindVehicleByMobile(oSearch)
                     .success(function(data, status, headers, config) {

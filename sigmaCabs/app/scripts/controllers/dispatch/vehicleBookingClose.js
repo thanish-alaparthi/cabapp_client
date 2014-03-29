@@ -42,7 +42,7 @@ angular.module('sigmaCabsApp')
         scope.bookingClose.pickupTimeText = scope.vehicleDetails.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds
         scope.bookingClose.discount = scope.vehicleDetails.vehicleMainDetails.details.discount || 0;
         scope.bookingClose.actualKms = 0;
-        scope.bookingClose.currentTimeDisplay = currentTimeStamp.getDate() + '/' + currentTimeStamp.getMonth() + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStampHrs + ':' + currentTimeStampMins;
+        scope.bookingClose.currentTimeDisplay = currentTimeStamp.getDate() + '/' + (currentTimeStamp.getMonth() + 1) + '/' + currentTimeStamp.getFullYear() + ' ' + currentTimeStampHrs + ':' + currentTimeStampMins;
         console.log('Journey Type: ' + scope.vehicleDetails.vehicleMainDetails.tempSelectedJourneyTypeId);
         console.log('vehicle Type: ' + scope.vehicleDetails.vehicleMainDetails.vehicleType);
         scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);

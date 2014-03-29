@@ -652,6 +652,7 @@ angular.module('sigmaCabsApp')
           scope.bookingDetailsData = data;
           scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
           scope.bookingDetailsData.booking.displayPickupDate = PrerequisiteService.fnFormatDate(data.booking.pickupDate);
+          scope.bookingDetailsData.booking.onlyDate = data.booking.pickupDate.split('-')[2];
           console.log('bookingDetailsData', scope.bookingDetailsData);
         }
         /*END: Loader methods*/
@@ -1772,6 +1773,8 @@ angular.module('sigmaCabsApp')
 
         scope.showWhileDriving = function(){          
           scope.showingWhilDrivingGrid = true;
+          // to reset the booking details
+          scope.selectedBookingDetails = {};
           scope.setWhileDrivingVehiclesGrid();
           // scope.vehiclePanelToggle(true)          
           scope.vehicleViewDisplay = false;
@@ -1873,8 +1876,8 @@ angular.module('sigmaCabsApp')
         }
 
         scope.fnControlViewVehicleRejectBooking = function() {
-            var bookingId = scope.selectedBookingItems[0].bookingId || '';
-            var pickupTimeStamp = scope.selectedBookingItems[0].pickupTimeStamp || '';
+            var bookingId = scope.selectedBookingItems[0].bookingId || '',
+				pickupTimeStamp = scope.selectedBookingItems[0].pickupTimeStamp || '';
             if (bookingId === '') {
                 alert('Booking Id is required');
                 return;

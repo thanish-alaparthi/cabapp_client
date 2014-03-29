@@ -26,7 +26,10 @@ $light_gray_border: 1px solid $light_gray_color;
 body {
     padding-top: 20px;
     padding-bottom: 0px;
+    /*user-select: none;*/
 }
+::selection {color:orange;background:transparent;}
+::-moz-selection {color:orange;background:transparent;}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,

@@ -34,14 +34,14 @@
 			<label title="Booking">B.Id</label> {{bookingDetailsData.booking.bookingCode}}
 		</div>
 		<div class="col-xs-8" title="Date &amp; Time">
-			<strong>{{bookingDetailsData.booking.displayPickupDate}} {{bookingDetailsData.booking.pickupTime.substring(0, 5)}}</strong>
+			<strong>{{bookingDetailsData.booking.onlyDate}} -> {{bookingDetailsData.booking.pickupTime.substring(0, 5)}}</strong>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12" title="From - To">
-			<span class="ellipsisText" title="{{bookingDetailsData.booking.pickupPlace}}">{{bookingDetailsData.booking.pickupPlace}}</span>
+			<span class="ellipsisText" title="{{bookingDetailsData.booking.pickupPlace}}" style="width: auto;max-width: 150px;">{{bookingDetailsData.booking.pickupPlace}}</span>
 			<strong> -> </strong>
-			<span class="ellipsisText" title="{{bookingDetailsData.booking.dropPlace}}">{{bookingDetailsData.booking.dropPlace}}</span>
+			<span class="ellipsisText" title="{{bookingDetailsData.booking.dropPlace}}" style="width: auto;max-width: 150px;">{{bookingDetailsData.booking.dropPlace}}</span>
 		</div>
 	</div>
 	<div class="row">
