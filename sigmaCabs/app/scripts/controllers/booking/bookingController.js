@@ -304,23 +304,23 @@ angular.module('sigmaCabsApp')
             // load the tariff grids
             scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
             scope.colDefs = [
-                {field:'duration', displayName:'Hrs', width: '60'},
-                {field:'kms', displayName:'Kms', width: '60'}
+                {field:'duration', displayName:'Hrs', width: '40'},
+                {field:'kms', displayName:'Kms', width: '50'}
             ];
             /* Add dynamic Columns */
             for(var i=0;i<scope.vehicleTypes.length;i++){
                 var sD = scope.vehicleTypes[i].vehicleType;
-                if(scope.vehicleTypes[i].id == '4'){
-                    sD = 'Innova';
-                } else if(scope.vehicleTypes[i].id == '2'){
-                    sD = 'Verito';
-                }
+                // if(scope.vehicleTypes[i].id == '4'){
+                //     sD = 'Innova';
+                // } else if(scope.vehicleTypes[i].id == '2'){
+                //     sD = 'Verito';
+                // }
                 scope.colDefs.push({
                     field : 'vehicleType' + scope.vehicleTypes[i].id,
                     displayName : sD,
-                    width: 60,
+                    width: (scope.vehicleTypes[i].id == '4' ? 86 : '55'),
                     // cellTemplate : '<div style="{{col.field == \'vehicleType1\' ? \'background-color: red\' : \'background-color:green;\'}}" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
-                    cellTemplate : '<div ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
+                    // cellTemplate : '<div ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
                 });
             }
            
@@ -340,18 +340,27 @@ angular.module('sigmaCabsApp')
               data: 'tmpCityTariff',
               multiSelect: false,
               columnDefs: 'colDefs',
+              rowHeight : 22,
+              enableColumnResize: false,
+              enableSorting: false,
               enableCellSelection : true
             };
             scope.mainTariffAirportGrid = { 
               data: 'tmpAirportTariff',
               multiSelect: false,
               columnDefs: 'colDefs',
+              rowHeight : 22,
+              enableColumnResize: false,
+              enableSorting: false,
               enableCellSelection : true
             }
             scope.mainTariffOutstationGrid = { 
               data: 'tmpOutstationTariff',
               multiSelect: false,
               columnDefs: 'colDefs',
+              rowHeight : 22,
+              enableColumnResize: false,
+              enableSorting: false,
               enableCellSelection : true
             };
         };

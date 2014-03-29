@@ -1121,7 +1121,7 @@ angular.module('sigmaCabsApp')
         
         scope.bookingGridPgOptions = {
           pageSizes: [20, 25, 30],
-          pageSize: 20,
+          pageSize: 25,
           currentPage: 1
         };
 
@@ -1151,7 +1151,7 @@ angular.module('sigmaCabsApp')
           {field:'subJourneyType', displayName:'Package', width: '70', cellClass : 'forceLeftAlign'},
           {field:'bookingOrigin', displayName:'Origin', width: '50'},
           {field:'bookingStatusNm', displayName:'Status', width: '50'},
-          {field:'vehicleCode', displayName:'VID', width: '50', cellTemplate : '<input style="width: 45px;" ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" ng-show="(row.getProperty(\'vehicleId\') ? false : true )" /> <span>{{row.getProperty(\'vehicleCode\')}}</span>'}
+          {field:'vehicleCode', displayName:'VID', width: '50', cellTemplate : '<input style="width: 45px; height: 17px;" ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" ng-show="(row.getProperty(\'vehicleId\') ? false : true )" /> <span>{{row.getProperty(\'vehicleCode\')}}</span>'}
         ];
 
         scope.bookingSelectedFn = function(booking, aVehTyp){
@@ -1255,7 +1255,7 @@ angular.module('sigmaCabsApp')
           selectedItems: scope.selectedBookingItems,
           totalServerItems: 'bookingDataLength',
           pagingOptions: scope.bookingGridPgOptions,
-          rowHeight: 24,
+          rowHeight: 22,
           footerRowHeight: 35,
           multiSelect: false,
           showFilter: false,

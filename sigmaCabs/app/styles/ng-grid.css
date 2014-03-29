@@ -329,7 +329,8 @@
   background-color: #fdfdfd;
 }
 .ngRow.even {
-  background-color: #f3f3f3;
+  /*background-color: #f3f3f3;*/
+  background-color: #EEEBEB;
 }
 .ngRow.selected {
   background-color: #c9dde1;
