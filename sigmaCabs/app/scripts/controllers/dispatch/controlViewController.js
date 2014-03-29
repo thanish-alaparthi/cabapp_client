@@ -1113,7 +1113,7 @@ angular.module('sigmaCabsApp')
           console.log('arguments', arguments);
           var sVCode = angular.copy(oField.sModel);
           if(confirm('Assign Vehicle:' + sVCode + ' to Booking:' + oRow.bookingCode + '?')){
-            scope.fnControlViewVehicleReserveBooking(oField.sModel, oRow.bookingId);
+            scope.fnControlViewVehicleReserveBooking(oField.sModel, oRow.bookingId, oRow.pickupTimeStamp);
           }
           oField.sModel = '';
         };
@@ -1801,10 +1801,11 @@ angular.module('sigmaCabsApp')
         
         /*START: Accept / Confirm / Reject functionality */
         // In vehicle state = 2
-        scope.fnControlViewVehicleReserveBooking = function(sVId, sBId) {
+        scope.fnControlViewVehicleReserveBooking = function(sVId, sBId, sPickupTimeStamp) {
           var oData = {
             "vehicleCode": sVId,  // vehicleCode
-            "bookingId": sBId     // actualBookingID
+            "bookingId": sBId,     // actualBookingID
+            "pickupTimeStamp" : sPickupTimeStamp
           };
 
           serverService.sendData('P',
@@ -1832,7 +1833,8 @@ angular.module('sigmaCabsApp')
           var oData = {
             "vehicleId": scope.vehicleDetailsData.vehicle.id,   // actualVehicleID
             "driverId": scope.vehicleDetailsData.driver.id,
-            "bookingId": scope.selectedBookingDetails.bookingId  // actualBookingID
+            "bookingId": scope.selectedBookingDetails.bookingId,  // actualBookingID
+            "pickupTimeStamp" : scope.selectedBookingDetails.pickupTimeStamp
           };
 
           serverService.sendData('P',
