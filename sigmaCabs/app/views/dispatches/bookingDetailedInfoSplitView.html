@@ -1,50 +1,64 @@
 <!-- Booking Details start -->
 <div class="container-fluid bookingDetailsControlView">
 	<div class="row">
-		<div class="col-xs-6"><label title="Customer Id">C.Id</label>{{bookingDetailsData.customer.customerCode}}</div>
+		<div class="col-xs-6">
+			<label title="Customer Id">Cust.Id</label>{{bookingDetailsData.customer.customerCode}}
+		</div>
+		<div class="col-xs-6" title="Customer Name">
+			<span class="ellipsisText" title="{{bookingDetailsData.customer.name}}">{{bookingDetailsData.customer.name}}</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6"><label title="Trip Count">Trip Count</label> {{bookingDetailsData.customer.tripCount}}</div>
+		<div class="col-xs-6" title="Grade / Category">
+			{{bookingDetailsData.customer.grade}} / {{bookingDetailsData.customer.category}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+			<label title="Discount">Discount</label>discount
+		</div>
 		<div class="col-xs-6">
 			<select title="Customer No" class="left" data-ng-model="bookingDetailsData.bookingCallCustomerNo">
-				<option ng-selected="bookingDetailsData.customer.mobile" value="{{bookingDetailsData.customer.mobile}}" title="Primary No.">Pri.No</option>
-				<option value="{{bookingDetailsData.customer.altMobile}}" title="Alternate No.">Alt.No</option>
+				<option ng-selected="bookingDetailsData.customer.mobile" value="{{bookingDetailsData.customer.mobile}}" title="Primary No.">Primary No.</option>
+				<option value="{{bookingDetailsData.customer.altMobile}}" title="Alternate No.">Alternate No.</option>
 			</select>
 			<span title="Call" class="call-icon" data-ng-click="fnBookingCallCustomer()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
 			<p class="clear" />
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-6"><label title="Customer Name">C.Name</label> {{bookingDetailsData.customer.name}}</div>
-		<div class="col-xs-6"><label title="Trip Count">Trip Count</label> {{bookingDetailsData.customer.tripCount}}</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6"><label title="Grade / Category">Grade/Cat.</label> {{bookingDetailsData.customer.grade}} / {{bookingDetailsData.customer.category}}</div>
-		<div class="col-xs-6"></div>
-	</div>
 	
-	<h4>Booking Details</h4>
+	<hr />
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-4">
 			<label title="Booking">B.Id</label> {{bookingDetailsData.booking.bookingCode}}
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<label title="Date &amp; Time">D&amp;T</label> <strong>{{bookingDetailsData.booking.pickupDate}} {{bookingDetailsData.booking.pickupTime}}</strong>
+		<div class="col-xs-8" title="Date &amp; Time">
+			<strong>{{bookingDetailsData.booking.displayPickupDate}} {{bookingDetailsData.booking.pickupTime.substring(0, 5)}}</strong>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12">
-			<label title="From - To">From - To</label>
-			<strong title="{{bookingDetailsData.booking.pickupPlace}} - {{bookingDetailsData.booking.dropPlace}}">{{bookingDetailsData.booking.pickupPlace}} - {{bookingDetailsData.booking.dropPlace}}</strong>
+		<div class="col-xs-12" title="From - To">
+			<span class="ellipsisText" title="{{bookingDetailsData.booking.pickupPlace}}">{{bookingDetailsData.booking.pickupPlace}}</span>
+			<strong> -> </strong>
+			<span class="ellipsisText" title="{{bookingDetailsData.booking.dropPlace}}">{{bookingDetailsData.booking.dropPlace}}</span>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-7">
+			<label title="Package Details">Package</label>{{bookingDetailsData.booking.tariffText}}
+		</div>
+		<div class="col-xs-5">
 			<label title="Journey Type">JT</label>
-			<span class="ellipsisText" title="{{bookingDetailsData.booking.journeyTypeText}}">{{bookingDetailsData.booking.journeyTypeText}}</span>
+			<span class="ellipsisText" title="{{bookingDetailsData.booking.journeyTypeText}}" style="width: 75px;">{{bookingDetailsData.booking.journeyTypeText}} &nbsp;</span>
 		</div>
+	</div>
+	<div class="row">
 		<div class="col-xs-6">
-			<label title="Sub Journey Type">Sub JT</label>
-			<span class="ellipsisText" title="{{bookingDetailsData.booking.subJourneyTypeText}}">{{bookingDetailsData.booking.subJourneyTypeText}}</span>
+			<label title="Package Amount">P. Amt.</label> Amount
+		</div>
+		<div class="col-xs-6" title="Selected Package">
+			<span class="ellipsisText" title="selected package">selected package</span>
 		</div>
 	</div>
 	<div class="row">
@@ -57,30 +71,25 @@
 			<span class="ellipsisText" title="{{bookingDetailsData.booking.landmark2}}">{{bookingDetailsData.booking.landmark2}}</span>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<label title="Package Details">Package</label>{{bookingDetailsData.booking.tariffText}}
-		</div>
-	</div>
 
-	<h4>Call Info</h4>
+	<hr />
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Call Taker Name">CT. Name</label>
+			<label title="Call Taker Name">CSE</label>
 			<span class="ellipsisText" title="{{bookingDetailsData.employee.callTakenBy}}">{{bookingDetailsData.employee.callTakenBy}}</span>
 		</div>
 		<div class="col-xs-6">
-			<label title="Dispatcher Name">D. Name</label>
+			<label title="Dispatcher Name">Disp</label>
 			<span class="ellipsisText" title="{{bookingDetailsData.employee.callDispatchedBy}}">{{bookingDetailsData.employee.callDispatchedBy}}</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Start Report By">SR. By</label>
+			<label title="Start Report By">S.Rep. By</label>
 			<span class="ellipsisText" title="{{bookingDetailsData.employee.startReportTakenBy}}">{{bookingDetailsData.employee.startReportTakenBy}}</span>
 		</div>
 		<div class="col-xs-6">
-			<label title="Close Report By">CR. By</label>
+			<label title="Close Report By">C.Rep. By</label>
 			<span class="ellipsisText" title="{{bookingDetailsData.employee.closeReportTakenBy}}">{{bookingDetailsData.employee.closeReportTakenBy}}</span>
 		</div>
 	</div>
@@ -95,51 +104,51 @@
 		</div>
 	</div>
 
-	<h4>Driver Details</h4>
+	<hr />
 	<div class="row">
-		<div class="col-xs-6">
-			<label title="Driver Id">Dr. Id</label> {{bookingDetailsData.driver.driverCode}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Driver Name">Dr. Name</label>
-			<span class="ellipsisText" title="{{bookingDetailsData.driver.namevehicle}}">{{bookingDetailsData.driver.name}}</span>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-4">
 			<label title="Vehicle Id">Veh.Id</label> {{bookingDetailsData.vehicle.vehicleCode}}
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-4">
+			<label title="Driver Id">Dr. Id</label> {{bookingDetailsData.driver.driverCode}}
+		</div>
+		<div class="col-xs-4">
 			<select title="Driver No" data-ng-model="bookingDetailsData.bookingCallDriverNo" class="left">
-				<option value="{{bookingDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
-				<option ng-selected="bookingDetailsData.vehicle.registeredMobile" value="{{bookingDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
+				<option value="{{bookingDetailsData.owner.mobile}}" title="Owner No.">Own.No</option>
+				<option value="{{bookingDetailsData.driver.mobile}}" title="Driver No.">Dri.No</option>
+				<option ng-selected="vehicleDetailsData.vehicle.registeredMobile" value="{{bookingDetailsData.vehicle.registeredMobile}}" title="Registered No.">Reg.No</option>
 			</select>
 			<span title="Call" class="call-icon" data-ng-click="fnBookingCallDriver()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
 			<p class="clear" />
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
-			<label title="Vehicle Name">V. Name</label>
-			<span class="ellipsisText" title="{{bookingDetailsData.vehicle.vehicleName}} ({{bookingDetailsData.vehicle.vehicleType}})">{{bookingDetailsData.vehicle.vehicleName}}</span>
+		<div class="col-xs-4" title="Owner Name">
+			<span class="ellipsisText" title="Owner Name">Owner Name</span>
 		</div>
-		<div class="col-xs-6">
-			<label title="Registration No.">Reg. No</label> {{bookingDetailsData.vehicle.registrationNumber}}
+		<div class="col-xs-4" title="Driver Name">
+			<span class="ellipsisText" title="{{bookingDetailsData.driver.name}}">{{bookingDetailsData.driver.name}}</span>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Vehicle Model">V. Model</label> --  <!--  {{bookingDetailsData.vehicle.model}} -->
-		</div>
-		<div class="col-xs-6">
-			<label title="Previous Location">Prev. Loc</label>
+		<div class="col-xs-4" title="Previous Location">
 			<span class="ellipsisText" title="{{bookingDetailsData.vehicle.previousLocation}}">{{bookingDetailsData.vehicle.previousLocation}}</span>
 		</div>
 	</div>
-	<h4>Comments</h4>
+	<div class="row">
+		<div class="col-xs-4" title="Registration No.">
+			{{bookingDetailsData.vehicle.registrationNumber}}
+		</div>
+		<div class="col-xs-4" title="{{bookingDetailsData.vehicle.vehicleName}} ({{bookingDetailsData.vehicle.vehicleType}})">
+			{{bookingDetailsData.vehicle.vehicleName}}
+		</div>
+		<div class="col-xs-4" title="Vehicle Model">
+			{{bookingDetailsData.vehicle.model}}
+		</div>
+	</div>
+
+	<hr />
 	<div class="row">
 		<div class="col-xs-12">
-			<label title="Comments By">By</label> -- <!-- {{bookingDetailsData.customer.comments}} -->
+			<label title="Comments By" style="width: 90px;">Comments By</label> -- <!-- {{bookingDetailsData.customer.comments}} -->
 		</div>
 	</div>
 	<div class="row">

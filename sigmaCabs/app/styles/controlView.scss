@@ -12,7 +12,7 @@
     border-radius: 0px;
   }
   .short-panel-heading{
-    padding: 5px 15px !important;
+    padding: 5px 8px !important;
   }
   .short-panel-heading i{
     float: right;
@@ -38,16 +38,17 @@
     }
   }
   .panel-heading{
-      i{
+    padding: 5px 8px;
+    i{
         cursor: pointer;  
-      }
     }
+  }
   .booking-view{
     width: 50%;
     border-left: 0px !important;
     border-right: 0px !important;
     .panel-heading{
-      padding-top: 9px !important;
+      /*padding-top: 9px !important;*/
       i{
         cursor: pointer;  
       }
@@ -149,15 +150,18 @@
 
 /* Booking details Control */
 .bookingDetailsControlView {
-  font-size: 12px;
+  /*font-size: 12px;*/
   margin: 5px;
+  hr {
+    margin: 5px 0 !important;
+  }
   .ellipsisText {
     display: inline-flex;
     width: 108px;
   }
   h4 {
     border-bottom: 1px solid #ccc;
-    font-size: 16px;
+    /*font-size: 16px;*/
     margin: 5px 0 3px;
     padding-bottom: 2px;
   }
@@ -171,10 +175,7 @@
   }
   .row {
     margin: 0 -5px !important;
-    .col-xs-12 {
-      padding-left: 5px !important;
-    }
-    .col-xs-6 {
+    .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-12 {
       padding: 0 5px !important;
     }
   }
@@ -182,33 +183,34 @@
 
 /* vehicle details Control */
 .vehicleDetailsControlView {
-  font-size: 12px;
+  /*font-size: 12px;*/
+  hr {
+    margin: 5px 0 !important;
+  }
   .ellipsisText {
     display: inline-flex;
     width: 108px;
   }
   .facilities {
-    .glyphicon-check {
-      color: #ee7d29;
-    }
     display: inline-block;
     list-style: none;
     padding-left: 10px;
-    width: 265px;
+    margin-bottom: 2px;
+    /*width: 265px;*/
     
     li{
       float: left;
-      margin-right: 5px;
+      margin-right: 8px;
     }
   }
   h4 {
     border-bottom: 1px solid #ccc;
-    font-size: 16px;
+    /*font-size: 16px;*/
     margin: 5px 0 3px;
     padding-bottom: 2px;
   }
   label {
-    width: 64px;
+    width: 50px;
     margin-right: 2px;
   }
   textarea {
@@ -217,10 +219,7 @@
   }
   .row {
     margin: 0 -5px !important;
-    .col-xs-12 {
-      padding-left: 5px !important;
-    }
-    .col-xs-6 {
+    .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-12 {
       padding: 0 5px !important;
     }
   }

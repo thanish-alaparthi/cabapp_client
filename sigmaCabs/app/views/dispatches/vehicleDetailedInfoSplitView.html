@@ -1,167 +1,213 @@
-<div class="container-fluid vehicleDetailsControlView">
-	<h4 class="left">Vehicle and Driver Details</h4>
-	<div class="btn-group left" style="margin-top: 5px;">
-        <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown" data-ng-disabled="vInfoButtonsDisable">Add Request <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu" ng-switch on="vehicleDetailsData.vehicle.vehicleStatus">
-            <!-- <li><a href="javascript:void(0);" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</a></li>
-            <li class="divider"></li>
-            <li><a href="javascript:void(0);" data-ng-click="fnChangeVehiclePhone()">Change Primary No.</a></li>
-            <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleChangeLocation()">Change Location.</a></li>
-            <li><a href="javascript:void(0);" data-ng-click="fnChangeVehicleStatus()">Vehcile Status Change</a></li>
-            <li class="divider"></li>
-            <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
-            <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li> -->
+<div class="panel panel-info">
+	<div class="panel-heading short-panel-heading">
+	    <span class="panel-title left">Vehicle details</span>
+		<i class="glyphicon glyphicon-remove right" ng-click="bookingVehicleDetailsPageCloseFn();" data-ng-show="showCloseVehicleInfoBtn"></i>
+
+		<span ng-switch on="selectedBookingDetails.bookingStatus" class="right" data-ng-show="showVehicleButtons">
+			<button class="btnCompact btn-success left" ng-switch-when="4" data-ng-click="fnControlViewVehicleAccepBooking()">Accept</button>
+    		<button class="btnCompact btn-danger left" ng-switch-when="4" data-ng-click="fnControlViewVehicleRejectBooking()">Reject</button>
+
+			<button ng-switch-when="5" class="btnCompact btn-success left" data-ng-click="fnControlViewVehicleConfirm()">Confirm</button>
+			<button ng-switch-when="5" class="btnCompact btn-danger left" data-ng-click="fnControlViewVehicleRejectBooking()">Reject</button>
+			<button ng-switch-when="6" class="btnCompact btn-success left" data-ng-click="fnVehicleBookingStart()">Start Report</button>
+
+			<span class="clearfix"></span>
+		</span>
+		<span class="right">
+			<button ng-if="vehicleDetailsData.vehicle.vehicleStatus == 6" class="btnCompact btn-success left" data-ng-click="fnVehicleBookingClose()">Closing Report</button>
+			<span class="clearfix"></span>
+		</span>
+		<span class="clearfix"></span>
+	</div>
+	<div class="panel-body padding-5-panel-body">
+	  <div class="vehicle-details-holder">
+		<div class="container-fluid vehicleDetailsControlView">
+			<!-- <h4 class="left">Vehicle and Driver Details</h4> -->
+			<div class="btn-group right" style="margin: 5px 70px 10px 0; display:none;">
+		        <button type="button" class="btnCompact dropdown-toggle" data-toggle="dropdown" data-ng-disabled="vInfoButtonsDisable">Add Request <span class="caret"></span></button>
+		        <ul class="dropdown-menu" role="menu" ng-switch on="vehicleDetailsData.vehicle.vehicleStatus">
+		            <!-- <li><a href="javascript:void(0);" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</a></li>
+		            <li class="divider"></li>
+		            <li><a href="javascript:void(0);" data-ng-click="fnChangeVehiclePhone()">Change Primary No.</a></li>
+		            <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleChangeLocation()">Change Location.</a></li>
+		            <li><a href="javascript:void(0);" data-ng-click="fnChangeVehicleStatus()">Vehcile Status Change</a></li>
+		            <li class="divider"></li>
+		            <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
+		            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li>
+		            <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnChangeVehicle()">Change Vehicle</a></li> -->
 
 
-            <!-- <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleConfirm()">Confirm</a></li>
-            <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingCancel()">Cancel</a></li>
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li> -->
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingStart()">Start Report</a></li>
-            <!-- <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingTariff()">Change Tariff</a></li> -->
-            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehPickupLocation()" title="Change Pickup Location">CPL</a></li>
-            <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingClose()">Closing Report</a></li>
-            <li class="divider"></li>
-            <!-- <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()">Break Start</a></li>
-            <li ng-switch-when="3"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStop()">Break Stop</a></li>
-            <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li> -->
-            <li class="divider"></li>
-            <li><a href="javascript:void(0);" data-ng-click="fnRoadSideBooking()">Road Side Booking</a></li>
-            <li class="divider"></li>
-            <!-- <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakdown()">Vehicle Breakdown</a></li> -->
-        </ul>
-    </div>
-    <p class="clear" />
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Driver Id">Dr. Id</label> {{vehicleDetailsData.driver.driverCode}}
+		            <!-- <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleConfirm()">Confirm</a></li>
+		            <li ng-switch-when="4"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li>
+		            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingCancel()">Cancel</a></li>
+		            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleRejectBooking()">Rejected</a></li> -->
+		            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingStart()">Start Report</a></li>
+		            <!-- <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingTariff()">Change Tariff</a></li> -->
+		            <li ng-switch-when="5"><a href="javascript:void(0);" data-ng-click="fnChangeVehPickupLocation()" title="Change Pickup Location">CPL</a></li>
+		            <li ng-switch-when="6"><a href="javascript:void(0);" data-ng-click="fnVehicleBookingClose()">Closing Report</a></li>
+		            <li class="divider"></li>
+		            <!-- <li ng-switch-when="2"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStart()">Break Start</a></li>
+		            <li ng-switch-when="3"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakStop()">Break Stop</a></li>
+		            <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleLogout()">Logout</a></li> -->
+		            <li class="divider"></li>
+		            <li><a href="javascript:void(0);" data-ng-click="fnRoadSideBooking()">Road Side Booking</a></li>
+		            <li class="divider"></li>
+		            <!-- <li ng-if="vehicleDetailsData.vehicle.vehicleStatus != 1"><a href="javascript:void(0);" data-ng-click="fnVehicleBreakdown()">Vehicle Breakdown</a></li> -->
+		        </ul>
+		    </div>
+		    <p class="clear" />
+			<div class="row">
+				<div class="col-xs-4">
+					<label title="Vehicle Id">Veh.Id</label>{{vehicleDetailsData.vehicle.vehicleCode}}
+				</div>
+				<div class="col-xs-4">
+					<label title="Driver Id">Dr. Id</label> {{vehicleDetailsData.driver.driverCode}}
+				</div>
+				<div class="col-xs-4">
+					<!-- Removed ng-if as it was giving issue when data updates  ng-if="vehicleDetailsData.vehicle.registeredMobile" -->
+					<select data-ng-model="vehicleDetailsData.dispatchCallDriverNo" title="Driver No" class="left">
+						<option value="{{vehicleDetailsData.owner.mobile}}" title="Owner No.">Own.No</option>
+						<option value="{{vehicleDetailsData.driver.mobile}}" title="Driver No.">Dri.No</option>
+						<option ng-selected="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">Reg.No</option>
+					</select>
+					<span title="Call" class="call-icon" data-ng-click="fnDispatchCallDriver()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
+					<p class="clear" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4" title="Owner Name">
+					<!-- <label title="Owner Name">O.Name</label> -->
+					<span class="ellipsisText" title="Owner Name">Owner Name</span>
+				</div>
+				<div class="col-xs-4">
+					<!-- <label title="Driver Name">D.Name</label> -->
+					<span class="ellipsisText" title="{{vehicleDetailsData.driver.name}}">{{vehicleDetailsData.driver.name}}</span>
+				</div>
+				<div class="col-xs-4" title="Previous Location">
+					<!-- <label title="Previous Location">Prev.Loc</label> -->
+					<span class="ellipsisText" title="{{vehicleDetailsData.vehicle.prevousLocation}}">{{vehicleDetailsData.vehicle.prevousLocation}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label title="Login Time">LiT</label> 
+					<span class="ellipsisText" style="width: 58px;" title="{{vehicleDetailsData.vehicle.loginTime}}">{{vehicleDetailsData.vehicle.loginTime}}</span>
+				</div>
+				<div class="col-xs-4">
+					<label title="Expected Logout Time">ELoT</label> 
+					<span class="ellipsisText" style="width: 58px;" title="{{vehicleDetailsData.vehicle.logoutTime}}">{{vehicleDetailsData.vehicle.logoutTime}}</span>
+				</div>
+				<div class="col-xs-4">
+					<label title="Total Break Time">T.Br.Tm</label>
+					<span class="ellipsisText" style="width: 58px;" title="{{vehicleDetailsData.vehicle.totalBreakTime}}">{{vehicleDetailsData.vehicle.totalBreakTime}}</span>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-xs-12">
+					<label title="Total Bookings" style="display: inline;">T.Bookings:&nbsp;</label>
+			        <span>{{vehicleDetailsData.vehicle.totalBookings}}</span>
+
+			        <label title="Successful Booking" style="margin-left: 5px;display: inline;">SB:&nbsp;</label>
+			        <span>{{vehicleDetailsData.vehicle.completedBookings}}</span>
+			        
+			        <label title="Roadside Booking" style="margin-left: 5px;display: inline;">Ro.B:&nbsp;</label>
+			        <span>{{vehicleDetailsData.vehicle.roadsideBookings}}</span>
+			    
+			        <label title="Rejected Booking" style="margin-left: 5px;display: inline;">RB:&nbsp;</label>
+			        <span>{{vehicleDetailsData.vehicle.rejectedBookings}}</span>
+
+			        <label title="Cancelled Booking" style="margin-left: 5px;display: inline;">CB:&nbsp;</label>
+			        <span>{{vehicleDetailsData.vehicle.canceledBookings}}</span>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-xs-6">
+					<label title="Total Days">T.Days</label> {{vehicleDetailsData.vehicle.totalDays}}
+				</div>
+				<div class="col-xs-6">
+					<label title="Total Working Days">W.Days</label> {{vehicleDetailsData.vehicle.totalWorkingDays}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<label title="Working Hours">W. Hrs</label> {{vehicleDetailsData.vehicle.totalWorkingTime}}
+				</div>
+				<div class="col-xs-6">
+					<label title="Day Collection">Day Coll</label> {{vehicleDetailsData.vehicle.dayCollection}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<label title="Driver Rating">D.Rating</label>
+					<span ng-repeat="j in vehicleDetailsData.driver.aRating">
+						<span class="glyphicon {{j.cls}}"></span>
+					</span>
+				</div>
+				<div class="col-xs-6">
+					<label title="Vehicle Rating">V.Rating</label>
+					<span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
+						<span class="glyphicon {{j.cls}}"></span>
+					</span>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-xs-4" title="Vehicle Registration No.">
+					AP09BP0737
+				</div>
+				<div class="col-xs-4" title="Vehicle Model">
+					{{vehicleDetailsData.vehicle.manufactureMonth}} - {{vehicleDetailsData.vehicle.manufactureYear}}
+				</div>
+				<div class="col-xs-4" title="Performance">
+					<label>Performance</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<label title="Projected Login Time" style="margin-right: 5px;display: inline;">Daily</label> {{vehicleDetailsData.vehicle.projectedLoginTime}} Hrs
+				</div>
+				<div class="col-xs-4">
+					<label title="Present Average Login Time" style="margin-right: 5px;display: inline;">Avg</label> {{vehicleDetailsData.vehicle.presentAvgLoginTime}} Hrs
+				</div>
+				<div class="col-xs-4" title="Performance">
+					<!-- {{vehicleDetailsData.vehicle.performance}} -->
+					<span style="height:15px;display:inline-block;width:80px;border-radius:5px;background-color:green;"></span>
+				</div>
+			</div>
+			<!-- <div class="row">
+				<div class="col-xs-6">
+					<label title="Projected Collection">P.Coll</label> {{vehicleDetailsData.vehicle.projectedCollection}}
+				</div>
+				<div class="col-xs-6">
+					<label title="Present Average Collection">PA.Coll</label> {{vehicleDetailsData.vehicle.presentAvgCollection}}
+				</div>
+			</div> -->
+			<div class="row">
+				<div class="col-xs-12">
+					<label title="Paper Validity" class="vTop">Paper.Val</label>
+					&nbsp;All Papers Active
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<label title="Available Facilities" class="vTop">Facilities</label>
+					<ul class="facilities">
+						<!-- <li ng-repeat="i in vehicleDetailsData.vehicle.facilities">
+							<span class="glyphicon glyphicon-check">{{i}}</span>
+						</li> -->
+						<li title="Carrier">C <span class="glyphicon glyphicon-ok"></span></li>
+						<li title="AC">AC <span class="glyphicon glyphicon-ok"></span></li>
+						<li title="Music System">MS <span class="glyphicon glyphicon-ok"></span></li>
+						<li title="Swiping Card">SC <span class="glyphicon glyphicon-ok"></span></li>
+						<li title="Tracking Device">TD <span class="glyphicon glyphicon-remove"></span></li>
+						<li title="Printed Bill">PB <span class="glyphicon glyphicon-remove"></span></li>
+						<li title="TAB">TAB <span class="glyphicon glyphicon-remove"></span></li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		<div class="col-xs-6">
-			<label title="Driver Name">D.Name</label>
-			<span class="ellipsisText" title="Xyxll">{{vehicleDetailsData.driver.name}}</span>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Vehicle Id">Veh.Id</label>{{vehicleDetailsData.vehicle.vehicleCode}}
-		</div>
-		<div class="col-xs-6"><!-- Removed ng-if as it was giving issue when data updates  ng-if="vehicleDetailsData.vehicle.registeredMobile" -->
-			<select data-ng-model="vehicleDetailsData.dispatchCallDriverNo" title="Driver No" class="left">
-				<option value="{{vehicleDetailsData.driver.mobile}}" title="Driver No.">D.No</option>
-				<option ng-selected="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">R.No</option>
-			</select>
-			<span title="Call" class="call-icon" data-ng-click="fnDispatchCallDriver()"><span class="glyphicon glyphicon-earphone"></span> Call</span>
-			<p class="clear" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Total Days">T.Days</label> {{vehicleDetailsData.vehicle.totalDays}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Total Working Days">TW.Days</label> {{vehicleDetailsData.vehicle.totalWorkingDays}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Projected Login Time">PL Time</label> {{vehicleDetailsData.vehicle.projectedLoginTime}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Present Average Login Time">PAL. Time</label> {{vehicleDetailsData.vehicle.presentAvgLoginTime}}
-		</div>
-	</div>
-	<!-- <div class="row">
-		<div class="col-xs-6">
-			<label title="Projected Collection">P.Coll</label> {{vehicleDetailsData.vehicle.projectedCollection}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Present Average Collection">PA.Coll</label> {{vehicleDetailsData.vehicle.presentAvgCollection}}
-		</div>
-	</div> -->	
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Login Time">LiT</label> {{vehicleDetailsData.vehicle.loginTime}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Expected Logout Time">ELoT</label> {{vehicleDetailsData.vehicle.logoutTime}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Previous Location">PL</label> {{vehicleDetailsData.vehicle.prevousLocation}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Status">Status</label> {{vehicleDetailsData.vehicle.status}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Day Collection">Day Coll</label> {{vehicleDetailsData.vehicle.dayCollection}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Total Break Time">T.Br.Tm</label> {{vehicleDetailsData.vehicle.totalBreakTime}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Working Hours">W. Hrs</label> {{vehicleDetailsData.vehicle.totalWorkingTime}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Performance">Perf.</label> {{vehicleDetailsData.vehicle.performance}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Total Bookings">T.B.</label> {{vehicleDetailsData.vehicle.totalBookings}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Successfull Bookings">SB</label> {{vehicleDetailsData.vehicle.completedBookings}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Roadside Bookings">Ro.B</label> {{vehicleDetailsData.vehicle.roadsideBookings}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Rejected Bookings">RB</label> {{vehicleDetailsData.vehicle.rejectedBookings}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Cancelled Booking">CB</label> {{vehicleDetailsData.vehicle.canceledBookings}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Manufacture Year">M.Year</label> {{vehicleDetailsData.vehicle.manufactureYear}}
-		</div>
-		<div class="col-xs-6">
-			<label title="Manufacture Month">M.Month</label> {{vehicleDetailsData.vehicle.manufactureMonth}}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<label title="Driver Rating">D.Rating</label>
-			<span ng-repeat="j in vehicleDetailsData.driver.aRating">
-				<span class="glyphicon {{j.cls}}"></span>
-			</span>
-		</div>
-		<div class="col-xs-6">
-			<label title="Vehicle Rating">V.Rating</label>
-			<span ng-repeat="j in vehicleDetailsData.vehicle.aRating">
-				<span class="glyphicon {{j.cls}}"></span>
-			</span>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<label title="Available Facilities" class="vTop">Facilities</label>
-			<ul class="facilities">
-				<li ng-repeat="i in vehicleDetailsData.vehicle.facilities">
-					<span class="glyphicon glyphicon-check"></span> {{i}}
-				</li>
-			</ul>
 		</div>
 	</div>
 </div>

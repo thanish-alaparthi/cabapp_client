@@ -651,6 +651,8 @@ angular.module('sigmaCabsApp')
         scope.loadBookingDetailsData = function(data){
           scope.bookingDetailsData = data;
           scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
+          scope.bookingDetailsData.booking.displayPickupDate = PrerequisiteService.fnFormatDate(data.booking.pickupDate);
+          console.log('bookingDetailsData', scope.bookingDetailsData);
         }
         /*END: Loader methods*/
     /*END: Loading methods for the grids*/
@@ -700,7 +702,7 @@ angular.module('sigmaCabsApp')
           pollForBookings();
         }
         scope.setBookingMgmtGrid_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
         /*END: setting the booking management grid*/
         
@@ -744,15 +746,15 @@ angular.module('sigmaCabsApp')
             }
 
             serverService.sendData('P','dispatcher/getAllVehicles',oData, scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
-            //serverService.stubData({'controller': _controller,'url':'vacantVehiclesData'},scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
+            // serverService.stubData({'controller': _controller,'url':'vacantVehiclesData'},scope.setVacantVehiclesGrid_Success, scope.setVacantVehiclesGrid_Error);
           }
         }
         scope.setVacantVehiclesGrid_Success = function(data){
           scope.FormatNloadVacantVehiclesGridData(data);
-          //pollForVacantVehicles();
+          // pollForVacantVehicles();
         }
         scope.setVacantVehiclesGrid_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
         /*END: setting the vacant vehicles grid*/
 
@@ -783,17 +785,17 @@ angular.module('sigmaCabsApp')
                   vacantTm : scope.viSearch.vacantTm
                 };
 
-            //Need to trigger the server call from here
+            // Need to trigger the server call from here
             serverService.sendData('P','dispatcher/getWhileDrivingVehicles', oData, scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
-            //serverService.stubData({'controller': _controller,'url':'whileDrivingData'},scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
+            // serverService.stubData({'controller': _controller,'url':'whileDrivingData'},scope.setWhileDrivingVehiclesGrid_Success, scope.setWhileDrivingVehiclesGrid_Error);
           }
         }        
         scope.setWhileDrivingVehiclesGrid_Success = function(data){
           scope.FormatNloadWhileDrivingVehiclesGridData(data);
-          //pollForWhileDrivingVehicles();
+          // pollForWhileDrivingVehicles();
         }
         scope.setWhileDrivingVehiclesGrid_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
         /*END: setting the while-driving vehicles grid*/
 
@@ -805,14 +807,14 @@ angular.module('sigmaCabsApp')
             var bookingObj = {'bookingId': data, 'vehicleTypes' : aVehTyp};
             
             serverService.sendData('P','dispatcher/getAllVehiclesForBooking', bookingObj, scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
-            //serverService.stubData({'controller': _controller,'url':'vehiclesForBookingData'},scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
+            // serverService.stubData({'controller': _controller,'url':'vehiclesForBookingData'},scope.setVehiclesForBooking_Success, scope.setVehiclesForBooking_Error);
           }
         }
         scope.setVehiclesForBooking_Success = function(data){
           scope.FormatNloadBookingVehiclesGridData(data);
         }
         scope.setVehiclesForBooking_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
         /*END: setting the vehicles for booking grid*/
 
@@ -847,9 +849,9 @@ angular.module('sigmaCabsApp')
 
             console.log('biSearch', scope.biSearch);
 
-            //Need to trigger the server call from here
+            // Need to trigger the server call from here
             serverService.sendData('P','dispatcher/getAllBookings', oData, scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
-            //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
+            // serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
           }
         }        
         scope.setBookingInfoGrid_Success = function(data){
@@ -890,9 +892,9 @@ angular.module('sigmaCabsApp')
 
             console.log('alSearch', scope.alSearch);
 
-            //Need to trigger the server call from here
+            // Need to trigger the server call from here
             serverService.sendData('P','dispatcher/getAutoLoginVehicles', oData, scope.setAutoLoginVehicleGrid_Success, scope.setAutoLoginVehicleGrid_Error);
-            //serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
+            // serverService.stubData({'controller': _controller,'url':'bookingData'},scope.setBookingInfoGrid_Success, scope.setBookingInfoGrid_Error);
           }
         }        
         scope.setAutoLoginVehicleGrid_Success = function(data){
@@ -912,7 +914,7 @@ angular.module('sigmaCabsApp')
           if(clearDetails && clearDetails == true)
             scope.loadVehicleDetailsData({});
           else{
-            //Need to trigger the server call from here
+            // Need to trigger the server call from here
             serverService.sendData('P','dispatcher/getVehicleQuickInfo',{'vehicleId':data},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
             // serverService.stubData({'controller': _controller,'url':'vehicleDetails'},scope.setVehicleDetails_Success, scope.setVehicleDetails_Error);
           }
@@ -921,7 +923,7 @@ angular.module('sigmaCabsApp')
           scope.FormatNloadVehicleDetailsData(data);          
         }
         scope.setVehicleDetails_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
         /*END: setting the vehicle details for selected Vehicle */
 
@@ -930,7 +932,7 @@ angular.module('sigmaCabsApp')
           if(clearDetails && clearDetails == true)
             scope.loadBookingDetailsData({});
           else{
-            //Need to trigger the server call from here
+            // Need to trigger the server call from here
             serverService.sendData('P','dispatcher/getBookingQuickInfo',{'bookingId':data},scope.setBookingDetails_Success, scope.setBookingDetails_Error);
             // serverService.stubData({'controller': _controller,'url':'bookingDetails'},scope.setBookingDetails_Success, scope.setBookingDetails_Error);
           }
@@ -939,7 +941,7 @@ angular.module('sigmaCabsApp')
           scope.FormatNloadBookingDetailsData(data);
         }
         scope.setBookingDetails_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
         /*END: setting the booking details for selected booking record*/
         /********** End of Details loaders ***********/
@@ -1120,7 +1122,7 @@ angular.module('sigmaCabsApp')
             scope.gridBookingsData.selectAll(false);
             scope.tst  = true;
             $timeout(function(){
-                      // scope.bookingUnSelectedFn();     
+              // scope.bookingUnSelectedFn();     
             }, 10);
            
         };
@@ -1140,7 +1142,7 @@ angular.module('sigmaCabsApp')
 
           // booking selected
           scope.autoRefreshBookingMgmtAndVacantVehicles = false;
-          scope.pollForBookingsAfter30Seconds();
+          // scope.pollForBookingsAfter30Seconds();
 
 
           console.log('scope.bookingSelectedFn: ', booking);
@@ -1618,8 +1620,6 @@ angular.module('sigmaCabsApp')
         scope.fnLoadVacantVehiclesGridData = function(aSelectedVehicleTypes) {
           // function which gets called when tickbox is changed.. 
           scope.setVacantVehiclesGrid(true);
-
-
           var oVty = {};
 
           if(aSelectedVehicleTypes.length == 1 && aSelectedVehicleTypes[0] != '0'){
@@ -1630,7 +1630,6 @@ angular.module('sigmaCabsApp')
             // pass all the vehicle types
             aSelectedVehicleTypes = [];
             aSelectedVehicleTypes = scope.fnGetAllVehicleTypeIds();
-
           }
 
           var oData = {
@@ -1774,7 +1773,7 @@ angular.module('sigmaCabsApp')
         scope.showWhileDriving = function(){          
           scope.showingWhilDrivingGrid = true;
           scope.setWhileDrivingVehiclesGrid();
-          //scope.vehiclePanelToggle(true)          
+          // scope.vehiclePanelToggle(true)          
           scope.vehicleViewDisplay = false;
         }                    
         scope.showBookingsList = function(){
@@ -2050,7 +2049,7 @@ angular.module('sigmaCabsApp')
             modalWindow.addDataToModal($scope.opts);
         }
         scope.getBookingDetails_Error = function(xhr, data){
-          //do some error processing..
+          // do some error processing..
         }
 
         // Roadside booking - navigate to booking

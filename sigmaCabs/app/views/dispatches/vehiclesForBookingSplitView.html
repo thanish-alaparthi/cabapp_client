@@ -7,30 +7,6 @@
 	<div id="dispatcherVacantVehiclesGrid" class="gridStyle" ng-grid="gridForVacantVehiclesData" style="margin:0px;" ng-class="{vehicleHalfView:vacantVehicleSelected}" data-ng-show="showVacantVehicleGrid"> </div>
 
 	<div class="booking-vehicle-info-holder" ng-show='showVehicleInfo'>
-		<div class="panel panel-info">
-			<div class="panel-heading short-panel-heading">
-			    <span class="panel-title left">Vehicle details</span>			    
-				<i class="glyphicon glyphicon-remove right" ng-click="bookingVehicleDetailsPageCloseFn();" data-ng-show="showCloseVehicleInfoBtn"></i>
-
-				<span ng-switch on="selectedBookingDetails.bookingStatus" class="right" data-ng-show="showVehicleButtons">
-					<button class="btnCompact btn-success left" ng-switch-when="4" data-ng-click="fnControlViewVehicleAccepBooking()">Accept</button>
-            		<button class="btnCompact btn-danger left" ng-switch-when="4" data-ng-click="fnControlViewVehicleRejectBooking()">Reject</button>
-
-					<button ng-switch-when="5" class="btnCompact btn-success left" data-ng-click="fnControlViewVehicleConfirm()">Confirm</button>
-					<button ng-switch-when="5" class="btnCompact btn-danger left" data-ng-click="fnControlViewVehicleRejectBooking()">Reject</button>
-
-
-					<button ng-switch-when="6" class="btnCompact btn-danger left" data-ng-click="fnControlViewVehicleCancel()">Cancel</button>
-					<button ng-switch-when="6" class="btnCompact btn-danger left" data-ng-click="fnControlViewVehicleRejectBooking()">Reject</button>
-					<span class="clearfix"></span>
-				</span>
-				<span class="clearfix"></span>
-			</div>
-			<div class="panel-body padding-5-panel-body">
-			  <div class="vehicle-details-holder">
-			  	<div data-ng-include="vehicleDetailedInfoSplitView"></div>
-			  </div>
-			</div>
-		</div>
+		<div data-ng-include="vehicleDetailedInfoSplitView"></div>
 	</div>
 </div>
