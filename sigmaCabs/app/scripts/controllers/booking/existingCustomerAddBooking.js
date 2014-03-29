@@ -409,7 +409,10 @@ angular.module('sigmaCabsApp')
 				return false;
 			}
 
-			var aLatLon = PrerequisiteService.fnGetLatLon([oData.pickupPlace, oData.dropPlace]);
+			var aLatLon = PrerequisiteService.fnGetLocationsByNames([oData.pickupPlace]);
+			
+			oData.lat = aLatLon[0].lattitude;
+			oData.lon = aLatLon[0].longitude;
 
 
 			BookingService.fnSaveBooking(oData)

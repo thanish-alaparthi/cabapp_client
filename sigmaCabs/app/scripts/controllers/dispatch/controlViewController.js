@@ -55,7 +55,7 @@ angular.module('sigmaCabsApp')
           /*END: setting initial views to display*/
 
           /*START: setting initial data*/
-          var POLLING_INTERVAL = 4000;
+          var POLLING_INTERVAL = 7000;
           scope.bookingData = [];
           scope.bookingDataObjs = []
           scope.bookingDataLength = 0;
@@ -383,7 +383,17 @@ angular.module('sigmaCabsApp')
             datum.pickupTime = formatSource.fnFormatHours(datum.pickupTime) + ':' + formatSource.fnFormatMinutes(datum.pickupTime);
           }
           console.log('Formated data',data);
-          scope.loadBookingMgmtGridData(data);
+          if(!scope.filterText){
+            scope.loadBookingMgmtGridData(data);
+          } else {
+            scope.getBookingDataAsync(
+              scope.bookingGridPgOptions.pageSize,
+              scope.bookingGridPgOptions.currentPage, 
+              scope.filterText
+            );
+          }
+
+
         }
         scope.FormatNloadWhileDrivingVehiclesGridData = function(data){
           var data = data, 
@@ -408,7 +418,12 @@ angular.module('sigmaCabsApp')
             var datum = data[dataLen];
             datum.vehicleName = namesService.fnGetVehicleDisplayNameById(datum.vehicleName);
           }
-          scope.loadVacantVehiclesGridData(data);
+
+          if(!scope.vacantVehicleFilterText){
+            scope.loadVacantVehiclesGridData(data);
+          } else {
+            scope.fnGetVacantVehicleDataAsync(scope.vacantVehicleFilterText);
+          }
         }
         scope.FormatNloadBookingVehiclesGridData = function(data){
          var data = data, 
@@ -1133,7 +1148,7 @@ angular.module('sigmaCabsApp')
           {field:'vehicleName', displayName:'V.Name', width: '70'},
           {field:'pickupTime', displayName:'P.Time', width: '50'},
           {field:'pickupPlace', displayName:'P.Place', width: '*', cellClass : 'forceLeftAlign'},
-          {field:'subJourneyType', displayName:'Package', width: '70'},
+          {field:'subJourneyType', displayName:'Package', width: '70', cellClass : 'forceLeftAlign'},
           {field:'bookingOrigin', displayName:'Origin', width: '50'},
           {field:'bookingStatusNm', displayName:'Status', width: '50'},
           {field:'vehicleCode', displayName:'VID', width: '50', cellTemplate : '<input style="width: 45px;" ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" ng-show="(row.getProperty(\'vehicleId\') ? false : true )" /> <span>{{row.getProperty(\'vehicleCode\')}}</span>'}

@@ -1156,10 +1156,10 @@ angular.module('sigmaCabsApp')
                 }];
             },
 
-            fnGetLatLon : function(aPlaces) {
-                // function returns array of latLon objects as per 
-                return [];
-            },
+            // fnGetLatLon : function(aPlaces) {
+            //     // function returns array of latLon objects as per 
+            //     return [];
+            // },
             fnGetLocationsByNames : function(aPlaces) {
                 // returns locationObjects based on the same order as aPlaces
                 var aRtn = [],
