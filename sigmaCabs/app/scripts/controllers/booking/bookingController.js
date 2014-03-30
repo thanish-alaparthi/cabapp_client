@@ -312,7 +312,7 @@ angular.module('sigmaCabsApp')
             scope.roMainTariffData.amount = tariffObj.price || 0;
             scope.roMainTariffData.extraKmCharge = tariffObj.extraKmPrice || 0;
             scope.roMainTariffData.graceTime = tariffObj.grace || 0;
-            scope.roMainTariffData.extraCharges = tariffObj.extraCharges || 0;
+            scope.roMainTariffData.extraCharges1 = tariffObj.extraCharges1 || 0;
             scope.roMainTariffData.extraHourCharge = tariffObj.extraHrPrice || 0;
             scope.roMainTariffData.comments = tariffObj.comments || '-';
             scope.roMainTariffData.driverBatha = tariffObj.driverBatha || '-';
@@ -522,7 +522,8 @@ angular.module('sigmaCabsApp')
                 comments: oT.comments,
                 distance: oT.distance,
                 duration: (oT.duration / 60),
-                extraCharges: oT.extraCharges,
+                extraCharges1: oT.extraCharges1,
+                driverBatha: oT.driverBatha,
                 //Nortan -  Extra hour should be displayed only in specific scenario's, so as of now keeping 0
                 extraHour: 0, // oT.extraHrPrice
                 extraKm: oT.extraKmPrice,

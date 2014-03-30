@@ -43,7 +43,7 @@ angular.module('sigmaCabsApp')
         scope.roData.amount = '';
         scope.roData.extraKmCharge = '';
         scope.roData.graceTime = '';
-        scope.roData.extraCharges = '';
+        scope.roData.extraCharges1 = '';
         scope.roData.extraHourCharge = '';
         scope.roData.comments = '';
         
@@ -83,7 +83,7 @@ angular.module('sigmaCabsApp')
 	        scope.roData.amount = tariffObj.price || 0;
 	        scope.roData.extraKmCharge = tariffObj.extraKmPrice || 0;
 	        scope.roData.graceTime = tariffObj.grace || 0;
-	        scope.roData.extraCharges = tariffObj.extraCharges || 0;
+	        scope.roData.extraCharges1 = tariffObj.extraCharges1 || 0;
 	        scope.roData.extraHourCharge = tariffObj.extraHrPrice || 0;
 	        scope.roData.comments = tariffObj.comments || '-';
 	    };
@@ -152,7 +152,8 @@ angular.module('sigmaCabsApp')
     			extraKm : scope.selctedTariffType.extraKmPrice,
     			graceTime : scope.selctedTariffType.grace,
     			extraHour : scope.selctedTariffType.extraHrPrice,
-    			extraCharges : scope.selctedTariffType.extraCharges,
+    			extraCharges1 : scope.selctedTariffType.extraCharges1,
+    			driverBatha : scope.selctedTariffType.driverBatha,
     			comments : scope.selctedTariffType.comments,
     			id: scope.selctedTariffType.id
     		};

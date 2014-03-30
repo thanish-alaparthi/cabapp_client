@@ -33,7 +33,7 @@ angular.module('sigmaCabsApp')
 	        {field:'amount', displayName:'Amount', width: '*'},
 	        {field:'extraKm', displayName:'Extra K.M.', width: '*'},
 	        {field:'graceTime', displayName:'Grace Tm.', width: '*'},
-	        {field:'extraCharges', displayName:'Extra Charges', width: '*'},
+	        {field:'extraCharges1', displayName:'Extra Charges', width: '*', cellFilter: 'number'},
 	        {field:'extraHour', displayName:'Extra Hours', width: '*'},
 	        {field:'driverBatha', displayName:'Driver Batha', width: '*'},
 	        {field:'comments', displayName:'Comments', width: '380'},
