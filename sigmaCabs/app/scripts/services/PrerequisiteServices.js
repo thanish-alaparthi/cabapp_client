@@ -546,6 +546,7 @@ angular.module('sigmaCabsApp')
                         oTariffByVtypeAndJtype[k][tariffData[i].vehicleType].push(oTempPackage);
 						oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] = oTariffByVtypeAndSubJtype[tariffData[i].vehicleType] || {};
                         oTariffByVtypeAndSubJtype[tariffData[i].vehicleType][tariffData[i].subJourneyType] = oTempPackage;
+                        
                         for (var j = 0; j < tariffDataLength; j++) {
                             if(tariffData[i].subJourneyType == tariffData[j].subJourneyType){
                                 tariffRow['vehicleType' + tariffData[j].vehicleType] = tariffData[j].price;
@@ -555,6 +556,7 @@ angular.module('sigmaCabsApp')
                         }
 
                         if(aSubJtypeDone.indexOf(tariffData[i].subJourneyType) == -1){
+                            tariffRow.subJourneyName = tariffData[i].subJourneyName;
                             oTd.push(tariffRow);
                             aSubJtypeDone.push(tariffData[i].subJourneyType);
                         }

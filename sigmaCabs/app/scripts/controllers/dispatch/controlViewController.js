@@ -252,7 +252,7 @@ angular.module('sigmaCabsApp')
             });
           }
           scope.collections = [{ 'txt' : 'All', 'val': ''}];
-          for(var i=500;i<=2000;i+=500) {
+          for(var i=0;i<=2000;i+=500) {
             scope.collections.push({
               'txt' : i.toString(),
               'val' : i.toString()
@@ -280,7 +280,8 @@ angular.module('sigmaCabsApp')
             vacantTm : '',
             vCondtion  : '',
             vehicle : scope.oVehicleDefault,
-            attType :  ''
+            attType :  '',
+            expectedVacantVehicle : ''
           };
           scope.biSearch = {
             bookingInfoDate : scope.bookingInfoDate,
@@ -798,7 +799,8 @@ angular.module('sigmaCabsApp')
                   dayCollection :  scope.viSearch.collection,
                   zone : scope.viSearch.zone,
                   area : scope.viSearch.area,
-                  vacantTm : scope.viSearch.vacantTm
+                  vacantTm : scope.viSearch.vacantTm,
+                  expectedVacantVehicle : scope.viSearch.expectedVacantVehicle
                 };
 
             // Need to trigger the server call from here
@@ -849,7 +851,7 @@ angular.module('sigmaCabsApp')
             scope.biSearch.vType = oVty.vType;
 
             oData = {
-              "bookingStatus" : [PreConfigService.BOOKING_FOLLOW_UP, PreConfigService.BOOKING_YET_TO_DISPATCH],
+              "bookingStatus" : [PreConfigService.BOOKING_YET_TO_DISPATCH, PreConfigService.BOOKING_VEHICLE_ASSIGNED, PreConfigService.WHILE_DRIVING, PreConfigService.BOOKING_COMPLETED_N_CLOSED, PreConfigService.BOOKING_CANCELLED],
               "pickupDate" : PrerequisiteService.formatToServerDate(scope.biSearch.bookingInfoDate),
               "pickupTm" : ((scope.biSearch.pickupTm == 'all') ? '' : scope.biSearch.pickupTm),
               "vehicleType" : scope.biSearch.vType,
@@ -1148,7 +1150,7 @@ angular.module('sigmaCabsApp')
           {field:'vehicleName', displayName:'V.Name', width: '70'},
           {field:'pickupTime', displayName:'P.Time', width: '50'},
           {field:'pickupPlace', displayName:'P.Place', width: '*', cellClass : 'forceLeftAlign'},
-          {field:'subJourneyType', displayName:'Package', width: '70', cellClass : 'forceLeftAlign'},
+          {field:'subJourneyType', displayName:'Package', width: '150', cellClass : 'forceLeftAlign'},
           {field:'bookingOrigin', displayName:'Origin', width: '50'},
           {field:'bookingStatusNm', displayName:'Status', width: '50'},
           {field:'vehicleCode', displayName:'VID', width: '50', cellTemplate : '<input style="width: 45px; height: 17px;" ng-model="sModel" class="textFieldCompact" type="text" phone data-ng-enter="fnVehicleCodeAdded(row.entity,this);" ng-click="fnTest()" ng-show="(row.getProperty(\'vehicleId\') ? false : true )" /> <span>{{row.getProperty(\'vehicleCode\')}}</span>'}
@@ -1666,10 +1668,10 @@ angular.module('sigmaCabsApp')
           {field:'vehicleCode', displayName:'VID', width: '*'},            
           {field:'vacantTime', displayName:'VacantTm', width: '*'},            
           {field:'vehicleName', displayName:'V.Name', width: '*'},
-          {field:'loginTime', displayName:'L.Hrs', width: '*'},
-          {field:'location', displayName:'Location', width: '*'},
-          {field:'inBreak', displayName:'Break?', width: '*'},
-          {field:'dayCollection', displayName:'Collection', width: '*'}
+          // {field:'loginTime', displayName:'L.Hrs', width: '*'},
+          {field:'location', displayName:'Location', width: '150', cellClass : 'forceLeftAlign' },
+          // {field:'inBreak', displayName:'Break?', width: '*'},
+          {field:'dayCollection', displayName:'Coll.', width: '*'}
         ];
 
         scope.vacantVehicleSelectedFn = function(selected){

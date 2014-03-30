@@ -128,7 +128,7 @@ angular.module('sigmaCabsApp')
 	    	sTmpKms = '';
 
 	    $scope.colDefs = [
-	        {field:'duration', displayName:'Duration', width: '*'},
+	        {field:'subJourneyName', displayName:'Duration', width: '*'}, //, cellTemplate : '<span>{{row.getProperty(col.field) +" (" + row.getProperty(\'subJourneyName\') + ")"}}</span>'
 	        {field:'kms', displayName:'Kms', width: '*'}
 	    ];
 	    /* Add dynamic Columns */

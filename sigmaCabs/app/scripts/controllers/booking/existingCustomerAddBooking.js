@@ -298,7 +298,7 @@ angular.module('sigmaCabsApp')
 				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
 				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
-				bookingStatus : scope.bookingDetails.bookingStatus,
+				bookingStatus : scope.bookingDetails.bookingStatus || PreConfigService.BOOKING_YET_TO_DISPATCH,
 				customerId : scope.waCustomerDetails.id,
 				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
 				resVehicleId : scope.bookingDetails.resVehicleId,

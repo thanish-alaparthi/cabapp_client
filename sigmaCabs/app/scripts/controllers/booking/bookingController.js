@@ -290,21 +290,40 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnColorRows = function(oData){
-            for(var i=0;i<oData.length;i++){
-                for(var j=0;j<scope.vehicleTypes.length;j++){
-                        var sColor = sColor == 'aqua' ? 'orange' : 'aqua';
-                    oData[i]['vehicleType' + scope.vehicleTypes[j].id + '_color'] = sColor;
-                    
-                }
-            }
             return oData;
         }
+
+
+        scope.fnShowTariffDetailsInMainTariff = function(row, cell, columnSelected, col, cellId, t) {
+
+            console.log('@@@@@@@@', cellId, $('#' + cellId), t);
+            var tariffObj = row['tariffObj_' + columnSelected];
+            console.log('Selected Package: ', tariffObj);
+
+            // need to check for a better way of doing this.
+            $('.myTariffSelected').removeClass('myTariffSelected');
+            $('#' + cellId).addClass('myTariffSelected');
+
+            scope.roMainTariffData = {};
+            
+            //set the readonly Fields
+            scope.roMainTariffData.duration = tariffObj.duration / 60;
+            scope.roMainTariffData.km = tariffObj.kms || 0;
+            scope.roMainTariffData.amount = tariffObj.price || 0;
+            scope.roMainTariffData.extraKmCharge = tariffObj.extraKmPrice || 0;
+            scope.roMainTariffData.graceTime = tariffObj.grace || 0;
+            scope.roMainTariffData.extraCharges = tariffObj.extraCharges || 0;
+            scope.roMainTariffData.extraHourCharge = tariffObj.extraHrPrice || 0;
+            scope.roMainTariffData.comments = tariffObj.comments || '-';
+            scope.roMainTariffData.driverBatha = tariffObj.driverBatha || '-';
+        };
+
 
         scope.fnLoadMainTariffGrids = function() {
             // load the tariff grids
             scope.vehicleTypes = PrerequisiteService.fnGetVehicleTypes();
             scope.colDefs = [
-                {field:'duration', displayName:'Hrs', width: '40'},
+                {field:'subJourneyName', displayName:'Hrs', width: '150'},
                 {field:'kms', displayName:'Kms', width: '50'}
             ];
             /* Add dynamic Columns */
@@ -319,18 +338,21 @@ angular.module('sigmaCabsApp')
                     field : 'vehicleType' + scope.vehicleTypes[i].id,
                     displayName : sD,
                     width: (scope.vehicleTypes[i].id == '4' ? 86 : '55'),
+                    cellTemplate : '<div id="{{row.getProperty(\'vt_\' + col.field)}}"  class="ngCellText col3 colt3" ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }"  ng-class="{myHoverClass: row.getProperty(col.field + \'_colorClass\')}" ng-click="fnShowTariffDetailsInMainTariff(row.entity, row.getProperty(col.field), col.field, col,row.getProperty(\'vt_\' + col.field), col );"><span class="ui-disableSelection hover">{{row.getProperty(col.field)}}</span></div>'
                     // cellTemplate : '<div style="{{col.field == \'vehicleType1\' ? \'background-color: red\' : \'background-color:green;\'}}" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
                     // cellTemplate : '<div ng-style="{ \'background-color\': row.getProperty(col.field + \'_color\') }" ng-class="col.colIndex();">{{row.getProperty(col.field)}}</div>'
                 });
             }
            
-            var oX= [], oY=[], oZ=[];
+            var oW=[], oX= [], oY=[], oZ=[];
             var g = PrerequisiteService.fnGetTariffByVehicleType(1),
                 f = PrerequisiteService.fnGetTariffByVehicleType(2),
+                k = PrerequisiteService.fnGetTariffByVehicleType(3),
                 l = PrerequisiteService.fnGetTariffByVehicleType(4);
             angular.copy(g, oX);
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>',oX);
             scope.tmpCityTariff = scope.fnColorRows(oX);
+            angular.copy(k, oW);
+            scope.tmpOutskirtsTariff = scope.fnColorRows(oW);
             angular.copy(f, oY);
             scope.tmpAirportTariff = scope.fnColorRows(oY);
             angular.copy(l, oZ);
@@ -341,27 +363,44 @@ angular.module('sigmaCabsApp')
               multiSelect: false,
               columnDefs: 'colDefs',
               rowHeight : 22,
+              headerRowHeight : 22,
               enableColumnResize: false,
               enableSorting: false,
-              enableCellSelection : true
+              enableCellSelection : false,
+              enableRowSelection: false,
+            };
+            scope.mainTariffOutskirtsGrid = { 
+              data: 'tmpOutskirtsTariff',
+              multiSelect: false,
+              columnDefs: 'colDefs',
+              rowHeight : 22,
+              headerRowHeight : 22,
+              enableColumnResize: false,
+              enableSorting: false,
+              enableCellSelection : false,
+              enableRowSelection: false,
             };
             scope.mainTariffAirportGrid = { 
               data: 'tmpAirportTariff',
               multiSelect: false,
               columnDefs: 'colDefs',
               rowHeight : 22,
+              headerRowHeight : 22,
               enableColumnResize: false,
               enableSorting: false,
-              enableCellSelection : true
+              enableCellSelection : false,
+              enableRowSelection: false,
             }
             scope.mainTariffOutstationGrid = { 
               data: 'tmpOutstationTariff',
               multiSelect: false,
               columnDefs: 'colDefs',
               rowHeight : 22,
+              headerRowHeight : 22,
               enableColumnResize: false,
               enableSorting: false,
-              enableCellSelection : true
+              enableCellSelection : false,
+              enableRowSelection: false,
             };
         };
 

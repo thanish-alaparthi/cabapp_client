@@ -1,18 +1,101 @@
+<div class="left">
+	<fieldset style="width: 460px; margin: 0px 5px;height: 310px;">
+		<legend style="margin-bottom: 0px;">City Tariff</legend>
+		<div class="gridStyle" ng-grid="mainTariffCityGrid" style="margin:0px;height: 290px;" id="mainTariffCityGridID"></div>
+	</fieldset>
 
-<fieldset style="width: 360px;float: left; margin: 0px 5px;height: 350px;">
-	<legend>City Tariff</legend>
-	<div class="gridStyle" ng-grid="mainTariffCityGrid" style="margin:0px;height: 300px;" id="mainTariffCityGridID"></div>
-</fieldset>
-<fieldset style="width: 360px;float: left; margin: 0px 5px;height: 350px;">
-	<legend>City Tariff</legend>
-	<div class="gridStyle" ng-grid="mainTariffCityGrid" style="margin:0px;height: 300px;" id="mainTariffCityGridID"></div>
-</fieldset>
+	<fieldset style="width: 460px; margin: 0px 5px;height: 180px;">
+		<legend style="margin-bottom: 0px;">Outstation Tariff</legend>
+		<div class="gridStyle" ng-grid="mainTariffOutstationGrid" style="margin:0px;height: 160px;"></div>
+	</fieldset>
+	<fieldset style="width: 460px;margin: 0px 5px;height: 155px;">
+		<legend style="margin-bottom: 0px;">Airport Tariff</legend>
+		<div class="gridStyle" ng-grid="mainTariffAirportGrid" style="margin:0px;height: 135px;"></div>
+	</fieldset>	
+</div>
+
+<div class="left">
+	<fieldset style="width: 460px;margin: 0px 5px;height: 400px;">
+		<legend style="margin-bottom: 0px;">Outskirts Tariff</legend>
+		<div class="gridStyle" ng-grid="mainTariffOutskirtsGrid" style="margin:0px;height: 380px;" id="mainTariffCityGridID"></div>
+	</fieldset>
+
+	<fieldset class="left" style="width: 460px;">
+        <legend class="searchbox-border">Tariff Information</legend>
+            <div class="displayTextWrapper">
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.vehicleType"></span>
+                </div>
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.vehicleName"></span>
+                </div>
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.journeyTypeName"></span>
+                </div>
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.subJourneyTypeName"></span>
+                </div>
+                <p class="clear"/>
+            <div>
+            <div class="tariffFieldContainer">
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.pickupPlace"></span>
+                </div>
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.dropPlace"></span>
+                </div>
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.pickupDate"></span>
+                </div>
+                <div class="tariffFieldContainer left">
+                    <span class = "" data-ng-bind="roMainTariffData.pickupTime"></span>
+                </div>
+                <p class="clear"/>
+            </div>
+
+            <div class="tariffFieldContainer margin-top10">
+                <div class="left-column">
+                    <label class="labelCompact" title="Package Duration">Pkg. Duration</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.duration"></div>
+                </div>
+                <div class="right-column">
+                    <label class="labelCompact" title="Package KM">Pkg. KM</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.km"></div>
+                </div>
+                <p class="clear"/>
+                <div class="left-column">
+                    <label class="labelCompact" title="Package Amount">Pkg. Amount</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.amount"></div>
+                </div>
+                <div class="right-column">
+                    <label class="labelCompact" title="Extra KM charge">Ext. KM Chrg.</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.extraKmCharge"></div>
+                </div>
+                <p class="clear"/>
+                <div class="left-column">
+                    <label class="labelCompact" title="Grace Time">Grace Time</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.graceTime"></div>
+                </div>
+                <div class="right-column">
+                    <label class="labelCompact" title="Extra Charge">Ext. Chrg.</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.extraCharges"></div>
+                </div>
+                <p class="clear"/>
+                <div class="left-column">
+                    <label class="labelCompact" title="Extra Hour Charge">Ext. hr Chrg.</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.extraHourCharge"></div>
+                </div>
+                <div class="left-column">
+                    <label class="labelCompact" title="Driver Batha">Driver Batha.</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.driverBatha"></div>
+                </div>
+                <div class="left-column">
+                    <label class="labelCompact" title="Comments">Comments</label>
+                    <div class ="left" data-ng-bind="roMainTariffData.comments"></div>
+                </div>
+                <p class="clear" />
+            </div>
+
+        </fieldset> 
+</div>
 <p class="clear"/>
-<fieldset style="width: 360px;float: left; margin: 0px 5px;height: 210px;">
-	<legend>Airport Tariff</legend>
-	<div class="gridStyle" ng-grid="mainTariffAirportGrid" style="margin:0px;height: 145px;"></div>
-</fieldset>
-<fieldset style="width: 360px;float: left; margin: 0px 5px;height: 210px;">
-	<legend>Outstation Tariff</legend>
-	<div class="gridStyle" ng-grid="mainTariffOutstationGrid" style="margin:0px;height: 170px;"></div>
-</fieldset>
