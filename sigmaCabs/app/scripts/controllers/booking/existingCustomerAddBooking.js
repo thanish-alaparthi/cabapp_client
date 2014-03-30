@@ -281,7 +281,18 @@ angular.module('sigmaCabsApp')
 			console.log('&&&&&&&&&&&&&&&&&&saving Booking data', scope.tmpDetails, scope.bookingDetails);
 
 			// get the numbers which are ticked for sms feature.
-			var aSms = scope.fnGetTickedSmsMobiles();
+			var aSms = scope.fnGetTickedSmsMobiles(),
+				sBookingStatus = PrerequisiteService.BOOKING_YET_TO_DISPATCH;
+
+			if(    !scope.bookingDetails.bookingStatus 
+				|| scope.bookingDetails.bookingStatus == PrerequisiteService.BOOKING_ENQUIRY
+				|| scope.bookingDetails.bookingStatus == PrerequisiteService.BOOKING_FOLLOW_UP
+				|| scope.bookingDetails.bookingStatus == PrerequisiteService.BOOKING_REJECTED
+			) {
+				sBookingStatus = PrerequisiteService.BOOKING_YET_TO_DISPATCH;
+			} else {
+				sBookingStatus = scope.bookingDetails.bookingStatus;
+			}
 
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
@@ -298,7 +309,7 @@ angular.module('sigmaCabsApp')
 				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
 				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
-				bookingStatus : scope.bookingDetails.bookingStatus || PreConfigService.BOOKING_YET_TO_DISPATCH,
+				bookingStatus : sBookingStatus,
 				customerId : scope.waCustomerDetails.id,
 				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
 				resVehicleId : scope.bookingDetails.resVehicleId,
