@@ -28,7 +28,7 @@ angular.module('sigmaCabsApp')
             VEHICLE_NOT_AVAILABLE_COLOR : '#FF0000',
 
             // default airport pickup and drop, these are set when journey type is changed
-            DEFAULT_ADDR_FOR_AIRPORT : 'RGIA, Hyderabad, Andhra Pradesh, India',
+            DEFAULT_ADDR_FOR_AIRPORT : 'AIRPORT',
 
             // IDs of subJourney types 
             START_IS_AIRPORT_ID : '14',

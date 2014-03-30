@@ -19,6 +19,8 @@ angular.module('sigmaCabsApp')
 		scope.sms.smsForCallerPhone2 = false;
 		scope.sms.smsForCustPhone1 = false;
 		scope.sms.smsForCustPhone2 = false;
+
+		scope.isApiInProgress = false;
 		
 		// load all the forms in the booking workarea view
 		scope.personalDetailsForm = URLService.view('personalForm');
@@ -416,6 +418,13 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnApiSaveBooking = function(oData){
+			if(scope.isApiInProgress){
+				alert('Previous save is in progress.\n Please be patient.');
+				return;
+			}
+			scope.isApiInProgress = true;
+
+
 			if(!PrerequisiteService.fnValidateBookingTime(oData.pickupDate, oData.pickupTime)){
 				alert('Pickup time should be atleast 20 minutes ahead of the current time.');
 				return false;
@@ -430,6 +439,7 @@ angular.module('sigmaCabsApp')
 			BookingService.fnSaveBooking(oData)
 			.success(function(data, status, headers, config) {				
 				console.log('Success fnSaveBooking: ',data);
+				scope.isApiInProgress = false;
 
 				if(data.status == 200){
 					// clear booking form
@@ -451,6 +461,7 @@ angular.module('sigmaCabsApp')
 				}
 			})
 			.error(function(data, status, headers, config){
+				scope.isApiInProgress = false;
 				console.log('error fnSaveBooking: ',data);
 			});
 		};
