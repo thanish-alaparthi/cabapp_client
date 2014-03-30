@@ -298,7 +298,7 @@ angular.module('sigmaCabsApp')
 				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
 				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
-				bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
+				bookingStatus : scope.bookingDetails.bookingStatus,
 				customerId : scope.waCustomerDetails.id,
 				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
 				resVehicleId : scope.bookingDetails.resVehicleId,
@@ -308,7 +308,8 @@ angular.module('sigmaCabsApp')
 				sms2 : aSms[1],
 				journeyType : PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.bookingDetails.subJourneyType).id, 
 				specialRequestId : scope.bookingDetails.specialRequestId,
-                specialRequestComments : scope.bookingDetails.specialRequestComments
+                specialRequestComments : scope.bookingDetails.specialRequestComments,
+                vehicleId : scope.bookingDetails.vehicleId
 			});
 		};
 
