@@ -202,7 +202,8 @@ angular.module('sigmaCabsApp')
 				scope.bShowCustFeedbackBtn = true;
 			} else if(scope.bookingDetails.id
 					&& (  scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_COMPLETED_N_CLOSED
-					   || scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_CANCELLED)
+					   || scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_CANCELLED
+					   || scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_CANCELLED_ON_CALL)
 			){	
 				scope.bShowCancelBookingBtn = false;
 				scope.bShowSaveBookingBtn = false;

@@ -12,14 +12,15 @@ angular.module('sigmaCabsApp')
         
         return {
             /* CONSTANTS DELARATIONS FOR BOOKING */
-            BOOKING_ENQUIRY : 1,
-            BOOKING_FOLLOW_UP : 2,
-            BOOKING_REJECTED : 3,
-            BOOKING_YET_TO_DISPATCH : 4,
-            BOOKING_VEHICLE_ASSIGNED : 5,
-            WHILE_DRIVING : 6,
-            BOOKING_COMPLETED_N_CLOSED : 7,
-            BOOKING_CANCELLED : 8,
+            BOOKING_ENQUIRY : 1,             // onServer it is Enquiry  
+            BOOKING_FOLLOW_UP : 2,           // onServer it is Follow Up
+            BOOKING_REJECTED : 3,            // onServer it is Rejected by Customer  
+            BOOKING_YET_TO_DISPATCH : 4,     // onServer it is Yet to Dispatch 
+            BOOKING_VEHICLE_ASSIGNED : 5,    // onServer it is Vehicle Assigned   
+            WHILE_DRIVING : 6,               // onServer it is Vehicle Confirmed  
+            BOOKING_COMPLETED_N_CLOSED : 7,  // onServer it is While Driving    
+            BOOKING_CANCELLED : 8,           // onServer it is Completed
+            BOOKING_CANCELLED_ON_CALL : 9,   // onServer it is Cancelled  
 
             /* VEHICLE STATUS */
 

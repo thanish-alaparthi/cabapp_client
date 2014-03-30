@@ -57,7 +57,7 @@ angular.module('sigmaCabsApp')
 
         scope.fnClearBookingForm = function() {
             var oDate = new Date();
-                oDate.setMinutes(oDate.getMinutes()  + 20);
+                oDate.setMinutes(oDate.getMinutes()  + 25);
             var MM = parseInt(oDate.getMonth()+1),
                 DD  = oDate.getDate(),
                 YYYY = oDate.getFullYear(),
