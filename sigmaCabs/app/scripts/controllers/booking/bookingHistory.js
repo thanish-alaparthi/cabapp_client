@@ -26,6 +26,7 @@ angular.module('sigmaCabsApp')
 
 		scope.BOOKING_CANCELLED = PreConfigService.BOOKING_CANCELLED;
 		scope.BOOKING_COMPLETED_N_CLOSED = PreConfigService.BOOKING_COMPLETED_N_CLOSED;
+		scope.BOOKING_CANCELLED_ON_CALL = PreConfigService.BOOKING_CANCELLED_ON_CALL;
 
 		scope.gridCustomerBookingOptions = {
 			data: 'bookingHistoryDetails',
@@ -81,7 +82,7 @@ angular.module('sigmaCabsApp')
 			}, { 
 				displayName: 'Action',
 				width: 95,
-				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED) ? "Book Again" : "Edit/View" )}}</button></div>'
+				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED_ON_CALL) ? "Book Again" : "Edit/View" )}}</button></div>'
 			}],
 			enablePaging: false,
 			showFooter: false,
