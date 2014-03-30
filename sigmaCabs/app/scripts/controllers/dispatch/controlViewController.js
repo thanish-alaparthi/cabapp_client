@@ -669,6 +669,8 @@ angular.module('sigmaCabsApp')
           scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
           scope.bookingDetailsData.booking.displayPickupDate = PrerequisiteService.fnFormatDate(data.booking.pickupDate);
           scope.bookingDetailsData.booking.onlyDate = data.booking.pickupDate.split('-')[2];
+          scope.bookingDetailsData.customer.categoryText = (data.customer.category) ? PrerequisiteService.fnGetCustomerCategoryById(data.customer.category).categoryName : data.customer.category;
+          scope.bookingDetailsData.customer.gradeText = (data.customer.grade) ? PrerequisiteService.fnGetGradeById(data.customer.grade).grade : data.customer.grade;
           console.log('bookingDetailsData', scope.bookingDetailsData);
         }
         /*END: Loader methods*/

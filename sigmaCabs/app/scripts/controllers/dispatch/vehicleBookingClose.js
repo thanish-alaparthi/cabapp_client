@@ -68,6 +68,17 @@ angular.module('sigmaCabsApp')
         console.log('pickupTimeStamp: ' + pickupTimeStamp);
         console.log('currentTimeStamp: ' + currentTimeMsec);
         scope.bookingClose.tripTime = PrerequisiteService.fnDiffInTwoDatesForDisplay(pickupTimeStamp, currentTimeMsec);
+        
+        scope.close = function() {
+            dialog.close();
+        }
+
+        // if close booking is before the pickup time
+        /*if(currentTimeMsec < pickupTimeStamp) {
+            alert('Cannot give close report before pickup time');
+            scope.close();
+            //return;
+        }*/
         for (var i = 0, pTypelength = scope.vehiclePackageTypes.length; i < pTypelength; i++) {
             var oPackageData = scope.vehiclePackageTypes[i],
                 packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace), // package time + grace time
@@ -208,9 +219,6 @@ angular.module('sigmaCabsApp')
             }
         };
 
-        scope.close = function() {
-            dialog.close();
-        }
         scope.fnSaveAndClose = function() {
             var oData = {
                 "id": "", // need to check with lala about id

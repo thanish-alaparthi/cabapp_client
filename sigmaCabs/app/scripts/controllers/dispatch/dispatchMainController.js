@@ -176,7 +176,8 @@ angular.module('sigmaCabsApp')
                 }, {
                     field: 'deadMileage',
                     displayName: 'D.ML',
-                    headerTitle: 'Dead Mileage'
+                    headerTitle: 'Dead Mileage',
+                    cellFilter: 'number'
                 }, {
                     field: 'startTime',
                     displayName: 'S.T',
