@@ -155,6 +155,10 @@ angular.module('sigmaCabsApp')
             parentId: "0"
           });
           scope.vNames = angular.copy(PrerequisiteService.fnGetVehicleNames());
+          scope.oAreas = angular.copy(PrerequisiteService.fnGetAllLocations());
+          scope.oAreas.push({
+            location : 'All'
+          });
           scope.vTypes = angular.copy(PrerequisiteService.fnGetVehicleTypes());
           scope.vStates = angular.copy(PrerequisiteService.fnGetAllVehicleStatus());
           scope.vStates.push({
@@ -276,7 +280,7 @@ angular.module('sigmaCabsApp')
             collection : '',
             projHrs  : '',
             zone : '',
-            area: '',
+            area: 'All',
             vacantTm : '',
             vCondtion  : '',
             vehicle : scope.oVehicleDefault,
@@ -291,7 +295,7 @@ angular.module('sigmaCabsApp')
             sjFrom : '',
             sjTo :  '',
             zone : '',
-            area : '',
+            area : 'All',
             searchByType : '',
             searchByText: ''
           };
@@ -299,7 +303,7 @@ angular.module('sigmaCabsApp')
             loginDate :scope.bookingInfoDate,
             vehicle : scope.oVehicleDefault,
             zone : '',
-            area : '',
+            area : 'All',
             fromTime : 'all',
             toTime: 'all'
           };
@@ -791,7 +795,7 @@ angular.module('sigmaCabsApp')
                   projectedHrs :  scope.viSearch.projHrs,
                   dayCollection :  scope.viSearch.collection,
                   zone : scope.viSearch.zone,
-                  area : scope.viSearch.area,
+                  area : (scope.viSearch.area == 'All' ? '' : scope.viSearch.area),
                   vacantTm : scope.viSearch.vacantTm,
                   expectedVacantVehicle : scope.viSearch.expectedVacantVehicle
                 };
@@ -853,7 +857,7 @@ angular.module('sigmaCabsApp')
               "subJourneyTypeFrom" : scope.biSearch.sjFrom,
               "subJourneyTypeTo" : scope.biSearch.sjTo,
               "zone" : scope.biSearch.zone,
-              "area" : scope.biSearch.area,
+              "area" : (scope.biSearch.area == 'All' ? '': scope.biSearch.area),
               "searchByType" : scope.biSearch.searchByType,
               "searchByText" : scope.biSearch.searchByText
             };
@@ -896,7 +900,7 @@ angular.module('sigmaCabsApp')
               "vehicleName" : scope.alSearch.vName,
              //  "projectedHrs" : "",
               "zone" : scope.alSearch.zone,
-              "area" : scope.alSearch.area,
+              "area" : ( scope.alSearch.area == 'All' ? '' : scope.alSearch.area),
               "expLoginFrom" : ((scope.alSearch.fromTime == 'all') ? '0' : scope.alSearch.fromTime ),
               "expLoginTo" : ((scope.alSearch.toTime == 'all') ? '23' : scope.alSearch.toTime )
             };
