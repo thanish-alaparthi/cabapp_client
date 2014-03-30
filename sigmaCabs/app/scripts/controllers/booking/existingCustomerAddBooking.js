@@ -284,14 +284,14 @@ angular.module('sigmaCabsApp')
 
 			// get the numbers which are ticked for sms feature.
 			var aSms = scope.fnGetTickedSmsMobiles(),
-				sBookingStatus = PrerequisiteService.BOOKING_YET_TO_DISPATCH;
+				sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
 
 			if(    !scope.bookingDetails.bookingStatus 
-				|| scope.bookingDetails.bookingStatus == PrerequisiteService.BOOKING_ENQUIRY
-				|| scope.bookingDetails.bookingStatus == PrerequisiteService.BOOKING_FOLLOW_UP
-				|| scope.bookingDetails.bookingStatus == PrerequisiteService.BOOKING_REJECTED
+				|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_ENQUIRY
+				|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_FOLLOW_UP
+				|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_REJECTED
 			) {
-				sBookingStatus = PrerequisiteService.BOOKING_YET_TO_DISPATCH;
+				sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
 			} else {
 				sBookingStatus = scope.bookingDetails.bookingStatus;
 			}
@@ -422,7 +422,6 @@ angular.module('sigmaCabsApp')
 				alert('Previous save is in progress.\n Please be patient.');
 				return;
 			}
-			scope.isApiInProgress = true;
 
 
 			if(!PrerequisiteService.fnValidateBookingTime(oData.pickupDate, oData.pickupTime)){
@@ -436,6 +435,8 @@ angular.module('sigmaCabsApp')
 			oData.lon = aLatLon[0].longitude;
 
 
+
+			scope.isApiInProgress = true;
 			BookingService.fnSaveBooking(oData)
 			.success(function(data, status, headers, config) {				
 				console.log('Success fnSaveBooking: ',data);
