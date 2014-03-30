@@ -40,10 +40,6 @@
                     <select class="selectFieldCompact" data-ng-model="logout.pickupMinutes" ng-options='k as v for (k,v) in minutes' style="width:50px;"></select>
                     <p class="clear"/>
                 </div>
-                <div class="fieldContainer relative">
-                    <label class="labelCompact requiredField" title="Vehicle Checked By">Checked By</label>
-                    <input type="text" ng-model="logout.checkedBy" maxlength="20" class="textFieldCompact" alphabets-only restrict="A"/>
-                </div>
                 <div class="fieldContainer relative" style="height:60px;">
                     <label class="labelCompact requiredField">Comments</label>
                     <textarea data-ng-model="logout.comments"></textarea>
@@ -73,10 +69,15 @@
                         <input type="text" ng-model="logout.fuelReceiptNo" maxlength="20" class="textFieldCompact" alphabets-only restrict="AN"/>
                     </div>
                     <p class="clear"/>
-                    <div class="fieldContainer relative">
+                    <div class="fieldContainer relative left" style="width:180px;">
                         <label class="labelCompact" title="Filling Station Location">Bunk Loc.</label>
                         <input type="text" data-ng-class="{fieldExpand: bunkLocationFocused}" data-ng-blur="bunkLocationFocused = false" data-ng-focus="bunkLocationFocused = true" ng-model="logout.fuelLocation" maxlength="20" class="textFieldCompact" googleplace />
                     </div>
+                    <div class="fieldContainer relative right" style="width:180px">
+                        <label class="labelCompact requiredField" title="Vehicle Checked By">Checked By</label>
+                        <input type="text" ng-model="logout.checkedBy" maxlength="20" class="textFieldCompact" alphabets-only restrict="A"/>
+                    </div>
+                    <p class="clear"/>
                     <div class="fieldContainer relative left" style="width:180px;">
                         <label class="labelCompact" title="Incharge Name from Company">Incharge Nm.</label>
                         <input type="text" ng-model="logout.fuelIncharge" maxlength="20" class="textFieldCompact" alphabets-only restrict="A"/>

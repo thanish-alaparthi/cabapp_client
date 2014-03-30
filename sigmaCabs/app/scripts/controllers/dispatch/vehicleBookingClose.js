@@ -36,6 +36,7 @@ angular.module('sigmaCabsApp')
         scope.tmpDetails = {};
         initialStartKms = Math.abs(parseFloat(scope.vehicleDetails.vehicleMainDetails.details.startKms).toFixed(2)) || 0;
         scope.bookingClose.currentKms = initialStartKms;
+        scope.bookingClose.modifiedPackageText = '--';
         scope.bookingClose.subJourneyType = scope.vehicleDetails.vehicleMainDetails.details.subJourneyType;
         scope.bookingClose.custCat = PrerequisiteService.fnGetCustomerCategoryById(scope.vehicleDetails.vehicleMainDetails.details.category).categoryName;
         scope.bookingClose.custGrade = PrerequisiteService.fnGetGradeById(scope.vehicleDetails.vehicleMainDetails.details.grade).grade;
@@ -47,7 +48,6 @@ angular.module('sigmaCabsApp')
         console.log('vehicle Type: ' + scope.vehicleDetails.vehicleMainDetails.vehicleType);
         scope.bookingClose.tariffDetails = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);
         console.log(scope.bookingClose.tariffDetails);
-        scope.bookingClose.modifiedPackageShow = false;
 
         oJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.vehicleDetails.vehicleMainDetails.details.subJourneyType);
         scope.tmpSelectedJourneyType = oJt;
@@ -73,12 +73,6 @@ angular.module('sigmaCabsApp')
             dialog.close();
         }
 
-        // if close booking is before the pickup time
-        /*if(currentTimeMsec < pickupTimeStamp) {
-            alert('Cannot give close report before pickup time');
-            scope.close();
-            //return;
-        }*/
         for (var i = 0, pTypelength = scope.vehiclePackageTypes.length; i < pTypelength; i++) {
             var oPackageData = scope.vehiclePackageTypes[i],
                 packageTime = parseFloat(oPackageData.duration) + parseFloat(oPackageData.grace), // package time + grace time
@@ -101,6 +95,8 @@ angular.module('sigmaCabsApp')
                 scope.bookingClose.graceTime = oPackageData.grace;
                 scope.bookingClose.extraKmsChrg = oPackageData.extraKmPrice;
                 scope.bookingClose.extraHrChrg = oPackageData.extraHrPrice;
+                scope.bookingClose.extraCharges = oPackageData.extraCharges1;
+                scope.bookingClose.extraKmsUsed = (Math.abs(scope.bookingClose.actualKms) >  Math.abs(oPackageData.kms)) ? (Math.abs(scope.bookingClose.actualKms) - Math.abs(oPackageData.kms)) : 0;
                 break;
             }
         }
@@ -119,10 +115,11 @@ angular.module('sigmaCabsApp')
             modifiedPackage = PrerequisiteService.fnGetTariffByVtypeAndSubJtype(scope.vehicleDetails.vehicleMainDetails.vehicleType, scope.bookingClose.subJourneyType);
             currentPackage = angular.copy(modifiedPackage);
             scope.bookingClose.modifiedPackageText = modifiedPackage.text;
-            scope.bookingClose.modifiedPackageShow = true;
             scope.bookingClose.graceTime = currentPackage.grace;
             scope.bookingClose.extraKmsChrg = currentPackage.extraKmPrice;
             scope.bookingClose.extraHrChrg = currentPackage.extraHrPrice;
+            scope.bookingClose.extraCharges = currentPackage.extraCharges1;
+            scope.bookingClose.extraKmsUsed = (Math.abs(scope.bookingClose.actualKms) >  Math.abs(currentPackage.kms)) ? (Math.abs(scope.bookingClose.actualKms) - Math.abs(currentPackage.kms)) : 0;
             scope.fnCalculateOnCurrentKms(modifiedPackage);
         }
 
@@ -172,6 +169,8 @@ angular.module('sigmaCabsApp')
                 } else {
                     scope.bookingClose.totalAmount = calculatedAmount;
                 }
+
+                scope.bookingClose.extraKmsUsed = (Math.abs(scope.bookingClose.actualKms) >  Math.abs(currentPackage.kms)) ? (Math.abs(scope.bookingClose.actualKms) - Math.abs(currentPackage.kms)) : 0;
             } else {
                 alert('Please enter valid kms.');
             }
@@ -237,7 +236,7 @@ angular.module('sigmaCabsApp')
                 "tariffCalculated": actualPackage.subJourneyType,
                 "totalAmount": scope.bookingClose.totalAmount,
                 "paidAmount": scope.bookingClose.paidAmount,
-                "actualDropPlace": scope.bookingClose.actualDropPlace,
+                "actualDropPlace": scope.bookingClose.actualDropPlace || '',
                 "lattitude": "1523.678",
                 "longitude": "678.1523",
                 "discount": scope.bookingClose.discount,
@@ -246,7 +245,7 @@ angular.module('sigmaCabsApp')
             };
             console.log(oData);
             // validations
-            if (isNaN(oData.currentKms) || isNaN(oData.paidAmount) || oData.comments === '') {
+            if (isNaN(oData.currentKms) || isNaN(oData.paidAmount) || oData.comments === '' || oData.actualDropPlace === '') {
                 alert('Please enter valid information.');
                 return false;
             } else if (oData.currentKms <= initialStartKms) {

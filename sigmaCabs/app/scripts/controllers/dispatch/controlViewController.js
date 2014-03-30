@@ -657,11 +657,12 @@ angular.module('sigmaCabsApp')
         }
         scope.loadVehicleDetailsData = function(data){
           scope.vehicleDetailsData = data;
-          scope.vehicleDetailsData.dispatchCallDriverNo = data.driver.mobile;
+          scope.vehicleDetailsData.dispatchCallDriverNo = data.vehicle.registeredMobile;
         }
         scope.loadBookingDetailsData = function(data){
           scope.bookingDetailsData = data;
-          scope.bookingDetailsData.bookingCallDriverNo = data.driver.mobile;
+          scope.bookingDetailsData.bookingCallDriverNo = data.vehicle.registeredMobile;
+          scope.bookingDetailsData.bookingCallCustomerNo = data.customer.mobile;
           scope.bookingDetailsData.booking.displayPickupDate = PrerequisiteService.fnFormatDate(data.booking.pickupDate);
           scope.bookingDetailsData.booking.onlyDate = data.booking.pickupDate.split('-')[2];
           scope.bookingDetailsData.customer.categoryText = (data.customer.category) ? PrerequisiteService.fnGetCustomerCategoryById(data.customer.category).categoryName : data.customer.category;

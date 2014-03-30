@@ -16,7 +16,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Discount">Discount</label>discount
+			<label title="Discount">Discount</label> {{bookingDetailsData.customer.discount}}
 		</div>
 		<div class="col-xs-6">
 			<select title="Customer No" class="left" data-ng-model="bookingDetailsData.bookingCallCustomerNo">
@@ -55,10 +55,10 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-			<label title="Package Amount">P. Amt.</label> Amount
+			<label title="Package Amount">P. Amt.</label> {{bookingDetailsData.booking.amount}}
 		</div>
 		<div class="col-xs-6" title="Selected Package">
-			<span class="ellipsisText" title="selected package">selected package</span>
+			<span class="ellipsisText" title="selected package"> {{bookingDetailsData.booking.closePackage}}</span>
 		</div>
 	</div>
 	<div class="row">
@@ -114,7 +114,7 @@
 		</div>
 		<div class="col-xs-4">
 			<select title="Driver No" data-ng-model="bookingDetailsData.bookingCallDriverNo" class="left">
-				<option value="{{bookingDetailsData.owner.mobile}}" title="Owner No.">Own.No</option>
+				<!-- <option value="{{bookingDetailsData.owner.mobile}}" title="Owner No.">Own.No</option> -->
 				<option value="{{bookingDetailsData.driver.mobile}}" title="Driver No.">Dri.No</option>
 				<option ng-selected="vehicleDetailsData.vehicle.registeredMobile" value="{{bookingDetailsData.vehicle.registeredMobile}}" title="Registered No.">Reg.No</option>
 			</select>

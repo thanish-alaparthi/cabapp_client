@@ -15,6 +15,7 @@ angular.module('sigmaCabsApp')
 		console.log('inside vehicleLogout', oVehicleData);
 
 		scope.allLocations = PrerequisiteService.fnGetAllLocations();
+		scope.vehicleDetails = oVehicleData;
 
 		// set current Date for pickup date
 		scope.dpCurrentDate = PrerequisiteService.fnFormatDate();
@@ -26,8 +27,9 @@ angular.module('sigmaCabsApp')
 		scope.logout.pickupDate = angular.copy(scope.dpCurrentDate);
 		scope.logout.pickupHours = "00";
 		scope.logout.pickupMinutes = "00";
+		scope.logout.currentLocation = scope.vehicleDetails.vehicleMainDetails.location;
+		scope.logout.nextLoginLocation = scope.vehicleDetails.vehicleMainDetails.homeLocation;
 
-		scope.vehicleDetails = oVehicleData;
 		scope.logout.currentKms = scope.vehicleDetails.vehicleMainDetails.details.previousKms;
 
 		scope.close = function() {
@@ -65,7 +67,7 @@ angular.module('sigmaCabsApp')
 			if (oData.currentKms < startOrPreviousKms) {
 				alert('Current Kms cannot be less than previous kms.');
 				return;
-			} else if (oData.checkedBy === '' || oData.location === '' || isNaN(oData.currentKms) || oData.comments === '') {
+			} else if (oData.location === '' || isNaN(oData.currentKms) || oData.comments === '') {
 				alert('Please enter valid information');
 				return;
 			} else if(new Date(oData.expLoginTime).getTime() < new Date().getTime()) {
@@ -76,6 +78,7 @@ angular.module('sigmaCabsApp')
 				return;
 			} else // if company vehicle
 			if (scope.logout.isFuel && (oData.fuelLtrs == '' ||
+				oData.checkedBy === '' || 
 				oData.amount == '' ||
 				oData.bunkName == '' ||
 				oData.bunkLocation == '' ||

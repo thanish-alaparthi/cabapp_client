@@ -25,7 +25,7 @@ angular.module('sigmaCabsApp')
                 "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
                 "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
                 "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
-                "currentLocation": scope.vehicleDetails.vehicleMainDetails.location,
+                "currentLocation": scope.vehicleDetails.vehicleMainDetails.details.pickupPlace,
                 "newLocation": scope.changePickup.newLocation,
                 "latitude": "1745.852",
                 "longitude": "145821.369",

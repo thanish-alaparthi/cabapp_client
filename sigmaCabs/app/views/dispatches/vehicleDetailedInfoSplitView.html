@@ -71,7 +71,7 @@
 				<div class="col-xs-4">
 					<!-- Removed ng-if as it was giving issue when data updates  ng-if="vehicleDetailsData.vehicle.registeredMobile" -->
 					<select data-ng-model="vehicleDetailsData.dispatchCallDriverNo" title="Driver No" class="left">
-						<option value="{{vehicleDetailsData.owner.mobile}}" title="Owner No.">Own.No</option>
+						<!-- <option value="{{vehicleDetailsData.owner.mobile}}" title="Owner No.">Own.No</option> -->
 						<option value="{{vehicleDetailsData.driver.mobile}}" title="Driver No.">Dri.No</option>
 						<option ng-selected="vehicleDetailsData.vehicle.registeredMobile" value="{{vehicleDetailsData.vehicle.registeredMobile}}" title="Registered No.">Reg.No</option>
 					</select>
@@ -90,7 +90,7 @@
 				</div>
 				<div class="col-xs-4" title="Previous Location">
 					<!-- <label title="Previous Location">Prev.Loc</label> -->
-					<span class="ellipsisText" title="{{vehicleDetailsData.vehicle.prevousLocation}}">{{vehicleDetailsData.vehicle.prevousLocation}}</span>
+					<span class="ellipsisText" title="{{vehicleDetailsData.vehicle.previousLocation}}">{{vehicleDetailsData.vehicle.previousLocation}}</span>
 				</div>
 			</div>
 			<div class="row">

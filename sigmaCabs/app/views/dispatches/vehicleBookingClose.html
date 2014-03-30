@@ -27,29 +27,16 @@
                 </div>
                 <div class="fieldContainer relative left">
                     <label class="labelCompact" style="width: 80px;">Trip Time</label>
-                    <span class="ellipsisText" title="{{bookingClose.tripTime}}" style="font-size: 12px;
-width: 115px;">{{bookingClose.tripTime}}</span>
+                    <strong><span class="ellipsisText" title="{{bookingClose.tripTime}}" style="font-size: 12px;
+width: 115px;">{{bookingClose.tripTime}}</span></strong>
                 </div>
                 <p class="clear"/>
-                <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact">Start Kms</label>
-                    <span>{{vehicleDetails.vehicleMainDetails.details.startKms}}</span>
-                </div>
-                <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact requiredField">Current Kms</label>
-                    <input type="text" ng-model="bookingClose.currentKms" maxlength="10" class="textFieldCompact" data-ng-blur="fnCalculateOnCurrentKms()" number-only/>
-                </div>
-                <div class="fieldContainer relative left">
-                    <label class="labelCompact" style="width: 80px;">Trip Kms</label>
-                    <span>{{bookingClose.actualKms}}</span>
-                </div>
-                <p class="clear"/>
-                <div class="fieldContainer relative left margin-right10">
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10">
                     <label class="labelCompact">Drop Place</label>
-                    <span class="ellipsisText" title="{{vehicleDetails.vehicleMainDetails.details.dropPlace}}">{{vehicleDetails.vehicleMainDetails.details.dropPlace}}</span>
+                    <span class="ellipsisText" title="{{vehicleDetails.vehicleMainDetails.details.dropPlace}}" style="width: 200px;">{{vehicleDetails.vehicleMainDetails.details.dropPlace}}</span>
                 </div>
-                <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact">New Drop Place</label>
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10">
+                    <label class="labelCompact requiredField">New Drop Place</label>
                     <input type="text" data-ng-class="{fieldExpand: locationFocused}" data-ng-blur="locationFocused=false" data-ng-focus="locationFocused=true" ng-model="bookingClose.actualDropPlace" maxlength="15" class="textFieldCompact" googleplace/>
                 </div>
                 <p class="clear"/>
@@ -59,29 +46,33 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                     <!-- <span class="ellipsisText" title="{{bookingClose.tariffDetails.text}}">{{bookingClose.tariffDetails.text}}</span> -->
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10">
-                    <label class="labelCompact">New Package</label>
-                    <span>{{bookingClose.tariffActualText}}</span>
-                    <!-- <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="bookingClose.tariffActual" data-ng-options="obj.id as obj.text for obj in vehiclePackageTypes" disabled></select> -->
+                    <label class="labelCompact">Journey Type</label>
+                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10">
-                    <label class="labelCompact">Journey Type</label>
-                    <select class="validate[maxSize[36]] selectFieldCompact" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes"></select>
+                    <label class="labelCompact">New Package</label>
+                    <span>{{bookingClose.tariffActualText}}</span>
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative left">
                     <label class="labelCompact">Sub-Journey Type</label>
                     <select class="validate[maxSize[36]] selectFieldCompact" data-ng-change="fnUpdatePackage()"  data-ng-model="bookingClose.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes"></select>
                 </div>
                 <p class="clear"/>
-                <div class="fieldContainer fieldContainer-lg relative left margin-right10" data-ng-show="bookingClose.modifiedPackageShow" style="width: 100%;">
+                <div class="fieldContainer fieldContainer-lg relative left margin-right10">
                     <label class="labelCompact">Modified Package</label>
                     <span>{{bookingClose.modifiedPackageText}}</span>
                 </div>
+                <div class="fieldContainer fieldContainer-lg relative left">
+                    <label class="labelCompact" style="display:inline;">Extra Kms used</label>
+                    <span>{{bookingClose.extraKmsUsed}}</span>
+                </div>
+                <p class="clear" />
                 <div class="fieldContainer relative left margin-right10">
                     <label class="labelCompact" title="Extra Hour Charge">Ex. Hr Chrg.</label>
                     <span>{{bookingClose.extraHrChrg}}</span>
                 </div>
-                <div class="fieldContainer relative left margin-right10">
+                <div class="fieldContainer relative left">
                     <label class="labelCompact" title="Extra Kms Charge">Ex. Kms Chrg.</label>
                     <span>{{bookingClose.extraKmsChrg}}</span>
                 </div>
@@ -94,7 +85,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                     <label class="labelCompact" title="Customer Category">Cust. Catg.</label>
                     <span>{{bookingClose.custCat}}</span>
                 </div>
-                <div class="fieldContainer relative left margin-right10">
+                <div class="fieldContainer relative left">
                     <label class="labelCompact" title="Customer Grade">Cust. Grade</label>
                     <span>{{bookingClose.custGrade}}</span>
                 </div>
@@ -104,10 +95,27 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
-                    <label class="labelCompact">Total Amount</label>
-                    <span>{{bookingClose.totalAmount}}</span>
+                    <label class="labelCompact">Start Kms</label>
+                    <span>{{vehicleDetails.vehicleMainDetails.details.startKms}}</span>
                 </div>
+                <div class="fieldContainer relative left">
+                    <label class="labelCompact">Trip Kms</label>
+                    <strong><span>{{bookingClose.actualKms}}</span></strong>
+                </div>
+                <div class="fieldContainer relative left">
+                    <label class="labelCompact requiredField">Current Kms</label>
+                    <input type="text" ng-model="bookingClose.currentKms" maxlength="10" class="textFieldCompact" data-ng-blur="fnCalculateOnCurrentKms()" number-only autofocus/>
+                </div>
+                <p class="clear"/>
                 <div class="fieldContainer relative left margin-right10">
+                    <label class="labelCompact" title="Extra Charge">Extra Chg.</label>
+                    <span>{{bookingClose.extraCharges}}</span>
+                </div>
+                <div class="fieldContainer relative left">
+                    <label class="labelCompact">Total Amount</label>
+                    <strong><span>{{bookingClose.totalAmount}}</span></strong>
+                </div>
+                <div class="fieldContainer relative left">
                     <label class="labelCompact requiredField">Paid Amount</label>
                     <input type="text" ng-model="bookingClose.paidAmount" maxlength="10" class="textFieldCompact" number-only/>
                 </div>
@@ -118,7 +126,7 @@ width: 115px;">{{bookingClose.tripTime}}</span>
                 </div>
                 <div class="fieldContainer fieldContainer-lg relative left margin-right10" style="height:60px;">
                     <label class="labelCompact requiredField">Comments</label>
-                    <textarea data-ng-model="bookingClose.comments" class=""></textarea>
+                    <textarea data-ng-model="bookingClose.comments" class="" style="width:198px;"></textarea>
                 </div>
                 <p class="clear"/>
             </fieldset>

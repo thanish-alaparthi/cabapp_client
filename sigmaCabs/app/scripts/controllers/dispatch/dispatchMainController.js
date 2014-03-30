@@ -340,7 +340,7 @@ angular.module('sigmaCabsApp')
                         break;
                     case "2": // Vacant
                     case "3": // In Break
-                        var loginTime = scope.vehicleMainDetails.details.loginTime.split(' ');
+                        var loginTime = (scope.vehicleMainDetails.details.loginTime) ? scope.vehicleMainDetails.details.loginTime.split(' ') : '';
                         scope.bookingType = "1";
                         scope.vStateHeading = (scope.vehicleMainDetails.vehicleState == "3") ? ' - In Break' : '';
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
@@ -348,7 +348,7 @@ angular.module('sigmaCabsApp')
                         scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
                         scope.vehicleMainDetails.details.vacantTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
                         scope.vehicleMainDetails.details.overAllBreakTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.dayBreakTime);
-                        scope.vehicleMainDetails.details.loginTime = loginTime[0].split('-')[2] + ' -> ' + loginTime[1].substring(0, 5);
+                        scope.vehicleMainDetails.details.loginTime = (scope.vehicleMainDetails.details.loginTime) ? (loginTime[0].split('-')[2] + ' -> ' + loginTime[1].substring(0, 5)) : '';
                         scope.vVacantView = true;
                         break;
                     case "4": // Allot
@@ -739,6 +739,13 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnVehicleBookingClose = function() {
+            // if close booking is before the pickup time
+            var pickupTimeStamp = new Date(scope.vehicleMainDetails.details.pickupDate + ' ' + scope.vehicleMainDetails.details.pickupTime).getTime();
+            if(new Date().getTime() < pickupTimeStamp) {
+                alert('Cannot give close report before pickup time');
+                return;
+            }
+            
             $scope.opts = {
                 templateUrl: URLService.view('vehicleBookingClose'),
                 controller: 'vehicleBookingClose',
