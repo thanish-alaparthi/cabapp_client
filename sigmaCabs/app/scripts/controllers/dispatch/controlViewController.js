@@ -61,6 +61,9 @@ angular.module('sigmaCabsApp')
           scope.bookingDataLength = 0;
 
           scope.bookingInfoData = [];
+
+          scope.totalTotalBookingInfoAmount  = 0;
+
           // setting to current Date
           scope.bookingInfoDate = PrerequisiteService.fnFormatDate();
           scope.bookingInfoDataObjs = [];
@@ -586,6 +589,7 @@ angular.module('sigmaCabsApp')
         };
         scope.FormatNloadBookingInfoGridData = function(data){
           console.log('raw bookingInfoData', data);
+          scope.totalTotalBookingInfoAmount = data.total_amount;
           var data = data, 
               dataLen = data.length,
               formatSource = PrerequisiteService;
@@ -1485,7 +1489,7 @@ angular.module('sigmaCabsApp')
           {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'bookingOrigin', displayName:'booked from', width: '*'},
           {field:'bookingStatusNm', displayName:'B.Status', width: '*'},
-          {field:'vehicleStatusNm', displayName:'V.Status', width: '*'},
+          {field:'amount', displayName:'Amount', width: '*'},
           {field:'vehicleCode', displayName:'VID', width: '*'}
         ];
 
