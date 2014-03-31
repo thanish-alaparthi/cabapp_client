@@ -13,6 +13,8 @@ angular.module('sigmaCabsApp')
 
 		scope.resVehicleId = null;
 
+		scope.customerDetails = oCustomer;
+
 		scope.selectedVehicleType = PrerequisiteService.fnGetVehicleTypeById(oBooking.vehicleType);
         scope.selectedVehicleName = PrerequisiteService.fnGetVehicleNameById(oBooking.vehicleName);
         

@@ -374,10 +374,10 @@ angular.module('sigmaCabsApp')
 
     /*START: Formatting and Loading methods for the grids data */
         /*START: Formatter methods*/
-        scope.FormatNloadBookingMgmtGridData = function(data){
-          console.log('raw bookingGridData', data)
+        scope.FormatNloadBookingMgmtGridData = function(oData){
+          console.log('raw bookingGridData', oData.data)
 
-          var data = data, 
+          var data = oData.data, 
               dataLen = data.length,
               formatSource = PrerequisiteService;
           while(dataLen--){
@@ -587,10 +587,10 @@ angular.module('sigmaCabsApp')
           console.log('FormatNloadAutoLoginVehicleGridData Formated data',data);
           scope.loadAutoLoginVehicleGridData(data);
         };
-        scope.FormatNloadBookingInfoGridData = function(data){
-          console.log('raw bookingInfoData', data);
-          scope.totalTotalBookingInfoAmount = data.total_amount;
-          var data = data, 
+        scope.FormatNloadBookingInfoGridData = function(oData){
+          console.log('raw bookingInfoData', oData.data);
+          scope.totalTotalBookingInfoAmount = oData.total_amount;
+          var data = oData.data, 
               dataLen = data.length,
               formatSource = PrerequisiteService;
           while(dataLen--){
@@ -601,6 +601,8 @@ angular.module('sigmaCabsApp')
             datum.vehicleStatusNm =  datum.vehicleStatus ? formatSource.fnGetVehicleStatusTextById(datum.vehicleStatus) : "";
             datum.bookingStatusNm =  datum.bookingStatus ? formatSource.fnGetBookingStatusName(datum.bookingStatus) : "";
             datum.vehicleTypeNm =  datum.vehicleType ? formatSource.fnGetVehicleTypeById(datum.vehicleType).vehicleType : "";
+            datum.subJourneyTypeNm =  datum.subJourneyType ? formatSource.fnGetSubJourneyObjectById(datum.subJourneyType).journeyType : "";
+            datum.journeyTypeNm =  datum.journeyType ? formatSource.fnGetJourneyObjectById(datum.journeyType).journeyType : "";
           }
           console.log('FormatNloadBookingInfoGridData Formated data',data);
           scope.loadBookingInfoGridData(data);
@@ -1457,10 +1459,9 @@ angular.module('sigmaCabsApp')
         scope.bookingInfoRecordSelectedFn = function(selected){
           var vehicleId = selected.vehicleId,
               bookingId = selected.bookingId;
-
             if(!vehicleId) {
               alert('Vehicle is not assigned to ' + selected.bookingCode);
-              return;
+         //     return;
             }
           scope.selectedBookingId = bookingId;
           scope.bookingInfoRecordSelected = true;
@@ -1485,8 +1486,8 @@ angular.module('sigmaCabsApp')
           {field:'vehicleNameNm', displayName:'V.Name', width: '*'},
           {field:'pickupTime', displayName:'Pickup Time', width: '*'},
           {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
-          {field:'journeyType', displayName:'Journey', width: '*'},
-          {field:'subJourneyType', displayName:'Package', width: '*'},
+          {field:'journeyTypeNm', displayName:'Journey', width: '*'},
+          {field:'subJourneyTypeNm', displayName:'Package', width: '*'},
           {field:'bookingOrigin', displayName:'booked from', width: '*'},
           {field:'bookingStatusNm', displayName:'B.Status', width: '*'},
           {field:'amount', displayName:'Amount', width: '*'},

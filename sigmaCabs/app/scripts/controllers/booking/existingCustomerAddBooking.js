@@ -435,6 +435,23 @@ angular.module('sigmaCabsApp')
 			oData.lon = aLatLon[0].longitude;
 
 
+			if(!oData.subJourneyType){
+				alert('Please add the sub Journey type.');
+				return;
+			}
+			if(!oData.tariffId){
+				alert('Please select a tariff.');
+				return;
+			}
+			if(!oData.vehicleName){
+				alert('Please select a vehicle name.');
+				return;
+			}
+			if(!oData.vehicleType){
+				alert('Please select a vehicle type.');
+				return;
+			}
+
 
 			scope.isApiInProgress = true;
 			BookingService.fnSaveBooking(oData)
