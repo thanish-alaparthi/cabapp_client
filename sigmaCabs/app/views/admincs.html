@@ -4,5 +4,261 @@
 Welcome to Sigma Cabs..
 <br />
 <br />
-WIP...coming soon
+<a href="{{redirectUrl}}" target="_blank">Click here</a> to raise a ticket.
+</div>
+
+<div style="width: 60%;margin: 0 auto;" class="vehicleMastersDiv">
+	<h3>Vehicle Masters</h3>
+	<hr />
+	<div class="row" style="margin-bottom: 5px;margin-top: 10px;">
+		<div class="col-xs-2">
+			<label>Vehicle Code</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.vcode" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Vehicle M.No</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.mobile" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Registration No</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.regNo" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Vehicle Model</label>
+		</div>
+		<div class="col-xs-10">
+			<span style="margin-right:13px;">MM</span>
+			<select  style="width: 60px;" class="selectFieldCompact" data-ng-model="vehicle.modelMonth" data-ng-options="k as v for (k,v) in oMonths" style="width: 100px;"></select>
+			<span style="margin-right: 6px;margin-left: 44px;">YYYY</span>
+			<input type="text" data-ng-model="vehicle.modelYear" style="width: 100px;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Vehicle Details</label>
+		</div>
+		<div class="col-xs-10">
+			Type &nbsp;
+			<input type="text" data-ng-model="vehicle.type" style="width: 100px;"/>
+			&nbsp;
+			Color
+			&nbsp;
+			<input type="text" data-ng-model="vehicle.color" style="width: 100px;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Engine No.</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.engineNo" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Chasis No.</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.chasisNo" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Owner Name</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.ownerName" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Owner M.No</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.ownerNo" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Address</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.address" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Driver Name</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.driverName" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Driver M.No</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.driverNo" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Licence Expiry</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.licenseExp" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Barge No.</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.bargeNo" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Driver Address</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.driverAddress" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Home Location</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.driverHomeLoc" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Login Time from</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.loginTime" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Logout Time from</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.logoutTime" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Projected Hrs</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.projHrs" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Attach Type</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.attachType" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Driver Type</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.driverType" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Package</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.package" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Insurance</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.insurance" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Pollution</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.pollution" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Fitness</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.fitness" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Road Tax</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.roadTax" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Ac Condition</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="text" data-ng-model="vehicle.acCondition" style="width: 100%;"/>
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>Facilities</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="checkbox" data-ng-model="vehicle.carrier" />
+			<span style="margin-right: 10px;">Carrier</span>
+			<input type="checkbox" data-ng-model="vehicle.musicSystem" />
+			<span style="margin-right: 10px;">Music System</span>			
+		</div>
+	</div>
+	<div class="row" style="margin-bottom: 5px;">
+		<div class="col-xs-2">
+			<label>&nbsp;</label>
+		</div>
+		<div class="col-xs-10">
+			<input type="checkbox" data-ng-model="vehicle.fitForAirport" />
+			<span style="margin-right: 10px;">Airport</span>
+			<input type="checkbox" data-ng-model="vehicle.fitForLocal" />
+			<span style="margin-right: 10px;">Local</span>
+			<input type="checkbox" data-ng-model="vehicle.fitForOutstation" />
+			<span style="margin-right: 10px;">Outstation</span>
+			<input type="checkbox" data-ng-model="vehicle.fitForAll" />
+			<span style="margin-right: 10px;">All</span>
+		</div>
+	</div>
+	<button class="btnCompact btn-success" data-ng-click="fnSaveVehicleMasters()" style="margin:20px 45%;width:100px;">Save</button>
 </div>

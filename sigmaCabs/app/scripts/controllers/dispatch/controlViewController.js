@@ -1262,6 +1262,7 @@ angular.module('sigmaCabsApp')
           totalServerItems: 'bookingDataLength',
           pagingOptions: scope.bookingGridPgOptions,
           rowHeight: 22,
+          headerRowHeight : 22,
           footerRowHeight: 35,
           multiSelect: false,
           showFilter: false,
@@ -1318,6 +1319,7 @@ angular.module('sigmaCabsApp')
           multiSelect: false,
           keepLastSelected: false,
           rowHeight: 24,
+          headerRowHeight : 22,
           showColumnMenu: true,
           enableColumnResize: true,
           enableSorting: false,
@@ -1459,6 +1461,7 @@ angular.module('sigmaCabsApp')
         scope.bookingInfoRecordSelectedFn = function(selected){
           var vehicleId = selected.vehicleId,
               bookingId = selected.bookingId;
+
             if(!vehicleId) {
               alert('Vehicle is not assigned to ' + selected.bookingCode);
          //     return;
@@ -1510,6 +1513,7 @@ angular.module('sigmaCabsApp')
           totalServerItems: 'bookingInfoDataLength',
           pagingOptions: scope.bookingInfoGridPgOptions,
           rowHeight: 24,
+          headerRowHeight : 22,
           footerRowHeight: 35,
           showFooter: true,
           selectedItems: scope.selectedBookingInfoRecords,
@@ -1624,6 +1628,7 @@ angular.module('sigmaCabsApp')
           totalServerItems: 'autoLoginVehiclesLength',
           pagingOptions: scope.autoLoginVehiclesPgOptions,
           rowHeight: 24,
+          headerRowHeight : 22,
           footerRowHeight: 35,
           showFooter: true,
           selectedItems: scope.selectedAutoLoginVehiclesRecords,
@@ -1727,6 +1732,7 @@ angular.module('sigmaCabsApp')
           columnDefs: 'vacantVehiclesColDefs',
           selectedItems: scope.selectedVacantVehicleRecords,
           rowHeight: 24,
+          headerRowHeight : 22,
           enableColumnResize: true,
           multiSelect: false,
           enableRowSelection: true,

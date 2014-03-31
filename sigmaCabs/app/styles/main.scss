@@ -936,3 +936,14 @@ textFieldCompact[disabled] .textFieldCompact {
   position: static;
 }
 */
+.vehicleMastersDiv {
+  label {
+    text-align: right;
+  }
+  h3 {
+    margin-bottom: 0;
+  }
+  hr {
+    margin: 5px 0 !important;
+  }
+}

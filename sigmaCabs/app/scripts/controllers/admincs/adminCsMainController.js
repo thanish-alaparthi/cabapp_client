@@ -28,5 +28,15 @@ angular.module('sigmaCabsApp')
     })
     .controller('adminCsMainController', function($scope, $rootScope, URLService, DispatchService, $routeParams, PrerequisiteService, $dialog, modalWindow, serverService) {
         var scope = $scope;
-        console.log('In adminCsMainController');
+        scope.callerPhone = $routeParams.mobile;
+        scope.oMonths = angular.copy(PrerequisiteService.fnGetMonthsObjects());
+        //scope.redirectUrl = window.location.origin + '/ticket/upload/open.php?mobile=' + scope.callerPhone;
+        scope.redirectUrl = 'http://10.0.2.188:8080/ticket/upload/open.php?mobile=' + scope.callerPhone;
+        console.log('In adminCsMainController', scope.redirectUrl);
+        scope.vehicle = {};
+
+
+        scope.fnSaveVehicleMasters = function() {
+            alert('Wip...');
+        }
     });
