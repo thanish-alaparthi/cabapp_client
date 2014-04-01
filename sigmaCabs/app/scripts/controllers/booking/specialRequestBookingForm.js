@@ -27,7 +27,11 @@ angular.module('sigmaCabsApp')
 		}
 
 		scope.fnSaveSpecialRequestAndExit = function(){
-			$rootScope.$emit('eventSpecialRequestBookingIsSaved', scope.specialRequest);
-			scope.close();
+			if(scope.specialRequest.specialRequestComments !== '') {
+				$rootScope.$emit('eventSpecialRequestBookingIsSaved', scope.specialRequest);
+				scope.close();
+			} else {
+				alert('Please enter required information.');
+			}
 		}
 	});

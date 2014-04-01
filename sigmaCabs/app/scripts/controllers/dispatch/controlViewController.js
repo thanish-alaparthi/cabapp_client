@@ -596,7 +596,7 @@ angular.module('sigmaCabsApp')
           while(dataLen--){
             var datum = data[dataLen];
             console.log(datum.vehicleStatus, datum);
-            datum.attachmentTypeNm =  datum.attachmentType ? formatSource.fnGetAttachmentTypeById(datum.attachmentType): "";
+            datum.attachmentTypeNm =  datum.attachmentType ? formatSource.fnGetAttachmentTypeById(datum.attachmentType).attachmentType : "";
             datum.vehicleNameNm =  datum.vehicleName ? formatSource.fnGetVehicleNameById(datum.vehicleName).vehicleName : "";
             datum.vehicleStatusNm =  datum.vehicleStatus ? formatSource.fnGetVehicleStatusTextById(datum.vehicleStatus) : "";
             datum.bookingStatusNm =  datum.bookingStatus ? formatSource.fnGetBookingStatusName(datum.bookingStatus) : "";
@@ -2061,10 +2061,16 @@ angular.module('sigmaCabsApp')
 
         scope.getBookingDetails_Success = function(data){
           console.log(scope.mainGridView);
-          var oTmpJt;
+          var oTmpJt,
+            pickupTimeStamp;
           scope.FormatNloadBookingDetailsData(data);
           console.log(scope.vehicleDetailsData);
           console.log(scope.bookingDetailsData);
+          pickupTimeStamp = new Date(scope.bookingDetailsData.booking.pickupDate + ' ' + scope.bookingDetailsData.booking.pickupTime).getTime();
+          if(new Date().getTime() < pickupTimeStamp) {
+              alert('Cannot give close report before pickup time');
+              return;
+          }
 
           oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetailsData.booking.subJourneyType);
           $scope.opts = {
