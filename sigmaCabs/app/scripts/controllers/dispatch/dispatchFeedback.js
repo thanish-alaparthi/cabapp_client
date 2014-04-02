@@ -57,7 +57,7 @@ angular.module('sigmaCabsApp')
 		}
 
 		scope.fnSaveAndCloseRequest = function() {
-			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '';
+			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '';
 
 			switch (scope.tab) {
 				case 1: // Complaint Save
@@ -92,7 +92,7 @@ angular.module('sigmaCabsApp')
 						"id": "", // need to check with lala about id
 						"requester": scope.suggestions.categoryId,
 						"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
-						"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+						"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
 						"bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
 						"reasonId": scope.suggestions.reasonId || '',
 						"priority": scope.suggestions.priorityId || '',

@@ -60,7 +60,7 @@ angular.module('sigmaCabsApp')
 		}
 		scope.fnSaveAndClose = function() {
 			var oData = {
-				/*"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,*/
+				/*"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id,*/
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
 				"id": scope.vehicleDetails.vehicleMainDetails.details.breakId || '', // break start id, if already in break start
 				"breakUsedTime": totalBreakTimeInMins,

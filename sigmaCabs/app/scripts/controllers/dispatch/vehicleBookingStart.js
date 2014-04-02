@@ -50,7 +50,7 @@ angular.module('sigmaCabsApp')
             var oData = {
                 "id": "", // need to check with lala about id
                 "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
-                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id,
                 "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
                 "currentKms": scope.bookingStart.currentKms,
                 "deadMileage": scope.bookingStart.deadMileage,

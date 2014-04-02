@@ -33,7 +33,7 @@
         </div>
         <div class="fieldContainer clearBoth relative" >
             <label class="labelCompact">Driver Name</label>
-            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetails.selectedDriver" data-ng-options="obj.id as obj.name for obj in vehicleMainDetails.driver">
+            <select class="validate[maxSize[36]] selectFieldCompact" ng-model="vehicleMainDetails.selectedDriver" data-ng-options="obj as obj.name for obj in vehicleMainDetails.driver">
             </select>
         </div>
         <hr class="buttonSpliter" />

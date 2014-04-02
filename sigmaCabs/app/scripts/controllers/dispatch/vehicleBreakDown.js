@@ -24,7 +24,7 @@ angular.module('sigmaCabsApp')
 			dialog.close();
 		}
 		scope.fnSaveAndClose = function() {
-			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
 				oData = {
 					"requester": scope.breakDown.categoryId,
 					"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',

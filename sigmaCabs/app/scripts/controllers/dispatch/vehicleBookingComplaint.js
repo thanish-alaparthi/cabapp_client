@@ -23,7 +23,7 @@ angular.module('sigmaCabsApp')
                 "id": "", // need to check with lala about id
                 "requester": "1",
                 "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
-                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id,
                 "bookingId": "13",
                 "reasonId": "2",
                 "priority": "1",

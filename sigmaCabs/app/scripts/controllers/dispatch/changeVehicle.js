@@ -40,7 +40,7 @@ angular.module('sigmaCabsApp')
             console.log(scope.vChange.pickupTime);
             var oData = {
                 "bookingId": scope.vehicleDetails.vehicleMainDetails.bookingId || '',
-                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id,
                 "currentVehicleId": scope.vehicleDetails.vehicleMainDetails.id,
                 "newVehicleId": scope.vChange.newVehicleId || '1', // need to change
                 "location": scope.vChange.location || '',

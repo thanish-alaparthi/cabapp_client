@@ -41,7 +41,7 @@ angular.module('sigmaCabsApp')
 			console.log(scope.logout.nextLoginTime);
 			var oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
-				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
 				"location": scope.logout.currentLocation || '',
 				"lattitude": "12345.564",
 				"longitude": "988756.345",

@@ -22,7 +22,7 @@ angular.module('sigmaCabsApp')
             dialog.close();
         }
         scope.fnSaveAndClose = function() {
-            var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+            var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
                 oData = {
                     "id": "", // need to check with lala about id
                     "requester": scope.vReject.categoryId,

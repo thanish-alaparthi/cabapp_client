@@ -318,7 +318,7 @@ angular.module('sigmaCabsApp')
 
                 // select first driver by default
                 if (scope.vehicleMainDetails.driver.length) {
-                    scope.vehicleMainDetails.selectedDriver = scope.vehicleMainDetails.driver[0].id;
+                    scope.vehicleMainDetails.selectedDriver = scope.vehicleMainDetails.driver[0];
                 }
 
                 scope.allLocations = PrerequisiteService.fnGetAllLocations();
@@ -534,7 +534,7 @@ angular.module('sigmaCabsApp')
         };
 
         scope.fnChangeVehiclePhone = function() {
-            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver.id !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('changeVehiclePhone'),
                     controller: 'changeVehiclePhone',
@@ -560,7 +560,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnChangeVehicleStatus = function() {
-            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver.id !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('changeVehicleStatus'),
                     controller: 'changeVehicleStatus',
@@ -587,7 +587,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnVehicleChangeLocation = function() {
-            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver.id !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('changeVehicleLocation'),
                     controller: 'changeVehicleLocation',
@@ -613,7 +613,7 @@ angular.module('sigmaCabsApp')
             }
         };
         scope.fnVehicleBreakStart = function() {
-            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver !== "") {
+            if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver.id !== "") {
                 $scope.opts = {
                     templateUrl: URLService.view('vehicleBreakStart'),
                     controller: 'vehicleBreakStart',

@@ -1905,7 +1905,12 @@ angular.module('sigmaCabsApp')
             "vehicleId": scope.vehicleDetailsData.vehicle.id, // actual VehicleID
             "driverId": scope.vehicleDetailsData.driver.id,
             "bookingId": scope.selectedBookingItems[0].bookingId,  // acutal BookingID
-            "pickupTimeStamp": scope.selectedBookingItems[0].pickupTimeStamp
+            "pickupTimeStamp": scope.selectedBookingItems[0].pickupTimeStamp,
+            /*"passengerName": || '',
+            "mobile" || '', // customer mobile*/
+            "registrationNumber": scope.vehicleDetailsData.vehicle.registrationNumber || '',
+            "driverName": scope.vehicleDetailsData.driver.name || '',
+            "mobileNumber": scope.vehicleDetailsData.driver.mobile || ''
           };
           serverService.sendData('P',
             'dispatcher/confirmVehicleToBooking',
@@ -2061,6 +2066,7 @@ angular.module('sigmaCabsApp')
 
         scope.getBookingDetails_Success = function(data){
           console.log(scope.mainGridView);
+          
           var oTmpJt,
             pickupTimeStamp;
           scope.FormatNloadBookingDetailsData(data);
@@ -2091,9 +2097,14 @@ angular.module('sigmaCabsApp')
                               selectedDriver: scope.vehicleDetailsData.driver.id,
                               tempSelectedJourneyTypeId: oTmpJt.id,
                               vehicleType: scope.vehicleDetailsData.vehicle.vehicleTypeId,
+                              owner: {
+                                mobile: ''
+                              },
                               details: {
                                 bookingId: scope.bookingDetailsData.booking.id,
                                 customerId: scope.bookingDetailsData.customer.customerCode,
+                                customerMobile: scope.bookingDetailsData.customer.mobile,
+                                customerName: scope.bookingDetailsData.customer.name,
                                 tariffId: scope.bookingDetailsData.booking.tariffId,
                                 dropPlace: scope.bookingDetailsData.booking.dropPlace,
                                 category: scope.bookingDetailsData.customer.category,

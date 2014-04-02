@@ -26,7 +26,7 @@ angular.module('sigmaCabsApp')
 		scope.fnSaveAndClose = function() {
 			var oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
-				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
 				"bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId || '',
 				"reasonId": scope.vBookingCancel.reasonId || '',
 				"priorityId": scope.vBookingCancel.iPriority || '',

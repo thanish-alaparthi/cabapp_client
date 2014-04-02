@@ -44,7 +44,7 @@ angular.module('sigmaCabsApp')
 			var oData = {
 				"vehicleId": scope.vehicleMainDetails.id,
 				"currentKms": scope.vehicleMainDetails.loginStartKms,
-				"driverId": scope.vehicleMainDetails.selectedDriver,
+				"driverId": scope.vehicleMainDetails.selectedDriver.id,
 				"expectedLoginHrs": scope.vehicleMainDetails.expLoginHours || '',
 				"location": scope.vehicleDetails.loginLocation,
 				"lattitude": "1234.56",
@@ -76,8 +76,13 @@ angular.module('sigmaCabsApp')
 
 			oData = {
 				"vehicleId": scope.vehicleMainDetails.id,
-				"driverId": scope.vehicleMainDetails.selectedDriver,
-				"bookingId": bookingId
+				"driverId": scope.vehicleMainDetails.selectedDriver.id,
+				"bookingId": bookingId,
+				"passengerName": scope.vehicleMainDetails.details.customerName || '',
+				"mobile": scope.vehicleMainDetails.details.customerMobile || '',// customer mobile no.
+				"registrationNumber": scope.vehicleMainDetails.registrationNumber || '',
+				'driverName': scope.vehicleMainDetails.selectedDriver.name || '',
+				'mobileNumber': scope.vehicleMainDetails.selectedDriver.mobile || ''
 			};
 
 			serverService.sendData('P',
@@ -96,7 +101,7 @@ angular.module('sigmaCabsApp')
 
 			oData = {
 				"vehicleId": scope.vehicleMainDetails.id,
-				"driverId": scope.vehicleMainDetails.selectedDriver,
+				"driverId": scope.vehicleMainDetails.selectedDriver.id,
 				"bookingId": bookingId,
 				"bookingType": scope.bookingType || '1'
 			};

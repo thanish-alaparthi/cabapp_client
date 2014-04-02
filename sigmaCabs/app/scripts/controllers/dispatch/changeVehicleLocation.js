@@ -27,7 +27,7 @@ angular.module('sigmaCabsApp')
 		scope.fnSaveAndClose = function() {
 			var oData = {
 				"vehicleId": scope.vehicleDetails.vehicleMainDetails.id || '',
-				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+				"driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
 				"location": scope.changeLocation.newLocation || '',
 				"lattitude": "12345.564",
 				"longitude": "988756.345",

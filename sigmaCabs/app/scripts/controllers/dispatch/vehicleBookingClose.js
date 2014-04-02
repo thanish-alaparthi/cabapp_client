@@ -222,7 +222,7 @@ angular.module('sigmaCabsApp')
             var oData = {
                 "id": "", // need to check with lala about id
                 "vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
-                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver,
+                "driverId": scope.vehicleDetails.vehicleMainDetails.selectedDriver.id,
                 "bookingId": scope.vehicleDetails.vehicleMainDetails.details.bookingId,
                 "customerId": scope.vehicleDetails.vehicleMainDetails.details.customerId,
                 "startKms": scope.vehicleDetails.vehicleMainDetails.details.startKms,
@@ -241,7 +241,12 @@ angular.module('sigmaCabsApp')
                 "longitude": "678.1523",
                 "discount": scope.bookingClose.discount,
                 "reasonId": scope.bookingClose.reasonId || '',
-                "comments": scope.bookingClose.comments || ''
+                "comments": scope.bookingClose.comments || '',
+                "passengerName": scope.vehicleDetails.vehicleMainDetails.details.customerName || '',
+                "amount": scope.bookingClose.paidAmount || '',
+                "mobile": scope.vehicleDetails.vehicleMainDetails.details.customerMobile || '', // customer mobile no.
+                "ownerMobile": scope.vehicleDetails.vehicleMainDetails.owner.mobile || ''
+
             };
             console.log(oData);
             // validations

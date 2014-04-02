@@ -37,7 +37,7 @@ angular.module('sigmaCabsApp')
 		scope.fnSaveAndClose = function() {
 			scope.breakStart.breakStartTime = ((scope.breakStart.pickupHours) * 60) + (scope.breakStart.pickupMinutes * 1);
 			console.log(scope.breakStart.breakStartTime);
-			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver || '',
+			var driverId = scope.vehicleDetails.vehicleMainDetails.selectedDriver.id || '',
 				oData = {
 					"vehicleId": scope.vehicleDetails.vehicleMainDetails.id,
 					"driverId": driverId,
