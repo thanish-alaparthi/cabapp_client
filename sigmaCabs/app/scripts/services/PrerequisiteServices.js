@@ -1212,6 +1212,20 @@ angular.module('sigmaCabsApp')
 
                 return oThis.oLs[oThis.currentDate]['specialRequests'];
             },
+            fnGetSpecialRequestTypesById: function(sReqId) {
+                var oThis = this,
+                    aSplReq = oThis.oLs[oThis.currentDate]['specialRequests'],
+                    sSplReqText = '';
+
+                for (var i = 0; i < aSplReq.length; i++) {
+                    if (aSplReq[i].id == sReqId) {
+                        sSplReqText = aSplReq[i].value;
+
+                        break;
+                    }
+                }
+                return sSplReqText;
+            },
             fnGetFeedbackRatings : function(){
                 return {
                     '1' : '1 - Poor',
