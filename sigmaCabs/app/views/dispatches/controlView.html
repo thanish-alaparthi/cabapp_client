@@ -162,6 +162,14 @@
 					<div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-5">
+								<label title="Vehicle Type" >V. Status</label>
+							</div>
+							<div class="col-xs-7">
+								<select class=" autoWidth selectFieldCompact" data-ng-model="viSearch.vehicleStatus" data-ng-options="obj.id as obj.vehicleStatus for obj in vehicleStates"></select>
+							</div>
+						</div>
+						<div class="row margin-bottom5">
+							<div class="col-xs-5">
 								<label title="Attachment Type" >Atmt. Type</label>
 							</div>
 							<div class="col-xs-7">

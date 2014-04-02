@@ -99,6 +99,14 @@ angular.module('sigmaCabsApp')
           scope.selectionFirstTab();
         };
 
+        scope.fnGetAllVehicleStates = function(){
+          var aRtn = [];
+          for(var k=0;k<scope.vehicleStates.length;k++){
+            aRtn.push(scope.vehicleStates[k].id);
+          }
+          return aRtn;
+        };
+
 
         scope.fnInitializeVars = function() {
           scope.currentSelectedTab = 0;  // vehicle Details tab selected by default
@@ -146,6 +154,11 @@ angular.module('sigmaCabsApp')
 
           // get the vehicleTypes for filters        
           scope.subJourneyTypes = angular.copy(PrerequisiteService.fnGetAllJourneyTypes());
+          scope.vehicleStates = angular.copy(PrerequisiteService.fnGetAllVehicleStatus());
+          scope.vehicleStates.push({
+            id :'',
+            vehicleStatus : '----All----'
+          });
 
           scope.hours =angular.copy(PrerequisiteService.hours);
           scope.hours['all'] = 'All';
@@ -269,7 +282,7 @@ angular.module('sigmaCabsApp')
           scope.bdSearch = {
             bookingStatus : [PreConfigService.BOOKING_YET_TO_DISPATCH],  // default to yet to dispatch
             vehicle : scope.oVehicleDefault,
-            nxtHrs: '1',
+            nxtHrs: '3',
             projHrs : '',
             collection: '',
             vModMonth : '',
@@ -284,6 +297,7 @@ angular.module('sigmaCabsApp')
             projHrs  : '',
             zone : '',
             area: 'All',
+            vehicleStatus: '',
             vacantTm : '',
             vCondtion  : '',
             vehicle : scope.oVehicleDefault,
@@ -804,7 +818,8 @@ angular.module('sigmaCabsApp')
                   zone : scope.viSearch.zone,
                   area : (scope.viSearch.area == 'All' ? '' : scope.viSearch.area),
                   vacantTm : scope.viSearch.vacantTm,
-                  expectedVacantVehicle : scope.viSearch.expectedVacantVehicle
+                  expectedVacantVehicle : scope.viSearch.expectedVacantVehicle,
+                  vehicleStatus : (scope.viSearch.vehicleStatus ? [scope.viSearch.vehicleStatus] : scope.fnGetAllVehicleStates())
                 };
 
             // Need to trigger the server call from here
@@ -1407,6 +1422,7 @@ angular.module('sigmaCabsApp')
           enableColumnReordering: true,
           columnDefs: 'vehiclesForWhileDrivingColDefs',
           multiSelect: false,
+          rowHeight : 20,
           enableRowSelection: true,
           keepLastSelected: false,
           showColumnMenu: false,
@@ -1627,7 +1643,7 @@ angular.module('sigmaCabsApp')
           enablePaging: true,
           totalServerItems: 'autoLoginVehiclesLength',
           pagingOptions: scope.autoLoginVehiclesPgOptions,
-          rowHeight: 24,
+          rowHeight: 20,
           headerRowHeight : 22,
           footerRowHeight: 35,
           showFooter: true,
@@ -1731,7 +1747,7 @@ angular.module('sigmaCabsApp')
           data: 'vacantVehiclesData',
           columnDefs: 'vacantVehiclesColDefs',
           selectedItems: scope.selectedVacantVehicleRecords,
-          rowHeight: 24,
+          rowHeight: 20,
           headerRowHeight : 22,
           enableColumnResize: true,
           multiSelect: false,
