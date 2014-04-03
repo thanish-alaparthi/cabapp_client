@@ -142,6 +142,9 @@ angular.module('sigmaCabsApp')
 					if((data.result.length && data.result[0].id)){
 						scope.customerDetails.id = data.result[0].id;				
 					}
+				} else if(data.status == 500){
+					alert(data.result[0].errorMessage);
+					return;
 				}
 
 				// check first whether searchedCustomer exists,
