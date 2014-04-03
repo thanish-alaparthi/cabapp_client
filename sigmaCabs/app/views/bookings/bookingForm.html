@@ -57,9 +57,9 @@
     <div class="mainButtonContainer">
         <div style="text-align: center;">            
             <button class="btnCompact btn-danger" data-ng-show="bShowCancelBookingBtn" data-ng-click="fnOpenCancelBooking()" title="Cancel Booking" >Cancel</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowSaveBookingBtn" data-ng-click="fnSaveBooking()" title="Save as Booking">Save</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowReconfirmBookingBtn" data-ng-click="fnSaveBooking()" title="Re-confirm Booking">Re-confirm</button>
-            <button class="btnCompact btn-success" data-ng-show="bShowSaveAsNewBookingBtn" data-ng-click="fnSaveAsNewBooking()" title="Save this booking as a new booking">Save as New</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowSaveBookingBtn" data-ng-click="fnSaveBooking()" title="Save as Booking" data-ng-disabled="disableSaveBtn" >Save</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowReconfirmBookingBtn" data-ng-click="fnSaveBooking()" title="Re-confirm Booking" data-ng-disabled="disableSaveBtn" >Re-confirm</button>
+            <button class="btnCompact btn-success" data-ng-show="bShowSaveAsNewBookingBtn" data-ng-click="fnSaveAsNewBooking()" title="Save this booking as a new booking" data-ng-disabled="disableSaveBtn" >Save as New</button>
             <button class="btnCompact btn-success" data-ng-show="bShowDispositionBtn" data-ng-click="fnOpenDisposition()" title="Open Disposition. For:- Enquiry, Follow-up, Rejection.">Disposition</button>
             <button class="btnCompact btn-success" data-ng-show="bShowCustFeedbackBtn" data-ng-click="fnOpenCustFeedback()" title="Open Feedback. To take customer feedback.">Feedback</button>
         </div>

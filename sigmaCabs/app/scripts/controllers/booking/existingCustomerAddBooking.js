@@ -20,6 +20,8 @@ angular.module('sigmaCabsApp')
 		scope.sms.smsForCustPhone1 = false;
 		scope.sms.smsForCustPhone2 = false;
 
+		scope.disableSaveBtn = false;
+
 		scope.isApiInProgress = false;
 		
 		// load all the forms in the booking workarea view
@@ -327,7 +329,17 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnSaveAsNewBooking = function() {
+			scope.disableSaveBtn = true;
+
+			if(scope.isApiInProgress){
+				alert('Previous save is in progress.\n Please be patient.');
+				scope.disableSaveBtn = false;
+				return;
+			}
+
+
 			if(! scope.fnValidateBookingForm()){
+				scope.disableSaveBtn = false;
 				return;
 			}
 
@@ -418,14 +430,18 @@ angular.module('sigmaCabsApp')
 		};
 
 		scope.fnApiSaveBooking = function(oData){
+			scope.disableSaveBtn = true;
+
 			if(scope.isApiInProgress){
 				alert('Previous save is in progress.\n Please be patient.');
+				scope.disableSaveBtn = false;
 				return;
 			}
 
 
 			if(!PrerequisiteService.fnValidateBookingTime(oData.pickupDate, oData.pickupTime)){
 				alert('Pickup time should be atleast 20 minutes ahead of the current time.');
+				scope.disableSaveBtn = false;
 				return false;
 			}
 
@@ -437,18 +453,27 @@ angular.module('sigmaCabsApp')
 
 			if(!oData.subJourneyType){
 				alert('Please add the sub Journey type.');
+				scope.disableSaveBtn = false;
 				return;
 			}
 			if(!oData.tariffId){
 				alert('Please select a tariff.');
+				scope.disableSaveBtn = false;
 				return;
 			}
 			if(!oData.vehicleName){
 				alert('Please select a vehicle name.');
+				scope.disableSaveBtn = false;
 				return;
 			}
 			if(!oData.vehicleType){
 				alert('Please select a vehicle type.');
+				scope.disableSaveBtn = false;
+				return;
+			}
+			if(!oData.passengerMobile){
+				alert('Please enter passenger mobile.');
+				scope.disableSaveBtn = false;
 				return;
 			}
 
@@ -457,9 +482,10 @@ angular.module('sigmaCabsApp')
 			BookingService.fnSaveBooking(oData)
 			.success(function(data, status, headers, config) {				
 				console.log('Success fnSaveBooking: ',data);
-				scope.isApiInProgress = false;
 
 				if(data.status == 200){
+					scope.isApiInProgress = false;
+					scope.disableSaveBtn = false;
 					// clear booking form
 					scope.fnClearBookingForm();
 					scope.fnRefreshBookingHistory();
@@ -469,6 +495,8 @@ angular.module('sigmaCabsApp')
 				}
 
 				if(data.status == 500){
+					scope.isApiInProgress = false;
+					scope.disableSaveBtn = false;
 					if(	data.result 
 						&& data.result.length
 					){
