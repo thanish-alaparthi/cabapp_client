@@ -422,7 +422,7 @@ angular.module('sigmaCabsApp')
                 console.log(sSearch);
                 console.log('Searching by vehicle Id');
                 // search by vehicle code / vehicle mobile no.
-                var oSearch = (sSearch && sSearch.length === 4) ? {
+                var oSearch = (sSearch && sSearch.length <= 6) ? {
                     vcode: sSearch
                 } : {
                     mobile: PrerequisiteService.fnCheckValidMobile(sSearch)
@@ -442,9 +442,8 @@ angular.module('sigmaCabsApp')
                             scope.vDefaultView = true;
                             scope.vInfoButtonsDisable = true;
                             // make callPhone as mobile 
-                            scope.customerDetails.mobile = scope.callerPhone;
+                            //scope.customerDetails.mobile = scope.callerPhone;
                         } else if (data.status == 200 && data.result) {
-                            //scope.fnSetCustomerDetails(data);
                             console.log('vehicle search success');
                             console.log(data);
                             scope.fnSetVehicleDetails(data);
@@ -461,8 +460,8 @@ angular.module('sigmaCabsApp')
 
             }
             scope.fnMultipurposeSearch = function() {
-                var sSearch = scope.searchDetails.searchByVehicleId;
-                if (!sSearch && (sSearch.length !== 4 || sSearch.length !== 10)) {
+                var sSearch = scope.searchDetails.searchByVehicleId || '';
+                if (sSearch === '' || (sSearch.length > 6 && sSearch.length < 10)) {
                     alert('Please enter valid Vehicle Code or Mobile no.')
                     return false;
                 }
@@ -741,10 +740,10 @@ angular.module('sigmaCabsApp')
         scope.fnVehicleBookingClose = function() {
             // if close booking is before the pickup time
             var pickupTimeStamp = new Date(scope.vehicleMainDetails.details.pickupDate + ' ' + scope.vehicleMainDetails.details.pickupTime).getTime();
-            if(new Date().getTime() < pickupTimeStamp) {
+            /*if(new Date().getTime() < pickupTimeStamp) {
                 alert('Cannot give close report before pickup time');
                 return;
-            }
+            }*/
             
             $scope.opts = {
                 templateUrl: URLService.view('vehicleBookingClose'),

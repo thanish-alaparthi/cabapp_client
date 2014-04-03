@@ -82,7 +82,8 @@ angular.module('sigmaCabsApp')
 				"mobile": scope.vehicleMainDetails.details.customerMobile || '',// customer mobile no.
 				"registrationNumber": scope.vehicleMainDetails.registrationNumber || '',
 				'driverName': scope.vehicleMainDetails.selectedDriver.name || '',
-				'mobileNumber': scope.vehicleMainDetails.selectedDriver.mobile || ''
+				//'mobileNumber': scope.vehicleMainDetails.selectedDriver.mobile || ''
+				'mobileNumber': scope.vehicleMainDetails.mobileNumber || ''
 			};
 
 			serverService.sendData('P',
@@ -103,7 +104,8 @@ angular.module('sigmaCabsApp')
 				"vehicleId": scope.vehicleMainDetails.id,
 				"driverId": scope.vehicleMainDetails.selectedDriver.id,
 				"bookingId": bookingId,
-				"bookingType": scope.bookingType || '1'
+				"bookingType": scope.bookingType || '1',
+				'mobileNumber': scope.vehicleMainDetails.mobileNumber || ''
 			};
 
 			serverService.sendData('P',

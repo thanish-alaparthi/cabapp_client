@@ -1927,7 +1927,8 @@ angular.module('sigmaCabsApp')
             "mobile" || '', // customer mobile*/
             "registrationNumber": scope.vehicleDetailsData.vehicle.registrationNumber || '',
             "driverName": scope.vehicleDetailsData.driver.name || '',
-            "mobileNumber": scope.vehicleDetailsData.driver.mobile || ''
+            //"mobileNumber": scope.vehicleDetailsData.driver.mobile || ''
+            "mobileNumber": scope.vehicleDetailsData.dispatchCallDriverNo || ''
           };
           serverService.sendData('P',
             'dispatcher/confirmVehicleToBooking',
@@ -2090,10 +2091,10 @@ angular.module('sigmaCabsApp')
           console.log(scope.vehicleDetailsData);
           console.log(scope.bookingDetailsData);
           pickupTimeStamp = new Date(scope.bookingDetailsData.booking.pickupDate + ' ' + scope.bookingDetailsData.booking.pickupTime).getTime();
-          if(new Date().getTime() < pickupTimeStamp) {
+          /*if(new Date().getTime() < pickupTimeStamp) {
               alert('Cannot give close report before pickup time');
               return;
-          }
+          }*/
 
           oTmpJt = PrerequisiteService.fnGetMainJourneyTypeOfSubJourneyType(scope.bookingDetailsData.booking.subJourneyType);
           $scope.opts = {
