@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('bookingController', function($scope, $rootScope, URLService, BookingService, VehiclesService, $routeParams, PrerequisiteService) {
+    .controller('bookingController', function($scope, $rootScope, URLService, BookingService, VehiclesService, $routeParams, PrerequisiteService, PreConfigService) {
 
         //attach safeApply
         $scope.safeApply = function(fn) {
@@ -75,6 +75,7 @@ angular.module('sigmaCabsApp')
             }
 
             scope.bookingDetails = {
+                bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
                 pickupDate : sDtPlus20Minutes,
                 pickupHours : HH,
                 pickupMinutes : MN,
