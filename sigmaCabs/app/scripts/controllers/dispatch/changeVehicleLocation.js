@@ -18,6 +18,7 @@ angular.module('sigmaCabsApp')
 
 		scope.vehicleDetails = oVehicleData;
 		scope.changeLocation = {};
+		scope.changeLocation.currentKms = scope.vehicleDetails.vehicleMainDetails.previousKms;
 
 		console.log(scope.vehicleDetails.vehicleMainDetails.location);
 
@@ -40,6 +41,9 @@ angular.module('sigmaCabsApp')
 			if (isNaN(oData.currentKms) || oData.reasonId === '' || oData.location === '' || oData.comments === '') {
                 alert('Please select required information');
                 return;
+            } else if(oData.currentKms < scope.vehicleDetails.vehicleMainDetails.previousKms) {
+            	alert('Current Kms cannot be less than previous kms.');
+            	return;
             } else if (oData.driverId === '') {
                 alert('Please select driver in vehicle information');
                 return;

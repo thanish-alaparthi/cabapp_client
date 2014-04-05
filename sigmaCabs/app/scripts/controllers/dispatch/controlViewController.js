@@ -1410,6 +1410,7 @@ angular.module('sigmaCabsApp')
           {field:'subJourneyType', displayName:'Package', width: '*'},
           {field:'expectedDropTime', displayName:'Vacant', width: '*'},
           {field:'dayCollection', displayName:'Collection', width: '*'},
+          {field:'dropPlace', displayName:'D.Place', width: '*'},
           {field:'nextBooking', displayName:'Nxt Booking', width: '*'}
         ];
 

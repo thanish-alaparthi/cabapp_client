@@ -106,6 +106,8 @@ angular.module('sigmaCabsApp')
                             scope.vDefaultView = true;
                             scope.vInfoButtonsDisable = true;
 
+                            scope.fnClearVehicleInfo();
+
                             // make callPhone as mobile 
                             //scope.customerDetails.mobile = scope.callerPhone;
                         } else if (data.status == 200 && data.result) {
@@ -361,6 +363,9 @@ angular.module('sigmaCabsApp')
                             scope.vehicleMainDetails.details.subJourneyTypeText = PrerequisiteService.fnGetSubJourneyObjectById(scope.vehicleMainDetails.details.subJourneyType).journeyType;
                             scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
                             scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
+                            // from booking details
+                            scope.vehicleDetails.bookingVName = (scope.vehicleMainDetails.details && scope.vehicleMainDetails.details.vehicleName) ? PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.details.vehicleName).vehicleName : '';
+                            scope.vehicleDetails.bookingVType = (scope.vehicleMainDetails.details && scope.vehicleMainDetails.details.vehicleType) ? PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.details.vehicleType).vehicleType : '';
                             scope.vehicleMainDetails.details.pickupTimeText = scope.vehicleMainDetails.details.pickupTime.substring(0, 5); //removing seconds
                             if (scope.vehicleMainDetails.vehicleState == "4") {
                                 scope.vStateHeading = ' - Allot';
@@ -443,6 +448,7 @@ angular.module('sigmaCabsApp')
                             scope.vInfoButtonsDisable = true;
                             // make callPhone as mobile 
                             //scope.customerDetails.mobile = scope.callerPhone;
+                            scope.fnClearVehicleInfo();
                         } else if (data.status == 200 && data.result) {
                             console.log('vehicle search success');
                             console.log(data);
@@ -458,6 +464,14 @@ angular.module('sigmaCabsApp')
                         scope.vInfoButtonsDisable = true;
                     });
 
+            }
+            scope.fnClearVehicleInfo = function() {
+                scope.vehicleMainDetails.owner = {};
+
+                scope.vehicleMainDetails.owner.name = '';
+                scope.vehicleMainDetails.owner.mobile = '';
+                scope.vehicleMainDetails.location = '';
+                scope.vehicleMainDetails.driver = [];
             }
             scope.fnMultipurposeSearch = function() {
                 var sSearch = scope.searchDetails.searchByVehicleId || '';
