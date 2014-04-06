@@ -127,22 +127,22 @@
 					<div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button class="autoWidth btn btn-xs btn-success" data-ng-click="fnLoadBookingStatusWise(['4','5','6']);">Show All ({{allCount}})</button>								
+								<button class="autoWidth btn btn-xs btn-primary" data-ng-click="fnLoadBookingStatusWise(['4','5','6']);">Show All ({{allCount}})</button>								
 							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button  class="autoWidth btn btn-xs btn-danger" title="Yet to Dispatch" data-ng-click="fnLoadBookingStatusWise(['4']);">Yet to Dispatch ({{ytdCount}})</button>								
+								<button  class="autoWidth btn btn-xs {{ ytdClass }}" title="Yet to Dispatch" data-ng-click="fnLoadBookingStatusWise(['4']);">Yet to Dispatch ({{ytdCount}})</button>								
 							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button class="autoWidth btn btn-xs btn-warning" data-ng-click="fnLoadBookingStatusWise(['5']);">Allotted ({{altCount}})</button>
+								<button class="autoWidth btn btn-xs  {{ altClass }}" data-ng-click="fnLoadBookingStatusWise(['5']);">Allotted ({{altCount}})</button>
 							</div>
 						</div>
 						<div class="row margin-bottom5">
 							<div class="col-xs-12">
-								<button class="autoWidth btn btn-xs btn-success" data-ng-click="fnLoadBookingStatusWise(['6']);">Confirmed ({{cnfCount}})</button>		
+								<button class="autoWidth btn btn-xs {{ cnfClass }}" data-ng-click="fnLoadBookingStatusWise(['6']);">Confirmed ({{cnfCount}})</button>		
 							</div>
 						</div>
 					</div>

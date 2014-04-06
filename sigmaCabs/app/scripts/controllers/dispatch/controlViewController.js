@@ -379,6 +379,7 @@ angular.module('sigmaCabsApp')
               scope.setBookingMgmtGrid();
               scope.setVacantVehiclesGrid();
               scope.vacantVehicleUnSelectedFn();
+              scope.fnGetBookingSummary();
             }
           }, POLLING_INTERVAL);
         };
@@ -756,6 +757,46 @@ angular.module('sigmaCabsApp')
           // do some error processing..
         }
         /*END: setting the booking management grid*/
+
+
+        /* BOOKING SUMMARY CALL */
+        scope.fnGetBookingSummary = function() {
+          serverService.sendData('P','dispatcher/getBookingSummary', 
+            {}, 
+            scope.fnGetBookingSummarySuccess, 
+            scope.fnGetBookingSummaryError);
+        }
+        scope.fnGetBookingSummarySuccess = function(oData) {
+          console.log('in fnGetBookingSummarySuccess', oData);
+
+          var iCount = oData.length;
+          for(var i=0;i<iCount;i++){
+            switch(parseInt(oData[i].state)){
+              case PreConfigService.BOOKING_YET_TO_DISPATCH:
+                scope.ytdCount =  oData[i].count;
+                scope.ytdClass = oData[i].class;
+              break;
+              case PreConfigService.BOOKING_VEHICLE_ASSIGNED:
+                scope.altCount =  oData[i].count;
+                scope.altClass =  oData[i].class;
+              break;
+              case PreConfigService.WHILE_DRIVING:
+                scope.cnfCount =  oData[i].count;
+                scope.cnfClass = oData[i].class;
+              break;
+              default:
+                scope.allCount =  oData[i].count;
+              break;
+            }
+          }
+
+
+        }
+        scope.fnGetBookingSummaryError = function(oData) {
+          console.log('in fnGetBookingSummaryError', oData);
+        }
+        /* EOF BOOKING SUMMARY CALL */
+
         
         /*START: setting the vacant vehicles grid*/
         scope.setVacantVehiclesGrid = function(doEmptyGrid){
@@ -1007,6 +1048,7 @@ angular.module('sigmaCabsApp')
           scope.selectionFirstTab();
 
           scope.setBookingMgmtGrid();
+          scope.fnGetBookingSummary();
           scope.setVacantVehiclesGrid();          
         }
         /*END: Init method, starting point of this controller
