@@ -300,7 +300,6 @@ angular.module('sigmaCabsApp')
 			} else {
 				sBookingStatus = scope.bookingDetails.bookingStatus || PreConfigService.BOOKING_YET_TO_DISPATCH;
 			}
-
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
 				bookingCode : scope.bookingDetails.bookingCode, 
@@ -321,7 +320,7 @@ angular.module('sigmaCabsApp')
 				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
 				resVehicleId : scope.bookingDetails.resVehicleId,
 				passengerName : scope.waCustomerDetails.name,
-				passengerMobile : scope.waCustomerDetails.mobile,
+				passengerMobile : scope.waCustomerDetails.mobile || scope.waCustomerDetails.mobile2,
 				sms1 : aSms[0],
 				sms2 : aSms[1],
 				journeyType : PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.bookingDetails.subJourneyType).id, 
@@ -372,7 +371,7 @@ angular.module('sigmaCabsApp')
 				refCustomerId : scope.customerDetails.id,
 				resVehicleId : scope.bookingDetails.resVehicleId,
 				passengerName : scope.waCustomerDetails.name,
-				passengerMobile : scope.waCustomerDetails.mobile,
+				passengerMobile : scope.waCustomerDetails.mobile || scope.waCustomerDetails.mobile2,
 				sms1 : aSms[0],
 				sms2 : aSms[1],
 				journeyType : PrerequisiteService.fnGetJourneyTypeBySubJourneyTypeId(scope.bookingDetails.subJourneyType).id, 
