@@ -75,7 +75,7 @@ angular.module('sigmaCabsApp')
             }
 
             scope.bookingDetails = {
-                bookingStatus : PreConfigService.BOOKING_YET_TO_DISPATCH,
+                bookingStatus: PreConfigService.BOOKING_YET_TO_DISPATCH,
                 pickupDate : sDtPlus20Minutes,
                 pickupHours : HH,
                 pickupMinutes : MN,

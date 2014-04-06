@@ -53,6 +53,7 @@ angular.module('sigmaCabsApp')
                 if(oThis.iApiCount == oThis.iApiLimit 
                     && oThis.fnStoreJourneyTypes()
                     && oThis.fnSetAllLocations()
+                    && oThis.fnSetAttachmentTypes()
                     && oThis.fnStoreReasonsByCategoryId()) {
 
                     localStorage.setItem('sigmaCabsPrerequisites', JSON.stringify(oThis.oLs));
@@ -271,6 +272,16 @@ angular.module('sigmaCabsApp')
                     url: URLService.service('RestGetSpecialRequestTypes'),
                     method: 'GET',
                     myDataToken : 'specialRequests',
+                    oMe : oThis,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(oThis.fnSuccessCallback).error(oThis.fnErrorCallback);
+                oThis.iApiLimit++;  // increment iApiLimit for every Prerequisite API call.
+                $http({
+                    url: URLService.service('RestGetAttachmentTypes'),
+                    method: 'GET',
+                    myDataToken : 'attachmentTypes',
                     oMe : oThis,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -1085,31 +1096,30 @@ angular.module('sigmaCabsApp')
                 }
             },
 
-            fnGetAttachmentTypes : function() {
-                return [{
-                    id : '1',
-                    attachmentType : 'Company Vehicles'
-                }, {
-                    id : '2',
-                    attachmentType : 'Attached Vehicles'
-                }, {
-                    id : '3',
-                    attachmentType : 'Sublease Vehicles'
-                }, {
-                    id : '4',
-                    attachmentType : 'Promoting Partners'
-                }];
-            },
-            fnGetAttachmentTypeById : function(sId) {
+            fnSetAttachmentTypes: function() {
                 var oThis = this,
-                    at = oThis.fnGetAttachmentTypes();
-                for(var i=0;i<at.length;i++){
-                    if(at[i].id == sId){
-                        return at[i];
-                    }
+                    aAttachTypes = oThis.oLs[oThis.currentDate]['attachmentTypes'],
+                    oData = {};
+
+                for (var i = 0; i < aAttachTypes.length; i++) {
+                    var obj = aAttachTypes[i];
+
+                    oData[obj.id] = obj;
                 }
 
-                return null;
+                oThis.fnAddToLocalStorage('attachmentTypesById', oData);
+
+                return true;
+            },
+            fnGetAttachmentTypes : function() {
+                var oThis = this;
+
+                return oThis.oLs[oThis.currentDate]['attachmentTypes'] || [];
+            },
+            fnGetAttachmentTypeById : function(sId) {
+                var oThis = this;
+
+                return oThis.oLs[oThis.currentDate]['attachmentTypesById'][sId];
             },
             fnGetVehicleManufacturingYears : function(){
                 var aRtn = {'' : 'select'},
@@ -1202,8 +1212,6 @@ angular.module('sigmaCabsApp')
                         }
                     }
                 }
-
-
 
                 return aRtn;
             },
