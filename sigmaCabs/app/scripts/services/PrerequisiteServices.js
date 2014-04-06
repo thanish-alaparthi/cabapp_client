@@ -432,6 +432,19 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
+            fnGetSubJourneyOnIds : function(sId){
+                // this function returns object with key as subjournyId and value as subJourneyObject
+                var aRtn = {},
+                    oJt = this.oLs[this.currentDate]['journeyTypes'],
+                    iCount = oJt.length;
+
+                for(var i=0;i<iCount;i++){
+                    if(oJt[i].parentId != '0') {
+                        aRtn[oJt[i].id] = oJt[i];
+                    }
+                }
+                return aRtn;
+            },
             fnGetAllJourneyTypes : function(){         // Function to return Only Main JourneyTypes
                 return this.oLs[this.currentDate]['journeyTypes'];
             },
@@ -745,6 +758,17 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
+            fnGetBookingStatusOnIds : function() {
+                // this function returns object with key as bookingStatusId and value as bookingStatus object
+                var aBs = this.oLs[this.currentDate]['bookingStates'],
+                    iCount = aBs.length,
+                    aRtn = {};
+
+                for(var i=0;i<iCount;i++){
+                    aRtn[aBs[i].id] = aBs[i];
+                }
+                return aRtn;  
+            },
             fnGetReasonsById : function(sCategoryId){
                 var oThis = this;
                 
@@ -876,6 +900,17 @@ angular.module('sigmaCabsApp')
                 }
                 return null;
             },
+            fnGetVehicleTypesOnIds : function(){
+                var oThis=  this,
+                    oVt = oThis.oLs[oThis.currentDate]['vehicleTypes'],
+                    aRtn = {};
+                    
+                for(var i=0;i<oVt.length;i++){
+                    aRtn[oVt[i].id] = oVt[i];
+                }
+                
+                return aRtn;
+            },
             fnGetVehicleNameById : function(sId){
                 var oThis = this,
                     oVn = oThis.oLs[oThis.currentDate]['vehicleNames'],
@@ -897,6 +932,18 @@ angular.module('sigmaCabsApp')
                     }
                 }
                 return null;
+            },
+            fnGetVehicleNamesByIds : function() {
+                // this function returns an object with key as vehicleId and value as vehicleObject
+                var oThis = this,
+                    oVn = oThis.oLs[oThis.currentDate]['vehicleNames'],
+                    oVnLength = oVn.length,
+                    oRtn = {};
+
+                for(var i=0;i<oVnLength;i++){
+                    oRtn[oVn[i].id] = oVn[i];
+                }
+                return oRtn;
             },
             fnGetVehicleConditionTextById: function(sId) {
                 var oThis = this,
