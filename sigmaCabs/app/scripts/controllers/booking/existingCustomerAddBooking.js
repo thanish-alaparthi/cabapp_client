@@ -288,19 +288,18 @@ angular.module('sigmaCabsApp')
 			console.log('&&&&&&&&&&&&&&&&&&saving Booking data', scope.tmpDetails, scope.bookingDetails);
 
 			// get the numbers which are ticked for sms feature.
-			var aSms = scope.fnGetTickedSmsMobiles();
-			// 	sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
+			var aSms = scope.fnGetTickedSmsMobiles(),
+				sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
 
-			// if(    !scope.bookingDetails.bookingStatus 
-			// 	|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_ENQUIRY
-			// 	|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_FOLLOW_UP
-			// 	|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_REJECTED
-			// ) {
-			// 	sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
-			// } else {
-			// 	sBookingStatus = scope.bookingDetails.bookingStatus;
-			// }
-			var sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
+			if(    !scope.bookingDetails.bookingStatus 
+				|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_ENQUIRY
+				|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_FOLLOW_UP
+				|| scope.bookingDetails.bookingStatus == PreConfigService.BOOKING_REJECTED
+			) {
+				sBookingStatus = PreConfigService.BOOKING_YET_TO_DISPATCH;
+			} else {
+				sBookingStatus = scope.bookingDetails.bookingStatus || PreConfigService.BOOKING_YET_TO_DISPATCH;
+			}
 
 			scope.fnApiSaveBooking({
 				id : scope.bookingDetails.id, 
@@ -317,7 +316,7 @@ angular.module('sigmaCabsApp')
 				vehicleName : scope.tmpDetails.tmpVehicleName == ""  ? '999' : scope.tmpDetails.tmpVehicleName, 
 				vehicleType : scope.tmpDetails.tmpVehicleType, 
 				subJourneyType : scope.bookingDetails.subJourneyType, 
-				bookingStatus : '4', // sBookingStatus,
+				bookingStatus : sBookingStatus,
 				customerId : scope.waCustomerDetails.id,
 				refCustomerId : (scope.customerDetails.id !=scope.waCustomerDetails.id ) ? scope.customerDetails.id : null,
 				resVehicleId : scope.bookingDetails.resVehicleId,
