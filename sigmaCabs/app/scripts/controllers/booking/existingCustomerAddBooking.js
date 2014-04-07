@@ -87,7 +87,14 @@ angular.module('sigmaCabsApp')
 		*/
 		scope.fnCustomerDetailsBlured = function(){
 			console.log('fnCustomerDetailsBlured');
-			if((scope.customerDetails.mobile && scope.customerDetails.name) || (scope.customerDetails.altMobile && scope.customerDetails.name)  ){
+
+			var mobileNo = PrerequisiteService.fnCheckValidMobile(scope.customerDetails.altMobile);
+			// if valid mobile no. in alt mobile then check the sms button
+			if (mobileNo !== '' && mobileNo.length === 10) {
+				scope.sms.smsForCallerPhone2 = true;
+			}
+			
+			if((scope.customerDetails.mobile && scope.customerDetails.name) || (scope.customerDetails.altMobile && scope.customerDetails.name)){
 
 				if(!scope.customerDetails.mobile) {
 					scope.customerDetails.mobile = scope.customerDetails.altMobile;

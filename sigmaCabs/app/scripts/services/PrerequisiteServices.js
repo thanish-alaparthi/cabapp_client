@@ -1301,7 +1301,6 @@ angular.module('sigmaCabsApp')
                 }
 
                 return sMobile.slice(-10);
-
             },
 
 
