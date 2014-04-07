@@ -8,7 +8,7 @@ Author: Mario::216mario216@gmail.com
 'use strict';
 
 angular.module('sigmaCabsApp')
-    .controller('bookingController', function($scope, $rootScope, URLService, BookingService, VehiclesService, $routeParams, PrerequisiteService, PreConfigService) {
+    .controller('bookingController', function($scope, $rootScope, URLService, BookingService, VehiclesService, $routeParams, PrerequisiteService, PreConfigService, $timeout) {
 
         //attach safeApply
         $scope.safeApply = function(fn) {
@@ -97,6 +97,8 @@ angular.module('sigmaCabsApp')
 
             scope.tmpDetails.tmpJourneyType = '1';
             scope.bookingDetails.subJourneyType = '1'; 
+
+            scope.editModePickupDate = '';
 
             // also clear selected Tariff Grid
             $rootScope.$emit('eventTariffGridDataChanged', null);
@@ -511,32 +513,37 @@ angular.module('sigmaCabsApp')
 
             scope.tmpDetails.tmpJourneyType = oTmpJt.id;
 
-            scope.bookingDetails = oData.bookingDetails;
-            scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate, true);    // setDate in DD/MM/YYYY format;
-            scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
-            scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
+            $timeout(function(){
+                scope.bookingDetails = oData.bookingDetails;
 
-            // also load tariffGridData
-            var oT = PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffId);
-            scope.fnFormatTariffGridDetails({
-                amount: oT.price,
-                comments: oT.comments,
-                distance: oT.distance,
-                duration: (oT.duration / 60),
-                extraCharges1: oT.extraCharges1,
-                driverBatha: oT.driverBatha,
-                //Nortan -  Extra hour should be displayed only in specific scenario's, so as of now keeping 0
-                extraHour: 0, // oT.extraHrPrice
-                extraKm: oT.extraKmPrice,
-                graceTime: oT.grace,
-                id: oT.id,
-                vehicleName: scope.bookingDetails.vehicleName ? PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName).vehicleName : '',
-                vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
-            });
+                scope.editModePickupDate = oData.bookingDetails.pickupDate;
 
-            scope.headBookingType = scope.bookingDetails.bookingStatusName;
-            scope.headBookingCode = scope.bookingDetails.bookingCode;
-            scope.safeApply();
+                scope.bookingDetails.pickupDate = PrerequisiteService.fnFormatDate(oData.bookingDetails.pickupDate, true);    // setDate in DD/MM/YYYY format;
+                scope.bookingDetails.pickupHours = PrerequisiteService.fnFormatHours(oData.bookingDetails.pickupTime);  // setHours 
+                scope.bookingDetails.pickupMinutes = PrerequisiteService.fnFormatMinutes(oData.bookingDetails.pickupTime);  // setMinutes
+
+                // also load tariffGridData
+                var oT = PrerequisiteService.fnGetTariffById(oData.bookingDetails.tariffId);
+                scope.fnFormatTariffGridDetails({
+                    amount: oT.price,
+                    comments: oT.comments,
+                    distance: oT.distance,
+                    duration: (oT.duration / 60),
+                    extraCharges1: oT.extraCharges1,
+                    driverBatha: oT.driverBatha,
+                    //Nortan -  Extra hour should be displayed only in specific scenario's, so as of now keeping 0
+                    extraHour: 0, // oT.extraHrPrice
+                    extraKm: oT.extraKmPrice,
+                    graceTime: oT.grace,
+                    id: oT.id,
+                    vehicleName: scope.bookingDetails.vehicleName ? PrerequisiteService.fnGetVehicleNameById(scope.bookingDetails.vehicleName).vehicleName : '',
+                    vehicleType: PrerequisiteService.fnGetVehicleTypeById(scope.bookingDetails.vehicleType).vehicleType
+                });
+
+                scope.headBookingType = scope.bookingDetails.bookingStatusName;
+                scope.headBookingCode = scope.bookingDetails.bookingCode;
+                scope.safeApply();
+            },100);
 
         });
 

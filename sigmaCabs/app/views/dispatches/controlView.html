@@ -457,8 +457,8 @@
 		  	  </div>
 		  	  <span class="clearfix"></span>
 			</div>
-			<div ng-show="showingWhilDrivingGrid">
-			  <span class="panel-title">While Driving Vehicles</span>
+			<div ng-show="showingWhilDrivingGrid"><!-- While Driving Vehicles -->
+			  <span class="panel-title">Shed: {{VEHICLE_SHED}} &nbsp; Vacant: {{VEHICLE_VACANT}} &nbsp; Break: {{VEHICLE_BREAK}} &nbsp; Allot: {{VEHICLE_ALLOT}} &nbsp; Confirmed: {{VEHICLE_CONFIRMED}} &nbsp; Driving: {{VEHICLE_DRIVING}} &nbsp; Inactive: {{VEHICLE_INACTIVE}} &nbsp; Terminated: {{VEHICLE_TERMINATED}} &nbsp; Total: {{VEHICLE_TOTAL}} &nbsp; </span>
 			  <div class="pull-right">
 				  <input id="while_driving_search" type="text" ng-model="whileDrivingFilterText" class="searchInput" placeholder ="Search Vehicles" ng-change="whileDrivingSearch()"/>
 			  	  <i class="glyphicon glyphicon-chevron-left" ng-click="vehiclePanelToggle(true)" ng-show="!vehicleViewDisplay" title="Open Vehicle view"></i>

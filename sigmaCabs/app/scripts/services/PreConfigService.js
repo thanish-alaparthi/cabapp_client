@@ -23,6 +23,14 @@ angular.module('sigmaCabsApp')
             BOOKING_CANCELLED_ON_CALL : 9,   // onServer it is Cancelled  
 
             /* VEHICLE STATUS */
+            VEHICLE_SHED: '1',
+            VEHICLE_VACANT: '2',
+            VEHICLE_BREAK: '3',
+            VEHICLE_ALLOT: '4',
+            VEHICLE_CONFIRMED: '5',
+            VEHICLE_DRIVING: '6',
+            VEHICLE_INACTIVE: '7',
+            VEHICLE_TERMINATED: '8',
 
             VEHICLE_AVAILABLE_COLOR : '#00FF00',
             VEHICLE_PROBABLILY_AVAILABLE_COLOR : '#FFA500',

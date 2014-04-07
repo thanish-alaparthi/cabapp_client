@@ -88,6 +88,11 @@ angular.module('sigmaCabsApp')
 		scope.fnCustomerDetailsBlured = function(){
 			console.log('fnCustomerDetailsBlured');
 			if((scope.customerDetails.mobile && scope.customerDetails.name) || (scope.customerDetails.altMobile && scope.customerDetails.name)  ){
+
+				if(!scope.customerDetails.mobile) {
+					scope.customerDetails.mobile = scope.customerDetails.altMobile;
+				}
+
 				scope.fnSaveCustomerDetails({
 					"id":scope.customerDetails.id, 
 					"name" : scope.customerDetails.name, 
@@ -282,10 +287,27 @@ angular.module('sigmaCabsApp')
 
 		// fn to save the booking details
 		scope.fnSaveBooking = function() {
+			scope.disableSaveBtn = true;
 			if(! scope.fnValidateBookingForm()){
+				scope.disableSaveBtn = false;
 				return;
 			}
 			console.log('&&&&&&&&&&&&&&&&&&saving Booking data', scope.tmpDetails, scope.bookingDetails);
+
+			// check if existing bookins date is changed.
+			if(scope.bookingDetails.id 
+				&& PrerequisiteService.formatToServerDate(scope.bookingDetails.pickupDate) != scope.editModePickupDate
+				&& scope.bookingDetails.bookingStatus
+				&& (   scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_ENQUIRY
+					&& scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_FOLLOW_UP
+					&& scope.bookingDetails.bookingStatus != PreConfigService.BOOKING_REJECTED
+					)
+				) {
+				scope.disableSaveBtn = false;
+				alert('Pickup date cannot be changed.\nPlease cancel this booking and create a fresh booking with a new date.');
+				return;
+			}
+
 
 			// get the numbers which are ticked for sms feature.
 			var aSms = scope.fnGetTickedSmsMobiles(),
