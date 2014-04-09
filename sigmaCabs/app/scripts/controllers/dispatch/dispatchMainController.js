@@ -191,11 +191,13 @@ angular.module('sigmaCabsApp')
                 }, {
                     field: 'totalKms',
                     displayName: 'T.kms',
-                    headerTitle: 'Total Kms.'
+                    headerTitle: 'Total Kms.',
+                    cellFilter: 'number'
                 }, {
                     field: 'amount',
                     displayName: 'Amount',
-                    headerTitle: 'Amount'
+                    headerTitle: 'Amount',
+                    cellFilter: 'number'
                 }],
                 enablePaging: false,
                 showFooter: false,
@@ -348,7 +350,7 @@ angular.module('sigmaCabsApp')
                         scope.vNextBookingState = (scope.vehicleMainDetails.details.nextBooking == "1") ? 'Yes' : 'No';
                         scope.vehicleDetails.vName = PrerequisiteService.fnGetVehicleNameById(scope.vehicleMainDetails.vehicleName).vehicleName;
                         scope.vehicleDetails.vType = PrerequisiteService.fnGetVehicleTypeById(scope.vehicleMainDetails.vehicleType).vehicleType;
-                        scope.vehicleMainDetails.details.vacantTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
+                        scope.vehicleMainDetails.details.vacantTimeText = scope.vehicleMainDetails.details.vacantTime;//PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.vacantTime);
                         scope.vehicleMainDetails.details.overAllBreakTimeText = PrerequisiteService.fnFormatMinutesToHoursAndMinutes(scope.vehicleMainDetails.details.dayBreakTime);
                         scope.vehicleMainDetails.details.loginTime = (scope.vehicleMainDetails.details.loginTime) ? (loginTime[0].split('-')[2] + ' -> ' + loginTime[1].substring(0, 5)) : '';
                         scope.vVacantView = true;

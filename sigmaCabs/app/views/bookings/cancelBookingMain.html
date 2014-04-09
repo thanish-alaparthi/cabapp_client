@@ -23,15 +23,15 @@
                     <select class=" validate[maxSize[36]] selectFieldCompact" ng-model="iPriority" ng-options="k as v for (k,v) in priorities"></select>
                 </div>
                 <div class="fieldContainer  relative">
-                    <label class="labelCompact">Cancel Category</label>
+                    <label class="labelCompact requiredField">Cancel Category</label>
                     <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="categoryId" data-ng-options="obj.id as obj.categoryName for obj in cancelCategories"></select>
                 </div>
                 <div class="fieldContainer  relative">
-                    <label class="labelCompact">Reason</label>
+                    <label class="labelCompact requiredField">Reason</label>
                     <select class=" validate[maxSize[36]] selectFieldCompact" data-ng-model="reasonId" data-ng-options="obj.id as obj.reason for obj in reason"></select>
                 </div>
                 <div class="fieldContainer  relative" style="height:75px;">
-                    <label class="labelCompact">Comment</label>
+                    <label class="labelCompact requiredField">Comment</label>
                     <textarea data-ng-model="comments" class="cancelBookingComment"></textarea>
                 </div>
 

@@ -1651,7 +1651,7 @@ angular.module('sigmaCabsApp')
           {field:'pickupPlace', displayName:'Pickup Place', width: '*'},
           {field:'journeyTypeNm', displayName:'Journey', width: '*'},
           {field:'subJourneyTypeNm', displayName:'Package', width: '*'},
-          {field:'bookingOrigin', displayName:'booked from', width: '*'},
+          {field:'bookingOrigin', displayName:'Booked From', width: '*'},
           {field:'bookingStatusNm', displayName:'B.Status', width: '*'},
           {field:'amount', displayName:'Amount', width: '*'},
           {field:'vehicleCode', displayName:'VID', width: '*'}

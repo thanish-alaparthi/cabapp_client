@@ -10,17 +10,19 @@
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
-        <label class="labelCompact">Vehicle Name</label>
-        <span>{{vehicleDetails.bookingVName}}</span>
+        <label class="labelCompact" title="Vehicle Name(Type)">Vehicle</label>
+        <span class="ellipsisText" title="{{vehicleDetails.bookingVName}} ({{vehicleDetails.bookingVType}})">{{vehicleDetails.bookingVName}} ({{vehicleDetails.bookingVType}})</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
-        <label class="labelCompact">Vehicle Type</label>
-        <span>{{vehicleDetails.bookingVType}}</span>
+        <label class="labelCompact">Pickup</label>
+        <span title="{{vehicleMainDetails.details.pickupPlace}}" class="ellipsisText">{{vehicleMainDetails.details.pickupPlace}}</span>
+        <!-- <label class="labelCompact">Vehicle Type</label>
+        <span>{{vehicleDetails.bookingVType}}</span> -->
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
-        <label class="labelCompact">Pickup</label>
-        <span title="{{vehicleMainDetails.details.pickupPlace}}" class="ellipsisText">{{vehicleMainDetails.details.pickupPlace}}</span>
+        <label class="labelCompact" title="Customer Name">Cust. Name</label>
+        <span class="ellipsisText" title="{{vehicleMainDetails.details.customerName}}">{{vehicleMainDetails.details.customerName}}</span>
     </div>
     <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Drop Place</label>
@@ -28,22 +30,22 @@
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
-        <label class="labelCompact">Cust Name.</label>
-        <span>{{vehicleMainDetails.details.customerName}}</span>
-    </div>
-    <div class="fieldContainer relative right" style="width:180px">
         <label class="labelCompact">Cust Ph.</label>
         <span>{{vehicleMainDetails.details.customerMobile}}</span>
+    </div>
+    <div class="fieldContainer relative right" style="width:180px">
+        <label class="labelCompact" title="Customer Alt. Phone">Cust Alt. Ph.</label>
+        <span>{{vehicleMainDetails.details.altMobile}}</span>
     </div>
     <p class="clear"/>
     <div class="fieldContainer relative left" style="width:180px;">
         <label class="labelCompact">Journey Type</label>
-        <span>{{vehicleMainDetails.details.journeyTypeText}}</span>
+        <span class="ellipsisText" title="{{vehicleMainDetails.details.journeyTypeText}}">{{vehicleMainDetails.details.journeyTypeText}}</span>
         <select class=" validate[maxSize[36]] selectFieldCompact hide" data-ng-model="tmpDetails.tmpJourneyType" data-ng-change="fnPopSubJourneyTypes()" data-ng-options="obj.id as obj.journeyType for obj in journeyTypes" disabled></select>
     </div>
     <div class="fieldContainer relative right" style="width:180px;">
-        <label class="labelCompact" style="width: 113px;">Sub-Journey Type</label>
-        <span>{{vehicleMainDetails.details.subJourneyTypeText}}</span>
+        <label class="labelCompact" title="Sub-Journey Type">Sub-Journey</label><!--  style="width: 113px;" -->
+        <span class="ellipsisText" title="{{vehicleMainDetails.details.subJourneyTypeText}}">{{vehicleMainDetails.details.subJourneyTypeText}}</span>
         <select class=" validate[maxSize[36]] selectFieldCompact hide"  data-ng-model="vehicleMainDetails.details.subJourneyType" data-ng-options="obj.id as obj.journeyType for obj in subJourneyTypes | filter:{parentId: tmpSelectedJourneyType.id}" disabled></select>
     </div>
     <p class="clear"/>

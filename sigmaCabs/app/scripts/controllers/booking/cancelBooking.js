@@ -26,14 +26,22 @@ angular.module('sigmaCabsApp')
 		}
 
 		scope.fnSaveAndExit = function(){
-			BookingService.fnCancelBooking({
+			var oData = {
 				bookingId : scope.bookingDetails.id,
 				vehicleId : scope.bookingDetails.vehicleId,
-				reasonId : scope.reasonId,
-				priorityId : scope.priorityId,
-				cancelCategory : scope.categoryId,
-				comments : scope.comments
-			})
+				reasonId : scope.reasonId || '',
+				priorityId : scope.priorityId || '',
+				cancelCategory : scope.categoryId || '',
+				comments : scope.comments || ''
+			};
+
+			// validations
+			if (oData.comments === '' || oData.cancelCategory === '' || oData.reasonId === '') {
+                alert('Please enter valid information.');
+                return false;
+            }
+
+			BookingService.fnCancelBooking(oData)
 			.success(function(data, status, headers, config){
 				console.log('success fnCancelBooking',data);
 				if(data.status == 200){

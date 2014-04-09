@@ -93,7 +93,7 @@ angular.module('sigmaCabsApp')
 			if (mobileNo !== '' && mobileNo.length === 10) {
 				scope.sms.smsForCallerPhone2 = true;
 			}
-			
+
 			if((scope.customerDetails.mobile && scope.customerDetails.name) || (scope.customerDetails.altMobile && scope.customerDetails.name)){
 
 				if(!scope.customerDetails.mobile) {
@@ -252,6 +252,12 @@ angular.module('sigmaCabsApp')
 			}
 			if(!sms1 && sms2) {
 				aRtn[0] = sms2;
+			}
+
+			if(sms1 && sms2) {
+				aRtn[0] = sms1;
+				aRtn[1] = sms2;
+				return aRtn;
 			}
 
 			if(sms1 && sms3) {
