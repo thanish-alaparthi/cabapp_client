@@ -1549,7 +1549,7 @@ angular.module('sigmaCabsApp')
           {field:'pickupTime', displayName:'P.Time', width: '60'},
           {field:'pickupPlace', displayName:'P.Place', width: '*'},
           {field:'subJourneyType', displayName:'Package', width: '*'},
-          {field:'expectedDropTime', displayName:'Vacant', width: '*'},
+          {field:'vacantTime', displayName:'Vacant', width: '*'},
           {field:'dayCollection', displayName:'Collection', width: '*'},
           {field:'dropPlace', displayName:'D.Place', width: '*'},
           {field:'nextBooking', displayName:'Nxt Booking', width: '*'}
