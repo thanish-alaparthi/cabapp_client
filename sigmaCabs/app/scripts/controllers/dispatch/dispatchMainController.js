@@ -548,6 +548,22 @@ angular.module('sigmaCabsApp')
             alert('in fnLoadUnexpectedError');
         };
 
+        scope.fnGetVehicleMoreInfo = function() {
+            var oData = {};
+
+            console.log('in fnGetVehicleMoreInfo');
+            alert('WIP for vehicle more details');
+            //serverService.sendData('P','dispatcher/getAllBookings', oData, scope.fnGetVehicleMoreInfoSuccess, scope.fnGetVehicleMoreInfoError);
+        }
+
+        scope.fnGetVehicleMoreInfoSuccess = function(data) {
+            console.log('>>>>>>>>>> fnGetVehicleMoreInfoSuccess', data);
+        }
+        scope.fnGetVehicleMoreInfoError = function(xhr, data) {
+            console.log('>>>>>>>>>> fnGetVehicleMoreInfoError', data);
+            // do some error processing..
+        }
+
         scope.fnChangeVehiclePhone = function() {
             if (scope.vehicleMainDetails.selectedDriver && scope.vehicleMainDetails.selectedDriver.id !== "") {
                 $scope.opts = {
