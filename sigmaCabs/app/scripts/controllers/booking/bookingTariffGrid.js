@@ -24,6 +24,7 @@ angular.module('sigmaCabsApp')
         };
 
         scope.aData = [];
+        scope.oTariff = {};
 	  
 	    scope.colDefs = [
 	       	{field:'vehicleType', displayName:'V.Type', width: '80'},
@@ -51,6 +52,7 @@ angular.module('sigmaCabsApp')
 	    	console.log('>>>>>scope.tariffGridData changed', arguments);
 	    	// scope.tariffGridData = oData;	
 	    	if(oData){
+	    		scope.oTariff = oData;
 	    		scope.aData = [oData];
 	    	} else {
 	    		scope.aData = [];

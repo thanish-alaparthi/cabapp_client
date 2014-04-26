@@ -1,6 +1,54 @@
-<fieldset class="" data-ng-controller="bookingTariffGrid" style="clear:both;">
+<fieldset class="" data-ng-controller="bookingTariffGrid" style="clear:both;margin-left: 7px;">
     <legend class="searchbox-border">Tariff Details</legend>
-    <div style="height:65px;"  class = "bookingHistoryGrid" style="overflow: hidden;">
-    	<div class="gridStyle" ng-grid="gridBookingTariffOptions" style="height:100%;width: 100%;overflow:hidden;margin:0px;"></div>
-    </div>
+    <div style="height:192px;"  class = "bookingHistoryGrid" style="overflow: hidden;">
+    	<!-- <div class="gridStyle" ng-grid="gridBookingTariffOptions" style="height:100%;width: 100%;overflow:hidden;margin:0px;"></div> -->
+
+        <div style="width:100%;padding-bottom: 5px;margin-bottom: 5px;">
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="V.Type">V.Type</label>
+                <span>{{ oTariff.vehicleType }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="V.Name">V.Name</label>
+                <span>{{ oTariff.vehicleName }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Package">Package</label>
+                <span>{{ oTariff.duration }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Min. KMs.">Min. KMs.</label>
+                <span>{{ oTariff.distance }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Amount">Amount</label>
+                <span>{{ oTariff.amount }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Extra K.M.">Extra K.M.</label>
+                <span>{{ oTariff.extraKm }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Grace Tm.">Grace Tm.</label>
+                <span>{{ oTariff.graceTime }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Extra Charges">Extra Charges</label>
+                <span>{{ oTariff.extraCharges1 }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Extra Hours">Extra Hours</label>
+                <span>{{ oTariff.extraHour }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:135px;">
+                <label class="labelCompact" title="Driver Batha">Driver Batha</label>
+                <span>{{ oTariff.driverBatha }}</span>
+            </div>
+            <div class="fieldContainer relative left" style="width:100%;">
+                <label class="labelCompact" title="Comments">Comments</label>
+                <span>{{ oTariff.comments }}</span>
+            </div>
+            <p class="clear"/>
+        </div>
+	</div>
 </fieldset>

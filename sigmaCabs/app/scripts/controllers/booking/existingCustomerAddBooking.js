@@ -28,6 +28,9 @@ angular.module('sigmaCabsApp')
 		scope.personalDetailsForm = URLService.view('personalForm');
 		scope.chatForm = URLService.view('chatForm');
 		scope.bookingHistory = URLService.view('bookingHistory');
+		scope.callerSpecifications = URLService.view('callerSpecifications');
+		scope.usageFrequency = URLService.view('usageFrequency');
+		scope.currentOffers = URLService.view('currentOffers');
 		scope.bookingTariffGrid = URLService.view('bookingTariffGrid');
 		scope.bookingDetailsForm = URLService.view('bookingForm');
 		scope.extraInfoDetails = URLService.view('extraInfoDetails');

@@ -2,11 +2,18 @@
 	<div id="topContainerID">
 	    <div data-ng-include="personalDetailsForm" class="left" style="width:17.2%;"></div>
 	    <div data-ng-include="bookingDetailsForm" class="left" style="width:32%;"></div>
-	    <div data-ng-include="bookingStatistics" class="left" style="width:28%;"></div>
-	    <div data-ng-include="chatForm" class="left" style="width:22.2%;"></div>
+	    <div data-ng-include="bookingTariffGrid"  class="left" style="width:22%;"></div>
+	    <div data-ng-include="callerSpecifications"  class="left" style="width:14%;"></div>
+	    <div data-ng-include="usageFrequency"  class="left" style="width:14%;"></div>
+	   	<div style="width: 48.5%;" class="left">
+		    <div data-ng-include="currentOffers" class="" ></div>
+		    <div data-ng-include="bookingStatistics" class="left" style="width:56%;"></div>
+		    <div data-ng-include="chatForm" class="left" style="width:41%; "></div>
+		    <p class="clear"/>
+		</div>
+    	<div data-ng-include="bookingHistory" class="left" style="width: 50%;margin-left: 7px;"></div>
 	    <p class="clear"/>
 	</div>
-	<div data-ng-include="bookingTariffGrid" style="margin-top: 7px;"></div>
-    <div data-ng-include="bookingHistory" style="margin-top: 7px;"></div>
+    <!-- <div data-ng-include="bookingHistory" style="margin-top: 7px;"></div> -->
     <div data-ng-include="extraInfoDetails" style="display:none;"></div>
 </div>

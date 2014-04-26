@@ -92,6 +92,9 @@ angular.module('sigmaCabsApp')
                 'bookingForm': 'views/bookings/bookingForm.html',
                 'personalForm': 'views/bookings/personalForm.html',
                 'bookingHistory': 'views/bookings/bookingHistory.html',
+                'callerSpecifications': 'views/bookings/callerSpecifications.html',
+                'usageFrequency': 'views/bookings/usageFrequency.html',
+                'currentOffers': 'views/bookings/currentOffers.html',
                 'bookingTariffGrid': 'views/bookings/bookingTariffGrid.html',
                 'extraInfoDetails': 'views/bookings/extraInfoDetails.html',
                 'customerFeedback': 'views/bookings/customerFeedback.html',
@@ -200,7 +203,7 @@ angular.module('sigmaCabsApp')
             // _serviceRoot = 'http://10.0.2.191/proxy.php';  // for localhost 
             // _serviceRoot = 'proxy.php';   // for hosting
             // _serviceRoot = 'http://10.0.2.188:8080/proxy.php'; // for localhost 
-            _serviceRoot = 'http://10.0.2.188:8080/index.php'; // for localhost 
+            _serviceRoot = 'http://10.0.1.69/sigmacabs/backend/index.php'; // for localhost 
 
         return {
             service: function(serviceName) {

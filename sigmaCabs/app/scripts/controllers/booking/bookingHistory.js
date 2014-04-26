@@ -34,54 +34,57 @@ angular.module('sigmaCabsApp')
 			columnDefs: [{
 				field: 'srno',
 				displayName: '#',
-				width : 30
+				width : 30,
+				visible: false
 			}, {
 				field: 'bookingCode',
-				displayName: 'Booking#',
-				width: '65'
+				displayName: 'B.Code',
+				width: '50'
 			},{
 				field: 'bookingDisplayDate',
 				displayName: 'Booking Dt. & Tm.',
-				width: '110'
+				width: '80'
 			},{
 				field: 'pickupDisplayDateAndTime',
 				displayName: 'Pickup Dt. & Tm.',
-				width: '110'
+				width: '80'
 			}, {
 				field: 'primaryPassenger',
 				displayName: 'Passenger Name',
-				width: 110
+				width: 110,
+				visible: false
 			}, {
 				field: 'pickupPlace',
 				displayName: 'Pickup',
-				width: '*'
+				width: '90'
 			}, {
 				field: 'dropPlace',
 				displayName: 'Drop',
-				width: '*'
+				width: '90'
 			}, {
 				field: 'subJourneyTypeName',
-				displayName: 'Sub-Journey Type',
-				width: '125'
+				displayName: 'J.Type',
+				width: '*'
 			}, {
 				field: 'vehicleDisplayType',
 				displayName: 'V. Type',
-				width: 60
+				width: 60,
+				visible: false
 			}, {
 				field: 'vehicleDisplayName',
-				displayName: 'V. Name',
-				width: 70
+				displayName: 'V.Name',
+				width: 60
 			}, {
 				field: 'bookingStatusName',
-				displayName: 'Status',
-				width: 55
+				displayName: 'St.',
+				width: 30
 			}, {
 				field: 'id',
 				displayName: 'id',
 				visible: false
 			}, { 
 				displayName: 'Action',
-				width: 95,
+				width: 90,
 				cellTemplate: '<div style="text-align: center;"><button style="margin-top: 4px;" class="btnCompact btn-success" ng-click="fnOpenBookingDetails(row)">{{((row.getProperty(\'bookingStatus\') == BOOKING_COMPLETED_N_CLOSED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED || row.getProperty(\'bookingStatus\') == BOOKING_CANCELLED_ON_CALL) ? "Book Again" : "Edit/View" )}}</button></div>'
 			}],
 			enablePaging: false,

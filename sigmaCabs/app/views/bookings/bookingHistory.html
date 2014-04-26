@@ -1,27 +1,6 @@
-<fieldset class="" data-ng-controller="bookingHistory" style="clear:both;">
+<fieldset class="" data-ng-controller="bookingHistory" style="clear:both;margin-left: 7px;">
     <legend class="searchbox-border">Booking History</legend>
-    <div class="historyBarContainer">
-        <div class="left historyBarItem">
-            <span class="historyBarLabel">Grade: </span>
-            <span class="historyBarValue">{{ headCustomerGrade }}</span>
-        </div>
-    	<div class="left historyBarItem">
-    		<span class="historyBarLabel">Category: </span>
-    		<span class="historyBarValue">{{headCustomerCategory}}</span>
-    	</div>
-        <div class="left historyBarItem">
-            <span class="historyBarLabel">Discount: </span>
-            <span class="historyBarValue">{{headCustomerDiscount}}</span>
-        </div>
-    	<div class="left historyBarItem">
-    		<span class="historyBarLabel">Trip Count: </span>
-    		<span class="historyBarValue">{{headCustomerTripCount}}</span>
-    	</div>
-    	<div class="left historyBarItem">
-    		<span class="historyBarLabel"><a class="viewAllHistoryLink" data-ng-click="showBookingHistoryDetailsTab();">View History</a></span>
-    	</div>
-    </div>
-    <div style="height:163px;" id="customerBookingGridID" class = "bookingHistoryGrid">
+    <div style="height:300px;" id="customerBookingGridID" class = "bookingHistoryGrid">
     	<div class="gridStyle" ng-grid="gridCustomerBookingOptions" style="height:100%;margin:0px;"></div>
     </div>
 </fieldset>
